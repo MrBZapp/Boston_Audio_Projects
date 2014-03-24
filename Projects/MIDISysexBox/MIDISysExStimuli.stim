@@ -1,0 +1,4 @@
+﻿$log PINA
+$log PINB
+$log PIND
+$startlog c:\MIDISysExLog

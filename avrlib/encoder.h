@@ -94,7 +94,9 @@
 
 // include encoder configuration file
 #include "encoderconf.h"
-
+#ifndef ENCODERCONF_H
+#error please define a local encoderconf.h file.
+#endif
 // constants/macros/typdefs
 
 // defines for processor compatibility

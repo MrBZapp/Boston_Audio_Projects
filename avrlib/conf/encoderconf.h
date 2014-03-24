@@ -17,7 +17,7 @@
 //	1. Use a processor with at least as many external interrutps as number of
 //		encoders you want to have.
 //	2. Set NUM_ENCODERS to the number of encoders you will use.
-//	3. Comment/Uncomment the proper ENCx_SIGNAL defines for your encoders
+//	3. Comment/Uncomment the proper ENCx_VECT defines for your encoders
 //		(the encoders must be used sequentially, 0 then 1 then 2 then 3)
 //	4. Configure the various defines so that they match your processor and
 //		specific hardware.  The notes below may help.
@@ -48,7 +48,6 @@
 
 #ifndef ENCODERCONF_H
 #define ENCODERCONF_H
-
 // constants/macros/typdefs
 
 // defines for processor compatibility
@@ -68,7 +67,7 @@
 // section of your processor's datasheet for more information.
 
 // Interrupt Configuration
-#define ENC0_SIGNAL					SIG_INTERRUPT0	// Interrupt signal name
+#define ENC0_VECT					INT0_vect	// Interrupt VECT name
 #define ENC0_INT					INT0	// matching INTx bit in GIMSK/EIMSK
 #define ENC0_ICR					MCUCR	// matching Int. Config Register (MCUCR,EICRA/B)
 #define ENC0_ISCX0					ISC00	// matching Interrupt Sense Config bit0
@@ -81,10 +80,10 @@
 #define ENC0_PHASEA_PIN				PD2		// PhaseA port pin
 // Phase B quadrature encoder output should connect to this direction line:
 // *** PORTx, DDRx, PINx, and Pxn should all have the same letter for "x" ***
-#define ENC0_PHASEB_PORT			PORTC	// PhaseB port register
-#define ENC0_PHASEB_DDR				DDRC	// PhaseB port direction register
-#define ENC0_PHASEB_PORTIN			PINC	// PhaseB port input register
-#define ENC0_PHASEB_PIN				PC0		// PhaseB port pin
+#define ENC0_PHASEB_PORT			PORTD	// PhaseB port register
+#define ENC0_PHASEB_DDR				DDRD	// PhaseB port direction register
+#define ENC0_PHASEB_PORTIN			PIND	// PhaseB port input register
+#define ENC0_PHASEB_PIN				PD4		// PhaseB port pin
 
 
 // -------------------- Encoder 1 connections --------------------
@@ -94,7 +93,7 @@
 // section of your processor's datasheet for more information.
 
 // Interrupt Configuration
-#define ENC1_SIGNAL					SIG_INTERRUPT1	// Interrupt signal name
+#define ENC1_VECT					INT1_vect	// Interrupt vector
 #define ENC1_INT					INT1	// matching INTx bit in GIMSK/EIMSK
 #define ENC1_ICR					MCUCR	// matching Int. Config Register (MCUCR,EICRA/B)
 #define ENC1_ISCX0					ISC10	// matching Interrupt Sense Config bit0
@@ -107,10 +106,10 @@
 #define ENC1_PHASEA_PIN				PD3		// PhaseA port pin
 // Phase B quadrature encoder output should connect to this direction line:
 // *** PORTx, DDRx, PINx, and Pxn should all have the same letter for "x" ***
-#define ENC1_PHASEB_PORT			PORTC	// PhaseB port register
-#define ENC1_PHASEB_DDR				DDRC	// PhaseB port direction register
-#define ENC1_PHASEB_PORTIN			PINC	// PhaseB port input register
-#define ENC1_PHASEB_PIN				PC1		// PhaseB port pin
+#define ENC1_PHASEB_PORT			PORTD	// PhaseB port register
+#define ENC1_PHASEB_DDR				DDRD	// PhaseB port direction register
+#define ENC1_PHASEB_PORTIN			PIND	// PhaseB port input register
+#define ENC1_PHASEB_PIN				PD5		// PhaseB port pin
 
 
 // -------------------- Encoder 2 connections --------------------
@@ -120,7 +119,7 @@
 // section of your processor's datasheet for more information.
 
 // Interrupt Configuration
-//#define ENC2_SIGNAL					SIG_INTERRUPT6	// Interrupt signal name
+//#define ENC2_VECT					SIG_INTERRUPT6	// Interrupt VECT name
 #define ENC2_INT					INT6	// matching INTx bit in GIMSK/EIMSK
 #define ENC2_ICR					EICRB	// matching Int. Config Register (MCUCR,EICRA/B)
 #define ENC2_ISCX0					ISC60	// matching Interrupt Sense Config bit0
@@ -146,7 +145,7 @@
 // section of your processor's datasheet for more information.
 
 // Interrupt Configuration
-//#define ENC3_SIGNAL					SIG_INTERRUPT7	// Interrupt signal name
+//#define ENC3_VECT					SIG_INTERRUPT7	// Interrupt VECT name
 #define ENC3_INT					INT7	// matching INTx bit in GIMSK/EIMSK
 #define ENC3_ICR					EICRB	// matching Int. Config Register (MCUCR,EICRA/B)
 #define ENC3_ISCX0					ISC70	// matching Interrupt Sense Config bit0

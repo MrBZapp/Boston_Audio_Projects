@@ -150,12 +150,12 @@ void encoderSetPosition(u08 encoderNum, s32 position)
 
 #ifdef ENC0_VECT
 //! Encoder 0 interrupt handler
-ISR(ENC0_VECT){
+ISR(_VECTOR(ENC0_VECT)){
 	// encoder has generated a pulse
 	// check the relative phase of the input channels
 	// and update position accordingly
-	if( ((inb(ENC0_PHASEA_PORTIN) & (1<<ENC0_PHASEA_PIN)) == 0) ^
-		((inb(ENC0_PHASEB_PORTIN) & (1<<ENC0_PHASEB_PIN)) == 0) )
+	if( ((ENC0_PHASEA_PORTIN & (1<<ENC0_PHASEA_PIN)) == 0) ^
+		((ENC0_PHASEB_PORTIN & (1<<ENC0_PHASEB_PIN)) == 0) )
 	{
 		EncoderState[0].position++;
 	} else {
@@ -206,8 +206,8 @@ ISR(ENC3_VECT)
 	// encoder has generated a pulse
 	// check the relative phase of the input channels
 	// and update position accordingly
-	if( ((inb(ENC3_PHASEA_PORTIN) & (1<<ENC3_PHASEA_PIN)) == 0) ^
-		((inb(ENC3_PHASEB_PORTIN) & (1<<ENC3_PHASEB_PIN)) == 0) )
+	if( ((ENC3_PHASEA_PORTIN & (1<<ENC3_PHASEA_PIN)) == 0) ^
+		((ENC3_PHASEB_PORTIN & (1<<ENC3_PHASEB_PIN)) == 0) )
 	{
 		EncoderState[3].position++;
 	}

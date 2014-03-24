@@ -1,0 +1,1520 @@
+
+MIDISysexBox.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000818  00000000  00000000  000000b4  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000010  00800060  00000818  000008cc  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          000000b8  00800070  00800070  000008dc  2**0
+                  ALLOC
+  3 .eeprom       000000c0  00810000  00810000  000008dc  2**0
+                  CONTENTS, ALLOC, LOAD, READONLY, DATA
+  4 .stab         000007bc  00000000  00000000  0000099c  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  5 .stabstr      0000010d  00000000  00000000  00001158  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .comment      0000002f  00000000  00000000  00001265  2**0
+                  CONTENTS, READONLY
+  7 .debug_aranges 00000238  00000000  00000000  00001294  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_info   0000165a  00000000  00000000  000014cc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_abbrev 0000094b  00000000  00000000  00002b26  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_line   00000aee  00000000  00000000  00003471  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_frame  00000694  00000000  00000000  00003f60  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_str    00000733  00000000  00000000  000045f4  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_loc    00000df0  00000000  00000000  00004d27  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_ranges 00000220  00000000  00000000  00005b17  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	14 c0       	rjmp	.+40     	; 0x2a <__ctors_end>
+   2:	2e c0       	rjmp	.+92     	; 0x60 <__bad_interrupt>
+   4:	d7 c0       	rjmp	.+430    	; 0x1b4 <__vector_2>
+   6:	0f c2       	rjmp	.+1054   	; 0x426 <__vector_3>
+   8:	b4 c1       	rjmp	.+872    	; 0x372 <__vector_4>
+   a:	86 c1       	rjmp	.+780    	; 0x318 <__vector_5>
+   c:	32 c1       	rjmp	.+612    	; 0x272 <__vector_6>
+   e:	28 c0       	rjmp	.+80     	; 0x60 <__bad_interrupt>
+  10:	27 c0       	rjmp	.+78     	; 0x60 <__bad_interrupt>
+  12:	26 c0       	rjmp	.+76     	; 0x60 <__bad_interrupt>
+  14:	25 c0       	rjmp	.+74     	; 0x60 <__bad_interrupt>
+  16:	24 c0       	rjmp	.+72     	; 0x60 <__bad_interrupt>
+  18:	d9 c1       	rjmp	.+946    	; 0x3cc <__vector_12>
+  1a:	22 c0       	rjmp	.+68     	; 0x60 <__bad_interrupt>
+  1c:	21 c0       	rjmp	.+66     	; 0x60 <__bad_interrupt>
+  1e:	20 c0       	rjmp	.+64     	; 0x60 <__bad_interrupt>
+  20:	1f c0       	rjmp	.+62     	; 0x60 <__bad_interrupt>
+  22:	1e c0       	rjmp	.+60     	; 0x60 <__bad_interrupt>
+  24:	1d c0       	rjmp	.+58     	; 0x60 <__bad_interrupt>
+  26:	1c c0       	rjmp	.+56     	; 0x60 <__bad_interrupt>
+  28:	1b c0       	rjmp	.+54     	; 0x60 <__bad_interrupt>
+
+0000002a <__ctors_end>:
+  2a:	11 24       	eor	r1, r1
+  2c:	1f be       	out	0x3f, r1	; 63
+  2e:	cf e5       	ldi	r28, 0x5F	; 95
+  30:	d1 e0       	ldi	r29, 0x01	; 1
+  32:	de bf       	out	0x3e, r29	; 62
+  34:	cd bf       	out	0x3d, r28	; 61
+
+00000036 <__do_copy_data>:
+  36:	10 e0       	ldi	r17, 0x00	; 0
+  38:	a0 e6       	ldi	r26, 0x60	; 96
+  3a:	b0 e0       	ldi	r27, 0x00	; 0
+  3c:	e8 e1       	ldi	r30, 0x18	; 24
+  3e:	f8 e0       	ldi	r31, 0x08	; 8
+  40:	02 c0       	rjmp	.+4      	; 0x46 <__SREG__+0x7>
+  42:	05 90       	lpm	r0, Z+
+  44:	0d 92       	st	X+, r0
+  46:	a0 37       	cpi	r26, 0x70	; 112
+  48:	b1 07       	cpc	r27, r17
+  4a:	d9 f7       	brne	.-10     	; 0x42 <__SREG__+0x3>
+
+0000004c <__do_clear_bss>:
+  4c:	21 e0       	ldi	r18, 0x01	; 1
+  4e:	a0 e7       	ldi	r26, 0x70	; 112
+  50:	b0 e0       	ldi	r27, 0x00	; 0
+  52:	01 c0       	rjmp	.+2      	; 0x56 <.do_clear_bss_start>
+
+00000054 <.do_clear_bss_loop>:
+  54:	1d 92       	st	X+, r1
+
+00000056 <.do_clear_bss_start>:
+  56:	a8 32       	cpi	r26, 0x28	; 40
+  58:	b2 07       	cpc	r27, r18
+  5a:	e1 f7       	brne	.-8      	; 0x54 <.do_clear_bss_loop>
+  5c:	67 d2       	rcall	.+1230   	; 0x52c <main>
+  5e:	da c3       	rjmp	.+1972   	; 0x814 <_exit>
+
+00000060 <__bad_interrupt>:
+  60:	cf cf       	rjmp	.-98     	; 0x0 <__vectors>
+
+00000062 <bufferInit>:
+// global variables
+
+// initialization
+
+void bufferInit(cBuffer* buffer, unsigned char *start, unsigned short size)
+{
+  62:	fc 01       	movw	r30, r24
+	// begin critical section
+	CRITICAL_SECTION_START;
+  64:	8f b7       	in	r24, 0x3f	; 63
+  66:	f8 94       	cli
+	// set start pointer of the buffer
+	buffer->dataptr = start;
+  68:	71 83       	std	Z+1, r23	; 0x01
+  6a:	60 83       	st	Z, r22
+	buffer->size = size;
+  6c:	53 83       	std	Z+3, r21	; 0x03
+  6e:	42 83       	std	Z+2, r20	; 0x02
+	// initialize index and length
+	buffer->dataindex = 0;
+  70:	17 82       	std	Z+7, r1	; 0x07
+  72:	16 82       	std	Z+6, r1	; 0x06
+	buffer->datalength = 0;
+  74:	15 82       	std	Z+5, r1	; 0x05
+  76:	14 82       	std	Z+4, r1	; 0x04
+	// end critical section
+	CRITICAL_SECTION_END;
+  78:	8f bf       	out	0x3f, r24	; 63
+  7a:	08 95       	ret
+
+0000007c <bufferGetFromFront>:
+}
+
+// access routines
+unsigned char  bufferGetFromFront(cBuffer* buffer)
+{
+  7c:	fc 01       	movw	r30, r24
+	unsigned char data = 0;
+	// begin critical section
+	CRITICAL_SECTION_START;
+  7e:	9f b7       	in	r25, 0x3f	; 63
+  80:	f8 94       	cli
+	// check to see if there's data in the buffer
+	if(buffer->datalength)
+  82:	24 81       	ldd	r18, Z+4	; 0x04
+  84:	35 81       	ldd	r19, Z+5	; 0x05
+  86:	21 15       	cp	r18, r1
+  88:	31 05       	cpc	r19, r1
+  8a:	d9 f0       	breq	.+54     	; 0xc2 <bufferGetFromFront+0x46>
+	{
+		// get the first character from buffer
+		data = buffer->dataptr[buffer->dataindex];
+  8c:	46 81       	ldd	r20, Z+6	; 0x06
+  8e:	57 81       	ldd	r21, Z+7	; 0x07
+  90:	a0 81       	ld	r26, Z
+  92:	b1 81       	ldd	r27, Z+1	; 0x01
+  94:	a4 0f       	add	r26, r20
+  96:	b5 1f       	adc	r27, r21
+  98:	8c 91       	ld	r24, X
+		// move index down and decrement length
+		buffer->dataindex++;
+  9a:	4f 5f       	subi	r20, 0xFF	; 255
+  9c:	5f 4f       	sbci	r21, 0xFF	; 255
+  9e:	57 83       	std	Z+7, r21	; 0x07
+  a0:	46 83       	std	Z+6, r20	; 0x06
+		if(buffer->dataindex >= buffer->size)
+  a2:	62 81       	ldd	r22, Z+2	; 0x02
+  a4:	73 81       	ldd	r23, Z+3	; 0x03
+  a6:	46 17       	cp	r20, r22
+  a8:	57 07       	cpc	r21, r23
+  aa:	30 f4       	brcc	.+12     	; 0xb8 <bufferGetFromFront+0x3c>
+		{
+			buffer->dataindex -= buffer->size;
+		}
+		buffer->datalength--;
+  ac:	21 50       	subi	r18, 0x01	; 1
+  ae:	31 09       	sbc	r19, r1
+  b0:	35 83       	std	Z+5, r19	; 0x05
+  b2:	24 83       	std	Z+4, r18	; 0x04
+	}
+	// end critical section
+	CRITICAL_SECTION_END;
+  b4:	9f bf       	out	0x3f, r25	; 63
+	// return
+	return data;
+}
+  b6:	08 95       	ret
+		data = buffer->dataptr[buffer->dataindex];
+		// move index down and decrement length
+		buffer->dataindex++;
+		if(buffer->dataindex >= buffer->size)
+		{
+			buffer->dataindex -= buffer->size;
+  b8:	46 1b       	sub	r20, r22
+  ba:	57 0b       	sbc	r21, r23
+  bc:	57 83       	std	Z+7, r21	; 0x07
+  be:	46 83       	std	Z+6, r20	; 0x06
+  c0:	f5 cf       	rjmp	.-22     	; 0xac <bufferGetFromFront+0x30>
+}
+
+// access routines
+unsigned char  bufferGetFromFront(cBuffer* buffer)
+{
+	unsigned char data = 0;
+  c2:	80 e0       	ldi	r24, 0x00	; 0
+			buffer->dataindex -= buffer->size;
+		}
+		buffer->datalength--;
+	}
+	// end critical section
+	CRITICAL_SECTION_END;
+  c4:	9f bf       	out	0x3f, r25	; 63
+	// return
+	return data;
+}
+  c6:	08 95       	ret
+
+000000c8 <bufferAddToEnd>:
+	CRITICAL_SECTION_END;
+	return data;
+}
+
+unsigned char bufferAddToEnd(cBuffer* buffer, unsigned char data)
+{
+  c8:	cf 93       	push	r28
+  ca:	df 93       	push	r29
+  cc:	fc 01       	movw	r30, r24
+  ce:	d6 2f       	mov	r29, r22
+	// begin critical section
+	CRITICAL_SECTION_START;
+  d0:	cf b7       	in	r28, 0x3f	; 63
+  d2:	f8 94       	cli
+	// make sure the buffer has room
+	if(buffer->datalength < buffer->size)
+  d4:	44 81       	ldd	r20, Z+4	; 0x04
+  d6:	55 81       	ldd	r21, Z+5	; 0x05
+  d8:	62 81       	ldd	r22, Z+2	; 0x02
+  da:	73 81       	ldd	r23, Z+3	; 0x03
+  dc:	46 17       	cp	r20, r22
+  de:	57 07       	cpc	r21, r23
+  e0:	a0 f4       	brcc	.+40     	; 0x10a <bufferAddToEnd+0x42>
+	{
+		// save data byte at end of buffer
+		buffer->dataptr[(buffer->dataindex + buffer->datalength) % buffer->size] = data;
+  e2:	86 81       	ldd	r24, Z+6	; 0x06
+  e4:	97 81       	ldd	r25, Z+7	; 0x07
+  e6:	84 0f       	add	r24, r20
+  e8:	95 1f       	adc	r25, r21
+  ea:	5e d3       	rcall	.+1724   	; 0x7a8 <__udivmodhi4>
+  ec:	a0 81       	ld	r26, Z
+  ee:	b1 81       	ldd	r27, Z+1	; 0x01
+  f0:	a8 0f       	add	r26, r24
+  f2:	b9 1f       	adc	r27, r25
+  f4:	dc 93       	st	X, r29
+		// increment the length
+		buffer->datalength++;
+  f6:	84 81       	ldd	r24, Z+4	; 0x04
+  f8:	95 81       	ldd	r25, Z+5	; 0x05
+  fa:	01 96       	adiw	r24, 0x01	; 1
+  fc:	95 83       	std	Z+5, r25	; 0x05
+  fe:	84 83       	std	Z+4, r24	; 0x04
+		// end critical section
+		CRITICAL_SECTION_END;
+ 100:	cf bf       	out	0x3f, r28	; 63
+		// return success
+		return -1;
+ 102:	8f ef       	ldi	r24, 0xFF	; 255
+	}
+	// end critical section
+	CRITICAL_SECTION_END;
+	// return failure
+	return 0;
+}
+ 104:	df 91       	pop	r29
+ 106:	cf 91       	pop	r28
+ 108:	08 95       	ret
+		CRITICAL_SECTION_END;
+		// return success
+		return -1;
+	}
+	// end critical section
+	CRITICAL_SECTION_END;
+ 10a:	cf bf       	out	0x3f, r28	; 63
+	// return failure
+	return 0;
+ 10c:	80 e0       	ldi	r24, 0x00	; 0
+}
+ 10e:	df 91       	pop	r29
+ 110:	cf 91       	pop	r28
+ 112:	08 95       	ret
+
+00000114 <encoderInit>:
+{
+	u08 i;
+	// initialize/clear encoder data
+	for(i=0; i<NUM_ENCODERS; i++)
+	{
+		EncoderState[i].position = 0x00;
+ 114:	10 92 00 01 	sts	0x0100, r1
+ 118:	10 92 01 01 	sts	0x0101, r1
+ 11c:	10 92 02 01 	sts	0x0102, r1
+ 120:	10 92 03 01 	sts	0x0103, r1
+ 124:	10 92 04 01 	sts	0x0104, r1
+ 128:	10 92 05 01 	sts	0x0105, r1
+ 12c:	10 92 06 01 	sts	0x0106, r1
+ 130:	10 92 07 01 	sts	0x0107, r1
+	// - enable interrupt
+
+	#ifdef ENC0_VECT
+	
+		// set interrupt pins to input and apply pullup resistor
+		cbi(ENC0_PHASEA_DDR, ENC0_PHASEA_PIN);
+ 134:	8a 98       	cbi	0x11, 2	; 17
+		sbi(ENC0_PHASEA_PORT, ENC0_PHASEA_PIN);
+ 136:	92 9a       	sbi	0x12, 2	; 18
+		// set encoder direction pin for input and apply pullup resistor
+		cbi(ENC0_PHASEB_DDR, ENC0_PHASEB_PIN);
+ 138:	8c 98       	cbi	0x11, 4	; 17
+		sbi(ENC0_PHASEB_PORT, ENC0_PHASEB_PIN);
+ 13a:	94 9a       	sbi	0x12, 4	; 18
+		// configure interrupts for any-edge triggering
+		sbi(ENC0_ICR, ENC0_ISCX0);
+ 13c:	85 b7       	in	r24, 0x35	; 53
+ 13e:	81 60       	ori	r24, 0x01	; 1
+ 140:	85 bf       	out	0x35, r24	; 53
+		cbi(ENC0_ICR, ENC0_ISCX1);
+ 142:	85 b7       	in	r24, 0x35	; 53
+ 144:	8d 7f       	andi	r24, 0xFD	; 253
+ 146:	85 bf       	out	0x35, r24	; 53
+		// enable interrupts
+		sbi(IMSK, ENC0_INT);	// ISMK is auto-defined in encoder.h
+ 148:	8b b7       	in	r24, 0x3b	; 59
+ 14a:	80 64       	ori	r24, 0x40	; 64
+ 14c:	8b bf       	out	0x3b, r24	; 59
+	#endif
+	#ifdef ENC1_VECT
+		// set interrupt pins to input and apply pullup resistor
+		cbi(ENC1_PHASEA_DDR, ENC1_PHASEA_PIN);
+ 14e:	8b 98       	cbi	0x11, 3	; 17
+		sbi(ENC1_PHASEA_PORT, ENC1_PHASEA_PIN);
+ 150:	93 9a       	sbi	0x12, 3	; 18
+		// set encoder direction pin for input and apply pullup resistor
+		cbi(ENC1_PHASEB_DDR, ENC1_PHASEB_PIN);
+ 152:	8d 98       	cbi	0x11, 5	; 17
+		sbi(ENC1_PHASEB_PORT, ENC1_PHASEB_PIN);
+ 154:	95 9a       	sbi	0x12, 5	; 18
+		// configure interrupts for any-edge triggering
+		sbi(ENC1_ICR, ENC1_ISCX0);
+ 156:	85 b7       	in	r24, 0x35	; 53
+ 158:	84 60       	ori	r24, 0x04	; 4
+ 15a:	85 bf       	out	0x35, r24	; 53
+		cbi(ENC1_ICR, ENC1_ISCX1);
+ 15c:	85 b7       	in	r24, 0x35	; 53
+ 15e:	87 7f       	andi	r24, 0xF7	; 247
+ 160:	85 bf       	out	0x35, r24	; 53
+		// enable interrupts
+		sbi(IMSK, ENC1_INT);	// ISMK is auto-defined in encoder.h
+ 162:	8b b7       	in	r24, 0x3b	; 59
+ 164:	80 68       	ori	r24, 0x80	; 128
+ 166:	8b bf       	out	0x3b, r24	; 59
+		// enable interrupts
+		sbi(IMSK, ENC3_INT);	// ISMK is auto-defined in encoder.h
+	#endif
+	
+	// enable global interrupts
+	sei();
+ 168:	78 94       	sei
+ 16a:	08 95       	ret
+
+0000016c <encoderOff>:
+void encoderOff(void)
+{
+	// disable encoder interrupts
+	#ifdef ENC0_VECT
+		// disable interrupts
+		sbi(IMSK, INT0);	// ISMK is auto-defined in encoder.h
+ 16c:	8b b7       	in	r24, 0x3b	; 59
+ 16e:	80 64       	ori	r24, 0x40	; 64
+ 170:	8b bf       	out	0x3b, r24	; 59
+	#endif
+	#ifdef ENC1_VECT
+		// disable interrupts
+		sbi(IMSK, INT1);	// ISMK is auto-defined in encoder.h
+ 172:	8b b7       	in	r24, 0x3b	; 59
+ 174:	80 68       	ori	r24, 0x80	; 128
+ 176:	8b bf       	out	0x3b, r24	; 59
+ 178:	08 95       	ret
+
+0000017a <encoderGetPosition>:
+		sbi(IMSK, INT3);	// ISMK is auto-defined in encoder.h
+	#endif
+}
+
+// encoderGetPosition() reads the current position of the encoder 
+s32 encoderGetPosition(u08 encoderNum){
+ 17a:	0f 93       	push	r16
+ 17c:	1f 93       	push	r17
+	// sanity check
+	if(encoderNum < NUM_ENCODERS)
+ 17e:	82 30       	cpi	r24, 0x02	; 2
+ 180:	40 f0       	brcs	.+16     	; 0x192 <encoderGetPosition+0x18>
+		return EncoderState[encoderNum].position;
+	else
+		return 0;
+ 182:	00 e0       	ldi	r16, 0x00	; 0
+ 184:	10 e0       	ldi	r17, 0x00	; 0
+ 186:	98 01       	movw	r18, r16
+}
+ 188:	b8 01       	movw	r22, r16
+ 18a:	c9 01       	movw	r24, r18
+ 18c:	1f 91       	pop	r17
+ 18e:	0f 91       	pop	r16
+ 190:	08 95       	ret
+
+// encoderGetPosition() reads the current position of the encoder 
+s32 encoderGetPosition(u08 encoderNum){
+	// sanity check
+	if(encoderNum < NUM_ENCODERS)
+		return EncoderState[encoderNum].position;
+ 192:	e8 2f       	mov	r30, r24
+ 194:	f0 e0       	ldi	r31, 0x00	; 0
+ 196:	ee 0f       	add	r30, r30
+ 198:	ff 1f       	adc	r31, r31
+ 19a:	ee 0f       	add	r30, r30
+ 19c:	ff 1f       	adc	r31, r31
+ 19e:	e0 50       	subi	r30, 0x00	; 0
+ 1a0:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1a2:	00 81       	ld	r16, Z
+ 1a4:	11 81       	ldd	r17, Z+1	; 0x01
+ 1a6:	22 81       	ldd	r18, Z+2	; 0x02
+ 1a8:	33 81       	ldd	r19, Z+3	; 0x03
+	else
+		return 0;
+}
+ 1aa:	b8 01       	movw	r22, r16
+ 1ac:	c9 01       	movw	r24, r18
+ 1ae:	1f 91       	pop	r17
+ 1b0:	0f 91       	pop	r16
+ 1b2:	08 95       	ret
+
+000001b4 <__vector_2>:
+}
+#endif
+
+#ifdef ENC1_VECT
+//! Encoder 1 interrupt handler
+ISR(ENC1_VECT){
+ 1b4:	1f 92       	push	r1
+ 1b6:	0f 92       	push	r0
+ 1b8:	0f b6       	in	r0, 0x3f	; 63
+ 1ba:	0f 92       	push	r0
+ 1bc:	11 24       	eor	r1, r1
+ 1be:	8f 93       	push	r24
+ 1c0:	9f 93       	push	r25
+ 1c2:	af 93       	push	r26
+ 1c4:	bf 93       	push	r27
+	// encoder has generated a pulse
+	// check the relative phase of the input channels
+	// and update position accordingly
+	if( ((inb(ENC1_PHASEA_PORTIN) & (1<<ENC1_PHASEA_PIN)) == 0) ^
+ 1c6:	90 b3       	in	r25, 0x10	; 16
+		((inb(ENC1_PHASEB_PORTIN) & (1<<ENC1_PHASEB_PIN)) == 0) )
+ 1c8:	80 b3       	in	r24, 0x10	; 16
+//! Encoder 1 interrupt handler
+ISR(ENC1_VECT){
+	// encoder has generated a pulse
+	// check the relative phase of the input channels
+	// and update position accordingly
+	if( ((inb(ENC1_PHASEA_PORTIN) & (1<<ENC1_PHASEA_PIN)) == 0) ^
+ 1ca:	85 fb       	bst	r24, 5
+ 1cc:	88 27       	eor	r24, r24
+ 1ce:	80 f9       	bld	r24, 0
+ 1d0:	93 fb       	bst	r25, 3
+ 1d2:	99 27       	eor	r25, r25
+ 1d4:	90 f9       	bld	r25, 0
+ 1d6:	98 13       	cpse	r25, r24
+ 1d8:	1c c0       	rjmp	.+56     	; 0x212 <__vector_2+0x5e>
+		((inb(ENC1_PHASEB_PORTIN) & (1<<ENC1_PHASEB_PIN)) == 0) )
+	{
+		EncoderState[1].position++;
+	} else {
+		EncoderState[1].position--;
+ 1da:	80 91 04 01 	lds	r24, 0x0104
+ 1de:	90 91 05 01 	lds	r25, 0x0105
+ 1e2:	a0 91 06 01 	lds	r26, 0x0106
+ 1e6:	b0 91 07 01 	lds	r27, 0x0107
+ 1ea:	01 97       	sbiw	r24, 0x01	; 1
+ 1ec:	a1 09       	sbc	r26, r1
+ 1ee:	b1 09       	sbc	r27, r1
+ 1f0:	80 93 04 01 	sts	0x0104, r24
+ 1f4:	90 93 05 01 	sts	0x0105, r25
+ 1f8:	a0 93 06 01 	sts	0x0106, r26
+ 1fc:	b0 93 07 01 	sts	0x0107, r27
+	}
+}
+ 200:	bf 91       	pop	r27
+ 202:	af 91       	pop	r26
+ 204:	9f 91       	pop	r25
+ 206:	8f 91       	pop	r24
+ 208:	0f 90       	pop	r0
+ 20a:	0f be       	out	0x3f, r0	; 63
+ 20c:	0f 90       	pop	r0
+ 20e:	1f 90       	pop	r1
+ 210:	18 95       	reti
+	// check the relative phase of the input channels
+	// and update position accordingly
+	if( ((inb(ENC1_PHASEA_PORTIN) & (1<<ENC1_PHASEA_PIN)) == 0) ^
+		((inb(ENC1_PHASEB_PORTIN) & (1<<ENC1_PHASEB_PIN)) == 0) )
+	{
+		EncoderState[1].position++;
+ 212:	80 91 04 01 	lds	r24, 0x0104
+ 216:	90 91 05 01 	lds	r25, 0x0105
+ 21a:	a0 91 06 01 	lds	r26, 0x0106
+ 21e:	b0 91 07 01 	lds	r27, 0x0107
+ 222:	01 96       	adiw	r24, 0x01	; 1
+ 224:	a1 1d       	adc	r26, r1
+ 226:	b1 1d       	adc	r27, r1
+ 228:	80 93 04 01 	sts	0x0104, r24
+ 22c:	90 93 05 01 	sts	0x0105, r25
+ 230:	a0 93 06 01 	sts	0x0106, r26
+ 234:	b0 93 07 01 	sts	0x0107, r27
+ 238:	e3 cf       	rjmp	.-58     	; 0x200 <__vector_2+0x4c>
+
+0000023a <timer0Init>:
+#endif
+#ifdef TCCR0B
+void timer0SetPrescaler( u08 prescale )
+
+{
+	outb(TCCR0B, (inb(TCCR0B) & ~TIMER_PRESCALE_MASK) | prescale); // set prescaler on timer 0
+ 23a:	83 b7       	in	r24, 0x33	; 51
+ 23c:	88 7f       	andi	r24, 0xF8	; 248
+ 23e:	82 60       	ori	r24, 0x02	; 2
+ 240:	83 bf       	out	0x33, r24	; 51
+
+void timer0Init()
+{
+	// initialize timer 0
+	timer0SetPrescaler( TIMER0PRESCALE );	// set prescaler
+	outb(TCNT0, 0);							// reset TCNT0
+ 242:	12 be       	out	0x32, r1	; 50
+	sbi(TIMSK, TOIE0);						// enable TCNT0 overflow interrupt
+ 244:	89 b7       	in	r24, 0x39	; 57
+ 246:	82 60       	ori	r24, 0x02	; 2
+ 248:	89 bf       	out	0x39, r24	; 57
+}
+
+void timer0ClearOverflowCount(void)
+{
+	// clear the timer overflow counter registers
+	Timer0Reg0 = 0;	// initialize time registers
+ 24a:	10 92 08 01 	sts	0x0108, r1
+ 24e:	10 92 09 01 	sts	0x0109, r1
+ 252:	10 92 0a 01 	sts	0x010A, r1
+ 256:	10 92 0b 01 	sts	0x010B, r1
+ 25a:	08 95       	ret
+
+0000025c <timerAttach>:
+#endif
+
+void timerAttach(u08 interruptNum, void (*userFunc)(void) )
+{
+	// make sure the interrupt number is within bounds
+	if(interruptNum < TIMER_NUM_INTERRUPTS)
+ 25c:	87 30       	cpi	r24, 0x07	; 7
+ 25e:	40 f4       	brcc	.+16     	; 0x270 <timerAttach+0x14>
+	{
+		// set the interrupt function to run
+		// the supplied user's function
+		TimerIntFunc[interruptNum] = userFunc;
+ 260:	e8 2f       	mov	r30, r24
+ 262:	f0 e0       	ldi	r31, 0x00	; 0
+ 264:	ee 0f       	add	r30, r30
+ 266:	ff 1f       	adc	r31, r31
+ 268:	e0 59       	subi	r30, 0x90	; 144
+ 26a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 26c:	71 83       	std	Z+1, r23	; 0x01
+ 26e:	60 83       	st	Z, r22
+ 270:	08 95       	ret
+
+00000272 <__vector_6>:
+	OCR1B = pwmDuty;
+}
+
+//! Interrupt handler for tcnt0 overflow interrupt
+TIMER_INTERRUPT_HANDLER(TIMER0_OVF_vect)
+{
+ 272:	1f 92       	push	r1
+ 274:	0f 92       	push	r0
+ 276:	0f b6       	in	r0, 0x3f	; 63
+ 278:	0f 92       	push	r0
+ 27a:	11 24       	eor	r1, r1
+ 27c:	2f 93       	push	r18
+ 27e:	3f 93       	push	r19
+ 280:	4f 93       	push	r20
+ 282:	5f 93       	push	r21
+ 284:	6f 93       	push	r22
+ 286:	7f 93       	push	r23
+ 288:	8f 93       	push	r24
+ 28a:	9f 93       	push	r25
+ 28c:	af 93       	push	r26
+ 28e:	bf 93       	push	r27
+ 290:	ef 93       	push	r30
+ 292:	ff 93       	push	r31
+	Timer0Reg0++;			// increment low-order counter
+ 294:	80 91 08 01 	lds	r24, 0x0108
+ 298:	90 91 09 01 	lds	r25, 0x0109
+ 29c:	a0 91 0a 01 	lds	r26, 0x010A
+ 2a0:	b0 91 0b 01 	lds	r27, 0x010B
+ 2a4:	01 96       	adiw	r24, 0x01	; 1
+ 2a6:	a1 1d       	adc	r26, r1
+ 2a8:	b1 1d       	adc	r27, r1
+ 2aa:	80 93 08 01 	sts	0x0108, r24
+ 2ae:	90 93 09 01 	sts	0x0109, r25
+ 2b2:	a0 93 0a 01 	sts	0x010A, r26
+ 2b6:	b0 93 0b 01 	sts	0x010B, r27
+
+	// increment pause counter
+	TimerPauseReg++;
+ 2ba:	80 91 0c 01 	lds	r24, 0x010C
+ 2be:	90 91 0d 01 	lds	r25, 0x010D
+ 2c2:	a0 91 0e 01 	lds	r26, 0x010E
+ 2c6:	b0 91 0f 01 	lds	r27, 0x010F
+ 2ca:	01 96       	adiw	r24, 0x01	; 1
+ 2cc:	a1 1d       	adc	r26, r1
+ 2ce:	b1 1d       	adc	r27, r1
+ 2d0:	80 93 0c 01 	sts	0x010C, r24
+ 2d4:	90 93 0d 01 	sts	0x010D, r25
+ 2d8:	a0 93 0e 01 	sts	0x010E, r26
+ 2dc:	b0 93 0f 01 	sts	0x010F, r27
+
+	// if a user function is defined, execute it too
+	if(TimerIntFunc[TIMER0OVERFLOW_INT])
+ 2e0:	80 91 70 00 	lds	r24, 0x0070
+ 2e4:	90 91 71 00 	lds	r25, 0x0071
+ 2e8:	89 2b       	or	r24, r25
+ 2ea:	29 f0       	breq	.+10     	; 0x2f6 <__vector_6+0x84>
+		TimerIntFunc[TIMER0OVERFLOW_INT]();
+ 2ec:	e0 91 70 00 	lds	r30, 0x0070
+ 2f0:	f0 91 71 00 	lds	r31, 0x0071
+ 2f4:	09 95       	icall
+}
+ 2f6:	ff 91       	pop	r31
+ 2f8:	ef 91       	pop	r30
+ 2fa:	bf 91       	pop	r27
+ 2fc:	af 91       	pop	r26
+ 2fe:	9f 91       	pop	r25
+ 300:	8f 91       	pop	r24
+ 302:	7f 91       	pop	r23
+ 304:	6f 91       	pop	r22
+ 306:	5f 91       	pop	r21
+ 308:	4f 91       	pop	r20
+ 30a:	3f 91       	pop	r19
+ 30c:	2f 91       	pop	r18
+ 30e:	0f 90       	pop	r0
+ 310:	0f be       	out	0x3f, r0	; 63
+ 312:	0f 90       	pop	r0
+ 314:	1f 90       	pop	r1
+ 316:	18 95       	reti
+
+00000318 <__vector_5>:
+
+//! Interrupt handler for tcnt1 overflow interrupt
+TIMER_INTERRUPT_HANDLER(TIMER1_OVF_vect)
+{
+ 318:	1f 92       	push	r1
+ 31a:	0f 92       	push	r0
+ 31c:	0f b6       	in	r0, 0x3f	; 63
+ 31e:	0f 92       	push	r0
+ 320:	11 24       	eor	r1, r1
+ 322:	2f 93       	push	r18
+ 324:	3f 93       	push	r19
+ 326:	4f 93       	push	r20
+ 328:	5f 93       	push	r21
+ 32a:	6f 93       	push	r22
+ 32c:	7f 93       	push	r23
+ 32e:	8f 93       	push	r24
+ 330:	9f 93       	push	r25
+ 332:	af 93       	push	r26
+ 334:	bf 93       	push	r27
+ 336:	ef 93       	push	r30
+ 338:	ff 93       	push	r31
+	// if a user function is defined, execute it
+	if(TimerIntFunc[TIMER1OVERFLOW_INT])
+ 33a:	80 91 72 00 	lds	r24, 0x0072
+ 33e:	90 91 73 00 	lds	r25, 0x0073
+ 342:	89 2b       	or	r24, r25
+ 344:	29 f0       	breq	.+10     	; 0x350 <__vector_5+0x38>
+		TimerIntFunc[TIMER1OVERFLOW_INT]();
+ 346:	e0 91 72 00 	lds	r30, 0x0072
+ 34a:	f0 91 73 00 	lds	r31, 0x0073
+ 34e:	09 95       	icall
+}
+ 350:	ff 91       	pop	r31
+ 352:	ef 91       	pop	r30
+ 354:	bf 91       	pop	r27
+ 356:	af 91       	pop	r26
+ 358:	9f 91       	pop	r25
+ 35a:	8f 91       	pop	r24
+ 35c:	7f 91       	pop	r23
+ 35e:	6f 91       	pop	r22
+ 360:	5f 91       	pop	r21
+ 362:	4f 91       	pop	r20
+ 364:	3f 91       	pop	r19
+ 366:	2f 91       	pop	r18
+ 368:	0f 90       	pop	r0
+ 36a:	0f be       	out	0x3f, r0	; 63
+ 36c:	0f 90       	pop	r0
+ 36e:	1f 90       	pop	r1
+ 370:	18 95       	reti
+
+00000372 <__vector_4>:
+}
+#endif
+
+//! Interrupt handler for CutputCompare1A match (OC1A) interrupt
+TIMER_INTERRUPT_HANDLER(TIMER1_COMPA_vect)
+{
+ 372:	1f 92       	push	r1
+ 374:	0f 92       	push	r0
+ 376:	0f b6       	in	r0, 0x3f	; 63
+ 378:	0f 92       	push	r0
+ 37a:	11 24       	eor	r1, r1
+ 37c:	2f 93       	push	r18
+ 37e:	3f 93       	push	r19
+ 380:	4f 93       	push	r20
+ 382:	5f 93       	push	r21
+ 384:	6f 93       	push	r22
+ 386:	7f 93       	push	r23
+ 388:	8f 93       	push	r24
+ 38a:	9f 93       	push	r25
+ 38c:	af 93       	push	r26
+ 38e:	bf 93       	push	r27
+ 390:	ef 93       	push	r30
+ 392:	ff 93       	push	r31
+	// if a user function is defined, execute it
+	if(TimerIntFunc[TIMER1OUTCOMPAREA_INT])
+ 394:	80 91 74 00 	lds	r24, 0x0074
+ 398:	90 91 75 00 	lds	r25, 0x0075
+ 39c:	89 2b       	or	r24, r25
+ 39e:	29 f0       	breq	.+10     	; 0x3aa <__vector_4+0x38>
+		TimerIntFunc[TIMER1OUTCOMPAREA_INT]();
+ 3a0:	e0 91 74 00 	lds	r30, 0x0074
+ 3a4:	f0 91 75 00 	lds	r31, 0x0075
+ 3a8:	09 95       	icall
+}
+ 3aa:	ff 91       	pop	r31
+ 3ac:	ef 91       	pop	r30
+ 3ae:	bf 91       	pop	r27
+ 3b0:	af 91       	pop	r26
+ 3b2:	9f 91       	pop	r25
+ 3b4:	8f 91       	pop	r24
+ 3b6:	7f 91       	pop	r23
+ 3b8:	6f 91       	pop	r22
+ 3ba:	5f 91       	pop	r21
+ 3bc:	4f 91       	pop	r20
+ 3be:	3f 91       	pop	r19
+ 3c0:	2f 91       	pop	r18
+ 3c2:	0f 90       	pop	r0
+ 3c4:	0f be       	out	0x3f, r0	; 63
+ 3c6:	0f 90       	pop	r0
+ 3c8:	1f 90       	pop	r1
+ 3ca:	18 95       	reti
+
+000003cc <__vector_12>:
+
+//! Interrupt handler for OutputCompare1B match (OC1B) interrupt
+TIMER_INTERRUPT_HANDLER(TIMER1_COMPB_vect)
+{
+ 3cc:	1f 92       	push	r1
+ 3ce:	0f 92       	push	r0
+ 3d0:	0f b6       	in	r0, 0x3f	; 63
+ 3d2:	0f 92       	push	r0
+ 3d4:	11 24       	eor	r1, r1
+ 3d6:	2f 93       	push	r18
+ 3d8:	3f 93       	push	r19
+ 3da:	4f 93       	push	r20
+ 3dc:	5f 93       	push	r21
+ 3de:	6f 93       	push	r22
+ 3e0:	7f 93       	push	r23
+ 3e2:	8f 93       	push	r24
+ 3e4:	9f 93       	push	r25
+ 3e6:	af 93       	push	r26
+ 3e8:	bf 93       	push	r27
+ 3ea:	ef 93       	push	r30
+ 3ec:	ff 93       	push	r31
+	// if a user function is defined, execute it
+	if(TimerIntFunc[TIMER1OUTCOMPAREB_INT])
+ 3ee:	80 91 76 00 	lds	r24, 0x0076
+ 3f2:	90 91 77 00 	lds	r25, 0x0077
+ 3f6:	89 2b       	or	r24, r25
+ 3f8:	29 f0       	breq	.+10     	; 0x404 <__vector_12+0x38>
+		TimerIntFunc[TIMER1OUTCOMPAREB_INT]();
+ 3fa:	e0 91 76 00 	lds	r30, 0x0076
+ 3fe:	f0 91 77 00 	lds	r31, 0x0077
+ 402:	09 95       	icall
+}
+ 404:	ff 91       	pop	r31
+ 406:	ef 91       	pop	r30
+ 408:	bf 91       	pop	r27
+ 40a:	af 91       	pop	r26
+ 40c:	9f 91       	pop	r25
+ 40e:	8f 91       	pop	r24
+ 410:	7f 91       	pop	r23
+ 412:	6f 91       	pop	r22
+ 414:	5f 91       	pop	r21
+ 416:	4f 91       	pop	r20
+ 418:	3f 91       	pop	r19
+ 41a:	2f 91       	pop	r18
+ 41c:	0f 90       	pop	r0
+ 41e:	0f be       	out	0x3f, r0	; 63
+ 420:	0f 90       	pop	r0
+ 422:	1f 90       	pop	r1
+ 424:	18 95       	reti
+
+00000426 <__vector_3>:
+
+//! Interrupt handler for InputCapture1 (IC1) interrupt
+TIMER_INTERRUPT_HANDLER(TIMER1_CAPT_vect)
+{
+ 426:	1f 92       	push	r1
+ 428:	0f 92       	push	r0
+ 42a:	0f b6       	in	r0, 0x3f	; 63
+ 42c:	0f 92       	push	r0
+ 42e:	11 24       	eor	r1, r1
+ 430:	2f 93       	push	r18
+ 432:	3f 93       	push	r19
+ 434:	4f 93       	push	r20
+ 436:	5f 93       	push	r21
+ 438:	6f 93       	push	r22
+ 43a:	7f 93       	push	r23
+ 43c:	8f 93       	push	r24
+ 43e:	9f 93       	push	r25
+ 440:	af 93       	push	r26
+ 442:	bf 93       	push	r27
+ 444:	ef 93       	push	r30
+ 446:	ff 93       	push	r31
+	// if a user function is defined, execute it
+	if(TimerIntFunc[TIMER1INPUTCAPTURE_INT])
+ 448:	80 91 78 00 	lds	r24, 0x0078
+ 44c:	90 91 79 00 	lds	r25, 0x0079
+ 450:	89 2b       	or	r24, r25
+ 452:	29 f0       	breq	.+10     	; 0x45e <__vector_3+0x38>
+		TimerIntFunc[TIMER1INPUTCAPTURE_INT]();
+ 454:	e0 91 78 00 	lds	r30, 0x0078
+ 458:	f0 91 79 00 	lds	r31, 0x0079
+ 45c:	09 95       	icall
+}
+ 45e:	ff 91       	pop	r31
+ 460:	ef 91       	pop	r30
+ 462:	bf 91       	pop	r27
+ 464:	af 91       	pop	r26
+ 466:	9f 91       	pop	r25
+ 468:	8f 91       	pop	r24
+ 46a:	7f 91       	pop	r23
+ 46c:	6f 91       	pop	r22
+ 46e:	5f 91       	pop	r21
+ 470:	4f 91       	pop	r20
+ 472:	3f 91       	pop	r19
+ 474:	2f 91       	pop	r18
+ 476:	0f 90       	pop	r0
+ 478:	0f be       	out	0x3f, r0	; 63
+ 47a:	0f 90       	pop	r0
+ 47c:	1f 90       	pop	r1
+ 47e:	18 95       	reti
+
+00000480 <uartInit>:
+// create and initialize the uart transmit and receive buffers
+void uartInitBuffers(void)
+{
+	#ifndef UART_BUFFERS_EXTERNAL_RAM
+		// initialize the UART receive buffer
+		bufferInit(&uartRxBuffer, uartRxData, UART_RX_BUFFER_SIZE);
+ 480:	40 e0       	ldi	r20, 0x00	; 0
+ 482:	50 e0       	ldi	r21, 0x00	; 0
+ 484:	60 e8       	ldi	r22, 0x80	; 128
+ 486:	70 e0       	ldi	r23, 0x00	; 0
+ 488:	85 e1       	ldi	r24, 0x15	; 21
+ 48a:	91 e0       	ldi	r25, 0x01	; 1
+ 48c:	ea dd       	rcall	.-1068   	; 0x62 <bufferInit>
+		// initialize the UART transmit buffer
+		bufferInit(&uartTxBuffer, uartTxData, UART_TX_BUFFER_SIZE);
+ 48e:	40 e2       	ldi	r20, 0x20	; 32
+ 490:	50 e0       	ldi	r21, 0x00	; 0
+ 492:	60 e8       	ldi	r22, 0x80	; 128
+ 494:	70 e0       	ldi	r23, 0x00	; 0
+ 496:	8e e1       	ldi	r24, 0x1E	; 30
+ 498:	91 e0       	ldi	r25, 0x01	; 1
+ 49a:	e3 dd       	rcall	.-1082   	; 0x62 <bufferInit>
+void uartInit(void)
+{
+	// initialize the buffers
+	uartInitBuffers();
+	// initialize user receive handler
+	UartRxFunc = 0;
+ 49c:	10 92 7f 00 	sts	0x007F, r1
+ 4a0:	10 92 7e 00 	sts	0x007E, r1
+
+	// enable RxD/TxD and interrupts
+	outb(UCR, BV(RXCIE)|BV(TXCIE)|BV(RXEN)|BV(TXEN));
+ 4a4:	88 ed       	ldi	r24, 0xD8	; 216
+ 4a6:	8a b9       	out	0x0a, r24	; 10
+// set the uart baud rate
+void uartSetBaudRate(u32 baudrate)
+{
+	// calculate division factor for requested baud rate, and set it
+	u16 bauddiv = ((F_CPU+(baudrate*8L))/(baudrate*16L)-1);
+	outb(UBRRL, bauddiv);
+ 4a8:	8f e0       	ldi	r24, 0x0F	; 15
+ 4aa:	89 b9       	out	0x09, r24	; 9
+	#ifdef UBRRH
+	outb(UBRRH, bauddiv>>8);
+ 4ac:	12 b8       	out	0x02, r1	; 2
+	outb(UCR, BV(RXCIE)|BV(TXCIE)|BV(RXEN)|BV(TXEN));
+
+	// set default baud rate
+	uartSetBaudRate(UART_DEFAULT_BAUD_RATE);  
+	// initialize states
+	uartReadyTx = TRUE;
+ 4ae:	8f ef       	ldi	r24, 0xFF	; 255
+ 4b0:	80 93 14 01 	sts	0x0114, r24
+	uartBufferedTx = FALSE;
+ 4b4:	10 92 1d 01 	sts	0x011D, r1
+	// clear overflow count
+	uartRxOverflow = 0;
+ 4b8:	10 92 27 01 	sts	0x0127, r1
+ 4bc:	10 92 26 01 	sts	0x0126, r1
+	// enable interrupts
+	sei();
+ 4c0:	78 94       	sei
+ 4c2:	08 95       	ret
+
+000004c4 <uartAddToTxBuffer>:
+
+// add byte to end of uart Tx buffer
+u08 uartAddToTxBuffer(u08 data)
+{
+	// add data byte to the end of the tx buffer
+	return bufferAddToEnd(&uartTxBuffer, data);
+ 4c4:	68 2f       	mov	r22, r24
+ 4c6:	8e e1       	ldi	r24, 0x1E	; 30
+ 4c8:	91 e0       	ldi	r25, 0x01	; 1
+ 4ca:	fe cd       	rjmp	.-1028   	; 0xc8 <bufferAddToEnd>
+
+000004cc <uartSendTxBuffer>:
+
+// start transmission of the current uart Tx buffer contents
+void uartSendTxBuffer(void)
+{
+	// turn on buffered transmit
+	uartBufferedTx = TRUE;
+ 4cc:	8f ef       	ldi	r24, 0xFF	; 255
+ 4ce:	80 93 1d 01 	sts	0x011D, r24
+	// send the first byte to get things going by interrupts
+	uartSendByte(bufferGetFromFront(&uartTxBuffer));
+ 4d2:	8e e1       	ldi	r24, 0x1E	; 30
+ 4d4:	91 e0       	ldi	r25, 0x01	; 1
+ 4d6:	d2 dd       	rcall	.-1116   	; 0x7c <bufferGetFromFront>
+
+// transmits a byte over the uart
+void uartSendByte(u08 txData)
+{
+	// wait for the transmitter to be ready
+	while(!uartReadyTx);
+ 4d8:	90 91 14 01 	lds	r25, 0x0114
+ 4dc:	99 23       	and	r25, r25
+ 4de:	e1 f3       	breq	.-8      	; 0x4d8 <uartSendTxBuffer+0xc>
+	// send byte
+	outb(UDR, txData);
+ 4e0:	8c b9       	out	0x0c, r24	; 12
+	// set ready state to FALSE
+	uartReadyTx = FALSE;
+ 4e2:	10 92 14 01 	sts	0x0114, r1
+ 4e6:	08 95       	ret
+
+000004e8 <hotSwapEncoder>:
+ 					   { 0,			0,			0,		99}};
+unsigned char pageNumber = 0;
+signed int encoderValue[5] = {0,0,0,0,0}; //initialize starting encoder values
+unsigned char activeEncoder = 0;
+/////////////////////////////////////Code///////////////////////////////
+void hotSwapEncoder(void){
+ 4e8:	0f 93       	push	r16
+ 4ea:	1f 93       	push	r17
+ 4ec:	cf 93       	push	r28
+ 4ee:	df 93       	push	r29
+	encoderValue[activeEncoder] = encoderValue[activeEncoder]+encoderGetPosition( 0 ); //read the stored position of the encoder and save it
+ 4f0:	c0 91 a0 00 	lds	r28, 0x00A0
+ 4f4:	d0 e0       	ldi	r29, 0x00	; 0
+ 4f6:	cc 0f       	add	r28, r28
+ 4f8:	dd 1f       	adc	r29, r29
+ 4fa:	cf 55       	subi	r28, 0x5F	; 95
+ 4fc:	df 4f       	sbci	r29, 0xFF	; 255
+ 4fe:	08 81       	ld	r16, Y
+ 500:	19 81       	ldd	r17, Y+1	; 0x01
+ 502:	80 e0       	ldi	r24, 0x00	; 0
+ 504:	3a de       	rcall	.-908    	; 0x17a <encoderGetPosition>
+ 506:	60 0f       	add	r22, r16
+ 508:	71 1f       	adc	r23, r17
+ 50a:	79 83       	std	Y+1, r23	; 0x01
+ 50c:	68 83       	st	Y, r22
+	encoderOff(); //pause the encoder
+ 50e:	2e de       	rcall	.-932    	; 0x16c <encoderOff>
+	//swap encoder
+	activeEncoder = (activeEncoder + 1)%5; //update the program with the currently active encoder
+ 510:	80 91 a0 00 	lds	r24, 0x00A0
+ 514:	90 e0       	ldi	r25, 0x00	; 0
+ 516:	01 96       	adiw	r24, 0x01	; 1
+ 518:	65 e0       	ldi	r22, 0x05	; 5
+ 51a:	70 e0       	ldi	r23, 0x00	; 0
+ 51c:	59 d1       	rcall	.+690    	; 0x7d0 <__divmodhi4>
+ 51e:	80 93 a0 00 	sts	0x00A0, r24
+	encoderInit(); //re-enable encoder(s)
+}
+ 522:	df 91       	pop	r29
+ 524:	cf 91       	pop	r28
+ 526:	1f 91       	pop	r17
+ 528:	0f 91       	pop	r16
+void hotSwapEncoder(void){
+	encoderValue[activeEncoder] = encoderValue[activeEncoder]+encoderGetPosition( 0 ); //read the stored position of the encoder and save it
+	encoderOff(); //pause the encoder
+	//swap encoder
+	activeEncoder = (activeEncoder + 1)%5; //update the program with the currently active encoder
+	encoderInit(); //re-enable encoder(s)
+ 52a:	f4 cd       	rjmp	.-1048   	; 0x114 <encoderInit>
+
+0000052c <main>:
+}
+
+int main(void)
+{
+	//General Initializations
+	wdt_disable();	// disable watchdog timer
+ 52c:	88 e1       	ldi	r24, 0x18	; 24
+ 52e:	0f b6       	in	r0, 0x3f	; 63
+ 530:	f8 94       	cli
+ 532:	81 bd       	out	0x21, r24	; 33
+ 534:	11 bc       	out	0x21, r1	; 33
+ 536:	0f be       	out	0x3f, r0	; 63
+	uartInit();	//initialize the USART (MIDI is default)
+ 538:	a3 df       	rcall	.-186    	; 0x480 <uartInit>
+	encoderInit();	//Initialize page and main encoder inputs
+ 53a:	ec dd       	rcall	.-1064   	; 0x114 <encoderInit>
+	timer0Init();	//turn on the timer
+ 53c:	7e de       	rcall	.-772    	; 0x23a <timer0Init>
+	timerAttach( TIMER0OVERFLOW_INT, &hotSwapEncoder );	//set timer interrupt to change the active encoder
+ 53e:	64 e7       	ldi	r22, 0x74	; 116
+ 540:	72 e0       	ldi	r23, 0x02	; 2
+ 542:	80 e0       	ldi	r24, 0x00	; 0
+ 544:	8b de       	rcall	.-746    	; 0x25c <timerAttach>
+	
+    while(1){// Main Loop
+		
+		//update active page
+		if ( (encoderGetPosition( 1 ) != 0) ){
+ 546:	81 e0       	ldi	r24, 0x01	; 1
+ 548:	18 de       	rcall	.-976    	; 0x17a <encoderGetPosition>
+ 54a:	67 2b       	or	r22, r23
+ 54c:	68 2b       	or	r22, r24
+ 54e:	69 2b       	or	r22, r25
+ 550:	09 f0       	breq	.+2      	; 0x554 <main+0x28>
+ 552:	00 c1       	rjmp	.+512    	; 0x754 <main+0x228>
+		}
+	
+		//read each parameter encoder
+		unsigned char i = PARAMCOUNT;
+		while (i > 0 ){
+			if ( encoderValue[i] !=0 ){ // check for an update
+ 554:	20 91 a7 00 	lds	r18, 0x00A7
+ 558:	30 91 a8 00 	lds	r19, 0x00A8
+ 55c:	21 15       	cp	r18, r1
+ 55e:	31 05       	cpc	r19, r1
+ 560:	09 f4       	brne	.+2      	; 0x564 <main+0x38>
+ 562:	4b c0       	rjmp	.+150    	; 0x5fa <main+0xce>
+				
+				//bind encoder updates to midi parameter values
+				unsigned char updateValue = 0;
+				if ( encoderValue[i] + mValue[ i + pageNumber] > mParam[i + pageNumber].pMax){ // check if updates run over the maximum
+ 564:	80 91 ab 00 	lds	r24, 0x00AB
+ 568:	90 e0       	ldi	r25, 0x00	; 0
+ 56a:	03 96       	adiw	r24, 0x03	; 3
+ 56c:	fc 01       	movw	r30, r24
+ 56e:	e4 55       	subi	r30, 0x54	; 84
+ 570:	ff 4f       	sbci	r31, 0xFF	; 255
+ 572:	a0 81       	ld	r26, Z
+ 574:	a9 01       	movw	r20, r18
+ 576:	4a 0f       	add	r20, r26
+ 578:	51 1d       	adc	r21, r1
+ 57a:	fc 01       	movw	r30, r24
+ 57c:	ee 0f       	add	r30, r30
+ 57e:	ff 1f       	adc	r31, r31
+ 580:	ee 0f       	add	r30, r30
+ 582:	ff 1f       	adc	r31, r31
+ 584:	e0 5a       	subi	r30, 0xA0	; 160
+ 586:	ff 4f       	sbci	r31, 0xFF	; 255
+ 588:	c3 81       	ldd	r28, Z+3	; 0x03
+ 58a:	6c 2f       	mov	r22, r28
+ 58c:	70 e0       	ldi	r23, 0x00	; 0
+ 58e:	64 17       	cp	r22, r20
+ 590:	75 07       	cpc	r23, r21
+ 592:	54 f0       	brlt	.+20     	; 0x5a8 <main+0x7c>
+					updateValue = mParam[ i + pageNumber ].pMax;
+				} else if ( encoderValue[i] + mValue[ i + pageNumber] < mParam[i + pageNumber].pMin){ // check if updates run under the minimum
+ 594:	c2 81       	ldd	r28, Z+2	; 0x02
+ 596:	6c 2f       	mov	r22, r28
+ 598:	77 27       	eor	r23, r23
+ 59a:	67 fd       	sbrc	r22, 7
+ 59c:	70 95       	com	r23
+ 59e:	46 17       	cp	r20, r22
+ 5a0:	57 07       	cpc	r21, r23
+ 5a2:	14 f0       	brlt	.+4      	; 0x5a8 <main+0x7c>
+					updateValue = mParam[ i + pageNumber ].pMin;
+				} else {
+					updateValue = encoderValue[i] + mValue[ i + pageNumber ]; // set the update value
+ 5a4:	ca 2f       	mov	r28, r26
+ 5a6:	c2 0f       	add	r28, r18
+				}
+				
+				//Send SysEx Message
+				uartAddToTxBuffer( SYSEX );
+ 5a8:	80 ef       	ldi	r24, 0xF0	; 240
+ 5aa:	8c df       	rcall	.-232    	; 0x4c4 <uartAddToTxBuffer>
+				uartAddToTxBuffer( TX7ID );
+ 5ac:	83 e4       	ldi	r24, 0x43	; 67
+ 5ae:	8a df       	rcall	.-236    	; 0x4c4 <uartAddToTxBuffer>
+				uartAddToTxBuffer( MIDICHANNEL );
+ 5b0:	81 e1       	ldi	r24, 0x11	; 17
+ 5b2:	88 df       	rcall	.-240    	; 0x4c4 <uartAddToTxBuffer>
+	  			uartAddToTxBuffer( mParam[ i+pageNumber ].pGroup );
+ 5b4:	e0 91 ab 00 	lds	r30, 0x00AB
+ 5b8:	f0 e0       	ldi	r31, 0x00	; 0
+ 5ba:	ee 0f       	add	r30, r30
+ 5bc:	ff 1f       	adc	r31, r31
+ 5be:	ee 0f       	add	r30, r30
+ 5c0:	ff 1f       	adc	r31, r31
+ 5c2:	e4 59       	subi	r30, 0x94	; 148
+ 5c4:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5c6:	80 81       	ld	r24, Z
+ 5c8:	7d df       	rcall	.-262    	; 0x4c4 <uartAddToTxBuffer>
+	   			uartAddToTxBuffer( mParam[ i+pageNumber ].pNumber );
+ 5ca:	e0 91 ab 00 	lds	r30, 0x00AB
+ 5ce:	f0 e0       	ldi	r31, 0x00	; 0
+ 5d0:	ee 0f       	add	r30, r30
+ 5d2:	ff 1f       	adc	r31, r31
+ 5d4:	ee 0f       	add	r30, r30
+ 5d6:	ff 1f       	adc	r31, r31
+ 5d8:	e4 59       	subi	r30, 0x94	; 148
+ 5da:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5dc:	81 81       	ldd	r24, Z+1	; 0x01
+ 5de:	72 df       	rcall	.-284    	; 0x4c4 <uartAddToTxBuffer>
+	   			uartAddToTxBuffer( updateValue );
+ 5e0:	8c 2f       	mov	r24, r28
+ 5e2:	70 df       	rcall	.-288    	; 0x4c4 <uartAddToTxBuffer>
+ 				uartSendTxBuffer(); //start sending the full sysex message for a parameter update
+ 5e4:	73 df       	rcall	.-282    	; 0x4cc <uartSendTxBuffer>
+				 
+				//updated global values
+				mValue[ i + pageNumber ] = updateValue; //updated status of midi parameter
+ 5e6:	e0 91 ab 00 	lds	r30, 0x00AB
+ 5ea:	f0 e0       	ldi	r31, 0x00	; 0
+ 5ec:	e4 55       	subi	r30, 0x54	; 84
+ 5ee:	ff 4f       	sbci	r31, 0xFF	; 255
+ 5f0:	c3 83       	std	Z+3, r28	; 0x03
+				encoderValue[i] = 0; // clear the update value
+ 5f2:	10 92 a8 00 	sts	0x00A8, r1
+ 5f6:	10 92 a7 00 	sts	0x00A7, r1
+		}
+	
+		//read each parameter encoder
+		unsigned char i = PARAMCOUNT;
+		while (i > 0 ){
+			if ( encoderValue[i] !=0 ){ // check for an update
+ 5fa:	20 91 a5 00 	lds	r18, 0x00A5
+ 5fe:	30 91 a6 00 	lds	r19, 0x00A6
+ 602:	21 15       	cp	r18, r1
+ 604:	31 05       	cpc	r19, r1
+ 606:	09 f4       	brne	.+2      	; 0x60a <main+0xde>
+ 608:	4b c0       	rjmp	.+150    	; 0x6a0 <main+0x174>
+				
+				//bind encoder updates to midi parameter values
+				unsigned char updateValue = 0;
+				if ( encoderValue[i] + mValue[ i + pageNumber] > mParam[i + pageNumber].pMax){ // check if updates run over the maximum
+ 60a:	80 91 ab 00 	lds	r24, 0x00AB
+ 60e:	90 e0       	ldi	r25, 0x00	; 0
+ 610:	02 96       	adiw	r24, 0x02	; 2
+ 612:	fc 01       	movw	r30, r24
+ 614:	e4 55       	subi	r30, 0x54	; 84
+ 616:	ff 4f       	sbci	r31, 0xFF	; 255
+ 618:	a0 81       	ld	r26, Z
+ 61a:	a9 01       	movw	r20, r18
+ 61c:	4a 0f       	add	r20, r26
+ 61e:	51 1d       	adc	r21, r1
+ 620:	fc 01       	movw	r30, r24
+ 622:	ee 0f       	add	r30, r30
+ 624:	ff 1f       	adc	r31, r31
+ 626:	ee 0f       	add	r30, r30
+ 628:	ff 1f       	adc	r31, r31
+ 62a:	e0 5a       	subi	r30, 0xA0	; 160
+ 62c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 62e:	c3 81       	ldd	r28, Z+3	; 0x03
+ 630:	6c 2f       	mov	r22, r28
+ 632:	70 e0       	ldi	r23, 0x00	; 0
+ 634:	64 17       	cp	r22, r20
+ 636:	75 07       	cpc	r23, r21
+ 638:	54 f0       	brlt	.+20     	; 0x64e <main+0x122>
+					updateValue = mParam[ i + pageNumber ].pMax;
+				} else if ( encoderValue[i] + mValue[ i + pageNumber] < mParam[i + pageNumber].pMin){ // check if updates run under the minimum
+ 63a:	c2 81       	ldd	r28, Z+2	; 0x02
+ 63c:	6c 2f       	mov	r22, r28
+ 63e:	77 27       	eor	r23, r23
+ 640:	67 fd       	sbrc	r22, 7
+ 642:	70 95       	com	r23
+ 644:	46 17       	cp	r20, r22
+ 646:	57 07       	cpc	r21, r23
+ 648:	14 f0       	brlt	.+4      	; 0x64e <main+0x122>
+					updateValue = mParam[ i + pageNumber ].pMin;
+				} else {
+					updateValue = encoderValue[i] + mValue[ i + pageNumber ]; // set the update value
+ 64a:	ca 2f       	mov	r28, r26
+ 64c:	c2 0f       	add	r28, r18
+				}
+				
+				//Send SysEx Message
+				uartAddToTxBuffer( SYSEX );
+ 64e:	80 ef       	ldi	r24, 0xF0	; 240
+ 650:	39 df       	rcall	.-398    	; 0x4c4 <uartAddToTxBuffer>
+				uartAddToTxBuffer( TX7ID );
+ 652:	83 e4       	ldi	r24, 0x43	; 67
+ 654:	37 df       	rcall	.-402    	; 0x4c4 <uartAddToTxBuffer>
+				uartAddToTxBuffer( MIDICHANNEL );
+ 656:	81 e1       	ldi	r24, 0x11	; 17
+ 658:	35 df       	rcall	.-406    	; 0x4c4 <uartAddToTxBuffer>
+	  			uartAddToTxBuffer( mParam[ i+pageNumber ].pGroup );
+ 65a:	e0 91 ab 00 	lds	r30, 0x00AB
+ 65e:	f0 e0       	ldi	r31, 0x00	; 0
+ 660:	ee 0f       	add	r30, r30
+ 662:	ff 1f       	adc	r31, r31
+ 664:	ee 0f       	add	r30, r30
+ 666:	ff 1f       	adc	r31, r31
+ 668:	e8 59       	subi	r30, 0x98	; 152
+ 66a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 66c:	80 81       	ld	r24, Z
+ 66e:	2a df       	rcall	.-428    	; 0x4c4 <uartAddToTxBuffer>
+	   			uartAddToTxBuffer( mParam[ i+pageNumber ].pNumber );
+ 670:	e0 91 ab 00 	lds	r30, 0x00AB
+ 674:	f0 e0       	ldi	r31, 0x00	; 0
+ 676:	ee 0f       	add	r30, r30
+ 678:	ff 1f       	adc	r31, r31
+ 67a:	ee 0f       	add	r30, r30
+ 67c:	ff 1f       	adc	r31, r31
+ 67e:	e8 59       	subi	r30, 0x98	; 152
+ 680:	ff 4f       	sbci	r31, 0xFF	; 255
+ 682:	81 81       	ldd	r24, Z+1	; 0x01
+ 684:	1f df       	rcall	.-450    	; 0x4c4 <uartAddToTxBuffer>
+	   			uartAddToTxBuffer( updateValue );
+ 686:	8c 2f       	mov	r24, r28
+ 688:	1d df       	rcall	.-454    	; 0x4c4 <uartAddToTxBuffer>
+ 				uartSendTxBuffer(); //start sending the full sysex message for a parameter update
+ 68a:	20 df       	rcall	.-448    	; 0x4cc <uartSendTxBuffer>
+				 
+				//updated global values
+				mValue[ i + pageNumber ] = updateValue; //updated status of midi parameter
+ 68c:	e0 91 ab 00 	lds	r30, 0x00AB
+ 690:	f0 e0       	ldi	r31, 0x00	; 0
+ 692:	e4 55       	subi	r30, 0x54	; 84
+ 694:	ff 4f       	sbci	r31, 0xFF	; 255
+ 696:	c2 83       	std	Z+2, r28	; 0x02
+				encoderValue[i] = 0; // clear the update value
+ 698:	10 92 a6 00 	sts	0x00A6, r1
+ 69c:	10 92 a5 00 	sts	0x00A5, r1
+		}
+	
+		//read each parameter encoder
+		unsigned char i = PARAMCOUNT;
+		while (i > 0 ){
+			if ( encoderValue[i] !=0 ){ // check for an update
+ 6a0:	20 91 a3 00 	lds	r18, 0x00A3
+ 6a4:	30 91 a4 00 	lds	r19, 0x00A4
+ 6a8:	21 15       	cp	r18, r1
+ 6aa:	31 05       	cpc	r19, r1
+ 6ac:	09 f4       	brne	.+2      	; 0x6b0 <main+0x184>
+ 6ae:	4b cf       	rjmp	.-362    	; 0x546 <main+0x1a>
+				
+				//bind encoder updates to midi parameter values
+				unsigned char updateValue = 0;
+				if ( encoderValue[i] + mValue[ i + pageNumber] > mParam[i + pageNumber].pMax){ // check if updates run over the maximum
+ 6b0:	80 91 ab 00 	lds	r24, 0x00AB
+ 6b4:	90 e0       	ldi	r25, 0x00	; 0
+ 6b6:	01 96       	adiw	r24, 0x01	; 1
+ 6b8:	fc 01       	movw	r30, r24
+ 6ba:	e4 55       	subi	r30, 0x54	; 84
+ 6bc:	ff 4f       	sbci	r31, 0xFF	; 255
+ 6be:	a0 81       	ld	r26, Z
+ 6c0:	a9 01       	movw	r20, r18
+ 6c2:	4a 0f       	add	r20, r26
+ 6c4:	51 1d       	adc	r21, r1
+ 6c6:	fc 01       	movw	r30, r24
+ 6c8:	ee 0f       	add	r30, r30
+ 6ca:	ff 1f       	adc	r31, r31
+ 6cc:	ee 0f       	add	r30, r30
+ 6ce:	ff 1f       	adc	r31, r31
+ 6d0:	e0 5a       	subi	r30, 0xA0	; 160
+ 6d2:	ff 4f       	sbci	r31, 0xFF	; 255
+ 6d4:	c3 81       	ldd	r28, Z+3	; 0x03
+ 6d6:	6c 2f       	mov	r22, r28
+ 6d8:	70 e0       	ldi	r23, 0x00	; 0
+ 6da:	64 17       	cp	r22, r20
+ 6dc:	75 07       	cpc	r23, r21
+ 6de:	54 f0       	brlt	.+20     	; 0x6f4 <main+0x1c8>
+					updateValue = mParam[ i + pageNumber ].pMax;
+				} else if ( encoderValue[i] + mValue[ i + pageNumber] < mParam[i + pageNumber].pMin){ // check if updates run under the minimum
+ 6e0:	c2 81       	ldd	r28, Z+2	; 0x02
+ 6e2:	6c 2f       	mov	r22, r28
+ 6e4:	77 27       	eor	r23, r23
+ 6e6:	67 fd       	sbrc	r22, 7
+ 6e8:	70 95       	com	r23
+ 6ea:	46 17       	cp	r20, r22
+ 6ec:	57 07       	cpc	r21, r23
+ 6ee:	14 f0       	brlt	.+4      	; 0x6f4 <main+0x1c8>
+					updateValue = mParam[ i + pageNumber ].pMin;
+				} else {
+					updateValue = encoderValue[i] + mValue[ i + pageNumber ]; // set the update value
+ 6f0:	ca 2f       	mov	r28, r26
+ 6f2:	c2 0f       	add	r28, r18
+				}
+				
+				//Send SysEx Message
+				uartAddToTxBuffer( SYSEX );
+ 6f4:	80 ef       	ldi	r24, 0xF0	; 240
+ 6f6:	e6 de       	rcall	.-564    	; 0x4c4 <uartAddToTxBuffer>
+				uartAddToTxBuffer( TX7ID );
+ 6f8:	83 e4       	ldi	r24, 0x43	; 67
+ 6fa:	e4 de       	rcall	.-568    	; 0x4c4 <uartAddToTxBuffer>
+				uartAddToTxBuffer( MIDICHANNEL );
+ 6fc:	81 e1       	ldi	r24, 0x11	; 17
+ 6fe:	e2 de       	rcall	.-572    	; 0x4c4 <uartAddToTxBuffer>
+	  			uartAddToTxBuffer( mParam[ i+pageNumber ].pGroup );
+ 700:	e0 91 ab 00 	lds	r30, 0x00AB
+ 704:	f0 e0       	ldi	r31, 0x00	; 0
+ 706:	ee 0f       	add	r30, r30
+ 708:	ff 1f       	adc	r31, r31
+ 70a:	ee 0f       	add	r30, r30
+ 70c:	ff 1f       	adc	r31, r31
+ 70e:	ec 59       	subi	r30, 0x9C	; 156
+ 710:	ff 4f       	sbci	r31, 0xFF	; 255
+ 712:	80 81       	ld	r24, Z
+ 714:	d7 de       	rcall	.-594    	; 0x4c4 <uartAddToTxBuffer>
+	   			uartAddToTxBuffer( mParam[ i+pageNumber ].pNumber );
+ 716:	e0 91 ab 00 	lds	r30, 0x00AB
+ 71a:	f0 e0       	ldi	r31, 0x00	; 0
+ 71c:	ee 0f       	add	r30, r30
+ 71e:	ff 1f       	adc	r31, r31
+ 720:	ee 0f       	add	r30, r30
+ 722:	ff 1f       	adc	r31, r31
+ 724:	ec 59       	subi	r30, 0x9C	; 156
+ 726:	ff 4f       	sbci	r31, 0xFF	; 255
+ 728:	81 81       	ldd	r24, Z+1	; 0x01
+ 72a:	cc de       	rcall	.-616    	; 0x4c4 <uartAddToTxBuffer>
+	   			uartAddToTxBuffer( updateValue );
+ 72c:	8c 2f       	mov	r24, r28
+ 72e:	ca de       	rcall	.-620    	; 0x4c4 <uartAddToTxBuffer>
+ 				uartSendTxBuffer(); //start sending the full sysex message for a parameter update
+ 730:	cd de       	rcall	.-614    	; 0x4cc <uartSendTxBuffer>
+				 
+				//updated global values
+				mValue[ i + pageNumber ] = updateValue; //updated status of midi parameter
+ 732:	e0 91 ab 00 	lds	r30, 0x00AB
+ 736:	f0 e0       	ldi	r31, 0x00	; 0
+ 738:	e4 55       	subi	r30, 0x54	; 84
+ 73a:	ff 4f       	sbci	r31, 0xFF	; 255
+ 73c:	c1 83       	std	Z+1, r28	; 0x01
+				encoderValue[i] = 0; // clear the update value
+ 73e:	10 92 a4 00 	sts	0x00A4, r1
+ 742:	10 92 a3 00 	sts	0x00A3, r1
+	timerAttach( TIMER0OVERFLOW_INT, &hotSwapEncoder );	//set timer interrupt to change the active encoder
+	
+    while(1){// Main Loop
+		
+		//update active page
+		if ( (encoderGetPosition( 1 ) != 0) ){
+ 746:	81 e0       	ldi	r24, 0x01	; 1
+ 748:	18 dd       	rcall	.-1488   	; 0x17a <encoderGetPosition>
+ 74a:	67 2b       	or	r22, r23
+ 74c:	68 2b       	or	r22, r24
+ 74e:	69 2b       	or	r22, r25
+ 750:	09 f4       	brne	.+2      	; 0x754 <main+0x228>
+ 752:	00 cf       	rjmp	.-512    	; 0x554 <main+0x28>
+			pageNumber = (encoderGetPosition( 1 ) % PAGES); //read page encoder to determine what page to display
+ 754:	81 e0       	ldi	r24, 0x01	; 1
+ 756:	11 dd       	rcall	.-1502   	; 0x17a <encoderGetPosition>
+ 758:	61 70       	andi	r22, 0x01	; 1
+ 75a:	77 27       	eor	r23, r23
+ 75c:	88 27       	eor	r24, r24
+ 75e:	90 78       	andi	r25, 0x80	; 128
+ 760:	97 fd       	sbrc	r25, 7
+ 762:	15 c0       	rjmp	.+42     	; 0x78e <main+0x262>
+ 764:	26 2f       	mov	r18, r22
+ 766:	60 93 ab 00 	sts	0x00AB, r22
+			//display the page (LCD needed)
+			
+			//update the active midi values by loading from EEPROM
+			eeprom_busy_wait();
+ 76a:	e1 99       	sbic	0x1c, 1	; 28
+ 76c:	fe cf       	rjmp	.-4      	; 0x76a <main+0x23e>
+			eeprom_read_block( (void*) &mParam, (const void*) midirefs + (pageNumber * 16), 16 );
+ 76e:	62 2f       	mov	r22, r18
+ 770:	70 e0       	ldi	r23, 0x00	; 0
+ 772:	62 95       	swap	r22
+ 774:	72 95       	swap	r23
+ 776:	70 7f       	andi	r23, 0xF0	; 240
+ 778:	76 27       	eor	r23, r22
+ 77a:	60 7f       	andi	r22, 0xF0	; 240
+ 77c:	76 27       	eor	r23, r22
+ 77e:	60 50       	subi	r22, 0x00	; 0
+ 780:	70 40       	sbci	r23, 0x00	; 0
+ 782:	40 e1       	ldi	r20, 0x10	; 16
+ 784:	50 e0       	ldi	r21, 0x00	; 0
+ 786:	80 e6       	ldi	r24, 0x60	; 96
+ 788:	90 e0       	ldi	r25, 0x00	; 0
+ 78a:	35 d0       	rcall	.+106    	; 0x7f6 <__eerd_block_tn4313>
+ 78c:	e3 ce       	rjmp	.-570    	; 0x554 <main+0x28>
+	
+    while(1){// Main Loop
+		
+		//update active page
+		if ( (encoderGetPosition( 1 ) != 0) ){
+			pageNumber = (encoderGetPosition( 1 ) % PAGES); //read page encoder to determine what page to display
+ 78e:	61 50       	subi	r22, 0x01	; 1
+ 790:	71 09       	sbc	r23, r1
+ 792:	81 09       	sbc	r24, r1
+ 794:	91 09       	sbc	r25, r1
+ 796:	6e 6f       	ori	r22, 0xFE	; 254
+ 798:	7f 6f       	ori	r23, 0xFF	; 255
+ 79a:	8f 6f       	ori	r24, 0xFF	; 255
+ 79c:	9f 6f       	ori	r25, 0xFF	; 255
+ 79e:	6f 5f       	subi	r22, 0xFF	; 255
+ 7a0:	7f 4f       	sbci	r23, 0xFF	; 255
+ 7a2:	8f 4f       	sbci	r24, 0xFF	; 255
+ 7a4:	9f 4f       	sbci	r25, 0xFF	; 255
+ 7a6:	de cf       	rjmp	.-68     	; 0x764 <main+0x238>
+
+000007a8 <__udivmodhi4>:
+ 7a8:	aa 1b       	sub	r26, r26
+ 7aa:	bb 1b       	sub	r27, r27
+ 7ac:	51 e1       	ldi	r21, 0x11	; 17
+ 7ae:	07 c0       	rjmp	.+14     	; 0x7be <__udivmodhi4_ep>
+
+000007b0 <__udivmodhi4_loop>:
+ 7b0:	aa 1f       	adc	r26, r26
+ 7b2:	bb 1f       	adc	r27, r27
+ 7b4:	a6 17       	cp	r26, r22
+ 7b6:	b7 07       	cpc	r27, r23
+ 7b8:	10 f0       	brcs	.+4      	; 0x7be <__udivmodhi4_ep>
+ 7ba:	a6 1b       	sub	r26, r22
+ 7bc:	b7 0b       	sbc	r27, r23
+
+000007be <__udivmodhi4_ep>:
+ 7be:	88 1f       	adc	r24, r24
+ 7c0:	99 1f       	adc	r25, r25
+ 7c2:	5a 95       	dec	r21
+ 7c4:	a9 f7       	brne	.-22     	; 0x7b0 <__udivmodhi4_loop>
+ 7c6:	80 95       	com	r24
+ 7c8:	90 95       	com	r25
+ 7ca:	bc 01       	movw	r22, r24
+ 7cc:	cd 01       	movw	r24, r26
+ 7ce:	08 95       	ret
+
+000007d0 <__divmodhi4>:
+ 7d0:	97 fb       	bst	r25, 7
+ 7d2:	07 2e       	mov	r0, r23
+ 7d4:	16 f4       	brtc	.+4      	; 0x7da <__divmodhi4+0xa>
+ 7d6:	00 94       	com	r0
+ 7d8:	06 d0       	rcall	.+12     	; 0x7e6 <__divmodhi4_neg1>
+ 7da:	77 fd       	sbrc	r23, 7
+ 7dc:	08 d0       	rcall	.+16     	; 0x7ee <__divmodhi4_neg2>
+ 7de:	e4 df       	rcall	.-56     	; 0x7a8 <__udivmodhi4>
+ 7e0:	07 fc       	sbrc	r0, 7
+ 7e2:	05 d0       	rcall	.+10     	; 0x7ee <__divmodhi4_neg2>
+ 7e4:	3e f4       	brtc	.+14     	; 0x7f4 <__divmodhi4_exit>
+
+000007e6 <__divmodhi4_neg1>:
+ 7e6:	90 95       	com	r25
+ 7e8:	81 95       	neg	r24
+ 7ea:	9f 4f       	sbci	r25, 0xFF	; 255
+ 7ec:	08 95       	ret
+
+000007ee <__divmodhi4_neg2>:
+ 7ee:	70 95       	com	r23
+ 7f0:	61 95       	neg	r22
+ 7f2:	7f 4f       	sbci	r23, 0xFF	; 255
+
+000007f4 <__divmodhi4_exit>:
+ 7f4:	08 95       	ret
+
+000007f6 <__eerd_block_tn4313>:
+ 7f6:	dc 01       	movw	r26, r24
+ 7f8:	86 2f       	mov	r24, r22
+
+000007fa <__eerd_blraw_tn4313>:
+ 7fa:	e8 2f       	mov	r30, r24
+ 7fc:	e1 99       	sbic	0x1c, 1	; 28
+ 7fe:	fe cf       	rjmp	.-4      	; 0x7fc <__eerd_blraw_tn4313+0x2>
+ 800:	1f ba       	out	0x1f, r1	; 31
+ 802:	05 c0       	rjmp	.+10     	; 0x80e <__eerd_blraw_tn4313+0x14>
+ 804:	ee bb       	out	0x1e, r30	; 30
+ 806:	e0 9a       	sbi	0x1c, 0	; 28
+ 808:	e3 95       	inc	r30
+ 80a:	0d b2       	in	r0, 0x1d	; 29
+ 80c:	0d 92       	st	X+, r0
+ 80e:	41 50       	subi	r20, 0x01	; 1
+ 810:	c8 f7       	brcc	.-14     	; 0x804 <__eerd_blraw_tn4313+0xa>
+ 812:	08 95       	ret
+
+00000814 <_exit>:
+ 814:	f8 94       	cli
+
+00000816 <__stop_program>:
+ 816:	ff cf       	rjmp	.-2      	; 0x816 <__stop_program>
