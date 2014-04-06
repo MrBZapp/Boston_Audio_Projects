@@ -32,7 +32,7 @@
 #define		SYSEX 0xF0
 #define		TX7ID 0x43
 #define		MIDICHANNEL 0x11
-#define		TIMER0PRESCALE TIMER_CLK_DIV1
+#define		TIMER0PRESCALE TIMER_CLK_DIV8
 
 // CPU clock speed
 //#define F_CPU        16000000               		// 16MHz processor

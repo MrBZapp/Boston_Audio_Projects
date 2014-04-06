@@ -30,6 +30,9 @@
 // Global variables
 volatile EncoderStateType EncoderState[NUM_ENCODERS];
 
+//pointers
+
+EncoderStateType* pEncoder;
 // Functions
 
 // encoderInit() initializes hardware and encoder position readings
@@ -51,7 +54,6 @@ void encoderInit(void)
 	// - enable interrupt
 
 	#ifdef ENC0_VECT
-	
 		// set interrupt pins to input and apply pullup resistor
 		cbi(ENC0_PHASEA_DDR, ENC0_PHASEA_PIN);
 		sbi(ENC0_PHASEA_PORT, ENC0_PHASEA_PIN);
@@ -64,6 +66,7 @@ void encoderInit(void)
 		// enable interrupts
 		sbi(IMSK, ENC0_INT);	// ISMK is auto-defined in encoder.h
 	#endif
+	
 	#ifdef ENC1_VECT
 		// set interrupt pins to input and apply pullup resistor
 		cbi(ENC1_PHASEA_DDR, ENC1_PHASEA_PIN);
@@ -77,6 +80,7 @@ void encoderInit(void)
 		// enable interrupts
 		sbi(IMSK, ENC1_INT);	// ISMK is auto-defined in encoder.h
 	#endif
+	
 	#ifdef ENC2_VECT
 		// set interrupt pins to input and apply pullup resistor
 		cbi(ENC2_PHASEA_DDR, ENC2_PHASEA_PIN);
@@ -90,6 +94,7 @@ void encoderInit(void)
 		// enable interrupts
 		sbi(IMSK, ENC2_INT);	// ISMK is auto-defined in encoder.h
 	#endif
+	
 	#ifdef ENC3_VECT
 		// set interrupt pins to input and apply pullup resistor
 		cbi(ENC3_PHASEA_DDR, ENC3_PHASEA_PIN);
@@ -133,10 +138,11 @@ void encoderOff(void)
 // encoderGetPosition() reads the current position of the encoder 
 s32 encoderGetPosition(u08 encoderNum){
 	// sanity check
-	if(encoderNum < NUM_ENCODERS)
-		return EncoderState[encoderNum].position;
-	else
+	if(encoderNum < NUM_ENCODERS){
+		return (s32) EncoderState[ encoderNum ].position;
+	}else{
 		return 0;
+		}
 }
 
 // encoderSetPosition() sets the current position of the encoder
@@ -150,7 +156,7 @@ void encoderSetPosition(u08 encoderNum, s32 position)
 
 #ifdef ENC0_VECT
 //! Encoder 0 interrupt handler
-ISR(_VECTOR(ENC0_VECT)){
+ISR(ENC0_VECT){
 	// encoder has generated a pulse
 	// check the relative phase of the input channels
 	// and update position accordingly

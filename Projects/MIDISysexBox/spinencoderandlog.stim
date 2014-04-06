@@ -1,0 +1,43 @@
+﻿
+$repeat 10
+$endrep
+
+$repeat 10
+PIND ^= 0x04
+#72000
+PIND ^= 0x10
+#72000
+$endrep
+
+$break
+PIND ^= 0x08
+#72000
+PIND ^= 0x20
+
+//page 1
+$repeat 10
+PIND ^= 0x04
+#72000
+PIND ^= 0x10
+#72000
+$endrep
+
+$break
+PIND ^= 0x08
+#72000
+PIND ^= 0x20
+
+//page 2 
+$repeat 10
+PIND ^= 0x04
+#72000
+PIND ^= 0x10
+#72000
+$endrep
+
+$break
+PIND ^= 0x08
+#72000
+PIND ^= 0x20
+
+$break

@@ -4,8 +4,6 @@ c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu
                               _avrlib/timer.o (__mulsi3)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodhi4.o)
                               _avrlib/buffer.o (__udivmodhi4)
-c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodhi4.o)
-                              MIDISysexBox.o (__divmodhi4)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodsi4.o)
                               _avrlib/timer.o (__udivmodsi4)
 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodsi4.o)
@@ -27,6 +25,7 @@ EncoderState        0x8               _avrlib/encoder.o
 Timer0Reg0          0x4               _avrlib/timer.o
 uartRxBuffer        0x8               _avrlib/uart.o
 TimerPauseReg       0x4               _avrlib/timer.o
+pEncoder            0x2               _avrlib/encoder.o
 Timer2Reg0          0x4               _avrlib/timer.o
 uartBufferedTx      0x1               _avrlib/uart.o
 uartTxBuffer        0x8               _avrlib/uart.o
@@ -38,46 +37,36 @@ Discarded input sections
  .text          0x00000000        0x0 _avrlib/buffer.o
  .bss           0x00000000        0x0 _avrlib/buffer.o
  .text.bufferDumpFromFront
-                0x00000000       0x42 _avrlib/buffer.o
+                0x00000000       0x40 _avrlib/buffer.o
  .text.bufferGetAtIndex
-                0x00000000       0x26 _avrlib/buffer.o
+                0x00000000       0x24 _avrlib/buffer.o
  .text.bufferIsNotFull
-                0x00000000       0x18 _avrlib/buffer.o
+                0x00000000       0x1a _avrlib/buffer.o
  .text.bufferFlush
                 0x00000000        0xe _avrlib/buffer.o
  .text          0x00000000        0x0 _avrlib/encoder.o
  .bss           0x00000000        0x0 _avrlib/encoder.o
- .text.encoderSetPosition
-                0x00000000       0x20 _avrlib/encoder.o
- .text.__vector_ENC0_VECT
-                0x00000000       0x84 _avrlib/encoder.o
  .text          0x00000000        0x0 _avrlib/timer.o
  .bss           0x00000000        0x0 _avrlib/timer.o
  .text.delay_us
-                0x00000000        0x2 _avrlib/timer.o
- .text.timerInit
-                0x00000000       0x6e _avrlib/timer.o
- .text.timer1Init
-                0x00000000       0x14 _avrlib/timer.o
- .text.timer0SetPrescaler
-                0x00000000        0xa _avrlib/timer.o
+                0x00000000       0x28 _avrlib/timer.o
  .text.timer1SetPrescaler
                 0x00000000        0xa _avrlib/timer.o
+ .text.timer1Init
+                0x00000000       0x10 _avrlib/timer.o
  .text.timer1GetPrescaler
-                0x00000000       0x16 _avrlib/timer.o
+                0x00000000       0x18 _avrlib/timer.o
  .text.timerDetach
                 0x00000000       0x16 _avrlib/timer.o
  .text.timerPause
                 0x00000000      0x11e _avrlib/timer.o
- .text.timer0ClearOverflowCount
-                0x00000000       0x12 _avrlib/timer.o
+ .text.timerInit
+                0x00000000       0x18 _avrlib/timer.o
  .text.timer0GetOverflowCount
-                0x00000000       0x1e _avrlib/timer.o
+                0x00000000       0x22 _avrlib/timer.o
  .text.timer1PWMInit
-                0x00000000       0x4a _avrlib/timer.o
+                0x00000000       0x3a _avrlib/timer.o
  .text.timer1PWMInitICR
-                0x00000000       0x26 _avrlib/timer.o
- .text.timer1PWMOff
                 0x00000000       0x26 _avrlib/timer.o
  .text.timer1PWMAOn
                 0x00000000        0xe _avrlib/timer.o
@@ -87,6 +76,8 @@ Discarded input sections
                 0x00000000        0xe _avrlib/timer.o
  .text.timer1PWMBOff
                 0x00000000        0xe _avrlib/timer.o
+ .text.timer1PWMOff
+                0x00000000       0x12 _avrlib/timer.o
  .text.timer1PWMASet
                 0x00000000        0x6 _avrlib/timer.o
  .text.timer1PWMBSet
@@ -97,30 +88,20 @@ Discarded input sections
                 0x00000000        0xc _avrlib/timer.o
  .text          0x00000000        0x0 _avrlib/uart.o
  .bss           0x00000000        0x0 _avrlib/uart.o
- .text.uartInitBuffers
-                0x00000000       0x1c _avrlib/uart.o
  .text.uartSetRxHandler
                 0x00000000        0xa _avrlib/uart.o
- .text.uartSetBaudRate
-                0x00000000       0x5c _avrlib/uart.o
  .text.uartGetRxBuffer
                 0x00000000        0x6 _avrlib/uart.o
  .text.uartGetTxBuffer
                 0x00000000        0x6 _avrlib/uart.o
- .text.uartSendByte
-                0x00000000       0x10 _avrlib/uart.o
- .text.uartGetByte
-                0x00000000       0x2e _avrlib/uart.o
  .text.uartReceiveByte
                 0x00000000       0x36 _avrlib/uart.o
+ .text.uartGetByte
+                0x00000000       0x2a _avrlib/uart.o
  .text.uartFlushReceiveBuffer
                 0x00000000        0xa _avrlib/uart.o
  .text.uartReceiveBufferIsEmpty
                 0x00000000       0x14 _avrlib/uart.o
- .text.SIG_UART_TRANS
-                0x00000000       0x74 _avrlib/uart.o
- .text.SIG_UART_RECV
-                0x00000000       0x7c _avrlib/uart.o
  .text          0x00000000        0x0 MIDISysexBox.o
  .bss           0x00000000        0x0 MIDISysexBox.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_mulsi3.o)
@@ -147,23 +128,10 @@ Discarded input sections
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodhi4.o)
  .text.libgcc.fmul
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodhi4.o)
- .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodhi4.o)
- .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodhi4.o)
- .text.libgcc.mul
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodhi4.o)
- .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodhi4.o)
- .text.libgcc.prologue
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodhi4.o)
- .text.libgcc.builtins
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodhi4.o)
- .text.libgcc.fmul
-                0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodhi4.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodsi4.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodsi4.o)
  .text.libgcc.mul
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodsi4.o)
- .text.libgcc.div
-                0x00000000       0x44 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodsi4.o)
  .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodsi4.o)
  .text.libgcc.prologue
                 0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodsi4.o)
@@ -343,7 +311,7 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x818
+.text           0x00000000      0x8ea
  *(.vectors)
  .vectors       0x00000000       0x2a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr25/crttn4313.o
                 0x00000000                __vector_default
@@ -399,14 +367,11 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
  *(.init9)
  *(.text)
  .text          0x00000060        0x2 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr25/crttn4313.o
-                0x00000060                __vector_1
                 0x00000060                __bad_interrupt
                 0x00000060                __vector_11
                 0x00000060                __vector_13
                 0x00000060                __vector_17
                 0x00000060                __vector_19
-                0x00000060                __vector_7
-                0x00000060                __vector_9
                 0x00000060                __vector_15
                 0x00000060                __vector_8
                 0x00000060                __vector_14
@@ -420,75 +385,100 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
                 0x00000062       0x1a _avrlib/buffer.o
                 0x00000062                bufferInit
  .text.bufferGetFromFront
-                0x0000007c       0x4c _avrlib/buffer.o
+                0x0000007c       0x48 _avrlib/buffer.o
                 0x0000007c                bufferGetFromFront
  .text.bufferAddToEnd
-                0x000000c8       0x4c _avrlib/buffer.o
-                0x000000c8                bufferAddToEnd
+                0x000000c4       0x48 _avrlib/buffer.o
+                0x000000c4                bufferAddToEnd
  .text.encoderInit
-                0x00000114       0x58 _avrlib/encoder.o
-                0x00000114                encoderInit
+                0x0000010c       0x58 _avrlib/encoder.o
+                0x0000010c                encoderInit
  .text.encoderOff
-                0x0000016c        0xe _avrlib/encoder.o
-                0x0000016c                encoderOff
+                0x00000164        0xe _avrlib/encoder.o
+                0x00000164                encoderOff
  .text.encoderGetPosition
-                0x0000017a       0x3a _avrlib/encoder.o
-                0x0000017a                encoderGetPosition
+                0x00000172       0x36 _avrlib/encoder.o
+                0x00000172                encoderGetPosition
+ .text.encoderSetPosition
+                0x000001a8       0x1e _avrlib/encoder.o
+                0x000001a8                encoderSetPosition
+ .text.__vector_1
+                0x000001c6       0x74 _avrlib/encoder.o
+                0x000001c6                __vector_1
  .text.__vector_2
-                0x000001b4       0x86 _avrlib/encoder.o
-                0x000001b4                __vector_2
- .text.timer0Init
-                0x0000023a       0x22 _avrlib/timer.o
-                0x0000023a                timer0Init
+                0x0000023a       0x76 _avrlib/encoder.o
+                0x0000023a                __vector_2
+ .text.timer0SetPrescaler
+                0x000002b0        0xa _avrlib/timer.o
+                0x000002b0                timer0SetPrescaler
  .text.timerAttach
-                0x0000025c       0x16 _avrlib/timer.o
-                0x0000025c                timerAttach
+                0x000002ba       0x16 _avrlib/timer.o
+                0x000002ba                timerAttach
+ .text.timer0ClearOverflowCount
+                0x000002d0       0x12 _avrlib/timer.o
+                0x000002d0                timer0ClearOverflowCount
+ .text.timer0Init
+                0x000002e2       0x10 _avrlib/timer.o
+                0x000002e2                timer0Init
  .text.__vector_6
-                0x00000272       0xa6 _avrlib/timer.o
-                0x00000272                __vector_6
+                0x000002f2       0xa6 _avrlib/timer.o
+                0x000002f2                __vector_6
  .text.__vector_5
-                0x00000318       0x5a _avrlib/timer.o
-                0x00000318                __vector_5
+                0x00000398       0x5a _avrlib/timer.o
+                0x00000398                __vector_5
  .text.__vector_4
-                0x00000372       0x5a _avrlib/timer.o
-                0x00000372                __vector_4
+                0x000003f2       0x5a _avrlib/timer.o
+                0x000003f2                __vector_4
  .text.__vector_12
-                0x000003cc       0x5a _avrlib/timer.o
-                0x000003cc                __vector_12
+                0x0000044c       0x5a _avrlib/timer.o
+                0x0000044c                __vector_12
  .text.__vector_3
-                0x00000426       0x5a _avrlib/timer.o
-                0x00000426                __vector_3
+                0x000004a6       0x5a _avrlib/timer.o
+                0x000004a6                __vector_3
+ .text.uartInitBuffers
+                0x00000500       0x1e _avrlib/uart.o
+                0x00000500                uartInitBuffers
+ .text.uartSetBaudRate
+                0x0000051e       0x7a _avrlib/uart.o
+                0x0000051e                uartSetBaudRate
  .text.uartInit
-                0x00000480       0x44 _avrlib/uart.o
-                0x00000480                uartInit
+                0x00000598       0x2e _avrlib/uart.o
+                0x00000598                uartInit
+ .text.uartSendByte
+                0x000005c6       0x10 _avrlib/uart.o
+                0x000005c6                uartSendByte
  .text.uartAddToTxBuffer
-                0x000004c4        0x8 _avrlib/uart.o
-                0x000004c4                uartAddToTxBuffer
+                0x000005d6        0xa _avrlib/uart.o
+                0x000005d6                uartAddToTxBuffer
  .text.uartSendTxBuffer
-                0x000004cc       0x1c _avrlib/uart.o
-                0x000004cc                uartSendTxBuffer
+                0x000005e0       0x10 _avrlib/uart.o
+                0x000005e0                uartSendTxBuffer
+ .text.__vector_9
+                0x000005f0       0x74 _avrlib/uart.o
+                0x000005f0                __vector_9
+ .text.__vector_7
+                0x00000664       0x7c _avrlib/uart.o
+                0x00000664                __vector_7
  .text.hotSwapEncoder
-                0x000004e8       0x44 MIDISysexBox.o
-                0x000004e8                hotSwapEncoder
- .text.startup.main
-                0x0000052c      0x27c MIDISysexBox.o
-                0x0000052c                main
+                0x000006e0       0x46 MIDISysexBox.o
+                0x000006e0                hotSwapEncoder
+ .text.main     0x00000726      0x136 MIDISysexBox.o
+                0x00000726                main
  .text.libgcc.div
-                0x000007a8       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodhi4.o)
-                0x000007a8                __udivmodhi4
+                0x0000085c       0x28 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodhi4.o)
+                0x0000085c                __udivmodhi4
  .text.libgcc.div
-                0x000007d0       0x26 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodhi4.o)
-                0x000007d0                _div
-                0x000007d0                __divmodhi4
+                0x00000884       0x44 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodsi4.o)
+                0x00000884                __udivmodsi4
  .text.avr-libc
-                0x000007f6       0x1e c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr25\libc.a(eerd_block_attiny4313.o)
-                0x000007f6                __eerd_block_tn4313
-                0x000007fa                __eerd_blraw_tn4313
-                0x00000814                . = ALIGN (0x2)
+                0x000008c8       0x1e c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr25\libc.a(eerd_block_attiny4313.o)
+                0x000008c8                __eerd_block_tn4313
+                0x000008cc                __eerd_blraw_tn4313
+                0x000008e6                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000814        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_exit.o)
-                0x00000814                _exit
-                0x00000814                exit
+ .fini9         0x000008e6        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_exit.o)
+                0x000008e6                _exit
+                0x000008e6                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -507,11 +497,11 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000814        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_exit.o)
+ .fini0         0x000008e6        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000818                _etext = .
+                0x000008ea                _etext = .
 
-.data           0x00800060       0x10 load address 0x00000818
+.data           0x00800060       0x10 load address 0x000008ea
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr25/crttn4313.o
@@ -522,7 +512,6 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
  .data          0x00800060        0x0 MIDISysexBox.o
  .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_mulsi3.o)
  .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodhi4.o)
- .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodhi4.o)
  .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodsi4.o)
  .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_divmodsi4.o)
  .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_exit.o)
@@ -555,15 +544,16 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
                 0x008000a0        0x1 MIDISysexBox.o
                 0x008000a0                activeEncoder
  .bss.encoderValue
-                0x008000a1        0xa MIDISysexBox.o
+                0x008000a1        0x8 MIDISysexBox.o
                 0x008000a1                encoderValue
  .bss.pageNumber
-                0x008000ab        0x1 MIDISysexBox.o
-                0x008000ab                pageNumber
- .bss.mValue    0x008000ac       0x54 MIDISysexBox.o
+                0x008000a9        0x1 MIDISysexBox.o
+                0x008000a9                pageNumber
+ .bss.mValue    0x008000aa       0x54 MIDISysexBox.o
  *(COMMON)
- COMMON         0x00800100        0x8 _avrlib/encoder.o
-                0x00800100                EncoderState
+ COMMON         0x008000fe        0xa _avrlib/encoder.o
+                0x008000fe                EncoderState
+                0x00800106                pEncoder
  COMMON         0x00800108        0xc _avrlib/timer.o
                 0x00800108                Timer0Reg0
                 0x0080010c                TimerPauseReg
@@ -575,8 +565,8 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
                 0x0080011e                uartTxBuffer
                 0x00800126                uartRxOverflow
                 0x00800128                PROVIDE (__bss_end, .)
-                0x00000818                __data_load_start = LOADADDR (.data)
-                0x00000828                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000008ea                __data_load_start = LOADADDR (.data)
+                0x000008fa                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800128        0x0
                 0x00800128                PROVIDE (__noinit_start, .)
@@ -665,59 +655,59 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x165a
+.debug_info     0x00000000     0x143f
  *(.debug_info)
  .debug_info    0x00000000      0x2f2 _avrlib/buffer.o
- .debug_info    0x000002f2      0x1c4 _avrlib/encoder.o
- .debug_info    0x000004b6      0x68d _avrlib/timer.o
- .debug_info    0x00000b43      0x651 _avrlib/uart.o
- .debug_info    0x00001194      0x4c6 MIDISysexBox.o
+ .debug_info    0x000002f2      0x1dc _avrlib/encoder.o
+ .debug_info    0x000004ce      0x5c0 _avrlib/timer.o
+ .debug_info    0x00000a8e      0x56c _avrlib/uart.o
+ .debug_info    0x00000ffa      0x445 MIDISysexBox.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0x94b
+.debug_abbrev   0x00000000      0x813
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x106 _avrlib/buffer.o
- .debug_abbrev  0x00000106      0x121 _avrlib/encoder.o
- .debug_abbrev  0x00000227      0x295 _avrlib/timer.o
- .debug_abbrev  0x000004bc      0x2de _avrlib/uart.o
- .debug_abbrev  0x0000079a      0x1b1 MIDISysexBox.o
+ .debug_abbrev  0x00000106      0x12a _avrlib/encoder.o
+ .debug_abbrev  0x00000230      0x216 _avrlib/timer.o
+ .debug_abbrev  0x00000446      0x21b _avrlib/uart.o
+ .debug_abbrev  0x00000661      0x1b2 MIDISysexBox.o
 
-.debug_line     0x00000000      0xaee
+.debug_line     0x00000000      0xa86
  *(.debug_line)
- .debug_line    0x00000000      0x17e _avrlib/buffer.o
- .debug_line    0x0000017e      0x177 _avrlib/encoder.o
- .debug_line    0x000002f5      0x325 _avrlib/timer.o
- .debug_line    0x0000061a      0x23a _avrlib/uart.o
- .debug_line    0x00000854      0x29a MIDISysexBox.o
+ .debug_line    0x00000000      0x178 _avrlib/buffer.o
+ .debug_line    0x00000178      0x174 _avrlib/encoder.o
+ .debug_line    0x000002ec      0x2ff _avrlib/timer.o
+ .debug_line    0x000005eb      0x216 _avrlib/uart.o
+ .debug_line    0x00000801      0x285 MIDISysexBox.o
 
-.debug_frame    0x00000000      0x694
+.debug_frame    0x00000000      0x6c4
  *(.debug_frame)
  .debug_frame   0x00000000       0x90 _avrlib/buffer.o
- .debug_frame   0x00000090       0xc0 _avrlib/encoder.o
- .debug_frame   0x00000150      0x350 _avrlib/timer.o
- .debug_frame   0x000004a0      0x1ac _avrlib/uart.o
- .debug_frame   0x0000064c       0x48 MIDISysexBox.o
+ .debug_frame   0x00000090       0xd0 _avrlib/encoder.o
+ .debug_frame   0x00000160      0x358 _avrlib/timer.o
+ .debug_frame   0x000004b8      0x1c4 _avrlib/uart.o
+ .debug_frame   0x0000067c       0x48 MIDISysexBox.o
 
-.debug_str      0x00000000      0x733
+.debug_str      0x00000000      0x737
  *(.debug_str)
  .debug_str     0x00000000      0x199 _avrlib/buffer.o
                                 0x1e0 (size before relaxing)
- .debug_str     0x00000199       0xb7 _avrlib/encoder.o
-                                0x1b3 (size before relaxing)
- .debug_str     0x00000250      0x28f _avrlib/timer.o
+ .debug_str     0x00000199       0xaf _avrlib/encoder.o
+                                0x1b4 (size before relaxing)
+ .debug_str     0x00000248      0x28f _avrlib/timer.o
                                 0x387 (size before relaxing)
- .debug_str     0x000004df      0x1a5 _avrlib/uart.o
-                                0x308 (size before relaxing)
- .debug_str     0x00000684       0xaf MIDISysexBox.o
-                                0x21d (size before relaxing)
+ .debug_str     0x000004d7      0x19e _avrlib/uart.o
+                                0x301 (size before relaxing)
+ .debug_str     0x00000675       0xc2 MIDISysexBox.o
+                                0x243 (size before relaxing)
 
-.debug_loc      0x00000000      0xdf0
+.debug_loc      0x00000000      0xe13
  *(.debug_loc)
- .debug_loc     0x00000000      0x238 _avrlib/buffer.o
- .debug_loc     0x00000238      0x15b _avrlib/encoder.o
- .debug_loc     0x00000393      0x69e _avrlib/timer.o
- .debug_loc     0x00000a31      0x2fd _avrlib/uart.o
- .debug_loc     0x00000d2e       0xc2 MIDISysexBox.o
+ .debug_loc     0x00000000      0x1d8 _avrlib/buffer.o
+ .debug_loc     0x000001d8      0x176 _avrlib/encoder.o
+ .debug_loc     0x0000034e      0x6c5 _avrlib/timer.o
+ .debug_loc     0x00000a13      0x34d _avrlib/uart.o
+ .debug_loc     0x00000d60       0xb3 MIDISysexBox.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -725,13 +715,13 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x220
+.debug_ranges   0x00000000      0x200
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x40 _avrlib/buffer.o
  .debug_ranges  0x00000040       0x38 _avrlib/encoder.o
  .debug_ranges  0x00000078       0xd8 _avrlib/timer.o
- .debug_ranges  0x00000150       0x98 _avrlib/uart.o
- .debug_ranges  0x000001e8       0x38 MIDISysexBox.o
+ .debug_ranges  0x00000150       0x80 _avrlib/uart.o
+ .debug_ranges  0x000001d0       0x30 MIDISysexBox.o
 
 .debug_macro
  *(.debug_macro)
