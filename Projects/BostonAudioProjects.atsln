@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "MIDISysexBox", "MIDISysexBox\MIDISysexBox.cproj", "{5DFFE74B-2845-4173-8DB9-94B2977CEB03}"
 EndProject
+Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "Bawler2_5_CPP", "Bawler2_5_CPP\Bawler2_5_CPP.cppproj", "{0967BACB-CA63-4D22-A17D-5FDA5F50EC16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -13,6 +15,10 @@ Global
 		{5DFFE74B-2845-4173-8DB9-94B2977CEB03}.Debug|AVR.Build.0 = Debug|AVR
 		{5DFFE74B-2845-4173-8DB9-94B2977CEB03}.Release|AVR.ActiveCfg = Release|AVR
 		{5DFFE74B-2845-4173-8DB9-94B2977CEB03}.Release|AVR.Build.0 = Release|AVR
+		{0967BACB-CA63-4D22-A17D-5FDA5F50EC16}.Debug|AVR.ActiveCfg = Debug|AVR
+		{0967BACB-CA63-4D22-A17D-5FDA5F50EC16}.Debug|AVR.Build.0 = Debug|AVR
+		{0967BACB-CA63-4D22-A17D-5FDA5F50EC16}.Release|AVR.ActiveCfg = Release|AVR
+		{0967BACB-CA63-4D22-A17D-5FDA5F50EC16}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

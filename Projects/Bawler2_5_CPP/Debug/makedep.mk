@@ -2,15 +2,9 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-..\..\avrlib\buffer.c
+Bawler2_5_CPP.cpp
 
-..\..\avrlib\encoder.c
+_baplib\FreqGen.cpp
 
-..\..\avrlib\timer.c
-
-..\..\avrlib\uart.c
-
-global.c
-
-MIDISysexBox.c
+_baplib\timercpp.cpp
 

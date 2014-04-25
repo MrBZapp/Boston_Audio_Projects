@@ -2,15 +2,9 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-..\..\avrlib\buffer.c
+BawlerBox2_5.c
 
-..\..\avrlib\encoder.c
+_avrlib\encoder.c
 
-..\..\avrlib\timer.c
-
-..\..\avrlib\uart.c
-
-global.c
-
-MIDISysexBox.c
+_avrlib\timer.c
 

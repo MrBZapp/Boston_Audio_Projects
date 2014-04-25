@@ -41,6 +41,7 @@ C_SRCS +=  \
 ../../../avrlib/encoder.c \
 ../../../avrlib/timer.c \
 ../../../avrlib/uart.c \
+../global.c \
 ../MIDISysexBox.c
 
 
@@ -55,6 +56,7 @@ _avrlib/buffer.o \
 _avrlib/encoder.o \
 _avrlib/timer.o \
 _avrlib/uart.o \
+global.o \
 MIDISysexBox.o
 
 OBJS_AS_ARGS +=  \
@@ -62,6 +64,7 @@ _avrlib/buffer.o \
 _avrlib/encoder.o \
 _avrlib/timer.o \
 _avrlib/uart.o \
+global.o \
 MIDISysexBox.o
 
 C_DEPS +=  \
@@ -69,6 +72,7 @@ _avrlib/buffer.d \
 _avrlib/encoder.d \
 _avrlib/timer.d \
 _avrlib/uart.d \
+global.d \
 MIDISysexBox.d
 
 C_DEPS_AS_ARGS +=  \
@@ -76,6 +80,7 @@ _avrlib/buffer.d \
 _avrlib/encoder.d \
 _avrlib/timer.d \
 _avrlib/uart.d \
+global.d \
 MIDISysexBox.d
 
 OUTPUT_FILE_PATH +=MIDISysexBox.elf
@@ -89,6 +94,8 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 LIB_DEP+= 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

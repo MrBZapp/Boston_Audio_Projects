@@ -13,6 +13,7 @@
 #include <avr/eeprom.h>
 #include "global.h"
 #include "uart.h"
+#include "encoderconf.h"
 #include "encoder.h"
 #include "timer.h"
 

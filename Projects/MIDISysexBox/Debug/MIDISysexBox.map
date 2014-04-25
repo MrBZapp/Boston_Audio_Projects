@@ -102,6 +102,8 @@ Discarded input sections
                 0x00000000        0xa _avrlib/uart.o
  .text.uartReceiveBufferIsEmpty
                 0x00000000       0x14 _avrlib/uart.o
+ .text          0x00000000        0x0 global.o
+ .bss           0x00000000        0x0 global.o
  .text          0x00000000        0x0 MIDISysexBox.o
  .bss           0x00000000        0x0 MIDISysexBox.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_mulsi3.o)
@@ -213,6 +215,7 @@ LOAD _avrlib/buffer.o
 LOAD _avrlib/encoder.o
 LOAD _avrlib/timer.o
 LOAD _avrlib/uart.o
+LOAD global.o
 LOAD MIDISysexBox.o
 START GROUP
 LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/../../../../avr/lib/avr25\libm.a
@@ -509,6 +512,7 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
  .data          0x00800060        0x0 _avrlib/encoder.o
  .data          0x00800060        0x0 _avrlib/timer.o
  .data          0x00800060        0x0 _avrlib/uart.o
+ .data          0x00800060        0x0 global.o
  .data          0x00800060        0x0 MIDISysexBox.o
  .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_mulsi3.o)
  .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.7.2/avr25\libgcc.a(_udivmodhi4.o)
@@ -625,6 +629,7 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
  .comment       0x00000000       0x30 _avrlib/encoder.o
  .comment       0x00000000       0x30 _avrlib/timer.o
  .comment       0x00000000       0x30 _avrlib/uart.o
+ .comment       0x00000000       0x30 global.o
  .comment       0x00000000       0x30 MIDISysexBox.o
 
 .debug
@@ -678,6 +683,7 @@ LOAD c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.2.1002/avr
  .debug_line    0x00000178      0x174 _avrlib/encoder.o
  .debug_line    0x000002ec      0x2ff _avrlib/timer.o
  .debug_line    0x000005eb      0x216 _avrlib/uart.o
+ .debug_line    0x00000801        0x0 global.o
  .debug_line    0x00000801      0x285 MIDISysexBox.o
 
 .debug_frame    0x00000000      0x6c4
