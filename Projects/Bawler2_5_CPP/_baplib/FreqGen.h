@@ -8,6 +8,8 @@
 
 #ifndef FREQGEN_H_
 #define FREQGEN_H_
+#include <avr/io.h>
+#include <math.h>
 #include "timercpp.h"
 
 #define OCA 0x00
@@ -17,7 +19,7 @@
 class Generator_8_Bit {
 	public:
 		//8_Bit_Generator( uint8_t* _outputRegister ); //Constructor without initial frequency
-		Generator_8_Bit( unsigned char output, unsigned int frequency ); //Constructor with initial frequency
+		Generator_8_Bit( unsigned char output, unsigned long frequency ); //Constructor with initial frequency
 		
 		//sets output compare registers to match frequency
 		void SetFrequency( unsigned long frequency ); 
@@ -38,21 +40,21 @@ class Generator_8_Bit {
 class Generator_16_Bit {
 	public:
 		//8_Bit_Generator( uint8_t* _outputRegister ); //Constructor without initial frequency
-		Generator_16_Bit( unsigned char _output, unsigned int _frequency ); //Constructor with initial frequency
+		Generator_16_Bit( unsigned char _output, float _frequency ); //Constructor with initial frequency
 	
 		//sets output compare registers to match frequency
-		void SetFrequency( unsigned long _frequency );
+		void SetFrequency( float _frequency );
 	
 		//Gets the value of the output compare register and translates it to a frequency.
 		unsigned char GetFrequency();
 	
-		// selects between timer 0 output compares.  NOTE: changing the output will not reset DDR.  This must be done manually.
+		// selects between timer 0 output compares.  NOTE: changing the output will not reset B/D port Direction Registers.  This must be done manually.
 		void SetOutput( unsigned char );
 	
 		void SetOCBPhase( unsigned char );
 	protected:
 	private:
-		unsigned char m_Frequency;
+		unsigned long m_Frequency;
 		Timer16 m_Timer;
 };
 

@@ -16,10 +16,13 @@
 
 int main(void)
 {
-	Generator_8_Bit bbd1( OCA ,34 );
 	wdt_disable();
+	//Generator_8_Bit DelayLine( OCA , 4000000 );
+	Timer8 test;
     while(1) //Main Loop
     {
-       // bbd1._GetFrequency();//TODO:: Please write your application code 
+      // DelayLine.SetFrequency( 4 );// bbd1._GetFrequency();//TODO:: Please write your application code
+	  PORTB = test.getTime_NoClear().overs;
     }
+	return 0;
 }
