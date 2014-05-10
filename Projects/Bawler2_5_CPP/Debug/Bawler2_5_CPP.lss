@@ -3,33 +3,33 @@ Bawler2_5_CPP.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000000e8  00000000  00000000  00000094  2**1
+  0 .text         00000200  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000006  00800060  000000e8  0000017c  2**0
+  1 .data         00000006  00800060  00000200  00000294  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000002  00800066  00800066  00000182  2**0
+  2 .bss          00000002  00800066  00800066  0000029a  2**0
                   ALLOC
-  3 .stab         000023ac  00000000  00000000  00000184  2**2
+  3 .stab         000023ac  00000000  00000000  0000029c  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      0000084b  00000000  00000000  00002530  2**0
+  4 .stabstr      0000084b  00000000  00000000  00002648  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .comment      0000002f  00000000  00000000  00002d7b  2**0
+  5 .comment      0000002f  00000000  00000000  00002e93  2**0
                   CONTENTS, READONLY
-  6 .debug_aranges 00000150  00000000  00000000  00002daa  2**0
+  6 .debug_aranges 000001b0  00000000  00000000  00002ec2  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_info   0000145d  00000000  00000000  00002efa  2**0
+  7 .debug_info   00001bbe  00000000  00000000  00003072  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 000007d8  00000000  00000000  00004357  2**0
+  8 .debug_abbrev 00000aba  00000000  00000000  00004c30  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_line   00000799  00000000  00000000  00004b2f  2**0
+  9 .debug_line   00000a47  00000000  00000000  000056ea  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_frame  00000324  00000000  00000000  000052c8  2**2
+ 10 .debug_frame  000003e8  00000000  00000000  00006134  2**2
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_str    000006cc  00000000  00000000  000055ec  2**0
+ 11 .debug_str    00000925  00000000  00000000  0000651c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_loc    00000e75  00000000  00000000  00005cb8  2**0
+ 12 .debug_loc    000010a9  00000000  00000000  00006e41  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_ranges 00000110  00000000  00000000  00006b2d  2**0
+ 13 .debug_ranges 00000178  00000000  00000000  00007eea  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -47,7 +47,7 @@ void Generator_16_Bit::SetFrequency( float frequency ){ //sets output compare re
    6:	2c c0       	rjmp	.+88     	; 0x60 <__bad_interrupt>
    8:	2b c0       	rjmp	.+86     	; 0x60 <__bad_interrupt>
    a:	2a c0       	rjmp	.+84     	; 0x60 <__bad_interrupt>
-   c:	51 c0       	rjmp	.+162    	; 0xb0 <__vector_6>
+   c:	48 c0       	rjmp	.+144    	; 0x9e <__vector_6>
    e:	28 c0       	rjmp	.+80     	; 0x60 <__bad_interrupt>
   10:	27 c0       	rjmp	.+78     	; 0x60 <__bad_interrupt>
   12:	26 c0       	rjmp	.+76     	; 0x60 <__bad_interrupt>
@@ -68,7 +68,7 @@ void Generator_16_Bit::SetFrequency( float frequency ){ //sets output compare re
 
 0000002a <__ctors_end>:
   2a:	11 24       	eor	r1, r1
-		m_Timer.SetPrescale( TIMER_CLK_DIV1 );
+		m_Timer.setPrescale( TIMER_CLK_DIV1 );
   2c:	1f be       	out	0x3f, r1	; 63
   2e:	cf e5       	ldi	r28, 0x5F	; 95
   30:	d1 e0       	ldi	r29, 0x01	; 1
@@ -90,7 +90,7 @@ void Generator_16_Bit::SetFrequency( float frequency ){ //sets output compare re
 0000003e <.do_clear_bss_loop>:
 	// Calculate the appropriate prescale
 	if ( frequency > (F_CPU/0xFFFF) ){
-		m_Timer.SetPrescale( TIMER_CLK_DIV1 );
+		m_Timer.setPrescale( TIMER_CLK_DIV1 );
 	}
 	else if ( frequency > ((F_CPU/8)/0xFFFF) ){
   3e:	1d 92       	st	X+, r1
@@ -104,9 +104,9 @@ void Generator_16_Bit::SetFrequency( float frequency ){ //sets output compare re
   46:	10 e0       	ldi	r17, 0x00	; 0
   48:	a0 e6       	ldi	r26, 0x60	; 96
   4a:	b0 e0       	ldi	r27, 0x00	; 0
-  4c:	e8 ee       	ldi	r30, 0xE8	; 232
-  4e:	f0 e0       	ldi	r31, 0x00	; 0
-		m_Timer.SetPrescale( TIMER_CLK_DIV8 );
+  4c:	e0 e0       	ldi	r30, 0x00	; 0
+  4e:	f2 e0       	ldi	r31, 0x02	; 2
+		m_Timer.setPrescale( TIMER_CLK_DIV8 );
   50:	02 c0       	rjmp	.+4      	; 0x56 <__do_copy_data+0x10>
   52:	05 90       	lpm	r0, Z+
   54:	0d 92       	st	X+, r0
@@ -115,7 +115,7 @@ void Generator_16_Bit::SetFrequency( float frequency ){ //sets output compare re
   58:	b1 07       	cpc	r27, r17
   5a:	d9 f7       	brne	.-10     	; 0x52 <__do_copy_data+0xc>
   5c:	02 d0       	rcall	.+4      	; 0x62 <main>
-  5e:	42 c0       	rjmp	.+132    	; 0xe4 <_exit>
+  5e:	ce c0       	rjmp	.+412    	; 0x1fc <_exit>
 
 00000060 <__bad_interrupt>:
   60:	cf cf       	rjmp	.-98     	; 0x0 <__vectors>
@@ -126,87 +126,365 @@ void Generator_16_Bit::SetFrequency( float frequency ){ //sets output compare re
 	else if ( frequency > ((F_CPU/64)/0xFFFF) ){
   64:	df 93       	push	r29
   66:	00 d0       	rcall	.+0      	; 0x68 <main+0x6>
-  68:	cd b7       	in	r28, 0x3d	; 61
-  6a:	de b7       	in	r29, 0x3e	; 62
-  6c:	88 e1       	ldi	r24, 0x18	; 24
-  6e:	0f b6       	in	r0, 0x3f	; 63
-  70:	f8 94       	cli
-  72:	81 bd       	out	0x21, r24	; 33
-  74:	11 bc       	out	0x21, r1	; 33
-		m_Timer.SetPrescale( TIMER_CLK_DIV64 );
-  76:	0f be       	out	0x3f, r0	; 63
-  78:	8e 01       	movw	r16, r28
-  7a:	0f 5f       	subi	r16, 0xFF	; 255
-  7c:	1f 4f       	sbci	r17, 0xFF	; 255
+  68:	1f 92       	push	r1
+  6a:	cd b7       	in	r28, 0x3d	; 61
+  6c:	de b7       	in	r29, 0x3e	; 62
+  6e:	88 e1       	ldi	r24, 0x18	; 24
+  70:	0f b6       	in	r0, 0x3f	; 63
+  72:	f8 94       	cli
+  74:	81 bd       	out	0x21, r24	; 33
+		m_Timer.setPrescale( TIMER_CLK_DIV64 );
+  76:	11 bc       	out	0x21, r1	; 33
+  78:	0f be       	out	0x3f, r0	; 63
+  7a:	8e 01       	movw	r16, r28
+  7c:	0d 5f       	subi	r16, 0xFD	; 253
 		prescale = 64;
-  7e:	c8 01       	movw	r24, r16
-  80:	04 d0       	rcall	.+8      	; 0x8a <_ZN6Timer8C1Ev>
-  82:	c8 01       	movw	r24, r16
-  84:	0f d0       	rcall	.+30     	; 0xa4 <_ZN6Timer815getTime_NoClearEv>
-  86:	98 bb       	out	0x18, r25	; 24
-  88:	fc cf       	rjmp	.-8      	; 0x82 <main+0x20>
-
-0000008a <_ZN6Timer8C1Ev>:
+  7e:	1f 4f       	sbci	r17, 0xFF	; 255
+  80:	c8 01       	movw	r24, r16
+  82:	32 d0       	rcall	.+100    	; 0xe8 <_ZN10TWI_MasterC1Ev>
+  84:	8f e0       	ldi	r24, 0x0F	; 15
+  86:	e8 2e       	mov	r14, r24
+  88:	90 ef       	ldi	r25, 0xF0	; 240
 	}
 	else if ( frequency > ((F_CPU/256)/0xFFFF) ){
-  8a:	23 b7       	in	r18, 0x33	; 51
-  8c:	28 7f       	andi	r18, 0xF8	; 248
-  8e:	21 60       	ori	r18, 0x01	; 1
-  90:	23 bf       	out	0x33, r18	; 51
-  92:	12 be       	out	0x32, r1	; 50
-  94:	90 93 67 00 	sts	0x0067, r25
-  98:	80 93 66 00 	sts	0x0066, r24
-  9c:	82 e0       	ldi	r24, 0x02	; 2
-  9e:	89 bf       	out	0x39, r24	; 57
-		m_Timer.SetPrescale( TIMER_CLK_DIV256 );
-  a0:	78 94       	sei
-  a2:	08 95       	ret
+  8a:	f9 2e       	mov	r15, r25
+  8c:	e9 82       	std	Y+1, r14	; 0x01
+  8e:	fa 82       	std	Y+2, r15	; 0x02
+  90:	42 e0       	ldi	r20, 0x02	; 2
+  92:	be 01       	movw	r22, r28
+  94:	6f 5f       	subi	r22, 0xFF	; 255
+  96:	7f 4f       	sbci	r23, 0xFF	; 255
+  98:	c8 01       	movw	r24, r16
+  9a:	69 d0       	rcall	.+210    	; 0x16e <_ZN10TWI_Master13sendDataBytesEPhh>
+  9c:	f7 cf       	rjmp	.-18     	; 0x8c <main+0x2a>
 
-000000a4 <_ZN6Timer815getTime_NoClearEv>:
-  a4:	fc 01       	movw	r30, r24
+0000009e <__vector_6>:
+  9e:	1f 92       	push	r1
+		m_Timer.setPrescale( TIMER_CLK_DIV256 );
+  a0:	0f 92       	push	r0
+  a2:	0f b6       	in	r0, 0x3f	; 63
+  a4:	0f 92       	push	r0
 		prescale = 256;
-  a6:	82 b7       	in	r24, 0x32	; 50
-  a8:	80 83       	st	Z, r24
-  aa:	80 81       	ld	r24, Z
-  ac:	91 81       	ldd	r25, Z+1	; 0x01
-  ae:	08 95       	ret
-
-000000b0 <__vector_6>:
+  a6:	11 24       	eor	r1, r1
+  a8:	8f 93       	push	r24
+  aa:	ef 93       	push	r30
+  ac:	ff 93       	push	r31
+  ae:	e0 91 66 00 	lds	r30, 0x0066
 	}
 	else {
-		m_Timer.SetPrescale( TIMER_CLK_DIV1024 );
-  b0:	1f 92       	push	r1
-  b2:	0f 92       	push	r0
-  b4:	0f b6       	in	r0, 0x3f	; 63
+		m_Timer.setPrescale( TIMER_CLK_DIV1024 );
+  b2:	f0 91 67 00 	lds	r31, 0x0067
 		prescale = 1024;
-  b6:	0f 92       	push	r0
-  b8:	11 24       	eor	r1, r1
-  ba:	8f 93       	push	r24
-  bc:	ef 93       	push	r30
-  be:	ff 93       	push	r31
+  b6:	81 81       	ldd	r24, Z+1	; 0x01
+  b8:	8f 5f       	subi	r24, 0xFF	; 255
+  ba:	81 83       	std	Z+1, r24	; 0x01
+  bc:	82 e0       	ldi	r24, 0x02	; 2
+  be:	89 bf       	out	0x39, r24	; 57
 		
 	}
 	// Calculate the mask and output
 	m_Frequency = (unsigned long) ( F_CPU / ((frequency * 2 * prescale) ) - 1 );
-  c0:	e0 91 66 00 	lds	r30, 0x0066
-  c4:	f0 91 67 00 	lds	r31, 0x0067
-  c8:	81 81       	ldd	r24, Z+1	; 0x01
-  ca:	8f 5f       	subi	r24, 0xFF	; 255
-  cc:	81 83       	std	Z+1, r24	; 0x01
-  ce:	82 e0       	ldi	r24, 0x02	; 2
-  d0:	89 bf       	out	0x39, r24	; 57
-  d2:	78 94       	sei
-  d4:	ff 91       	pop	r31
-  d6:	ef 91       	pop	r30
-  d8:	8f 91       	pop	r24
-  da:	0f 90       	pop	r0
-  dc:	0f be       	out	0x3f, r0	; 63
-  de:	0f 90       	pop	r0
-  e0:	1f 90       	pop	r1
-  e2:	18 95       	reti
+  c0:	78 94       	sei
+  c2:	ff 91       	pop	r31
+  c4:	ef 91       	pop	r30
+  c6:	8f 91       	pop	r24
+  c8:	0f 90       	pop	r0
+  ca:	0f be       	out	0x3f, r0	; 63
+  cc:	0f 90       	pop	r0
+  ce:	1f 90       	pop	r1
+  d0:	18 95       	reti
 
-000000e4 <_exit>:
-  e4:	f8 94       	cli
+000000d2 <_ZN10TWI_Master10usiStartupEv>:
+  d2:	c5 9a       	sbi	0x18, 5	; 24
+  d4:	c7 9a       	sbi	0x18, 7	; 24
+  d6:	bf 9a       	sbi	0x17, 7	; 23
+  d8:	bd 9a       	sbi	0x17, 5	; 23
+  da:	8f ef       	ldi	r24, 0xFF	; 255
+  dc:	8f b9       	out	0x0f, r24	; 15
+  de:	8a e2       	ldi	r24, 0x2A	; 42
+  e0:	8d b9       	out	0x0d, r24	; 13
+  e2:	80 ef       	ldi	r24, 0xF0	; 240
+  e4:	8e b9       	out	0x0e, r24	; 14
+  e6:	08 95       	ret
 
-000000e6 <__stop_program>:
-  e6:	ff cf       	rjmp	.-2      	; 0xe6 <__stop_program>
+000000e8 <_ZN10TWI_MasterC1Ev>:
+  e8:	f4 cf       	rjmp	.-24     	; 0xd2 <_ZN10TWI_Master10usiStartupEv>
+
+000000ea <_ZN10TWI_Master13sendStartCondEv>:
+  ea:	c7 9a       	sbi	0x18, 7	; 24
+  ec:	c7 9b       	sbis	0x18, 7	; 24
+  ee:	fe cf       	rjmp	.-4      	; 0xec <_ZN10TWI_Master13sendStartCondEv+0x2>
+  f0:	8d e0       	ldi	r24, 0x0D	; 13
+  f2:	8a 95       	dec	r24
+  f4:	f1 f7       	brne	.-4      	; 0xf2 <_ZN10TWI_Master13sendStartCondEv+0x8>
+  f6:	00 00       	nop
+  f8:	c5 98       	cbi	0x18, 5	; 24
+  fa:	8a e0       	ldi	r24, 0x0A	; 10
+  fc:	8a 95       	dec	r24
+  fe:	f1 f7       	brne	.-4      	; 0xfc <_ZN10TWI_Master13sendStartCondEv+0x12>
+	OCR1A = m_Frequency;
+ 100:	00 c0       	rjmp	.+0      	; 0x102 <_ZN10TWI_Master13sendStartCondEv+0x18>
+ 102:	c7 98       	cbi	0x18, 7	; 24
+	OCR1B = m_Frequency; //If you ever want to have A/B out of phase, add some math here.
+ 104:	c5 9a       	sbi	0x18, 5	; 24
+ 106:	8e b1       	in	r24, 0x0e	; 14
+	TCNT1 = 0x0000;
+ 108:	88 1f       	adc	r24, r24
+ 10a:	88 27       	eor	r24, r24
+}
+ 10c:	88 1f       	adc	r24, r24
+ 10e:	08 95       	ret
+
+00000110 <_ZN10TWI_Master13startTransferEh>:
+ 110:	6e b9       	out	0x0e, r22	; 14
+ 112:	8b e2       	ldi	r24, 0x2B	; 43
+ 114:	9d e0       	ldi	r25, 0x0D	; 13
+ 116:	9a 95       	dec	r25
+ 118:	f1 f7       	brne	.-4      	; 0x116 <_ZN10TWI_Master13startTransferEh+0x6>
+ 11a:	00 00       	nop
+ 11c:	8d b9       	out	0x0d, r24	; 13
+ 11e:	c7 9b       	sbis	0x18, 7	; 24
+ 120:	fe cf       	rjmp	.-4      	; 0x11e <_ZN10TWI_Master13startTransferEh+0xe>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 122:	9a e0       	ldi	r25, 0x0A	; 10
+ 124:	9a 95       	dec	r25
+ 126:	f1 f7       	brne	.-4      	; 0x124 <_ZN10TWI_Master13startTransferEh+0x14>
+ 128:	00 c0       	rjmp	.+0      	; 0x12a <_ZN10TWI_Master13startTransferEh+0x1a>
+	do{
+		_delay_us(T2_TWI);
+		USICR = temp;                       // Generate positive SCL edge.
+		while( !(SCL_PORT & (1<<SCL_BIT)) );// Wait for SCL to go high.
+		_delay_us(T4_TWI);
+		USICR = temp;                       // Generate negative SCL edge.
+ 12a:	8d b9       	out	0x0d, r24	; 13
+	temp =  (0<<USISIE)|(0<<USIOIE)|				// Interrupts disabled
+			(1<<USIWM1)|(0<<USIWM0)|                // Set USI in Two-wire mode.
+			(1<<USICS1)|(0<<USICS0)|(1<<USICLK)|    // Software clock strobe as source.
+			(1<<USITC);                             // Toggle Clock Port.
+	
+	do{
+ 12c:	76 9b       	sbis	0x0e, 6	; 14
+ 12e:	f2 cf       	rjmp	.-28     	; 0x114 <_ZN10TWI_Master13startTransferEh+0x4>
+ 130:	8d e0       	ldi	r24, 0x0D	; 13
+ 132:	8a 95       	dec	r24
+ 134:	f1 f7       	brne	.-4      	; 0x132 <_ZN10TWI_Master13startTransferEh+0x22>
+ 136:	00 00       	nop
+		_delay_us(T4_TWI);
+		USICR = temp;                       // Generate negative SCL edge.
+	} while( !(USISR & (1<<USIOIF)) );       // Check for transfer complete.
+	
+	_delay_us(T2_TWI);
+	temp  = USIDR;                          // Read out data.
+ 138:	8f b1       	in	r24, 0x0f	; 15
+	USIDR = 0xFF;                           // Release SDA.
+ 13a:	9f ef       	ldi	r25, 0xFF	; 255
+ 13c:	9f b9       	out	0x0f, r25	; 15
+	DI_DDR |= (1<<DI_BIT);					// Enable SDA as output.
+ 13e:	bd 9a       	sbi	0x17, 5	; 23
+
+	return temp;                            // Return the data from the USIDR
+}
+ 140:	08 95       	ret
+
+00000142 <_ZN10TWI_Master12sendStopCondEv>:
+
+bool TWI_Master::sendStopCond(){
+	DI_PORT &= ~(1<<DI_BIT);           // Pull SDA low.
+ 142:	c5 98       	cbi	0x18, 5	; 24
+	SCL_PORT |= (1<<SCL_BIT);            // Release SCL.
+ 144:	c7 9a       	sbi	0x18, 7	; 24
+	while( !(SCL_PORT & (1<<SCL_BIT)) );  // Wait for SCL to go high.
+ 146:	c7 9b       	sbis	0x18, 7	; 24
+ 148:	fe cf       	rjmp	.-4      	; 0x146 <_ZN10TWI_Master12sendStopCondEv+0x4>
+ 14a:	2a e0       	ldi	r18, 0x0A	; 10
+ 14c:	2a 95       	dec	r18
+ 14e:	f1 f7       	brne	.-4      	; 0x14c <_ZN10TWI_Master12sendStopCondEv+0xa>
+ 150:	00 c0       	rjmp	.+0      	; 0x152 <_ZN10TWI_Master12sendStopCondEv+0x10>
+	_delay_us(T4_TWI);
+	DI_PORT |= (1<<DI_BIT);            // Release SDA.
+ 152:	c5 9a       	sbi	0x18, 5	; 24
+ 154:	ed e0       	ldi	r30, 0x0D	; 13
+ 156:	ea 95       	dec	r30
+ 158:	f1 f7       	brne	.-4      	; 0x156 <_ZN10TWI_Master12sendStopCondEv+0x14>
+ 15a:	00 00       	nop
+	_delay_us(T2_TWI);
+	
+	if( !(USISR & (1<<USIPF)) ){
+ 15c:	75 99       	sbic	0x0e, 5	; 14
+ 15e:	05 c0       	rjmp	.+10     	; 0x16a <__stack+0xb>
+		state_twi.errors = MISSING_STOP_CON;
+ 160:	24 e0       	ldi	r18, 0x04	; 4
+ 162:	fc 01       	movw	r30, r24
+ 164:	20 83       	st	Z, r18
+		return false;
+ 166:	80 e0       	ldi	r24, 0x00	; 0
+ 168:	08 95       	ret
+	}
+	return true;
+ 16a:	81 e0       	ldi	r24, 0x01	; 1
+}
+ 16c:	08 95       	ret
+
+0000016e <_ZN10TWI_Master13sendDataBytesEPhh>:
+
+TWI_Master::TWI_Master(){
+	this->usiStartup();
+}
+
+bool TWI_Master::sendDataBytes( unsigned char* messageStart, unsigned char messageSize ){
+ 16e:	ef 92       	push	r14
+ 170:	ff 92       	push	r15
+ 172:	0f 93       	push	r16
+ 174:	1f 93       	push	r17
+ 176:	cf 93       	push	r28
+ 178:	df 93       	push	r29
+ 17a:	ec 01       	movw	r28, r24
+ 17c:	8b 01       	movw	r16, r22
+ 17e:	f4 2e       	mov	r15, r20
+	//Local Variables for shifting bytes or (N)ACK bytes
+	unsigned char const tempUSISR_8bit = (1<<USISIF)|(1<<USIOIF)|(1<<USIPF)|(1<<USIDC)|	(0x0<<USICNT0);	// Prepare register value to clear flags, and set USI to shift 8 bits i.e. count 16 clock edges.
+	unsigned char const tempUSISR_1bit = (1<<USISIF)|(1<<USIOIF)|(1<<USIPF)|(1<<USIDC)|	(0xE<<USICNT0);	// Prepare register value to clear flags, and set USI to shift 1 bit i.e. count 2 clock edges.
+	state_twi.addressMode = true; // Always send address first
+ 180:	88 81       	ld	r24, Y
+ 182:	81 60       	ori	r24, 0x01	; 1
+ 184:	88 83       	st	Y, r24
+	
+	//Sanity Check
+	if( (messageStart + messageSize) > (unsigned char*) RAMEND){ // Test if any of the message is outside SRAM space.
+ 186:	cb 01       	movw	r24, r22
+ 188:	84 0f       	add	r24, r20
+ 18a:	91 1d       	adc	r25, r1
+ 18c:	80 36       	cpi	r24, 0x60	; 96
+ 18e:	91 40       	sbci	r25, 0x01	; 1
+ 190:	10 f0       	brcs	.+4      	; 0x196 <_ZN10TWI_Master13sendDataBytesEPhh+0x28>
+		state_twi.errors = DATA_OUT_OF_BOUND;
+ 192:	89 e0       	ldi	r24, 0x09	; 9
+ 194:	1c c0       	rjmp	.+56     	; 0x1ce <_ZN10TWI_Master13sendDataBytesEPhh+0x60>
+		state_twi.errors = UNEXPECTED_DATA_COL;
+		return false;
+	}
+#endif
+
+	if ( !this->sendStartCond() ){ //send a start condition and continue only if the condition is successfully sent
+ 196:	ce 01       	movw	r24, r28
+ 198:	a8 df       	rcall	.-176    	; 0xea <_ZN10TWI_Master13sendStartCondEv>
+ 19a:	88 23       	and	r24, r24
+ 19c:	39 f1       	breq	.+78     	; 0x1ec <_ZN10TWI_Master13sendDataBytesEPhh+0x7e>
+	      
+		//ACK from slave
+		DI_DDR  &= ~(1<<DI_BIT);                // Enable SDA as input.
+		if( !this->startTransfer( tempUSISR_1bit ) & (1<<TWI_NACK_BIT) ) { //check feedback and throw errors based on current send mode
+			if ( state_twi.addressMode ){
+				state_twi.errors = NO_ACK_ON_ADDRESS;
+ 19e:	ee 24       	eor	r14, r14
+ 1a0:	e3 94       	inc	r14
+
+TWI_Master::TWI_Master(){
+	this->usiStartup();
+}
+
+bool TWI_Master::sendDataBytes( unsigned char* messageStart, unsigned char messageSize ){
+ 1a2:	f0 0e       	add	r15, r16
+ 1a4:	f3 94       	inc	r15
+		return false;
+	}
+	
+	// Write the message
+	do{
+		SCL_PORT &= ~(1<<SCL_BIT);              // Pull SCL LOW.
+ 1a6:	c7 98       	cbi	0x18, 7	; 24
+		USIDR = *(messageStart++);              // load data, prepare next byte in the message
+ 1a8:	f8 01       	movw	r30, r16
+ 1aa:	81 91       	ld	r24, Z+
+ 1ac:	8f 01       	movw	r16, r30
+ 1ae:	8f b9       	out	0x0f, r24	; 15
+		this->startTransfer( tempUSISR_8bit );  // Send 8 bits on bus.
+ 1b0:	60 ef       	ldi	r22, 0xF0	; 240
+ 1b2:	ce 01       	movw	r24, r28
+ 1b4:	ad df       	rcall	.-166    	; 0x110 <_ZN10TWI_Master13startTransferEh>
+	      
+		//ACK from slave
+		DI_DDR  &= ~(1<<DI_BIT);                // Enable SDA as input.
+ 1b6:	bd 98       	cbi	0x17, 5	; 23
+		if( !this->startTransfer( tempUSISR_1bit ) & (1<<TWI_NACK_BIT) ) { //check feedback and throw errors based on current send mode
+ 1b8:	6e ef       	ldi	r22, 0xFE	; 254
+ 1ba:	ce 01       	movw	r24, r28
+ 1bc:	a9 df       	rcall	.-174    	; 0x110 <_ZN10TWI_Master13startTransferEh>
+ 1be:	81 11       	cpse	r24, r1
+ 1c0:	08 c0       	rjmp	.+16     	; 0x1d2 <_ZN10TWI_Master13sendDataBytesEPhh+0x64>
+			if ( state_twi.addressMode ){
+ 1c2:	88 81       	ld	r24, Y
+ 1c4:	80 ff       	sbrs	r24, 0
+ 1c6:	02 c0       	rjmp	.+4      	; 0x1cc <_ZN10TWI_Master13sendDataBytesEPhh+0x5e>
+				state_twi.errors = NO_ACK_ON_ADDRESS;
+ 1c8:	e8 82       	st	Y, r14
+ 1ca:	03 c0       	rjmp	.+6      	; 0x1d2 <_ZN10TWI_Master13sendDataBytesEPhh+0x64>
+			} else {
+				state_twi.errors = NO_ACK_ON_DATA;
+ 1cc:	82 e0       	ldi	r24, 0x02	; 2
+ 1ce:	88 83       	st	Y, r24
+				return false;
+ 1d0:	0d c0       	rjmp	.+26     	; 0x1ec <_ZN10TWI_Master13sendDataBytesEPhh+0x7e>
+			}
+		}
+		state_twi.addressMode = false; //after the first message turn off addresss mode
+ 1d2:	88 81       	ld	r24, Y
+ 1d4:	8e 7f       	andi	r24, 0xFE	; 254
+ 1d6:	88 83       	st	Y, r24
+	if ( !this->sendStartCond() ){ //send a start condition and continue only if the condition is successfully sent
+		return false;
+	}
+	
+	// Write the message
+	do{
+ 1d8:	f0 12       	cpse	r15, r16
+ 1da:	e5 cf       	rjmp	.-54     	; 0x1a6 <_ZN10TWI_Master13sendDataBytesEPhh+0x38>
+			}
+		}
+		state_twi.addressMode = false; //after the first message turn off addresss mode
+	} while ( messageSize--);
+
+	if ( !this->sendStopCond() ){
+ 1dc:	ce 01       	movw	r24, r28
+		return false; 
+	}
+	
+	return true;
+}
+ 1de:	df 91       	pop	r29
+ 1e0:	cf 91       	pop	r28
+ 1e2:	1f 91       	pop	r17
+ 1e4:	0f 91       	pop	r16
+ 1e6:	ff 90       	pop	r15
+ 1e8:	ef 90       	pop	r14
+			}
+		}
+		state_twi.addressMode = false; //after the first message turn off addresss mode
+	} while ( messageSize--);
+
+	if ( !this->sendStopCond() ){
+ 1ea:	ab cf       	rjmp	.-170    	; 0x142 <_ZN10TWI_Master12sendStopCondEv>
+		return false; 
+	}
+	
+	return true;
+}
+ 1ec:	80 e0       	ldi	r24, 0x00	; 0
+ 1ee:	df 91       	pop	r29
+ 1f0:	cf 91       	pop	r28
+ 1f2:	1f 91       	pop	r17
+ 1f4:	0f 91       	pop	r16
+ 1f6:	ff 90       	pop	r15
+ 1f8:	ef 90       	pop	r14
+ 1fa:	08 95       	ret
+
+000001fc <_exit>:
+ 1fc:	f8 94       	cli
+
+000001fe <__stop_program>:
+ 1fe:	ff cf       	rjmp	.-2      	; 0x1fe <__stop_program>

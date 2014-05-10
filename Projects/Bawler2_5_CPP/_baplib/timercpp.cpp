@@ -16,8 +16,9 @@
 **	8-Bit Timer Class Methods	**
 **							**
 **********************************/
-//static Timer8 interruptAccess;
 
+
+/////////////Operational Methods /////////////
 
 Timer8* Timer8::accessTOIE0 = 0;
 
@@ -38,13 +39,34 @@ Timer8::Timer8( uint8_t prescale ){
 	// 	timer0ClearOverflowCount();
 };
 
+void Timer8::pause(){
+	TCCR0B =  ( (TCCR0B & ~TIMER_PRESCALE_MASK ) | TIMER_CLK_STOP );
+	m_Time.count = TCNT0;
+}
+
+void Timer8::stop(){
+	TCCR0B = ( (TCCR0B & ~TIMER_PRESCALE_MASK ) | TIMER_CLK_STOP );
+	 // Clear count and time.
+	TCNT0 = 0x00;
+	m_Time.count = 0x00;
+	m_Time.overs = 0x00;
+	// disable interrupt
+	TIMSK = (0 << TOIE0 );
+}
 void Timer8::setPrescale( unsigned char prescale ){
+	m_Prescale = prescale;
 	TCCR0B = ( (TCCR0B & ~TIMER_PRESCALE_MASK) | prescale );
 	};	
 	
 unsigned char Timer8::getPrescale(){
-	return (TCCR0B & TIMER_PRESCALE_MASK);
+	return m_Prescale;//(TCCR0B & TIMER_PRESCALE_MASK);
 	};
+
+void Timer8::start(){
+
+}
+
+//////////// Access Methods /////////////
 
  void Timer8::updateTime(){
 	m_Time.count = TCNT0;	 
@@ -67,6 +89,9 @@ time Timer8::getTime_NoClear(){
 	this->updateTime();
 	return m_Time;
 }
+
+/////////////Interrupts///////////////
+
 void TIMER0_OVF_vect(){
 	Timer8::accessTOIE0->m_Time.overs++;
 	TIMSK = (1<< TOIE0);
@@ -92,10 +117,10 @@ Timer16::Timer16( uint8_t prescale ){
 	// 	timer0ClearOverflowCount();
 };
 
-void Timer16::SetPrescale( unsigned char prescale ){
+void Timer16::setPrescale( unsigned char prescale ){
 	TCCR1B = ( (TCCR1B & ~TIMER_PRESCALE_MASK) | prescale );
 };
 
-unsigned char Timer16::GetPrescale(){
+unsigned char Timer16::getPrescale(){
 	return (TCCR0B & ~TIMER_PRESCALE_MASK);
 };

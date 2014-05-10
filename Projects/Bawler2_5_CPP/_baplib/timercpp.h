@@ -78,7 +78,7 @@
 #define TIMERRTC_CLK_DIV1024	0x07	///< RTC Timer clocked at F_CPU/1024
 #define TIMERRTC_PRESCALE_MASK	0x07	///< RTC Timer Prescaler Bit-Mask
 
-extern "C" void  TIMER0_OVF_vect(void) __attribute__ ((signal));
+extern "C" void  TIMER0_OVF_vect(void) __attribute__ ((signal)); //required for 
 struct time{
 	volatile char count;
 	char overs;
@@ -86,29 +86,36 @@ struct time{
 
 class Timer8 {
 	public:
+	//operational methods
 		Timer8();
 		explicit Timer8( unsigned char prescale );
 		static Timer8* accessTOIE0;
-		friend void TIMER0_OVF_vect();// Intterupt Service Routine for Timer overflow
 		void enableInterrupt();
-		unsigned char getPrescale();
+		void pause();
+		void start();
+		void stop();
 		void setPrescale( unsigned char prescale );
+		unsigned char getPrescale();
+	//access methods
 		time getTime();
 		time getTime_NoClear();
 		time getTime_NoUpdates();
+	//ISR
+		friend void TIMER0_OVF_vect();// Intterupt Service Routine for Timer overflow
 	protected:
-	
 		void updateTime();
 	private:
+		
 		time m_Time;
+		unsigned char m_Prescale;
 	};
 
 class Timer16 {
 	public:
 		Timer16();
 		explicit Timer16( unsigned char prescale );
-		unsigned char GetPrescale();
-		void SetPrescale( unsigned char prescale );
+		unsigned char getPrescale();
+		void setPrescale( unsigned char prescale );
 	protected:
 	private:
 };

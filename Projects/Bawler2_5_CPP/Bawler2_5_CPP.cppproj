@@ -152,6 +152,12 @@
     <Compile Include="_baplib\timercpp.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="_baplib\TWI.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\TWI.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="_baplib" />

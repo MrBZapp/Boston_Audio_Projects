@@ -5,24 +5,39 @@
  *  Author: Matt
  */ 
 
-
 #include <avr/io.h>
 #include <stdint.h>
 #include <avr/wdt.h>
 #include "_cplusplus.h"
 #include "_baplib/FreqGen.h"
+#include "_baplib/timercpp.h"
+#include "_baplib/TWI.h"
 
-//#include "timercpp.h"
+// program variables
+//bbd1 tempo
+//bbd2 tempo
+// 
 
 int main(void)
 {
 	wdt_disable();
 	//Generator_8_Bit DelayLine( OCA , 4000000 );
-	Timer8 test;
+	
+	TWI_Master test2;
+//	Timer8 test;
+	/* open USI channels to slaves 
+	 * set pc interrupts for:
+		*relays
+		* tap tempo
+	*/
     while(1) //Main Loop
     {
-      // DelayLine.SetFrequency( 4 );// bbd1._GetFrequency();//TODO:: Please write your application code
-	  PORTB = test.getTime_NoClear().overs;
+		unsigned char Foo[2] = {0x0F, 0xF0};
+		//unsigned char* Bar = &Foo;
+		test2.sendDataBytes( Foo, 2 );
+      //check activation buttons
+	  //set relays
+	  
     }
 	return 0;
 }

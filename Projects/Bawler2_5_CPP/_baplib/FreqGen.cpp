@@ -69,22 +69,22 @@ void Generator_16_Bit::SetFrequency( float frequency ){ //sets output compare re
 	unsigned long prescale = 1;
 	// Calculate the appropriate prescale
 	if ( frequency > (F_CPU/0xFFFF) ){
-		m_Timer.SetPrescale( TIMER_CLK_DIV1 );
+		m_Timer.setPrescale( TIMER_CLK_DIV1 );
 	}
 	else if ( frequency > ((F_CPU/8)/0xFFFF) ){
-		m_Timer.SetPrescale( TIMER_CLK_DIV8 );
+		m_Timer.setPrescale( TIMER_CLK_DIV8 );
 		prescale = 8;
 	}
 	else if ( frequency > ((F_CPU/64)/0xFFFF) ){
-		m_Timer.SetPrescale( TIMER_CLK_DIV64 );
+		m_Timer.setPrescale( TIMER_CLK_DIV64 );
 		prescale = 64;
 	}
 	else if ( frequency > ((F_CPU/256)/0xFFFF) ){
-		m_Timer.SetPrescale( TIMER_CLK_DIV256 );
+		m_Timer.setPrescale( TIMER_CLK_DIV256 );
 		prescale = 256;
 	}
 	else {
-		m_Timer.SetPrescale( TIMER_CLK_DIV1024 );
+		m_Timer.setPrescale( TIMER_CLK_DIV1024 );
 		prescale = 1024;
 		
 	}

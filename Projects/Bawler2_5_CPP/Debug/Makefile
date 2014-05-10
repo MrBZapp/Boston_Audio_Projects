@@ -39,7 +39,8 @@ SUBDIRS :=  \
 C_SRCS +=  \
 ../Bawler2_5_CPP.cpp \
 ../_baplib/FreqGen.cpp \
-../_baplib/timercpp.cpp
+../_baplib/timercpp.cpp \
+../_baplib/TWI.cpp
 
 
 PREPROCESSING_SRCS += 
@@ -51,22 +52,26 @@ ASM_SRCS +=
 OBJS +=  \
 Bawler2_5_CPP.o \
 _baplib/FreqGen.o \
-_baplib/timercpp.o
+_baplib/timercpp.o \
+_baplib/TWI.o
 
 OBJS_AS_ARGS +=  \
 Bawler2_5_CPP.o \
 _baplib/FreqGen.o \
-_baplib/timercpp.o
+_baplib/timercpp.o \
+_baplib/TWI.o
 
 C_DEPS +=  \
 Bawler2_5_CPP.d \
 _baplib/FreqGen.d \
-_baplib/timercpp.d
+_baplib/timercpp.d \
+_baplib/TWI.d
 
 C_DEPS_AS_ARGS +=  \
 Bawler2_5_CPP.d \
 _baplib/FreqGen.d \
-_baplib/timercpp.d
+_baplib/timercpp.d \
+_baplib/TWI.d
 
 OUTPUT_FILE_PATH +=Bawler2_5_CPP.elf
 
@@ -79,6 +84,8 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 LIB_DEP+= 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
