@@ -73,8 +73,7 @@ void bufferDumpFromFront(cBuffer* buffer, unsigned short numbytes)
 	CRITICAL_SECTION_START;
 	// dump numbytes from the front of the buffer
 	// are we dumping less than the entire buffer?
-	if(numbytes < buffer->datalength)
-	{
+	if(numbytes < buffer->datalength){
 		// move index down by numbytes and decrement length by numbytes
 		buffer->dataindex += numbytes;
 		if(buffer->dataindex >= buffer->size)

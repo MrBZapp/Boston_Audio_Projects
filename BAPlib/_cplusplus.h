@@ -4,7 +4,7 @@
  * Created: 1/16/2013 11:33:56 AM
  *  Author: Mike
  */ 
-
+#pragma once
 #ifndef _CPLUSPLUS_H_
 #define _CPLUSPLUS_H_
 

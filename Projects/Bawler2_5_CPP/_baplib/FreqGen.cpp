@@ -12,13 +12,13 @@
 // unsigned char m_Frequency = 0xFF;
 // Timer8 m_timer( TIMER_CLK_DIV1 );
  
-Generator_8_Bit::Generator_8_Bit( unsigned char output, unsigned long frequency ){ //Constructor with initial frequency
+Generator_8_Bit::Generator_8_Bit( unsigned char output, float frequency ){ //Constructor with initial frequency
 	TCCR0A = TCCR0A | (1 << WGM01); //turn on Clear on Timer compare frequency generation mode.
 	this->SetFrequency( frequency ); // set OCR0A and prescalar to achieve nearest possible frequency
 	this->SetOutput( output ); // Sets TCCR0A and DDR to the appropriate output
 }
 
-void Generator_8_Bit::SetFrequency( unsigned long frequency ){ //sets output compare registers to match frequency
+void Generator_8_Bit::SetFrequency( float frequency ){ //sets output compare registers to match frequency
 	unsigned long prescale = 1;
 	// Calculate the appropriate prescale
 	if ( frequency > (F_CPU/0xFF) ){
@@ -33,11 +33,11 @@ void Generator_8_Bit::SetFrequency( unsigned long frequency ){ //sets output com
 		prescale = 64;
 	} 
 	else if ( frequency > ((F_CPU/256)/0xFF) ){
-		m_Timer.setPrescale( TIMER_CLK_DIV256 );
+		//m_Timer.setPrescale( TIMER_CLK_DIV256 );
 		prescale = 256;
 	} 
 	else {
-		m_Timer.setPrescale( TIMER_CLK_DIV1024 ); 
+		///m_Timer.setPrescale( TIMER_CLK_DIV1024 ); 
 		prescale = 1024;
 		
 	}	
@@ -80,11 +80,11 @@ void Generator_16_Bit::SetFrequency( float frequency ){ //sets output compare re
 		prescale = 64;
 	}
 	else if ( frequency > ((F_CPU/256)/0xFFFF) ){
-		m_Timer.setPrescale( TIMER_CLK_DIV256 );
+		//m_Timer.setPrescale( TIMER_CLK_DIV256 );
 		prescale = 256;
 	}
 	else {
-		m_Timer.setPrescale( TIMER_CLK_DIV1024 );
+		//m_Timer.setPrescale( TIMER_CLK_DIV1024 );
 		prescale = 1024;
 		
 	}

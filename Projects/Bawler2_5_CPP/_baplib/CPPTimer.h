@@ -1,13 +1,15 @@
-/*
- * timer.h
- *
- * Created: 4/7/2014 9:26:41 PM
- *  Author: Matt
- */ 
+/* 
+* CPPTimer.h
+*
+* Created: 5/28/2014 11:20:30 PM
+* Author: Matt
+*/
 
 
-#ifndef TIMERCPP_H_
-#define TIMERCPP_H_
+#ifndef __CPPTIMER_H__
+#define __CPPTIMER_H__
+#include "BAPTypedefs.h"
+#include "callback.h"
 
 //Macro names for pre-scaler settings
 
@@ -57,7 +59,7 @@
 // 5 = CLOCK/128	tics= 256Hz			8bitoverflow=   1Hz
 // 6 = CLOCK/256	tics= 128Hz			8bitoverflow=   0.5Hz
 // 7 = CLOCK/1024	tics= 32Hz			8bitoverflow=   0.125Hz
-
+/*
 #define TIMER_CLK_STOP			0x00	///< Timer Stopped
 #define TIMER_CLK_DIV1			0x01	///< Timer clocked at F_CPU
 #define TIMER_CLK_DIV8			0x02	///< Timer clocked at F_CPU/8
@@ -67,7 +69,7 @@
 #define TIMER_CLK_T_FALL		0x06	///< Timer clocked at T falling edge
 #define TIMER_CLK_T_RISE		0x07	///< Timer clocked at T rising edge
 #define TIMER_PRESCALE_MASK		0x07	///< Timer Prescaler Bit-Mask
-
+/*
 #define TIMERRTC_CLK_STOP		0x00	///< RTC Timer Stopped
 #define TIMERRTC_CLK_DIV1		0x01	///< RTC Timer clocked at F_CPU
 #define TIMERRTC_CLK_DIV8		0x02	///< RTC Timer clocked at F_CPU/8
@@ -78,48 +80,84 @@
 #define TIMERRTC_CLK_DIV1024	0x07	///< RTC Timer clocked at F_CPU/1024
 #define TIMERRTC_PRESCALE_MASK	0x07	///< RTC Timer Prescaler Bit-Mask
 
-extern "C" void  TIMER0_OVF_vect(void) __attribute__ ((signal)); //required for 
+*/
+class CPPTimer;
+
+enum prescaleSetting { TIMER_CLK_STOP = 0x0000
+					 , TIMER_CLK_DIV1 = 0x0001
+					 , TIMER_CLK_DIV8 = 0x0008
+					 , TIMER_CLK_DIV64 = 0x0040
+					 , TIMER_CLK_DIV256 = 0x0100
+					 , TIMER_CLK_DIV1024 = 0x0400 
+					 };
+					 
+typedef void (CPPTimer::*CPPTimerMemberFunction)();
+
 struct time{
 	volatile char count;
 	char overs;
-	};
-
-class Timer8 {
-	public:
-	//operational methods
-		Timer8();
-		explicit Timer8( unsigned char prescale );
-		static Timer8* accessTOIE0;
-		void enableInterrupt();
-		void pause();
-		void start();
-		void stop();
-		void setPrescale( unsigned char prescale );
-		unsigned char getPrescale();
-	//access methods
-		time getTime();
-		time getTime_NoClear();
-		time getTime_NoUpdates();
-	//ISR
-		friend void TIMER0_OVF_vect();// Intterupt Service Routine for Timer overflow
-	protected:
-		void updateTime();
-	private:
-		
-		time m_Time;
-		unsigned char m_Prescale;
-	};
-
-class Timer16 {
-	public:
-		Timer16();
-		explicit Timer16( unsigned char prescale );
-		unsigned char getPrescale();
-		void setPrescale( unsigned char prescale );
-	protected:
-	private:
 };
 
+class CPPTimer{
+	public:
+	//operational methods
+		CPPTimer()
+			:m_Prescale(TIMER_CLK_DIV1)
+			,m_overageFunction(0)
+		{
+		} //CPPTimer
+		
+		CPPTimer( prescaleSetting prescale )
+			:m_Prescale(prescale)
+			,m_overageFunction(0)
+		{
+		}
+		
+		virtual time pause(){
+			return m_Time;
+		};
+		
+		virtual void start(){};
+		virtual void stop(){};
+		
+		virtual void setPrescale( prescaleSetting prescale ){
+			m_Prescale = prescale; 
+		};
+		
+		virtual prescaleSetting getPrescale(){
+			return m_Prescale;
+		};
+	
+	//access methods
+		virtual time getTime(){
+			return m_Time;
+		};
+		
+		virtual time getTime_NoClear(){
+			return m_Time;
+		};
+		
+		virtual time getTime_NoUpdates(){
+			return m_Time;
+		};
+		
+		void setOverageFunction( VoidFuncPtr func ){ 
+			m_overageFunction = func;
+		}
+			
+		virtual ~CPPTimer(){};
+	
+	protected:
+		prescaleSetting m_Prescale;
+		time m_Time;
+		time m_Timeout;
+		VoidFuncPtr m_overageFunction;
+		
+		virtual void updateTime(){};
 
+	private:
+		
 
-#endif /* TIMERCPP_H_ */
+}; //CPPTimer
+
+#endif //__CPPTIMER_H__

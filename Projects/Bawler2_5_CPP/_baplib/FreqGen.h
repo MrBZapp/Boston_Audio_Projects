@@ -10,7 +10,7 @@
 #define FREQGEN_H_
 #include <avr/io.h>
 #include <math.h>
-#include "timercpp.h"
+#include "HardwareTimer.h"
 
 #define OCA 0x00
 #define OCB 0x01
@@ -19,10 +19,10 @@
 class Generator_8_Bit {
 	public:
 		//8_Bit_Generator( uint8_t* _outputRegister ); //Constructor without initial frequency
-		Generator_8_Bit( unsigned char output, unsigned long frequency ); //Constructor with initial frequency
+		Generator_8_Bit( unsigned char output, float frequency ); //Constructor with initial frequency
 		
 		//sets output compare registers to match frequency
-		void SetFrequency( unsigned long frequency ); 
+		void SetFrequency( float frequency ); 
 		
 		//Gets the value of the output compare register and translates it to a frequency.
 		unsigned char GetFrequency(); 
@@ -34,7 +34,7 @@ class Generator_8_Bit {
 	protected:
 	private:
 		unsigned char m_Frequency;
-		Timer8 m_Timer;
+		HardwareTimer_8Bit m_Timer;
 };
 
 class Generator_16_Bit {
@@ -55,7 +55,7 @@ class Generator_16_Bit {
 	protected:
 	private:
 		unsigned long m_Frequency;
-		Timer16 m_Timer;
+		HardwareTimer_16Bit m_Timer;
 };
 
 #endif /* FREQGEN_H_ */

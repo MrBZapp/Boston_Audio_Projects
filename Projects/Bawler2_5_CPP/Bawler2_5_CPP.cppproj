@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectVersion>6.1</ProjectVersion>
+    <ProjectVersion>6.2</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.CPP</ToolchainName>
     <ProjectGuid>{0967bacb-ca63-4d22-a17d-5fda5f50ec16}</ProjectGuid>
     <avrdevice>ATtiny4313</avrdevice>
@@ -93,51 +93,109 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <AvrGccCpp>
-        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
-        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
-        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
-        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
-        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
-        <avrgcc.compiler.symbols.DefSymbols>
-          <ListValues>
-            <Value>DEBUG</Value>
-          </ListValues>
-        </avrgcc.compiler.symbols.DefSymbols>
-        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
-        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
-        <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
-        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-        <avrgcccpp.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcccpp.compiler.general.ChangeDefaultCharTypeUnsigned>
-        <avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>
-        <avrgcccpp.compiler.symbols.DefSymbols>
-          <ListValues>
-            <Value>DEBUG</Value>
-          </ListValues>
-        </avrgcccpp.compiler.symbols.DefSymbols>
-        <avrgcccpp.compiler.directories.IncludePaths>
-          <ListValues>
-            <Value>../../../BAPlib</Value>
-            <Value>../../../avrlib</Value>
-          </ListValues>
-        </avrgcccpp.compiler.directories.IncludePaths>
-        <avrgcccpp.compiler.optimization.level>Optimize for size (-Os)</avrgcccpp.compiler.optimization.level>
-        <avrgcccpp.compiler.optimization.PackStructureMembers>True</avrgcccpp.compiler.optimization.PackStructureMembers>
-        <avrgcccpp.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcccpp.compiler.optimization.AllocateBytesNeededForEnum>
-        <avrgcccpp.compiler.optimization.DebugLevel>Default (-g2)</avrgcccpp.compiler.optimization.DebugLevel>
-        <avrgcccpp.compiler.warnings.AllWarnings>True</avrgcccpp.compiler.warnings.AllWarnings>
-        <avrgcccpp.linker.libraries.Libraries>
-          <ListValues>
-            <Value>libm</Value>
-          </ListValues>
-        </avrgcccpp.linker.libraries.Libraries>
-        <avrgcccpp.linker.memorysettings.Comment>&lt;segmentname&gt;=&lt;address&gt;, for example  .boot=0xff</avrgcccpp.linker.memorysettings.Comment>
-        <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
-      </AvrGccCpp>
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>DEBUG</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.compiler.warnings.ExtraWarnings>True</avrgcc.compiler.warnings.ExtraWarnings>
+  <avrgcc.compiler.warnings.Undefined>True</avrgcc.compiler.warnings.Undefined>
+  <avrgcccpp.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcccpp.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcccpp.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcccpp.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>DEBUG</Value>
+    </ListValues>
+  </avrgcccpp.compiler.symbols.DefSymbols>
+  <avrgcccpp.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>../../../BAPlib</Value>
+      <Value>../../../avrlib</Value>
+      <Value>../../../avr-stl/include</Value>
+    </ListValues>
+  </avrgcccpp.compiler.directories.IncludePaths>
+  <avrgcccpp.compiler.optimization.level>Optimize most (-O3)</avrgcccpp.compiler.optimization.level>
+  <avrgcccpp.compiler.optimization.PackStructureMembers>True</avrgcccpp.compiler.optimization.PackStructureMembers>
+  <avrgcccpp.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcccpp.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcccpp.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcccpp.compiler.optimization.DebugLevel>
+  <avrgcccpp.compiler.warnings.Undefined>True</avrgcccpp.compiler.warnings.Undefined>
+  <avrgcccpp.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </avrgcccpp.linker.libraries.Libraries>
+  <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
+</AvrGccCpp>
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bawler2_5_CPP.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\BAPTypedefs.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\Button.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\Button.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\callback.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\CPPTimer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\DangerousDelegate.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\FlagHandler.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\FlagHandler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\MidiDevice.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\MidiDevice.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\PeripheralHandler.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\PeripheralHandler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\Scheduler.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\Scheduler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\SoftTimer.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\SoftTimer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\Uint8_Buffer.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\Uint8_Buffer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="_baplib\FreqGen.cpp">
@@ -146,16 +204,22 @@
     <Compile Include="_baplib\FreqGen.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="_baplib\timercpp.cpp">
+    <Compile Include="_baplib\HardwareTimer.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="_baplib\timercpp.h">
+    <Compile Include="_baplib\HardwareTimer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="_baplib\TWI.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="_baplib\TWI.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\USART.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_baplib\USART.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
