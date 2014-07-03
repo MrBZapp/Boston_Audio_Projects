@@ -26,6 +26,7 @@ class HardwareTimer_8Bit : public CPPTimer {
 	//operational methods
 		HardwareTimer_8Bit();
 		explicit HardwareTimer_8Bit( prescaleSetting prescale );
+	//	HardwareTimer_8Bit ( prescaleSetting prescale, CBFunctor0 callback);  //Comment out this line please, these callbacks are slow and take up a lot of space
 		static HardwareTimer_8Bit* accessTOIE0;
 		time pause();
 		void start();
@@ -37,6 +38,7 @@ class HardwareTimer_8Bit : public CPPTimer {
 		time getTime();
 		time getTime_NoClear();
 		time getTime_NoUpdates();
+		//void setCallback( CBFunctor0 newCallback ); //Comment out this line please, these callbacks are slow and take up a lot of space
 		
 	//ISR
 		friend void TIMER0_OVF_vect();// Interrupt Service Routine for Timer overflow
@@ -46,6 +48,7 @@ class HardwareTimer_8Bit : public CPPTimer {
 		
 	private:
 		inline unsigned char translatePrescale( prescaleSetting toTranslate );
+		CBFunctor0 m_Callback;
 	};
 
 class HardwareTimer_16Bit : public CPPTimer {

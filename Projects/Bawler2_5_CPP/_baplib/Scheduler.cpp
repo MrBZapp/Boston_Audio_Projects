@@ -20,6 +20,7 @@
 
 
 #include "Scheduler.h"
+#include "callback.h"
 
 // default constructor
 Scheduler::Scheduler( HardwareTimer_8Bit* htimer )
@@ -27,7 +28,7 @@ Scheduler::Scheduler( HardwareTimer_8Bit* htimer )
 	, m_EventSchedule_blocking( EVENT_MAXIMUM )
 	, m_CoreTimer8(htimer)
 {
-	//m_CoreTimer8->setOverageCallback( makeFunctor( (CBFunctor0*)0, *this, &Scheduler::interruptHandler ) );
+//	m_CoreTimer8->setCallback( makeFunctor( (CBFunctor0*)0, *this, &Scheduler::tempInterruptHandler ) );
 }
 
 unsigned char Scheduler::ScheduleAnEvent( ScheduledEvent newEvent ){

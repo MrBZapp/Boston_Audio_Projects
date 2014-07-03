@@ -31,13 +31,21 @@ HardwareTimer_8Bit::HardwareTimer_8Bit()
 	accessTOIE0 = this;
 	TIMSK = (1<<TOIE0);
 }
-
+/*
+HardwareTimer_8Bit::HardwareTimer_8Bit(prescaleSetting prescale, CBFunctor0 callback )
+	:CPPTimer( prescale )
+	,m_Callback( callback )
+{
+	TCNT0 = 0x00;
+	accessTOIE0	= this; //Set ISR access
+	TIMSK = (1<<TOIE0);	// enable TCNT0 overflow interrupt
+}*/
 HardwareTimer_8Bit::HardwareTimer_8Bit( prescaleSetting prescale ) 
 	:CPPTimer( prescale )
 {
+	TCNT0 = 0x00;
 	accessTOIE0	= this; //Set ISR access
 	TIMSK = (1<<TOIE0);	// enable TCNT0 overflow interrupt
-	sei();
 }
 
 time HardwareTimer_8Bit::pause(){
@@ -97,6 +105,10 @@ time HardwareTimer_8Bit::getTime_NoClear(){
 	this->updateTime();
 	return m_Time;
 }
+/*
+void HardwareTimer_8Bit::setCallback( CBFunctor0 newCallback ){
+	m_Callback = newCallback;
+}*/
 
 inline unsigned char HardwareTimer_8Bit::translatePrescale( prescaleSetting toTranslate ){
 	switch ( toTranslate ){

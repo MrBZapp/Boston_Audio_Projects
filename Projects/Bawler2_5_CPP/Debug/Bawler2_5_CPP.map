@@ -502,7 +502,7 @@ Discarded input sections
  .text._ZN8CPPTimerD0Ev
                 0x00000000        0xc _baplib/HardwareTimer.o
  .text._ZN18HardwareTimer_8BitC2Ev
-                0x00000000       0x26 _baplib/HardwareTimer.o
+                0x00000000       0x2e _baplib/HardwareTimer.o
  .text._ZN19HardwareTimer_16BitC2Ev
                 0x00000000       0x24 _baplib/HardwareTimer.o
  .text._ZN19HardwareTimer_16BitC2Eh
@@ -971,7 +971,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x8dc
+.text           0x00000000      0x8e4
  *(.vectors)
  .vectors       0x00000000       0x2a c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr25/crttn4313.o
                 0x00000000                __vector_default
@@ -1164,35 +1164,35 @@ END GROUP
                 0x00000584       0x4e _baplib/HardwareTimer.o
                 0x00000584                _ZN18HardwareTimer_8Bit11setPrescaleE15prescaleSetting
  .text._ZN18HardwareTimer_8BitC2E15prescaleSetting
-                0x000005d2       0x22 _baplib/HardwareTimer.o
+                0x000005d2       0x2a _baplib/HardwareTimer.o
                 0x000005d2                _ZN18HardwareTimer_8BitC1E15prescaleSetting
                 0x000005d2                _ZN18HardwareTimer_8BitC2E15prescaleSetting
  .text.__vector_6
-                0x000005f4       0x5e _baplib/HardwareTimer.o
-                0x000005f4                __vector_6
+                0x000005fc       0x5e _baplib/HardwareTimer.o
+                0x000005fc                __vector_6
  .text.libgcc.div
-                0x00000652       0x18 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr25\libgcc.a(_udivmodqi4.o)
-                0x00000652                __udivmodqi4
- .text.libgcc   0x0000066a        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr25\libgcc.a(_tablejump.o)
-                0x0000066a                __tablejump2__
-                0x0000066e                __tablejump__
+                0x0000065a       0x18 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr25\libgcc.a(_udivmodqi4.o)
+                0x0000065a                __udivmodqi4
+ .text.libgcc   0x00000672        0xc c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr25\libgcc.a(_tablejump.o)
+                0x00000672                __tablejump2__
+                0x00000676                __tablejump__
  .text.avr-libc
-                0x00000676      0x24e c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr25\libc.a(malloc.o)
-                0x00000676                malloc
-                0x000007a6                free
-                0x000008c4                . = ALIGN (0x2)
+                0x0000067e      0x24e c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr25\libc.a(malloc.o)
+                0x0000067e                malloc
+                0x000007ae                free
+                0x000008cc                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000008c4        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr25\libgcc.a(_exit.o)
-                0x000008c4                _exit
-                0x000008c4                exit
+ .fini9         0x000008cc        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr25\libgcc.a(_exit.o)
+                0x000008cc                _exit
+                0x000008cc                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
  *(.fini7)
  *(.fini7)
  *(.fini6)
- .fini6         0x000008c4       0x14 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr25\libgcc.a(_dtors.o)
-                0x000008c4                __do_global_dtors
+ .fini6         0x000008cc       0x14 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr25\libgcc.a(_dtors.o)
+                0x000008cc                __do_global_dtors
  *(.fini6)
  *(.fini5)
  *(.fini5)
@@ -1205,11 +1205,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000008d8        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr25\libgcc.a(_exit.o)
+ .fini0         0x000008e0        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/avr25\libgcc.a(_exit.o)
  *(.fini0)
-                0x000008dc                _etext = .
+                0x000008e4                _etext = .
 
-.data           0x00800060       0x58 load address 0x000008dc
+.data           0x00800060       0x58 load address 0x000008e4
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr25/crttn4313.o
@@ -1268,7 +1268,7 @@ END GROUP
                 0x008000b8                _edata = .
                 0x008000b8                PROVIDE (__data_end, .)
 
-.bss            0x008000b8       0x16
+.bss            0x008000b8       0x1e
                 0x008000b8                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
@@ -1276,25 +1276,25 @@ END GROUP
                 0x008000b8        0x6 Bawler2_5_CPP.o
                 0x008000b8                EventSchedule
  .bss.CoreTimer
-                0x008000be        0xa Bawler2_5_CPP.o
+                0x008000be       0x12 Bawler2_5_CPP.o
                 0x008000be                CoreTimer
  .bss._ZN18HardwareTimer_8Bit11accessTOIE0E
-                0x008000c8        0x2 _baplib/HardwareTimer.o
-                0x008000c8                _ZN18HardwareTimer_8Bit11accessTOIE0E
+                0x008000d0        0x2 _baplib/HardwareTimer.o
+                0x008000d0                _ZN18HardwareTimer_8Bit11accessTOIE0E
  *(COMMON)
- COMMON         0x008000ca        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr25\libc.a(malloc.o)
-                0x008000ca                __brkval
-                0x008000cc                __flp
-                0x008000ce                PROVIDE (__bss_end, .)
-                0x000008dc                __data_load_start = LOADADDR (.data)
-                0x00000934                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x008000d2        0x4 c:/program files (x86)/atmel/atmel toolchain/avr8 gcc/native/3.4.1056/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.8.1/../../../../avr/lib/avr25\libc.a(malloc.o)
+                0x008000d2                __brkval
+                0x008000d4                __flp
+                0x008000d6                PROVIDE (__bss_end, .)
+                0x000008e4                __data_load_start = LOADADDR (.data)
+                0x0000093c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008000ce        0x0
-                0x008000ce                PROVIDE (__noinit_start, .)
+.noinit         0x008000d6        0x0
+                0x008000d6                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008000ce                PROVIDE (__noinit_end, .)
-                0x008000ce                _end = .
-                0x008000ce                PROVIDE (__heap_start, .)
+                0x008000d6                PROVIDE (__noinit_end, .)
+                0x008000d6                _end = .
+                0x008000d6                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -1395,7 +1395,7 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x9790
+.debug_info     0x00000000     0x9a08
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xfe5 Bawler2_5_CPP.o
  .debug_info    0x00000fe5     0x146e _baplib/Button.o
@@ -1406,11 +1406,11 @@ END GROUP
  .debug_info    0x00005558      0x4fd _baplib/SoftTimer.o
  .debug_info    0x00005a55       0x21 _baplib/Uint8_Buffer.o
  .debug_info    0x00005a76      0xb32 _baplib/FreqGen.o
- .debug_info    0x000065a8      0xeae _baplib/HardwareTimer.o
- .debug_info    0x00007456      0x857 _baplib/TWI.o
- .debug_info    0x00007cad     0x1ae3 _baplib/USART.o
+ .debug_info    0x000065a8     0x1126 _baplib/HardwareTimer.o
+ .debug_info    0x000076ce      0x857 _baplib/TWI.o
+ .debug_info    0x00007f25     0x1ae3 _baplib/USART.o
 
-.debug_abbrev   0x00000000     0x2815
+.debug_abbrev   0x00000000     0x291e
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x4fb Bawler2_5_CPP.o
  .debug_abbrev  0x000004fb      0x413 _baplib/Button.o
@@ -1421,11 +1421,11 @@ END GROUP
  .debug_abbrev  0x00001678      0x21f _baplib/SoftTimer.o
  .debug_abbrev  0x00001897       0x13 _baplib/Uint8_Buffer.o
  .debug_abbrev  0x000018aa      0x31b _baplib/FreqGen.o
- .debug_abbrev  0x00001bc5      0x3f9 _baplib/HardwareTimer.o
- .debug_abbrev  0x00001fbe      0x282 _baplib/TWI.o
- .debug_abbrev  0x00002240      0x5d5 _baplib/USART.o
+ .debug_abbrev  0x00001bc5      0x502 _baplib/HardwareTimer.o
+ .debug_abbrev  0x000020c7      0x282 _baplib/TWI.o
+ .debug_abbrev  0x00002349      0x5d5 _baplib/USART.o
 
-.debug_line     0x00000000     0x2e35
+.debug_line     0x00000000     0x2e4c
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x56d Bawler2_5_CPP.o
  .debug_line    0x0000056d      0x3c7 _baplib/Button.o
@@ -1436,9 +1436,9 @@ END GROUP
  .debug_line    0x000017fc      0x334 _baplib/SoftTimer.o
  .debug_line    0x00001b30       0x39 _baplib/Uint8_Buffer.o
  .debug_line    0x00001b69      0x38d _baplib/FreqGen.o
- .debug_line    0x00001ef6      0x58c _baplib/HardwareTimer.o
- .debug_line    0x00002482      0x489 _baplib/TWI.o
- .debug_line    0x0000290b      0x52a _baplib/USART.o
+ .debug_line    0x00001ef6      0x5a3 _baplib/HardwareTimer.o
+ .debug_line    0x00002499      0x489 _baplib/TWI.o
+ .debug_line    0x00002922      0x52a _baplib/USART.o
 
 .debug_frame    0x00000000      0xb98
  *(.debug_frame)
@@ -1454,32 +1454,32 @@ END GROUP
  .debug_frame   0x0000092c       0x7c _baplib/TWI.o
  .debug_frame   0x000009a8      0x1f0 _baplib/USART.o
 
-.debug_str      0x00000000     0x9d45
+.debug_str      0x00000000     0x9d4d
  *(.debug_str)
- .debug_str     0x00000000     0x6b72 Bawler2_5_CPP.o
-                               0x6dbd (size before relaxing)
- .debug_str     0x00006b72     0x23ff _baplib/Button.o
-                               0x8724 (size before relaxing)
- .debug_str     0x00008f71       0xbb _baplib/FlagHandler.o
-                               0x5e2d (size before relaxing)
- .debug_str     0x0000902c       0x3d _baplib/MidiDevice.o
-                               0x68eb (size before relaxing)
- .debug_str     0x00009069       0x6f _baplib/PeripheralHandler.o
-                               0x86ad (size before relaxing)
- .debug_str     0x000090d8       0x71 _baplib/Scheduler.o
-                               0x676e (size before relaxing)
- .debug_str     0x00009149       0xb5 _baplib/SoftTimer.o
-                               0x6244 (size before relaxing)
- .debug_str     0x000091fe       0x1c _baplib/Uint8_Buffer.o
-                               0x2a18 (size before relaxing)
- .debug_str     0x0000921a      0x657 _baplib/FreqGen.o
-                               0x6514 (size before relaxing)
- .debug_str     0x00009871      0x317 _baplib/HardwareTimer.o
-                               0x6549 (size before relaxing)
- .debug_str     0x00009b88       0xeb _baplib/TWI.o
-                               0x5e0c (size before relaxing)
- .debug_str     0x00009c73       0xd2 _baplib/USART.o
-                               0x8788 (size before relaxing)
+ .debug_str     0x00000000     0x6b6f Bawler2_5_CPP.o
+                               0x6dba (size before relaxing)
+ .debug_str     0x00006b6f     0x23ff _baplib/Button.o
+                               0x8721 (size before relaxing)
+ .debug_str     0x00008f6e       0xbb _baplib/FlagHandler.o
+                               0x5e2a (size before relaxing)
+ .debug_str     0x00009029       0x3d _baplib/MidiDevice.o
+                               0x68e8 (size before relaxing)
+ .debug_str     0x00009066       0x6f _baplib/PeripheralHandler.o
+                               0x86aa (size before relaxing)
+ .debug_str     0x000090d5       0x71 _baplib/Scheduler.o
+                               0x676b (size before relaxing)
+ .debug_str     0x00009146       0xb5 _baplib/SoftTimer.o
+                               0x6241 (size before relaxing)
+ .debug_str     0x000091fb       0x1c _baplib/Uint8_Buffer.o
+                               0x2a15 (size before relaxing)
+ .debug_str     0x00009217      0x657 _baplib/FreqGen.o
+                               0x6511 (size before relaxing)
+ .debug_str     0x0000986e      0x322 _baplib/HardwareTimer.o
+                               0x65e1 (size before relaxing)
+ .debug_str     0x00009b90       0xeb _baplib/TWI.o
+                               0x5e09 (size before relaxing)
+ .debug_str     0x00009c7b       0xd2 _baplib/USART.o
+                               0x8785 (size before relaxing)
 
 .debug_loc      0x00000000     0x3276
  *(.debug_loc)
