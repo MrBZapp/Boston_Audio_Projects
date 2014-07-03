@@ -1,3 +1,9 @@
 Projects/Bawler2_5_CPP/Debug/Makefile
 Projects/EnumProblemTest/Debug/Makefile
 Projects/MIDISysexBox/Debug/Makefile
+*.elf
+*.lss
+*.map
+*.o
+*.atsuo
+*.o

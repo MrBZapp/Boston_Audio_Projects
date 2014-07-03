@@ -1454,32 +1454,32 @@ END GROUP
  .debug_frame   0x0000092c       0x7c _baplib/TWI.o
  .debug_frame   0x000009a8      0x1f0 _baplib/USART.o
 
-.debug_str      0x00000000     0x9d45
+.debug_str      0x00000000     0x9d42
  *(.debug_str)
- .debug_str     0x00000000     0x6b72 Bawler2_5_CPP.o
-                               0x6dbd (size before relaxing)
- .debug_str     0x00006b72     0x23ff _baplib/Button.o
-                               0x8724 (size before relaxing)
- .debug_str     0x00008f71       0xbb _baplib/FlagHandler.o
-                               0x5e2d (size before relaxing)
- .debug_str     0x0000902c       0x3d _baplib/MidiDevice.o
-                               0x68eb (size before relaxing)
- .debug_str     0x00009069       0x6f _baplib/PeripheralHandler.o
-                               0x86ad (size before relaxing)
- .debug_str     0x000090d8       0x71 _baplib/Scheduler.o
-                               0x676e (size before relaxing)
- .debug_str     0x00009149       0xb5 _baplib/SoftTimer.o
-                               0x6244 (size before relaxing)
- .debug_str     0x000091fe       0x1c _baplib/Uint8_Buffer.o
-                               0x2a18 (size before relaxing)
- .debug_str     0x0000921a      0x657 _baplib/FreqGen.o
-                               0x6514 (size before relaxing)
- .debug_str     0x00009871      0x317 _baplib/HardwareTimer.o
-                               0x6549 (size before relaxing)
- .debug_str     0x00009b88       0xeb _baplib/TWI.o
-                               0x5e0c (size before relaxing)
- .debug_str     0x00009c73       0xd2 _baplib/USART.o
-                               0x8788 (size before relaxing)
+ .debug_str     0x00000000     0x6b6f Bawler2_5_CPP.o
+                               0x6dba (size before relaxing)
+ .debug_str     0x00006b6f     0x23ff _baplib/Button.o
+                               0x8721 (size before relaxing)
+ .debug_str     0x00008f6e       0xbb _baplib/FlagHandler.o
+                               0x5e2a (size before relaxing)
+ .debug_str     0x00009029       0x3d _baplib/MidiDevice.o
+                               0x68e8 (size before relaxing)
+ .debug_str     0x00009066       0x6f _baplib/PeripheralHandler.o
+                               0x86aa (size before relaxing)
+ .debug_str     0x000090d5       0x71 _baplib/Scheduler.o
+                               0x676b (size before relaxing)
+ .debug_str     0x00009146       0xb5 _baplib/SoftTimer.o
+                               0x6241 (size before relaxing)
+ .debug_str     0x000091fb       0x1c _baplib/Uint8_Buffer.o
+                               0x2a15 (size before relaxing)
+ .debug_str     0x00009217      0x657 _baplib/FreqGen.o
+                               0x6511 (size before relaxing)
+ .debug_str     0x0000986e      0x317 _baplib/HardwareTimer.o
+                               0x6546 (size before relaxing)
+ .debug_str     0x00009b85       0xeb _baplib/TWI.o
+                               0x5e09 (size before relaxing)
+ .debug_str     0x00009c70       0xd2 _baplib/USART.o
+                               0x8785 (size before relaxing)
 
 .debug_loc      0x00000000     0x3276
  *(.debug_loc)
