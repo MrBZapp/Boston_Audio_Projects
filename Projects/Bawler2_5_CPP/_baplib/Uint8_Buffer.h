@@ -103,9 +103,9 @@ class Buffer{
 			}
 		}; // add a byte to the end of the buffer
 		
-		void OverwriteAtIndex( T newData, unsigned char index ){
+		void OverwriteToIndex( T newData, unsigned char index ){
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
-				m_buffer->data[ (m_buffer->DataEnd+index)%(m_buffer->size) ] = newData;
+				m_buffer->data[ index % (m_buffer->size) ] = newData;
 			}
 		};//Write data at a specific index
 		
@@ -117,7 +117,7 @@ class Buffer{
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
 				for( unsigned char i = index; i < (m_buffer->length-1); i++ ){
 					T tempData = m_buffer->data[ (i%m_buffer->size) ];
-					this->OverwriteAtIndex( newData, i );
+					this->OverwriteToIndex( newData, i );
 					newData = tempData;
 				}
 			}
@@ -125,21 +125,9 @@ class Buffer{
 		};
 		
 /////////Read Methods/////////
-		T PopFromFront(){// get the first byte from the front of the buffer //THIS IS SUPER BROKEN
-			T data = 0;
-			ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
-				if(m_buffer->length){ // check to see if there's data in the buffer
-					data = m_buffer->data[0]; // get the 0 value from buffer
-					m_buffer->length--;//decrement the length
-				}
-				return data;
-			}// end critical section
-		};	
-		
 		// get a byte at the specified index in the buffer (kind of like array access) ** note: this does not remove the byte that was read from the buffer
 		T ReadIndex( unsigned char index ){
 			ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
-				/*the return is the buffer's data array member*/
 				T data = m_buffer->data[(index % (m_buffer->size))];
 				return data;
 			}
@@ -159,9 +147,12 @@ class Buffer{
 				T returnData = this->ReadIndex( index );
 				for( unsigned char i = index; i < (m_buffer->length-1) ; i++ ){
 					T tempData = this->ReadIndex( i + 1 );
-					this->OverwriteAtIndex( tempData, i );
+					this->OverwriteToIndex( tempData, i );
 				}
-				this->OverwriteAtIndex( 0, m_buffer->length-1 );//clear final list item
+				//clear final list item
+				T backFill = {0};
+				m_buffer->data[m_buffer->length-1] = backFill;
+				m_buffer->length--;//re-size the buffer
 				return returnData;
 			}
 		};

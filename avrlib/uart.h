@@ -1,4 +1,4 @@
-/*! \file uart.h \brief UART driver with buffer support. */
+ /*! \file uart.h \brief UART driver with buffer support. */
 //*****************************************************************************
 //
 // File Name	: 'uart.h'

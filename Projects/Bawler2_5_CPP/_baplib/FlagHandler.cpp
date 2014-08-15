@@ -23,7 +23,7 @@ FlagHandler::FlagHandler( SFRaddress gpio_address )
 } //FlagHandler
 
 unsigned char FlagHandler::GetNewFlag(){
-	return m_flagsInUse.PopFromFront();
+	return m_flagsInUse.PopFromIndex( 0 );
 }
 
 bool FlagHandler::GetFlagState( unsigned char flagNumber ){

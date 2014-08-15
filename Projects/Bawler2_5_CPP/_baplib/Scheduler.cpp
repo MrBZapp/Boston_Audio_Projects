@@ -23,9 +23,8 @@
 
 // default constructor
 Scheduler::Scheduler( HardwareTimer_8Bit* htimer )
-	: m_EventSchedule_noblock( EVENT_MAXIMUM )
-	, m_EventSchedule_blocking( EVENT_MAXIMUM )
-	, m_CoreTimer8(htimer)
+	: m_EventSchedule_blocking( EVENT_MAXIMUM )
+	, m_CoreTimer8( htimer )
 {
 	//m_CoreTimer8->setOverageCallback( makeFunctor( (CBFunctor0*)0, *this, &Scheduler::interruptHandler ) );
 }
@@ -34,23 +33,26 @@ unsigned char Scheduler::ScheduleAnEvent( ScheduledEvent newEvent ){
 	if ( m_EventSchedule_blocking.SpaceUsed() == 0 ){
 		m_CoreTimer8->start();
 	}
-	newEvent.EventNumber = (m_EventSchedule_blocking.SpaceUsed() + 1);
+	newEvent.EventCount = (m_EventSchedule_blocking.SpaceUsed() + 1);
 	m_EventSchedule_blocking.AddToEnd(newEvent);
 	return m_EventSchedule_blocking.SpaceUsed();
 }
 
 void Scheduler::ProcessTime( time newTime ){
 	ScheduledEvent* testEvent;
-	for(signed char i = m_EventSchedule_blocking.SpaceUsed(); i >= 0; i--){
-		testEvent = m_EventSchedule_blocking.ReadAddressOfIndex(i);
-			if ( testEvent->OverageDistance != 0 ){ // ignore non-events.
-				if ( testEvent->CurrentDistance - m_CoreTimer8->getPrescale() * 256 <= 0 )
+	for(signed char i = m_EventSchedule_blocking.SpaceUsed(); i >= 0; i--){//iterate through each event
+		testEvent = m_EventSchedule_blocking.ReadAddressOfIndex(i);//pull the event into temp space
+			if ( testEvent->OverageDistance != 0 ){ // ignore non-events. BUG WARNING: the buffer may contain junk data, especially after an event cycle is finished
+				testEvent->CurrentDistance -= ( m_CoreTimer8->getPrescale() *256 ); //update the distance
+				if ( testEvent->CurrentDistance <= 0 ) //if the timer has moved far enough to trigger the event, do a bunch of crap.
 				{
-					testEvent->CurrentDistance = testEvent->OverageDistance;
-					testEvent->EventFunction();	
-				} else {
-					testEvent->CurrentDistance -= ( m_CoreTimer8->getPrescale() *256 );
-				}
+					testEvent->EventFunction();	//fire the event
+					testEvent->CurrentDistance = testEvent->OverageDistance; //reset the distance
+					testEvent->EventCount--;
+					if (testEvent->EventCount == 0 ){//if the count is done, get rid of the event from the buffer
+						m_EventSchedule_blocking.PopFromIndex( i );
+					}
+				} 
 			}
 	}
 }

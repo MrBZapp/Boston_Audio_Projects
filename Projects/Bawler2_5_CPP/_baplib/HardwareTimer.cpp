@@ -24,11 +24,12 @@
 /////////////Operational Methods /////////////
 
 HardwareTimer_8Bit* HardwareTimer_8Bit::accessTOIE0 = 0;
+
 HardwareTimer_8Bit::HardwareTimer_8Bit()  
 	:CPPTimer( TIMER_CLK_DIV1 )
 {
-	TCNT0 = 0x00;
 	accessTOIE0 = this;
+	TCNT0 = 0x00;
 	TIMSK = (1<<TOIE0);
 }
 
@@ -37,7 +38,6 @@ HardwareTimer_8Bit::HardwareTimer_8Bit( prescaleSetting prescale )
 {
 	accessTOIE0	= this; //Set ISR access
 	TIMSK = (1<<TOIE0);	// enable TCNT0 overflow interrupt
-	sei();
 }
 
 time HardwareTimer_8Bit::pause(){

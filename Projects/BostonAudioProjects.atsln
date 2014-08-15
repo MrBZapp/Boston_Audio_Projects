@@ -5,7 +5,7 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "MIDISysexBox", "MIDISysexBo
 EndProject
 Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "Bawler2_5_CPP", "Bawler2_5_CPP\Bawler2_5_CPP.cppproj", "{0967BACB-CA63-4D22-A17D-5FDA5F50EC16}"
 EndProject
-Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "EnumProblemTest", "EnumProblemTest\EnumProblemTest.cppproj", "{B98419B2-E19A-47AE-BAE6-62BD0817AB8A}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "KPSSynth", "KPSSynth\KPSSynth.cproj", "{C5ADE8EA-53C0-4758-AA9D-7A21B1FC504C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +21,10 @@ Global
 		{0967BACB-CA63-4D22-A17D-5FDA5F50EC16}.Debug|AVR.Build.0 = Debug|AVR
 		{0967BACB-CA63-4D22-A17D-5FDA5F50EC16}.Release|AVR.ActiveCfg = Release|AVR
 		{0967BACB-CA63-4D22-A17D-5FDA5F50EC16}.Release|AVR.Build.0 = Release|AVR
-		{B98419B2-E19A-47AE-BAE6-62BD0817AB8A}.Debug|AVR.ActiveCfg = Debug|AVR
-		{B98419B2-E19A-47AE-BAE6-62BD0817AB8A}.Debug|AVR.Build.0 = Debug|AVR
-		{B98419B2-E19A-47AE-BAE6-62BD0817AB8A}.Release|AVR.ActiveCfg = Release|AVR
-		{B98419B2-E19A-47AE-BAE6-62BD0817AB8A}.Release|AVR.Build.0 = Release|AVR
+		{C5ADE8EA-53C0-4758-AA9D-7A21B1FC504C}.Debug|AVR.ActiveCfg = Debug|AVR
+		{C5ADE8EA-53C0-4758-AA9D-7A21B1FC504C}.Debug|AVR.Build.0 = Debug|AVR
+		{C5ADE8EA-53C0-4758-AA9D-7A21B1FC504C}.Release|AVR.ActiveCfg = Release|AVR
+		{C5ADE8EA-53C0-4758-AA9D-7A21B1FC504C}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

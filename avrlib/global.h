@@ -27,10 +27,9 @@
 #include "avrlibtypes.h"
 
 // project/system dependent defines
-#define		UART_RX_BUFFER_SIZE 0x0000
-#define		UART_TX_BUFFER_SIZE 0x0020
-#define		SYSEX 0xF0
-#define		TX7ID 0x43
+#define		UART_RX_BUFFER_SIZE 0x0020
+#define		UART_TX_BUFFER_SIZE 0x0000
+#define		ENABLE_UART0_RX
 #define		MIDICHANNEL 0x11
 #define		TIMER0PRESCALE TIMER_CLK_DIV8
 

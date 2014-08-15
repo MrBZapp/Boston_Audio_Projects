@@ -25,7 +25,7 @@ class HardwareTimer_8Bit : public CPPTimer {
 	public:
 	//operational methods
 		HardwareTimer_8Bit();
-		explicit HardwareTimer_8Bit( prescaleSetting prescale );
+		HardwareTimer_8Bit( prescaleSetting prescale );
 		static HardwareTimer_8Bit* accessTOIE0;
 		time pause();
 		void start();

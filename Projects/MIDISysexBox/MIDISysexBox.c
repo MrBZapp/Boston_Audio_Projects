@@ -99,7 +99,7 @@ typedef struct midiParam{
 ///////////////////////////////////Variables/////////////////////////////
 static unsigned char mValue[84] = {[0 ... 83] 0x00}; //MIDI value array for each parameter.  Initialized to 0
 //						 pGroup		pNumber		pMin		pMax	
-midiParam mParam[4] = {{ 0,			105,			0,		99},	
+midiParam paramArr[4] = {{ 0,			105,			0,		99},	
  					   { 0,			106,			0,		99},	
  					   { 0,			107,			0,		99},	
  					   { 0,			108,			0,		99}};
@@ -120,7 +120,7 @@ int main(void)
 {
 	//General Initializations
 	wdt_disable();	// disable watchdog timer
-	DDRB = (3 << MULTIPLEX);
+	DDRB = (3 << MULTIPLEX); //turn on two pints for input at the multiplexer position
 	uartInit();	//initialize the USART (MIDI is default)
 	encoderInit();	//Initialize page and main encoder inputs
 	timer0Init();	//turn on the timer
@@ -136,7 +136,7 @@ int main(void)
 			
 			//update the active midi values by loading from EEPROM
 			eeprom_busy_wait();
-			eeprom_read_block( (void*) &mParam, (const void*) midirefs + (pageNumber * 16), 16 );
+			eeprom_read_block( (void*) &paramArr, (const void*) midirefs + (pageNumber * 16), 16 );
 			encoderSetPosition( 1 , 0 );
 			//clear the page encoder position
 		}
@@ -146,7 +146,7 @@ int main(void)
 			if ( encoderValue[i] !=0 ){ // check for an update
 				//bind encoder updates to midi parameter values
 				uint8_t updateValue = 0;
-				midiParam* pParam = &mParam[i];
+				midiParam* pParam = &paramArr[i];
 				uint8_t accessValue = i + (pageNumber*4); //adjust i for page-wise access
 
 				//Test min/max to set update value

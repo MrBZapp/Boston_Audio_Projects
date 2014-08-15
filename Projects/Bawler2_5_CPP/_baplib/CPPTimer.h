@@ -146,12 +146,13 @@ class CPPTimer{
 		}
 			
 		virtual ~CPPTimer(){};
-	
+		
+		VoidFuncPtr m_overageFunction;
+		
 	protected:
 		prescaleSetting m_Prescale;
 		time m_Time;
 		time m_Timeout;
-		VoidFuncPtr m_overageFunction;
 		
 		virtual void updateTime(){};
 
