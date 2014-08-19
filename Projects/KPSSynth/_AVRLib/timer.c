@@ -35,8 +35,12 @@ const unsigned short __attribute__ ((progmem)) TimerRTCPrescaleFactor[] = {0,1,8
 // Global variables
 // time registers
 volatile unsigned long TimerPauseReg;
-volatile unsigned long Timer0Reg0;
+#ifdef TIMER0OVERFLOW_INT
+	volatile unsigned long Timer0Reg0;
+#endif
+#ifdef TIMER2OVERFLOW_INT
 volatile unsigned long Timer2Reg0;
+#endif
 
 typedef void (*voidFuncPtr)(void);
 volatile static voidFuncPtr TimerIntFunc[TIMER_NUM_INTERRUPTS];
@@ -94,8 +98,10 @@ void timer0Init()
 	// initialize timer 0
 	timer0SetPrescaler( TIMER0PRESCALE );	// set prescaler
 	outb(TCNT0, 0);							// reset TCNT0
-	sbi(TIMSK, TOIE0);						// enable TCNT0 overflow interrupt
-	timer0ClearOverflowCount();				// initialize time registers
+	#ifdef TIMER0OVERFLOW_INT
+		sbi(TIMSK, TOIE0);						// enable TCNT0 overflow interrupt
+		timer0ClearOverflowCount();				// initialize time registers
+	#endif 
 }
 
 void timer1Init(void)
@@ -104,7 +110,9 @@ void timer1Init(void)
 	timer1SetPrescaler( TIMER1PRESCALE );	// set prescaler
 	TCNT1H = 0;								// reset TCNT1
 	TCNT1L = 0;
-	TIMSK = (1<<TOIE1);						// enable TCNT1 overflow
+	#ifdef TIMER1OVERFLOW_INT
+		TIMSK = (1<<TOIE1);						// enable TCNT1 overflow
+	#endif
 }
 
 #ifdef TCNT2	// support timer2 only if it exists
@@ -113,9 +121,10 @@ void timer2Init(void)
 	// initialize timer 2
 	timer2SetPrescaler( TIMER2PRESCALE );	// set prescaler
 	outb(TCNT2, 0);							// reset TCNT2
-	sbi(TIMSK, TOIE2);						// enable TCNT2 overflow
-
-	timer2ClearOverflowCount();				// initialize time registers
+	#ifdef TIMER2OVERFLOW_INT
+		sbi(TIMSK, TOIE2);						// enable TCNT2 overflow
+		timer2ClearOverflowCount();				// initialize time registers
+	#endif
 }
 #endif
 
@@ -125,45 +134,39 @@ void timer0SetPrescaler( u08 prescale ){
 	outb(TCCR0B, (inb(TCCR0B) & ~TIMER_PRESCALE_MASK) | prescale);
 }
 #endif
-#ifdef TCCR0B
-void timer0SetPrescaler( u08 prescale )
 
-{
+#ifdef TCCR0B
+void timer0SetPrescaler( u08 prescale ){
 	outb(TCCR0B, (inb(TCCR0B) & ~TIMER_PRESCALE_MASK) | prescale); // set prescaler on timer 0
 }
 #endif
 
-void timer1SetPrescaler(u08 prescale)
-{
+void timer1SetPrescaler(u08 prescale){
 	// set prescaler on timer 1
 	outb(TCCR1B, (inb(TCCR1B) & ~TIMER_PRESCALE_MASK) | prescale);
 }
 
 #ifdef TCNT2	// support timer2 only if it exists
-void timer2SetPrescaler(u08 prescale)
-{
+void timer2SetPrescaler(u08 prescale){
 	// set prescaler on timer 2
 	outb(TCCR2, (inb(TCCR2) & ~TIMER_PRESCALE_MASK) | prescale);
 }
 #endif
 
 #ifdef TCCR0
-u16 timer0GetPrescaler(void)
-{
+u16 timer0GetPrescaler(void){
 	// get the current prescaler setting
 	return (pgm_read_word(TimerPrescaleFactor+(inb(TCCR0) & TIMER_PRESCALE_MASK)));
 }
 #endif
 
-u16 timer1GetPrescaler(void)
-{
+u16 timer1GetPrescaler(void){
 	// get the current prescaler setting
 	return (pgm_read_word(TimerPrescaleFactor+(inb(TCCR1B) & TIMER_PRESCALE_MASK)));
 }
 
 #ifdef TCNT2	// support timer2 only if it exists
-u16 timer2GetPrescaler(void)
-{
+u16 timer2GetPrescaler(void){
 	//TODO: can we assume for all 3-timer AVR processors,
 	// that timer2 is the RTC timer?
 
@@ -172,8 +175,7 @@ u16 timer2GetPrescaler(void)
 }
 #endif
 
-void timerAttach(u08 interruptNum, void (*userFunc)(void) )
-{
+void timerAttach(u08 interruptNum, void (*userFunc)(void) ){
 	// make sure the interrupt number is within bounds
 	if(interruptNum < TIMER_NUM_INTERRUPTS)
 	{
@@ -183,8 +185,7 @@ void timerAttach(u08 interruptNum, void (*userFunc)(void) )
 	}
 }
 
-void timerDetach(u08 interruptNum)
-{
+void timerDetach(u08 interruptNum){
 	// make sure the interrupt number is within bounds
 	if(interruptNum < TIMER_NUM_INTERRUPTS)
 	{
@@ -254,6 +255,20 @@ void timerPause(unsigned short pause_ms)
 	*/
 }
 
+
+void timer0SetOverflowPoint( unsigned char overflowPoint ){
+	TCCR0A |= (1<<WGM01); //Set timer to reset on match with OCR0A
+	OCR0A = overflowPoint; //set max overflow point
+	TCNT0 = 0x00; // clear timer count
+}
+
+
+void timer1SetOverflowPoint( unsigned int overflowPoint ){
+	TCCR1B = ( TCCR1B & (1<<WGM12));// enable CTC for Timer1 (16-bit timer)
+	OCR1A = overflowPoint;
+}
+
+#ifdef TIMER0OVERFLOW_INT
 void timer0ClearOverflowCount(void)
 {
 	// clear the timer overflow counter registers
@@ -266,8 +281,15 @@ long timer0GetOverflowCount(void)
 	// (this is since the last timer0ClearOverflowCount() command was called)
 	return Timer0Reg0;
 }
+#endif
+
+void timer0ClearOverflowPoint(){
+	TCCR0A &= (0<<WGM01);//clear the flag that sets reset on match with OCR0A. 
+	// BUG ALERT:this needs a bit more TLC.
+}
 
 #ifdef TCNT2	// support timer2 only if it exists
+#ifdef TIMER2OVERFLOW_INT
 void timer2ClearOverflowCount(void)
 {
 	// clear the timer overflow counter registers
@@ -280,6 +302,7 @@ long timer2GetOverflowCount(void)
 	// (this is since the last timer2ClearOverflowCount() command was called)
 	return Timer2Reg0;
 }
+#endif
 #endif
 
 void timer1PWMInit(u08 bitRes)
@@ -400,6 +423,7 @@ void timer1PWMBSet(u16 pwmDuty)
 	OCR1B = pwmDuty;
 }
 
+#ifdef TIMER0OVERFLOW_INT
 //! Interrupt handler for tcnt0 overflow interrupt
 TIMER_INTERRUPT_HANDLER(TIMER0_OVF_vect)
 {
@@ -412,7 +436,10 @@ TIMER_INTERRUPT_HANDLER(TIMER0_OVF_vect)
 	if(TimerIntFunc[TIMER0OVERFLOW_INT])
 		TimerIntFunc[TIMER0OVERFLOW_INT]();
 }
+#endif
 
+
+#ifdef TIMER1OVERFLOW_INT
 //! Interrupt handler for tcnt1 overflow interrupt
 TIMER_INTERRUPT_HANDLER(TIMER1_OVF_vect)
 {
@@ -420,8 +447,10 @@ TIMER_INTERRUPT_HANDLER(TIMER1_OVF_vect)
 	if(TimerIntFunc[TIMER1OVERFLOW_INT])
 		TimerIntFunc[TIMER1OVERFLOW_INT]();
 }
+#endif
 
 #ifdef TCNT2	// support timer2 only if it exists
+#ifdef TIMER2OVERFLOW_INT
 //! Interrupt handler for tcnt2 overflow interrupt
 TIMER_INTERRUPT_HANDLER(TIMER2_OVF_vect)
 {
@@ -431,6 +460,7 @@ TIMER_INTERRUPT_HANDLER(TIMER2_OVF_vect)
 	if(TimerIntFunc[TIMER2OVERFLOW_INT])
 		TimerIntFunc[TIMER2OVERFLOW_INT]();
 }
+#endif
 #endif
 
 #ifdef OCR0
@@ -444,6 +474,7 @@ TIMER_INTERRUPT_HANDLER(SIG_OUTPUT_COMPARE0)
 }
 #endif
 
+#ifdef TIMER1OUTCOMPAREA_INT
 //! Interrupt handler for CutputCompare1A match (OC1A) interrupt
 TIMER_INTERRUPT_HANDLER(TIMER1_COMPA_vect)
 {
@@ -451,7 +482,9 @@ TIMER_INTERRUPT_HANDLER(TIMER1_COMPA_vect)
 	if(TimerIntFunc[TIMER1OUTCOMPAREA_INT])
 		TimerIntFunc[TIMER1OUTCOMPAREA_INT]();
 }
+#endif
 
+#ifdef TIMER1OUTCOMPAREB_INT
 //! Interrupt handler for OutputCompare1B match (OC1B) interrupt
 TIMER_INTERRUPT_HANDLER(TIMER1_COMPB_vect)
 {
@@ -459,6 +492,7 @@ TIMER_INTERRUPT_HANDLER(TIMER1_COMPB_vect)
 	if(TimerIntFunc[TIMER1OUTCOMPAREB_INT])
 		TimerIntFunc[TIMER1OUTCOMPAREB_INT]();
 }
+#endif
 
 //! Interrupt handler for InputCapture1 (IC1) interrupt
 TIMER_INTERRUPT_HANDLER(TIMER1_CAPT_vect)

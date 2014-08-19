@@ -65,6 +65,7 @@ void pulseT1Init(void)
 
 	// attach the pulse service routines to
 	// the timer 1 output compare A and B interrupts
+	
 	timerAttach(TIMER1OUTCOMPAREA_INT,pulseT1AService);
 	timerAttach(TIMER1OUTCOMPAREB_INT,pulseT1BService);
 }

@@ -9,6 +9,7 @@
 
 void WaveGen1_Init( FREQUENCY_TYPE frequency, unsigned char output ){
 	timer1Init();
+	timer1SetOverflowPoint( 0xFFFF ); // enable CTC for Timer1 (16-bit timer)
 	WaveGen1_SetFrequency( frequency );
 	WaveGen1_SetOutput( output );
 }
@@ -43,7 +44,11 @@ void WaveGen1_SetFrequency( FREQUENCY_TYPE frequency ){ //sets output compare re
 	// Calculate the mask and output
 	waveGen1Freq = (unsigned char) ( F_CPU / ( (frequency * 2 * timer1GetPrescaler()) ) - 1 );
 
-	OCR1A = waveGen1Freq;
-	OCR1B = waveGen1Freq; //If you ever want to have A/B out of phase, add some math here.
+	WaveGen1_DirectSetOCR( waveGen1Freq );
+}
+
+void WaveGen1_DirectSetOCR( unsigned int ocrValue ){
+	OCR1A = ocrValue;
+	OCR1B = ocrValue;
 	TCNT1 = 0x0000;
 }

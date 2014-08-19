@@ -118,7 +118,7 @@ bool bufferAddToEnd(cBuffer* buffer, unsigned char data)
 	return false; //This is to clear a warning associated with Atomic access. If code reaches here, it's a problem.
 }
 
-unsigned SHORTVAR bufferIsNotFull(cBuffer* buffer){
+unsigned SHORTVAR bufferBytesLeft(cBuffer* buffer){
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE){	
 		// check to see if the buffer has room
 		// return true if there is room

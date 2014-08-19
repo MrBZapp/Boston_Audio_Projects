@@ -170,8 +170,8 @@ Redefine these settings in global.h if you want a different default, not here.
 
 // interrupt macros for attaching user functions to timer interrupts
 // use these with timerAttach( intNum, function )
-#define TIMER0OVERFLOW_INT			0
-#define TIMER1OVERFLOW_INT			1
+//#define TIMER0OVERFLOW_INT			0
+//#define TIMER1OVERFLOW_INT			1
 #define TIMER1OUTCOMPAREA_INT		2
 #define TIMER1OUTCOMPAREB_INT		3
 #define TIMER1INPUTCAPTURE_INT		4
@@ -255,13 +255,15 @@ void timerDetach(u08 interruptNum);
 /// A timer-based delay/pause function
 /// @param pause_ms	Number of integer milliseconds to wait.
 void timerPause(unsigned short pause_ms);
+void timer0SetOverflowPoint(unsigned char overflowPoint ); // Sets OCR0A to a number, turns on clear on timer compare.
+void timer1SetOverflowPoint( unsigned int overflowPoint ); //UNIMPLEMENTED 
 
 // overflow counters
 void timer0ClearOverflowCount(void);	///< Clear timer0's overflow counter. 
 long timer0GetOverflowCount(void);		///< read timer0's overflow counter
 #ifdef TCNT2	// support timer2 only if it exists
-void timer2ClearOverflowCount(void);	///< clear timer2's overflow counter
-long timer2GetOverflowCount(void);		///< read timer0's overflow counter
+	void timer2ClearOverflowCount(void);	///< clear timer2's overflow counter
+	long timer2GetOverflowCount(void);		///< read timer0's overflow counter
 #endif
 
 /// @defgroup timerpwm Timer PWM Commands

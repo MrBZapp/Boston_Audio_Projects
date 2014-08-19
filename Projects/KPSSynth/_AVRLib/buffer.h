@@ -80,7 +80,7 @@ unsigned char	bufferGetAtIndex(cBuffer* buffer, unsigned SHORTVAR index);
 bool			bufferAddToEnd(cBuffer* buffer, unsigned char data);
 
 //! check if the buffer is full/not full (returns zero value if full)
-unsigned SHORTVAR	bufferIsNotFull(cBuffer* buffer);
+unsigned SHORTVAR	bufferBytesLeft(cBuffer* buffer);
 
 //! flush (clear) the contents of the buffer
 void			bufferFlush(cBuffer* buffer);

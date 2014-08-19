@@ -1,0 +1,40 @@
+#256
+PIND = 0x00 //startBit
+#256 
+PIND = 0x00 //LSB
+#256
+PIND = 0x01
+#256
+PIND = 0x00
+#256
+PIND = 0x01
+#256 
+PIND = 0x01
+#256
+PIND = 0x00
+#256
+PIND = 0x00
+#256
+PIND = 0x01 //MSB
+#256
+PIND = 0x01 //StopBit
+#256
+PIND = 0x00 //startBit
+#256 
+PIND = 0x00 //LSB
+#256
+PIND = 0x00
+#256
+PIND = 0x00
+#256
+PIND = 0x00
+#256 
+PIND = 0x00
+#256
+PIND = 0x01
+#256
+PIND = 0x00
+#256
+PIND = 0x00 //MSB
+#256
+PIND = 0x01 //StopBit

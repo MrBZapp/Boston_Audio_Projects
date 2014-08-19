@@ -63,7 +63,8 @@ void uartInit(void)
 	#ifdef ENABLE_UART0_RX
 		UartRxFunc = 0;
 	#endif
-	
+	// set frame size, stop bits 
+		UCSRC = ((0<<USBS) | (3<<UCSZ0));
 	// enable RxD/TxD and interrupts if function is enabled	
 	#ifdef ENABLE_UART0_TX
 		UCSRB = ((1<<TXCIE)|(1<<TXEN));

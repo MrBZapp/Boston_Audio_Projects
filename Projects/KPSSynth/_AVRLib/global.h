@@ -29,8 +29,9 @@
 // project/system dependent defines
 #define		ENABLE_UART0_RX
 #define		USE_SMALL_BUFFER_STRUCTURE
-#define		UART_RX_BUFFER_SIZE 0x0000
-#define		UART_TX_BUFFER_SIZE 0x0020
+#define		SPI_USE_TIMER0
+#define		UART_RX_BUFFER_SIZE 0x0020
+#define		UART_TX_BUFFER_SIZE 0x0000
 #define		SYSEX 0xF0
 #define		TX7ID 0x43
 #define		MIDICHANNEL 0x11

@@ -28,6 +28,8 @@ void WaveGen1_Init( FREQUENCY_TYPE frequency, unsigned char output );
 
 void WaveGen1_SetOutput( unsigned char output);
 
-void WaveGen1_SetFrequency ( FREQUENCY_TYPE frequency );
+void WaveGen1_SetFrequency( FREQUENCY_TYPE frequency );
+
+void WaveGen1_DirectSetOCR( unsigned int ocrValue );
 
 #endif /* WGM_H_ */
