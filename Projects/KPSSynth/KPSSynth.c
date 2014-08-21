@@ -29,11 +29,11 @@
 
 
 void SetKeyScaling( unsigned char noteNumber ){
-		unsigned char dacNumber = 1;
-		unsigned char messageBitCount = 16;
+		unsigned char dacNumber = 4;
+		unsigned char messageBitCount = 11;
 				
 		//bond the message together 
-		unsigned int message = ( (( dacNumber -1) << 9 ) |
+		unsigned int message = ( ( (dacNumber -1) << 9 ) |
 								 ( noteNumber ));
 		if( ! spi_TransmitInProgress ){ 		
 			spi_transmitRawMessage( message, messageBitCount ); //Send the message.

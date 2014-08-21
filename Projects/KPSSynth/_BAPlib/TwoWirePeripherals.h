@@ -140,7 +140,7 @@ void spi_ReadyByteForTransmission() {
 	}
 }
 
-void spi_transmitRawMessage( unsigned char data, unsigned char local_Message_BitCount ){ //(193cy)
+void spi_transmitRawMessage( SPI_MAX_MESSAGE_SIZE_TYPE data, unsigned char local_Message_BitCount ){ //(193cy)
 	spi_ReadyMessageForTransmission( data, local_Message_BitCount );
 	spi_ReadyByteForTransmission( data, local_Message_BitCount );
 	#ifdef SPI_USE_TIMER0
