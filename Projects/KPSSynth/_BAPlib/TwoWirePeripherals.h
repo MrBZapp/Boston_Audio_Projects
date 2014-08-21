@@ -120,23 +120,23 @@ void spi_ReadyMessageForTransmission(unsigned SPI_MAX_MESSAGE_SIZE_TYPE data, un
 	}
 }
 
+//!
 void spi_ReadyByteForTransmission() {
-	//load the counter
-	USISR &= 0xF0; //Clear Count and all USI interrupt flags
-	
-	 //count back from 16 to transmit bits
-	if ( spi_Message_BitCount < 8){
-		USISR |= ( 0x0F - (spi_Message_BitCount) );
-	} else{
-		USISR |= (0x0F - 8);
-	}
-	
 	//Load a byte from the spi_Message variable into the data register
 	USIDR = spi_Message >> ( 8 * (spi_Message_ByteCount - 1) );
 	
 	//update the remaining bits
 	if (spi_Message_BitCount < 8 ){
 		spi_Message_SentBits = spi_Message_BitCount;
+	}
+	
+	// Load the counter:
+	// count back from 16 to transmit bits if fewer than 8 bits
+	// clear all flags
+	if ( spi_Message_BitCount < 8){
+		USISR |= ( 0x0F - (spi_Message_BitCount) );
+		} else{
+		USISR |= (0x0F - 8);
 	}
 }
 
@@ -148,7 +148,6 @@ void spi_transmitRawMessage( unsigned char data, unsigned char local_Message_Bit
 	#else
 		//BitBang Code
 	#endif
-	//sei();//BUG WARNING
 }
 
 void spiGenerateStartCondition(){

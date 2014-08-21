@@ -1,5 +1,5 @@
-//PIND = 0x01 //Idle
-//#10000
+PIND = 0x01 //Idle
+#10000
 PIND = 0x00 //startBit Note on status 0x90
 #256 
 PIND = 0x00 //LSB
