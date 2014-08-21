@@ -15,7 +15,7 @@
 #ifdef ENNABLE_HIGH_FREQUENCY_ACCURACY
 	#define FREQUENCY_TYPE float
 #else
-	#define FREQUENCY_TYPE int
+	#define FREQUENCY_TYPE unsigned int
 #endif
 
 #define OCA 0x00

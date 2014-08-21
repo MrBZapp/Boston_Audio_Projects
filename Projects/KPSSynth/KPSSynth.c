@@ -41,10 +41,9 @@ void SetKeyScaling( unsigned char noteNumber ){
 }
 
 void updateBBD( unsigned char noteNumber ){
-	unsigned char offset = 4;
-	noteNumber -= offset;
-	unsigned char index = ( noteNumber % sizeof(MIDItoBBDClockInstructionCountChart_int)); //Bound the note number to the size of the lookup table
-	WaveGen1_SetFrequency( MIDItoBBDClockInstructionCountChart_int[ index ]); //place the value of the lookup table into OCR1 A and B (849)
+	unsigned char index = ( noteNumber % 60); //Bound the note number to the size of the lookup table
+	unsigned int BBDOverFlowValue = pgm_read_word(&MIDItoBBDClockInstructionCountChart_int[index]);//read the data out of PGM memory space.
+	WaveGen1_SetFrequency( BBDOverFlowValue ); //place the value of the lookup table into OCR1 A and B (849)
 	SetKeyScaling( noteNumber ); //USART interrupt returns from here
 }
  
