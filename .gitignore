@@ -12,3 +12,12 @@ Projects/EnumProblemTest/Debug/Makefile
 Projects/MIDISysexBox/Debug/Makefile
 Projects/EnumProblemTest/Debug/Makefile
 Projects/Bawler2_5_CPP/Debug/Makefile
+Projects/Bawler2_5_CPP/Debug/Makefile
+Projects/BostonAudioProjects.atsuo
+Projects/EnumProblemTest/Debug/Makefile
+Projects/KPSSynth/Debug/KPSSynth.hex
+Projects/KPSSynth/Debug/KPSSynth.srec
+Projects/MIDISysexBox/Debug/Makefile
+*.hex
+*.srec
+*.atsuo
