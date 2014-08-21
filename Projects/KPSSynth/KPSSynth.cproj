@@ -149,6 +149,9 @@
     <Compile Include="_AVRLib\uart.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="_BAPlib\BAP_Debug.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="_BAPlib\MidiDevice.c">
       <SubType>compile</SubType>
     </Compile>

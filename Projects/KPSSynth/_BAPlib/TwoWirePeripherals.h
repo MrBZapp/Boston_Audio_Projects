@@ -47,10 +47,14 @@ unsigned char spi_TransmitInProgress = 0; // flag to indicate if a transmit is i
 //Forward Declarations for internal functions
 void spi_ReadyByteForTransmission();
 
+void inline spi_Idle(){ //Sets the data register high to idle the serial buss
+	USIDR = 0xFF;
+}
+
 //! Initializes the internal SPI hardware to a default setting
 ///
 void spi_Init( unsigned char masterSlaveSelect, unsigned char wireMode ){
-
+	spi_Idle();
 	//Clock Type
 	#ifdef SPI_USE_TIMER0
 		timer0Init();
@@ -79,12 +83,13 @@ void spi_Init( unsigned char masterSlaveSelect, unsigned char wireMode ){
 	//wire mode selection
 	switch( wireMode ){
 		case( Three_Wire ):
-		break;
+			break;
 		case( Two_Wire ):
-		USICR |= (1<<USIWM1);
-		break;
+			USICR |= (1<<USIWM1);
+			break;
 		case ( Two_Wire_Hold ):
-		break;
+			USICR |= (3<<USIWM0);
+			break;
 		default: //Error catch
 		break;
 	}
@@ -93,6 +98,8 @@ void spi_Init( unsigned char masterSlaveSelect, unsigned char wireMode ){
 	USICR |= (1<<USIOIE); //enable the counter overflow.
 };
 
+//! Left aligns and prepares the flags necessary to ensure safe transmission of a message of any length from 0 to SPI_MAX_MESSAGE_SIZE_TYPE
+///
 void spi_ReadyMessageForTransmission(unsigned SPI_MAX_MESSAGE_SIZE_TYPE data, unsigned char local_Message_BitCount ){
 	//prep the message statistics
 	spi_Message_SentBits = 8; //USI data shift-register
@@ -115,7 +122,7 @@ void spi_ReadyMessageForTransmission(unsigned SPI_MAX_MESSAGE_SIZE_TYPE data, un
 
 void spi_ReadyByteForTransmission() {
 	//load the counter
-	USISR &= 0xF0; //Clear Count
+	USISR &= 0xF0; //Clear Count and all USI interrupt flags
 	
 	 //count back from 16 to transmit bits
 	if ( spi_Message_BitCount < 8){
@@ -133,7 +140,7 @@ void spi_ReadyByteForTransmission() {
 	}
 }
 
-void spi_transmitRawMessage( unsigned char data, unsigned char local_Message_BitCount ){
+void spi_transmitRawMessage( unsigned char data, unsigned char local_Message_BitCount ){ //(193cy)
 	spi_ReadyMessageForTransmission( data, local_Message_BitCount );
 	spi_ReadyByteForTransmission( data, local_Message_BitCount );
 	#ifdef SPI_USE_TIMER0
@@ -141,7 +148,7 @@ void spi_transmitRawMessage( unsigned char data, unsigned char local_Message_Bit
 	#else
 		//BitBang Code
 	#endif
-	sei();
+	//sei();//BUG WARNING
 }
 
 void spiGenerateStartCondition(){
@@ -159,6 +166,8 @@ void spi_shiftNBits( unsigned char ShiftBitCount ){
 
 
 ISR(USI_OVERFLOW_vect){
+	timer0SetPrescaler( TIMER_CLK_STOP ); //Stop clock
+	
 	//update the bit count
 	if(spi_Message_BitCount < 8){
 		spi_Message_SentBits = spi_Message_BitCount;
@@ -177,7 +186,6 @@ ISR(USI_OVERFLOW_vect){
 		#endif					
 	}else{
 		#ifdef SPI_USE_TIMER0
-			timer0SetPrescaler( TIMER_CLK_STOP ); //Stop clock
 			TCNT0 = 0; //clear count
 		#endif
 		

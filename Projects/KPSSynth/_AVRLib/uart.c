@@ -49,6 +49,7 @@ unsigned short uartRxOverflow;		///< receive overflow counter
 #endif
 
 typedef void (*voidFuncPtru08)(unsigned char);
+typedef bool (*boolFuncPtru08)(unsigned char);
 
 #ifdef ENABLE_UART0_RX
 volatile static voidFuncPtru08 UartRxFunc;
@@ -88,7 +89,7 @@ void uartInit(void)
 	uartRxOverflow = 0;
 	#endif
 	// enable interrupts
-	sei();	
+	//sei();	
 }
 
 void uartInitBuffers(void){ // create and initialize the uart transmit and receive buffers
@@ -290,7 +291,7 @@ ISR(USART0_RX_vect)
 
 	// if there's a user function to handle this receive event
 	if(UartRxFunc){
-		UartRxFunc(charRX);// call it and pass the received data
+		UartRxFunc(charRX);// call it and pass the received data.  if it fails, put the data into the buffer
 	}else{
 		// otherwise do default processing
 		// put received char in buffer

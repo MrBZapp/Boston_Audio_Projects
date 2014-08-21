@@ -1,13 +1,14 @@
-#256
-PIND = 0x00 //startBit
+//PIND = 0x01 //Idle
+//#10000
+PIND = 0x00 //startBit Note on status 0x90
 #256 
 PIND = 0x00 //LSB
 #256
-PIND = 0x01
+PIND = 0x00
 #256
 PIND = 0x00
 #256
-PIND = 0x01
+PIND = 0x00
 #256 
 PIND = 0x01
 #256
@@ -19,7 +20,28 @@ PIND = 0x01 //MSB
 #256
 PIND = 0x01 //StopBit
 #256
-PIND = 0x00 //startBit
+PIND = 0x00 //startBit Note Value 0x04
+#256 
+PIND = 0x00 //LSB 
+#256
+PIND = 0x00
+#256
+PIND = 0x01
+#256
+PIND = 0x00
+#256 
+PIND = 0x00
+#256
+PIND = 0x00
+#256
+PIND = 0x00
+#256
+PIND = 0x00 //MSB
+#256
+PIND = 0x01 //StopBit
+#256
+	//SECOND MESSAGE
+PIND = 0x00 //startBit 0x90
 #256 
 PIND = 0x00 //LSB
 #256
@@ -29,9 +51,29 @@ PIND = 0x00
 #256
 PIND = 0x00
 #256 
+PIND = 0x01
+#256
+PIND = 0x00
+#256
+PIND = 0x00
+#256
+PIND = 0x01 //MSB
+#256
+PIND = 0x01 //StopBit
+#256
+PIND = 0x00 //startBit 0x05
+#256 
+PIND = 0x01 //LSB
+#256
+PIND = 0x00
+#256
 PIND = 0x00
 #256
 PIND = 0x01
+#256 
+PIND = 0x00
+#256
+PIND = 0x00
 #256
 PIND = 0x00
 #256

@@ -3,8 +3,19 @@
  *
  * Created: 8/4/2014 3:14:34 PM
  *  Author: Matt Zapp
+ 
+ Some things of which to be aware (potential bugs)
+ 
+ timings:
+ 1.) a midi message takes 2560us to send.  the USART interrupt can react to a message before the message even completes (as quickly as 2304us and as slowly as the full 2560us)
+ 2.) the USART code can react as quickly as 61cy before resetting the global interrupt flag. (this was measured with the MIDI router in its current incarnation.
+ 3.) a raw 11-bit SPI message can take 731cy from function start to interrupt end. 8-bits requires 474cy, 16 bits requires 818cy.
+ 
+ at 1MHz clock speed (1:1) this results in about 1760cy to play with before the next USART message comes ins
  */ 
 
+#define DIAGNOSTICS
+#include "_BAPlib/BAP_Debug.h"
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -16,25 +27,25 @@
 #include "_BAPlib/MIDI_TranslationCharts.h"
 #include "_BAPlib/TwoWirePeripherals.h"
 
+
 void SetKeyScaling( unsigned char noteNumber ){
-	for( unsigned char i = 4; i !=0; i--){
-		unsigned char dacNumber = i;
-		unsigned char messageBitCount = 11;
+		unsigned char dacNumber = 1;
+		unsigned char messageBitCount = 16;
 				
 		//bond the message together 
-		unsigned int message = ( ( dacNumber -1) << 9 ) |
-								( noteNumber );
-		while( spi_TransmitInProgress ){}// wait for transmitter to be ready 		
-		spi_transmitRawMessage( message, messageBitCount ); //Send the message.
-	}
+		unsigned int message = ( (( dacNumber -1) << 9 ) |
+								 ( noteNumber ));
+		if( ! spi_TransmitInProgress ){ 		
+			spi_transmitRawMessage( message, messageBitCount ); //Send the message.
+		}
 }
 
 void updateBBD( unsigned char noteNumber ){
 	unsigned char offset = 4;
 	noteNumber -= offset;
 	unsigned char index = ( noteNumber % sizeof(MIDItoBBDClockInstructionCountChart_int)); //Bound the note number to the size of the lookup table
-	WaveGen1_SetFrequency( MIDItoBBDClockInstructionCountChart_int[ index ]); //place the value of the lookup table into OCR1 A and B
-	SetKeyScaling( noteNumber );
+	WaveGen1_SetFrequency( MIDItoBBDClockInstructionCountChart_int[ index ]); //place the value of the lookup table into OCR1 A and B (849)
+	SetKeyScaling( noteNumber ); //USART interrupt returns from here
 }
  
  
@@ -45,13 +56,15 @@ void updateBBD( unsigned char noteNumber ){
 int main(void)
 {
 	wdt_disable();
-	spi_Init( Master, Two_Wire );
+	spi_Init( Master, Two_Wire_Hold );
 	WaveGen1_Init( 500, OCA );
 	MIDI_AssignFunction_NoteOn( &updateBBD );
 	uartInit();
 	uartSetRxHandler( &MIDI_Router );
+	sei();
 
 	while(1) // Idle Loop
     {
+		DIAGNOSTIC_TOGGLE( PORTB, PINB0 );
     }
 }
