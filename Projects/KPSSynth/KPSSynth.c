@@ -42,11 +42,11 @@ void SetKeyScaling( unsigned char noteNumber ){
 		}
 }
 
-void updateBBD( unsigned char noteNumber ){
-	unsigned char index = ( noteNumber % 60); //Bound the note number to the size of the lookup table
+void updateBBD( MIDI_NoteOnMessage note ){
+	unsigned char index = ( note.NoteValue % 60); //Bound the note number to the size of the lookup table
 	unsigned int BBDOverFlowValue = pgm_read_word(&MIDItoBBDClockInstructionCountChart_int[index]);//read the data out of PGM memory space.
 	WaveGen1_SetFrequency( BBDOverFlowValue ); //place the value of the lookup table into OCR1 A and B (849)
-	SetKeyScaling( noteNumber ); //USART interrupt returns from here
+	SetKeyScaling( note.NoteValue ); //USART interrupt returns from here
 }
  
 void newVoice(){
@@ -59,6 +59,7 @@ void newVoice(){
  
 int main(void){
 	wdt_disable();
+	MIDI_DeviceInit();
 	spi_Init( Master, Two_Wire_Hold );
 	WaveGen1_Init( 500, OCA );
 	uartInit();
@@ -67,6 +68,9 @@ int main(void){
 
 	while(1) // Idle Loop
     {
-		DIAGNOSTIC_TOGGLE( PORTB, PINB0 );
+		MIDI_NoteOnMessage newNote = MIDI_GetNoteOn();
+		if( !( newNote.NoteValue < 0 ) ){
+			updateBBD(newNote);
+		}
     }
 }

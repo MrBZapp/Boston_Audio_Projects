@@ -13,7 +13,7 @@ unsigned char MidiStatus = MIDI_Idle;
 
 #define MIDI_NOTEBUFFER_SIZE 12
 cBuffer MIDI_NoteBuffer;
-unsigned char MIDI_NoteBufferData[ MIDI_NOTEBUFFER_SIZE ];
+unsigned char MIDI_NoteBufferData[ MIDI_NOTEBUFFER_SIZE ] = { [0 ... (MIDI_NOTEBUFFER_SIZE - 1)] 0x00 };
 
 
 void MIDI_DeviceInit(){
@@ -57,10 +57,17 @@ void MIDI_Router( unsigned char byte ){
 }
 
 #ifdef MIDI_BUFFERED_NOTES
+//!Retrieves a Note on message from the internal buffer.  will return -1 if no data is available
+///
 MIDI_NoteOnMessage MIDI_GetNoteOn(){
 	MIDI_NoteOnMessage NoteOn;
-	NoteOn.NoteValue = buffer_GetFromFront( &MIDI_NoteBuffer );//
-	NoteOn.Velocity = buffer_GetFromFront( &MIDI_NoteBuffer );
+	if ( buffer_BytesLeft( &MIDI_NoteBuffer ) != MIDI_NOTEBUFFER_SIZE ){
+		NoteOn.NoteValue = buffer_GetFromFront( &MIDI_NoteBuffer );
+		NoteOn.Velocity = buffer_GetFromFront( &MIDI_NoteBuffer );
+	}else{
+		NoteOn.NoteValue = -1;
+		NoteOn.Velocity = -1;
+	}
 	return NoteOn;
 }
 #endif

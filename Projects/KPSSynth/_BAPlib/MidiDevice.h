@@ -33,10 +33,11 @@ void MIDI_Router( unsigned char byte );
 
 //! Assigns a function to Note On
 ///
-#ifdef MIDI_BUFFERED_NOTES
+
+#ifndef MIDI_BUFFERED_NOTES
 void MIDI_AssignFunction_NoteOn( MidiFunctionPtr pFunc );
 #else
-
+void MIDI_DeviceInit();
 #endif
 
 
@@ -46,6 +47,7 @@ void MIDI_AssignFunction_NoteOff( MidiFunctionPtr pFunc );
 
 #ifdef MIDI_BUFFERED_NOTES
 volatile MidiBufferPtr NoteOnBuffer;//need a way to enable these things by if they exist in a system or not.
+MIDI_NoteOnMessage MIDI_GetNoteOn();
 #else
 volatile MidiFunctionPtr NoteOnFunction;//need a way to enable these things by if they exist in a system or not.
 #endif
