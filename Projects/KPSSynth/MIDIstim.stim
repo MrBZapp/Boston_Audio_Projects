@@ -40,6 +40,26 @@ PIND = 0x00 //MSB
 #256
 PIND = 0x01 //StopBit
 #256
+PIND = 0x00 //startBit Note Velocity 0xFF
+#256 
+PIND = 0x01 //LSB 
+#256
+PIND = 0x01
+#256
+PIND = 0x01
+#256
+PIND = 0x01
+#256 
+PIND = 0x01
+#256
+PIND = 0x01
+#256
+PIND = 0x01
+#256
+PIND = 0x00 //MSB
+#256
+PIND = 0x01 //StopBit
+#256
 	//SECOND MESSAGE
 PIND = 0x00 //startBit 0x90
 #256 
@@ -76,6 +96,25 @@ PIND = 0x00
 PIND = 0x00
 #256
 PIND = 0x00
+#256
+PIND = 0x00 //MSB
+#256
+PIND = 0x01 //StopBit
+PIND = 0x00 //startBit Note Velocity 0x55
+#256 
+PIND = 0x01 //LSB
+#256
+PIND = 0x00
+#256
+PIND = 0x01
+#256
+PIND = 0x00
+#256 
+PIND = 0x01
+#256
+PIND = 0x00
+#256
+PIND = 0x01
 #256
 PIND = 0x00 //MSB
 #256

@@ -8,10 +8,9 @@
 #include "MidiDevice.h"
 #include "../_AVRLib/global.h"
 
-unsigned char MIDI_byteCount = 0;
 unsigned char MidiStatus = MIDI_Idle;
 
-#define MIDI_NOTEBUFFER_SIZE 12
+#define MIDI_NOTEBUFFER_SIZE 12 //must be dividable by 2.
 cBuffer MIDI_NoteBuffer;
 unsigned char MIDI_NoteBufferData[ MIDI_NOTEBUFFER_SIZE ] = { [0 ... (MIDI_NOTEBUFFER_SIZE - 1)] 0x00 };
 
@@ -29,7 +28,6 @@ bool inline MIDI_IsStatus( unsigned char byte ){
 void MIDI_Router( unsigned char byte ){
 	//unsigned char u8_Value = Midi_IN.GetByteFromRXBuffer();
 	if ( MIDI_IsStatus( byte )){//Set the status if receiving a status byte
-		MIDI_byteCount = 0;
 		byte &= MIDI_STATUS_NIB_MASK;
 		switch ( byte ){
 			case ( MIDI_NoteOn ):
@@ -41,7 +39,6 @@ void MIDI_Router( unsigned char byte ){
 		}
 	}
 	else{ //route the data to the appropriate functions
-		MIDI_byteCount++;
 		switch ( MidiStatus ){
 			case ( MIDI_Idle ):
 				break;
@@ -60,13 +57,12 @@ void MIDI_Router( unsigned char byte ){
 //!Retrieves a Note on message from the internal buffer.  will return -1 if no data is available
 ///
 MIDI_NoteOnMessage MIDI_GetNoteOn(){
-	MIDI_NoteOnMessage NoteOn;
-	if ( buffer_BytesLeft( &MIDI_NoteBuffer ) != MIDI_NOTEBUFFER_SIZE ){
-		NoteOn.NoteValue = buffer_GetFromFront( &MIDI_NoteBuffer );
-		NoteOn.Velocity = buffer_GetFromFront( &MIDI_NoteBuffer );
-	}else{
-		NoteOn.NoteValue = -1;
-		NoteOn.Velocity = -1;
+	MIDI_NoteOnMessage NoteOn = {-1, -1};// assume everything is wrong.
+	if ( buffer_BytesLeft( &MIDI_NoteBuffer ) != MIDI_NOTEBUFFER_SIZE ){ //check to see if there's any information in the buffer
+		if( !(buffer_BytesLeft( &MIDI_NoteBuffer ) % 2) ){ // check to see if there's enough data to be useful. every note on message must be 2 bytes
+			NoteOn.NoteValue = buffer_GetFromFront( &MIDI_NoteBuffer );
+			NoteOn.Velocity = buffer_GetFromFront( &MIDI_NoteBuffer );
+		}
 	}
 	return NoteOn;
 }
