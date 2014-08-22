@@ -64,26 +64,26 @@
 // function prototypes
 
 //! initialize a buffer to start at a given address and have given size
-void	bufferInit(cBuffer* buffer, unsigned char *start, unsigned SHORTVAR size);
+void	buffer_Init(cBuffer* buffer, unsigned char *start, unsigned SHORTVAR size);
 
 //! get the first byte from the front of the buffer
-unsigned char	bufferGetFromFront(cBuffer* buffer);
+unsigned char	buffer_GetFromFront(cBuffer* buffer);
 
 //! dump (discard) the first numbytes from the front of the buffer
-void bufferDumpFromFront(cBuffer* buffer, unsigned SHORTVAR numbytes);
+void buffer_DumpFromFront(cBuffer* buffer, unsigned SHORTVAR numbytes);
 
 //! get a byte at the specified index in the buffer (kind of like array access)
 // ** note: this does not remove the byte that was read from the buffer
-unsigned char	bufferGetAtIndex(cBuffer* buffer, unsigned SHORTVAR index);
+unsigned char	buffer_GetAtIndex(cBuffer* buffer, unsigned SHORTVAR index);
 
 //! add a byte to the end of the buffer
-bool			bufferAddToEnd(cBuffer* buffer, unsigned char data);
+bool			buffer_AddToEnd(cBuffer* buffer, unsigned char data);
 
 //! check if the buffer is full/not full (returns zero value if full)
-unsigned SHORTVAR	bufferBytesLeft(cBuffer* buffer);
+unsigned SHORTVAR	buffer_BytesLeft(cBuffer* buffer);
 
 //! flush (clear) the contents of the buffer
-void			bufferFlush(cBuffer* buffer);
+void			buffer_Flush(cBuffer* buffer);
 
 #endif
 //@}

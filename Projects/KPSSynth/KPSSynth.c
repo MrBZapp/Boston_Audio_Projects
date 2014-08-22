@@ -35,6 +35,8 @@ void SetKeyScaling( unsigned char noteNumber ){
 		//bond the message together 
 		unsigned int message = ( ( (dacNumber -1) << 9 ) |
 								 ( noteNumber ));
+								 
+		//if the transmitter is ready, give it a message to send						 
 		if( ! spi_TransmitInProgress ){ 		
 			spi_transmitRawMessage( message, messageBitCount ); //Send the message.
 		}
@@ -47,17 +49,18 @@ void updateBBD( unsigned char noteNumber ){
 	SetKeyScaling( noteNumber ); //USART interrupt returns from here
 }
  
+void newVoice(){
+	
+}
  
  /*******
  * MAIN *
  ********/
  
-int main(void)
-{
+int main(void){
 	wdt_disable();
 	spi_Init( Master, Two_Wire_Hold );
 	WaveGen1_Init( 500, OCA );
-	MIDI_AssignFunction_NoteOn( &updateBBD );
 	uartInit();
 	uartSetRxHandler( &MIDI_Router );
 	sei();

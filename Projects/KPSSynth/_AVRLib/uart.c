@@ -96,21 +96,21 @@ void uartInitBuffers(void){ // create and initialize the uart transmit and recei
 	#ifndef UART_BUFFERS_EXTERNAL_RAM
 		// initialize the UART receive buffer
 		#ifdef ENABLE_UART0_RX
-			bufferInit(&uartRxBuffer, uartRxData, UART_RX_BUFFER_SIZE);
+			buffer_Init(&uartRxBuffer, uartRxData, UART_RX_BUFFER_SIZE);
 		#endif
 		#ifdef ENABLE_UART0_TX
 		// initialize the UART transmit buffer
-			bufferInit(&uartTxBuffer, uartTxData, UART_TX_BUFFER_SIZE);
+			buffer_Init(&uartTxBuffer, uartTxData, UART_TX_BUFFER_SIZE);
 		#endif
 	#else
 		// initialize the UART receive buffer if enabled
 		#ifdef ENABLE_UART0_RX
-			bufferInit(&uartRxBuffer, (u08*) UART_RX_BUFFER_ADDR, UART_RX_BUFFER_SIZE);
+			buffer_Init(&uartRxBuffer, (u08*) UART_RX_BUFFER_ADDR, UART_RX_BUFFER_SIZE);
 		#endif
 		
 		// initialize the UART transmit buffer if enabled
 		#ifdef ENABLE_UART0_TX
-			bufferInit(&uartTxBuffer, (u08*) UART_TX_BUFFER_ADDR, UART_TX_BUFFER_SIZE);
+			buffer_Init(&uartTxBuffer, (u08*) UART_TX_BUFFER_ADDR, UART_TX_BUFFER_SIZE);
 		#endif
 	#endif
 }
@@ -179,7 +179,7 @@ bool uartReceiveByte(u08* rxData){
 		// make sure we have data
 		if(uartRxBuffer.datalength){
 			// get byte from beginning of buffer
-			*rxData = bufferGetFromFront(&uartRxBuffer);
+			*rxData = buffer_GetFromFront(&uartRxBuffer);
 			return true;
 		}else{
 			// no data
@@ -214,7 +214,7 @@ bool uartReceiveBufferIsEmpty(void){
 // add byte to end of uart Tx buffer
 bool uartAddToTxBuffer(u08 data){
 	// add data byte to the end of the tx buffer
-	return bufferAddToEnd(&uartTxBuffer, data);
+	return buffer_AddToEnd(&uartTxBuffer, data);
 }
 
 // start transmission of the current uart Tx buffer contents
@@ -222,7 +222,7 @@ void uartSendTxBuffer(void){
 	// turn on buffered transmit
 	uartBufferedTx = true;
 	// send the first byte to get things going by interrupts
-	uartSendByte(bufferGetFromFront(&uartTxBuffer));
+	uartSendByte(buffer_GetFromFront(&uartTxBuffer));
 }
 /*
 // transmit nBytes from buffer out the uart
@@ -265,7 +265,7 @@ ISR(USART0_TX_vect){
 		// check if there's data left in the buffer
 		if(uartTxBuffer.datalength){
 			// send byte from top of buffer
-			outb(UDR, bufferGetFromFront(&uartTxBuffer));
+			outb(UDR, buffer_GetFromFront(&uartTxBuffer));
 		}else{
 			// no data left
 			uartBufferedTx = false;
@@ -296,7 +296,7 @@ ISR(USART0_RX_vect)
 		// otherwise do default processing
 		// put received char in buffer
 		// check if there's space
-		if( !bufferAddToEnd(&uartRxBuffer, charRX) ){
+		if( !buffer_AddToEnd(&uartRxBuffer, charRX) ){
 			// no space in buffer
 			// count overflow
 			uartRxOverflow++;

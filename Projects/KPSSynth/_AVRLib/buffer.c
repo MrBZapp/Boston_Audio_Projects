@@ -26,7 +26,7 @@
 #else
 	#define SHORTVAR short
 #endif
-void bufferInit(cBuffer* buffer, unsigned char *start, unsigned SHORTVAR size)
+void buffer_Init(cBuffer* buffer, unsigned char *start, unsigned SHORTVAR size)
 {
 	// begin critical section
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
@@ -41,7 +41,7 @@ void bufferInit(cBuffer* buffer, unsigned char *start, unsigned SHORTVAR size)
 }
 
 // access routines
-unsigned char  bufferGetFromFront(cBuffer* buffer)
+unsigned char  buffer_GetFromFront(cBuffer* buffer)
 {
 	unsigned char data = 0;
 	// begin critical section
@@ -64,7 +64,7 @@ unsigned char  bufferGetFromFront(cBuffer* buffer)
 	return data;
 }
 
-void bufferDumpFromFront(cBuffer* buffer, unsigned SHORTVAR numbytes)
+void buffer_DumpFromFront(cBuffer* buffer, unsigned SHORTVAR numbytes)
 {
 	// begin critical section
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
@@ -87,7 +87,7 @@ void bufferDumpFromFront(cBuffer* buffer, unsigned SHORTVAR numbytes)
 	}//Atomic End
 }
 
-unsigned char bufferGetAtIndex(cBuffer* buffer, unsigned SHORTVAR index){
+unsigned char buffer_GetAtIndex(cBuffer* buffer, unsigned SHORTVAR index){
 	// begin critical section
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
 		// return character at index in buffer
@@ -98,7 +98,7 @@ unsigned char bufferGetAtIndex(cBuffer* buffer, unsigned SHORTVAR index){
 	return 0; //This is to clear a warning associated with Atomic access. If code reaches here, it's a problem.
 }
 
-bool bufferAddToEnd(cBuffer* buffer, unsigned char data)
+bool buffer_AddToEnd(cBuffer* buffer, unsigned char data)
 {
 	// begin critical section
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
@@ -118,7 +118,7 @@ bool bufferAddToEnd(cBuffer* buffer, unsigned char data)
 	return false; //This is to clear a warning associated with Atomic access. If code reaches here, it's a problem.
 }
 
-unsigned SHORTVAR bufferBytesLeft(cBuffer* buffer){
+unsigned SHORTVAR buffer_BytesLeft(cBuffer* buffer){
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE){	
 		// check to see if the buffer has room
 		// return true if there is room
@@ -129,7 +129,7 @@ unsigned SHORTVAR bufferBytesLeft(cBuffer* buffer){
 	return 0; //This is to clear a warning associated with Atomic access. If code reaches here, it's a problem.
 }
 
-void inline bufferFlush(cBuffer* buffer)
+void inline buffer_Flush(cBuffer* buffer)
 {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE){
 		// reset the buffer

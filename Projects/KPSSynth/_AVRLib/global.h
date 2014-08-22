@@ -27,6 +27,7 @@
 #include "avrlibtypes.h"
 
 // project/system dependent defines
+#define		MIDI_BUFFERED_NOTES
 #define		ENABLE_UART0_RX
 #define		USE_SMALL_BUFFER_STRUCTURE
 #define		SPI_USE_TIMER0

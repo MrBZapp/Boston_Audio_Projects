@@ -6,9 +6,20 @@
  */ 
 
 #include "MidiDevice.h"
+#include "../_AVRLib/global.h"
 
 unsigned char MIDI_byteCount = 0;
 unsigned char MidiStatus = MIDI_Idle;
+
+#define MIDI_NOTEBUFFER_SIZE 12
+cBuffer MIDI_NoteBuffer;
+unsigned char MIDI_NoteBufferData[ MIDI_NOTEBUFFER_SIZE ];
+
+
+void MIDI_DeviceInit(){
+	buffer_Init( &MIDI_NoteBuffer, MIDI_NoteBufferData, MIDI_NOTEBUFFER_SIZE );
+}
+
 
 bool inline MIDI_IsStatus( unsigned char byte ){
 	return (bool) (byte & MIDI_STATUS_MASK);
@@ -33,16 +44,29 @@ void MIDI_Router( unsigned char byte ){
 		MIDI_byteCount++;
 		switch ( MidiStatus ){
 			case ( MIDI_Idle ):
-			break;
+				break;
 			case ( MIDI_NoteOn ):
-			MIDI_byteCount %= 2;
-			(*NoteOnFunction)( byte );
-			break;
+				#ifdef MIDI_BUFFERED_NOTES
+					buffer_AddToEnd( &MIDI_NoteBuffer, byte );
+				#else
+					(*NoteOnFunction)( byte );
+				#endif
+				break;
 		}
 	}
 }
 
+#ifdef MIDI_BUFFERED_NOTES
+MIDI_NoteOnMessage MIDI_GetNoteOn(){
+	MIDI_NoteOnMessage NoteOn;
+	NoteOn.NoteValue = buffer_GetFromFront( &MIDI_NoteBuffer );//
+	NoteOn.Velocity = buffer_GetFromFront( &MIDI_NoteBuffer );
+	return NoteOn;
+}
+#endif
 
+#ifndef MIDI_BUFFERED_NOTES
 void MIDI_AssignFunction_NoteOn( MidiFunctionPtr fptr ){
 	NoteOnFunction =  fptr;
 }
+#endif

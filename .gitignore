@@ -21,3 +21,7 @@ Projects/MIDISysexBox/Debug/Makefile
 *.hex
 *.srec
 *.atsuo
+*.d
+*.h
+*.srec
+Projects/Bawler2_5_CPP/Debug/Makefile
