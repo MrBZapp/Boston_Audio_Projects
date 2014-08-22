@@ -20,6 +20,8 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
+#include <avr/sleep.h>
+
 #include "_AVRLib/global.h"
 #include "_AVRLib/uart.h"
 #include "_BAPlib/WGM.h"
@@ -58,6 +60,7 @@ void newVoice(){
  
 int main(void){
 	wdt_disable();
+	set_sleep_mode( SLEEP_MODE_IDLE );
 	MIDI_DeviceInit();
 	spi_Init( Master, Two_Wire_Hold );
 	WaveGen1_Init( 500, OCA );
@@ -71,6 +74,8 @@ int main(void){
 		if( !( newNote.NoteValue < 0 ) ){
 			SetKeyScaling( newNote.NoteValue );
 			updateBBD( newNote.NoteValue );
+		}else{
+			sleep_mode(); //you're done, chill out for a while
 		}
     }
 }

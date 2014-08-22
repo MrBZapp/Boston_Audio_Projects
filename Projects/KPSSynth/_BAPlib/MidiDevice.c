@@ -53,6 +53,12 @@ void MIDI_Router( unsigned char byte ){
 	}
 }
 
+//!Re-sets all buffers and counts.
+///
+void MIDI_Panic(){
+	
+}
+
 #ifdef MIDI_BUFFERED_NOTES
 //!Retrieves a Note on message from the internal buffer.  will return -1 if no data is available
 ///
@@ -60,8 +66,8 @@ MIDI_NoteOnMessage MIDI_GetNoteOn(){
 	MIDI_NoteOnMessage NoteOn = {-1, -1};// assume everything is wrong.
 	if ( buffer_BytesLeft( &MIDI_NoteBuffer ) != MIDI_NOTEBUFFER_SIZE ){ //check to see if there's any information in the buffer
 		if( !(buffer_BytesLeft( &MIDI_NoteBuffer ) % 2) ){ // check to see if there's enough data to be useful. every note on message must be 2 bytes
-			NoteOn.NoteValue = buffer_GetFromFront( &MIDI_NoteBuffer );
-			NoteOn.Velocity = buffer_GetFromFront( &MIDI_NoteBuffer );
+			NoteOn.NoteValue = buffer_GetFromFront( &MIDI_NoteBuffer ); //Note value will be first
+			NoteOn.Velocity = buffer_GetFromFront( &MIDI_NoteBuffer ); //Followed by its velocity value
 		}
 	}
 	return NoteOn;

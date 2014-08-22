@@ -25,3 +25,4 @@ Projects/MIDISysexBox/Debug/Makefile
 *.h
 *.srec
 Projects/Bawler2_5_CPP/Debug/Makefile
+*.hex
