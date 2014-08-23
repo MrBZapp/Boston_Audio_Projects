@@ -7,10 +7,10 @@
 
 #include "WGM.h"
 
-void WaveGen1_Init( FREQUENCY_TYPE frequency, unsigned char output ){
+void WaveGen1_Init( /*FREQUENCY_TYPE frequency,*/ unsigned char output ){
 	timer1Init();
 	timer1SetOverflowPoint( 0xFFFF ); // enable CTC for Timer1 (16-bit timer)
-	WaveGen1_SetFrequency( frequency );
+	//WaveGen1_SetFrequency( frequency );
 	WaveGen1_SetOutput( output );
 }
 

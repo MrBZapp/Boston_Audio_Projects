@@ -24,7 +24,7 @@
 
 unsigned int waveGen1Freq;
 
-void WaveGen1_Init( FREQUENCY_TYPE frequency, unsigned char output );
+void WaveGen1_Init( /*FREQUENCY_TYPE frequency,*/ unsigned char output );
 
 void WaveGen1_SetOutput( unsigned char output);
 

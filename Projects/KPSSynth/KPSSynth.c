@@ -27,55 +27,38 @@
 #include "_BAPlib/WGM.h"
 #include "_BAPlib/MidiDevice.h"
 #include "_BAPlib/MIDI_TranslationCharts.h"
-#include "_BAPlib/TwoWirePeripherals.h"
-
-
-void SetKeyScaling( unsigned char noteNumber ){
-		unsigned char dacNumber = 4;
-		unsigned char messageBitCount = 11;
-				
-		//bond the message together 
-		unsigned int message = ( ( (dacNumber -1) << 9 ) |
-								 ( noteNumber ));
-								 
-		//if the transmitter is ready, give it a message to send						 
-		if( ! spi_TransmitInProgress ){ 		
-			spi_transmitRawMessage( message, messageBitCount ); //Send the message.
-		}
-}
+#include "_BAPlib/TLV5620.h"
 
 void updateBBD( unsigned char note ){
 	unsigned char index = ( note % 60); //Bound the note number to the size of the lookup table
 	unsigned int BBDOverFlowValue = pgm_read_word(&MIDItoBBDClockInstructionCountChart_int[index]);//read the data out of PGM memory space.
 	WaveGen1_SetFrequency( BBDOverFlowValue ); //place the value of the lookup table into OCR1 A and B (849)
 }
- 
-void newVoice(){
-	
-}
+
  
  /*******
  * MAIN *
  ********/
  
 int main(void){
-	wdt_disable();
-	set_sleep_mode( SLEEP_MODE_IDLE );
-	MIDI_DeviceInit();
-	spi_Init( Master, Two_Wire_Hold );
-	WaveGen1_Init( 500, OCA );
-	uartInit();
-	uartSetRxHandler( &MIDI_Router );
-	sei();
+	wdt_disable(); //Turn off the watch-dog timer
+	set_sleep_mode( SLEEP_MODE_IDLE ); //enable sleep in idle mode
+	MIDI_DeviceInit(); //set up the Midi Device
+	TLV5620_Init(); //turn on the USI to contact the peripheral DAC
+	WaveGen1_Init( OCA ); //Turn on the 16-bit waveform generator
+	uartInit(); //ready the UART to receive data
+	uartSetRxHandler( &MIDI_Router ); //direct the received data to the MIDI router
+	sei(); //Enable interrupts!
 
 	while(1) // main Loop
     {
 		MIDI_NoteOnMessage newNote = MIDI_GetNoteOn();
-		if( !( newNote.NoteValue < 0 ) ){
-			SetKeyScaling( newNote.NoteValue );
+		if( !( newNote.NoteValue < 0 ) ){ // If there's a new note, process it.
+			TLV5620_SendMessage( newNote.NoteValue, 1, 0 );
+			TLV5620_SendMessage( newNote.NoteValue, 2, 0 );
 			updateBBD( newNote.NoteValue );
 		}else{
-			sleep_mode(); //you're done, chill out for a while
+			sleep_mode(); // you're done, chill out for a while.
 		}
     }
 }

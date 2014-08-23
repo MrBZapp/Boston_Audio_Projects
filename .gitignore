@@ -26,3 +26,6 @@ Projects/MIDISysexBox/Debug/Makefile
 *.srec
 Projects/Bawler2_5_CPP/Debug/Makefile
 *.hex
+Projects/Bawler2_5_CPP/Debug/Makefile
+*.atsuo
+Projects/EnumProblemTest/Debug/Makefile
