@@ -15,18 +15,18 @@
  */ 
 
 #define DIAGNOSTICS
-#include "_BAPlib/BAP_Debug.h"
+#include "BAPlib/BAP_Debug.h"
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/wdt.h>
 #include <avr/sleep.h>
 
-#include "_AVRLib/uart.h"
-#include "_BAPlib/WGM.h"
-#include "_BAPlib/MidiDevice.h"
-#include "_BAPlib/MIDI_TranslationCharts.h"
-#include "_BAPlib/TLV5620.h"
+#include "AVRlib/uart.h"
+#include "BAPlib/WGM.h"
+#include "BAPlib/MidiDevice.h"
+#include "BAPlib/MIDI_TranslationCharts.h"
+#include "BAPlib/TLV5620.h"
 
 void updateBBD( unsigned char note ){
 	unsigned char index = ( note % 60); //Bound the note number to the size of the lookup table

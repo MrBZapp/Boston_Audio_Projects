@@ -138,6 +138,11 @@
       <Value>SPI_USE_TIMER0</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>../../..</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
   <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
   <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
@@ -154,58 +159,67 @@
     <OutputPath>bin\KPSSynthConfig\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\avrlib\buffer.c">
+      <SubType>compile</SubType>
+      <Link>_AVRLib\buffer.c</Link>
+    </Compile>
+    <Compile Include="..\..\avrlib\buffer.h">
+      <SubType>compile</SubType>
+      <Link>_AVRLib\buffer.h</Link>
+    </Compile>
+    <Compile Include="..\..\avrlib\timer.c">
+      <SubType>compile</SubType>
+      <Link>_AVRLib\timer.c</Link>
+    </Compile>
+    <Compile Include="..\..\avrlib\timer.h">
+      <SubType>compile</SubType>
+      <Link>_AVRLib\timer.h</Link>
+    </Compile>
+    <Compile Include="..\..\avrlib\uart.c">
+      <SubType>compile</SubType>
+      <Link>_AVRLib\uart.c</Link>
+    </Compile>
+    <Compile Include="..\..\avrlib\uart.h">
+      <SubType>compile</SubType>
+      <Link>_AVRLib\uart.h</Link>
+    </Compile>
+    <Compile Include="..\..\BAPlib\BAP_Debug.h">
+      <SubType>compile</SubType>
+      <Link>_BAPlib\BAP_Debug.h</Link>
+    </Compile>
+    <Compile Include="..\..\BAPlib\HardwareTimer.h">
+      <SubType>compile</SubType>
+      <Link>_BAPlib\HardwareTimer.h</Link>
+    </Compile>
+    <Compile Include="..\..\BAPlib\MidiDevice.c">
+      <SubType>compile</SubType>
+      <Link>_BAPlib\MidiDevice.c</Link>
+    </Compile>
+    <Compile Include="..\..\BAPlib\MidiDevice.h">
+      <SubType>compile</SubType>
+      <Link>_BAPlib\MidiDevice.h</Link>
+    </Compile>
+    <Compile Include="..\..\BAPlib\MIDI_TranslationCharts.h">
+      <SubType>compile</SubType>
+      <Link>_BAPlib\MIDI_TranslationCharts.h</Link>
+    </Compile>
+    <Compile Include="..\..\BAPlib\TLV5620.h">
+      <SubType>compile</SubType>
+      <Link>_BAPlib\TLV5620.h</Link>
+    </Compile>
+    <Compile Include="..\..\BAPlib\TwoWirePeripherals.h">
+      <SubType>compile</SubType>
+      <Link>_BAPlib\TwoWirePeripherals.h</Link>
+    </Compile>
+    <Compile Include="..\..\BAPlib\WGM.c">
+      <SubType>compile</SubType>
+      <Link>_BAPlib\WGM.c</Link>
+    </Compile>
+    <Compile Include="..\..\BAPlib\WGM.h">
+      <SubType>compile</SubType>
+      <Link>_BAPlib\WGM.h</Link>
+    </Compile>
     <Compile Include="KPSSynth.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\avrlibdefs.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\avrlibtypes.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\buffer.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\buffer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\timer.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\timer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\uart.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\uart.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_BAPlib\BAP_Debug.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_BAPlib\HardwareTimer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_BAPlib\MidiDevice.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_BAPlib\MidiDevice.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_BAPlib\MIDI_TranslationCharts.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_BAPlib\TLV5620.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_BAPlib\TwoWirePeripherals.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_BAPlib\WGM.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_BAPlib\WGM.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
