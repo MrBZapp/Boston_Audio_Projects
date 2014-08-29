@@ -1,4 +1,4 @@
- /*! \file uart.h \brief UART driver with buffer support. */
+/*! \file uart.h \brief UART driver with buffer support. */
 //*****************************************************************************
 //
 // File Name	: 'uart.h'
@@ -55,7 +55,7 @@
 #ifndef UART_H
 #define UART_H
 
-#include "global.h"
+#include <stdbool.h>
 #include "buffer.h"
 
 //! Default uart baud rate.
@@ -174,7 +174,7 @@ void uartSetRxHandler(void (*rx_func)(unsigned char c));
 
 //! Sets the uart baud rate.
 /// Argument should be in bits-per-second, like \c uartSetBaudRate(9600);
-void uartSetBaudRate(u32 baudrate);
+void uartSetBaudRate(unsigned long baudrate);
 
 //! Returns pointer to the receive buffer structure.
 ///
@@ -189,7 +189,7 @@ cBuffer* uartGetTxBuffer(void);
 /// therefore, consecutive calls to uartSendByte() will
 /// go only as fast as the data can be sent over the
 /// serial port.
-void uartSendByte(u08 data);
+void uartSendByte(unsigned char data);
 
 //! Gets a single byte from the uart receive buffer.
 /// Returns the byte, or -1 if no byte is available (getchar-style).
@@ -203,11 +203,11 @@ int uartGetByte(void);
 /// char myReceivedByte;
 /// uartReceiveByte( &myReceivedByte );
 /// \endcode
-u08 uartReceiveByte(u08* data);
+bool uartReceiveByte(unsigned char* data);
 
 //! Returns TRUE/FALSE if receive buffer is empty/not-empty.
 ///
-u08 uartReceiveBufferIsEmpty(void);
+bool uartReceiveBufferIsEmpty(void);
 
 //! Flushes (deletes) all data from receive buffer.
 ///
@@ -215,7 +215,7 @@ void uartFlushReceiveBuffer(void);
 
 //! Add byte to end of uart Tx buffer.
 ///	Returns TRUE if successful, FALSE if failed (no room left in buffer).
-u08 uartAddToTxBuffer(u08 data);
+bool uartAddToTxBuffer(unsigned char data);
 
 //! Begins transmission of the transmit buffer under interrupt control.
 ///
@@ -224,7 +224,7 @@ void uartSendTxBuffer(void);
 //! Sends a block of data via the uart using interrupt control.
 /// \param buffer	pointer to data to be sent
 ///	\param nBytes	length of data (number of bytes to sent)
-u08  uartSendBuffer(char *buffer, u16 nBytes);
+unsigned char  uartSendBuffer(char *buffer, unsigned int nBytes);
 
 #endif
 //@}

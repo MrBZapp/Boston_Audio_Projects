@@ -34,41 +34,55 @@
 
 #ifndef BUFFER_H
 #define BUFFER_H
-
+#include <avr/io.h>
+#include <stdbool.h>
+#include <util/atomic.h>
 // structure/typdefs
 
 //! cBuffer structure
-typedef struct struct_cBuffer
-{
-	unsigned char *dataptr;			///< the physical memory address where the buffer is stored
-	unsigned short size;			///< the allocated size of the buffer
-	unsigned short datalength;		///< the length of the data currently in the buffer
-	unsigned short dataindex;		///< the index into the buffer where the data starts
-} cBuffer;
+#ifdef USE_SMALL_BUFFER_STRUCTURE
+	#define SHORTVAR char
+	typedef struct struct_cBuffer
+	{
+		unsigned char *dataptr;			///< the physical memory address where the buffer is stored
+		unsigned char size;			///< the allocated size of the buffer
+		unsigned char datalength;		///< the length of the data currently in the buffer
+		unsigned char dataindex;		///< the index into the buffer where the data starts
+	} cBuffer;
+#else
+	#define SHORTVAR short
+	typedef struct struct_cBuffer
+	{
+		unsigned char *dataptr;			///< the physical memory address where the buffer is stored
+		unsigned SHORTVAR size;			///< the allocated size of the buffer
+		unsigned SHORTVAR datalength;		///< the length of the data currently in the buffer
+		unsigned SHORTVAR dataindex;		///< the index into the buffer where the data starts
+	} cBuffer;
+#endif
 
 // function prototypes
 
 //! initialize a buffer to start at a given address and have given size
-void	bufferInit(cBuffer* buffer, unsigned char *start, unsigned short size);
+void	buffer_Init(cBuffer* buffer, unsigned char *start, unsigned SHORTVAR size);
 
 //! get the first byte from the front of the buffer
-unsigned char	bufferGetFromFront(cBuffer* buffer);
+unsigned char	buffer_GetFromFront(cBuffer* buffer);
 
 //! dump (discard) the first numbytes from the front of the buffer
-void bufferDumpFromFront(cBuffer* buffer, unsigned short numbytes);
+void buffer_DumpFromFront(cBuffer* buffer, unsigned SHORTVAR numbytes);
 
 //! get a byte at the specified index in the buffer (kind of like array access)
 // ** note: this does not remove the byte that was read from the buffer
-unsigned char	bufferGetAtIndex(cBuffer* buffer, unsigned short index);
+unsigned char	buffer_GetAtIndex(cBuffer* buffer, unsigned SHORTVAR index);
 
 //! add a byte to the end of the buffer
-unsigned char	bufferAddToEnd(cBuffer* buffer, unsigned char data);
+bool			buffer_AddToEnd(cBuffer* buffer, unsigned char data);
 
 //! check if the buffer is full/not full (returns zero value if full)
-unsigned short	bufferIsNotFull(cBuffer* buffer);
+unsigned SHORTVAR	buffer_BytesLeft(cBuffer* buffer);
 
 //! flush (clear) the contents of the buffer
-void			bufferFlush(cBuffer* buffer);
+void			buffer_Flush(cBuffer* buffer);
 
 #endif
 //@}

@@ -69,7 +69,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include "global.h"
+//#include "global.h"
 
 // constants/macros/typdefs
 
@@ -170,8 +170,8 @@ Redefine these settings in global.h if you want a different default, not here.
 
 // interrupt macros for attaching user functions to timer interrupts
 // use these with timerAttach( intNum, function )
-#define TIMER0OVERFLOW_INT			0
-#define TIMER1OVERFLOW_INT			1
+//#define TIMER0OVERFLOW_INT			0
+//#define TIMER1OVERFLOW_INT			1
 #define TIMER1OUTCOMPAREA_INT		2
 #define TIMER1OUTCOMPAREB_INT		3
 #define TIMER1INPUTCAPTURE_INT		4
@@ -205,7 +205,7 @@ void timerInit(void);
 void timer0Init(void);		///< initialize timer0
 void timer1Init(void);		///< initialize timer1
 #ifdef TCNT2	// support timer2 only if it exists
-void timer2Init(void);		///< initialize timer2
+	void timer2Init(void);		///< initialize timer2
 #endif
 
 // Clock prescaler set/get commands for each timer/counter
@@ -214,13 +214,13 @@ void timer2Init(void);		///< initialize timer2
 // you want.
 // When getting the current prescaler setting, the return value
 // will be the [x] division value currently set.
-void timer0SetPrescaler(u08 prescale);		///< set timer0 prescaler
-u16  timer0GetPrescaler(void);				///< get timer0 prescaler
-void timer1SetPrescaler(u08 prescale);		///< set timer1 prescaler
-u16  timer1GetPrescaler(void);				///< get timer0 prescaler
+void timer0SetPrescaler(unsigned char prescale);		///< set timer0 prescaler
+unsigned int  timer0GetPrescaler(void);				///< get timer0 prescaler
+void timer1SetPrescaler(unsigned char prescale);		///< set timer1 prescaler
+unsigned int  timer1GetPrescaler(void);				///< get timer0 prescaler
 #ifdef TCNT2	// support timer2 only if it exists
-void timer2SetPrescaler(u08 prescale);		///< set timer2 prescaler
-u16  timer2GetPrescaler(void);				///< get timer2 prescaler
+void timer2SetPrescaler(unsigned char prescale);		///< set timer2 prescaler
+unsigned int  timer2GetPrescaler(void);				///< get timer2 prescaler
 #endif
 
 
@@ -246,22 +246,24 @@ u16  timer2GetPrescaler(void);				///< get timer2 prescaler
 //		void myOverflowFunction(void) { ... }
 
 //! Attach a user function to a timer interrupt
-void timerAttach(u08 interruptNum, void (*userFunc)(void) );
+void timerAttach(unsigned char interruptNum, void (*userFunc)(void) );
 //! Detach a user function from a timer interrupt
-void timerDetach(u08 interruptNum);
+void timerDetach(unsigned char interruptNum);
 
 
 // timing commands
 /// A timer-based delay/pause function
 /// @param pause_ms	Number of integer milliseconds to wait.
 void timerPause(unsigned short pause_ms);
+void timer0SetOverflowPoint(unsigned char overflowPoint ); // Sets OCR0A to a number, turns on clear on timer compare.
+void timer1SetOverflowPoint( unsigned int overflowPoint ); //UNIMPLEMENTED 
 
 // overflow counters
 void timer0ClearOverflowCount(void);	///< Clear timer0's overflow counter. 
 long timer0GetOverflowCount(void);		///< read timer0's overflow counter
 #ifdef TCNT2	// support timer2 only if it exists
-void timer2ClearOverflowCount(void);	///< clear timer2's overflow counter
-long timer2GetOverflowCount(void);		///< read timer0's overflow counter
+	void timer2ClearOverflowCount(void);	///< clear timer2's overflow counter
+	long timer2GetOverflowCount(void);		///< read timer0's overflow counter
 #endif
 
 /// @defgroup timerpwm Timer PWM Commands
@@ -296,12 +298,12 @@ long timer2GetOverflowCount(void);		///< read timer0's overflow counter
 /// Enter standard PWM Mode on timer1.
 /// \param bitRes	indicates the period/resolution to use for PWM output in timer bits.
 ///						Must be either 8, 9, or 10 bits corresponding to PWM periods of 256, 512, or 1024 timer tics.
-void timer1PWMInit(u08 bitRes);
+void timer1PWMInit(unsigned char bitRes);
 
 /// Enter PWM Mode on timer1 with a specific top-count value.
 /// \param topcount	indicates the desired PWM period in timer tics.
 ///						Can be a number between 1 and 65535 (16-bit).
-void timer1PWMInitICR(u16 topcount);
+void timer1PWMInitICR(unsigned int topcount);
 
 /// Turn off all timer1 PWM output and set timer mode to normal.
 void timer1PWMOff(void);
@@ -312,8 +314,8 @@ void timer1PWMBOn(void);			///< Turn on timer1 Channel B (OC1B) PWM output.
 void timer1PWMAOff(void);			///< turn off timer1 Channel A (OC1A) PWM output
 void timer1PWMBOff(void);			///< turn off timer1 Channel B (OC1B) PWM output
 
-void timer1PWMASet(u16 pwmDuty);	///< set duty of timer1 Channel A (OC1A) PWM output
-void timer1PWMBSet(u16 pwmDuty);	///< set duty of timer1 Channel B (OC1B) PWM output
+void timer1PWMASet(unsigned int pwmDuty);	///< set duty of timer1 Channel A (OC1A) PWM output
+void timer1PWMBSet(unsigned int pwmDuty);	///< set duty of timer1 Channel B (OC1B) PWM output
 
 //@}
 //@}
