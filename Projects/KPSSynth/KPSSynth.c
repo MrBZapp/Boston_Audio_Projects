@@ -22,7 +22,6 @@
 #include <avr/wdt.h>
 #include <avr/sleep.h>
 
-#include "_AVRLib/global.h"
 #include "_AVRLib/uart.h"
 #include "_BAPlib/WGM.h"
 #include "_BAPlib/MidiDevice.h"

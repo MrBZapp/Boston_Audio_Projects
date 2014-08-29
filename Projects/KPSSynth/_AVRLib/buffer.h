@@ -37,7 +37,6 @@
 #include <avr/io.h>
 #include <stdbool.h>
 #include <util/atomic.h>
-#include "global.h"
 // structure/typdefs
 
 //! cBuffer structure

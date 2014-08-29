@@ -105,12 +105,12 @@ void uartInitBuffers(void){ // create and initialize the uart transmit and recei
 	#else
 		// initialize the UART receive buffer if enabled
 		#ifdef ENABLE_UART0_RX
-			buffer_Init(&uartRxBuffer, (u08*) UART_RX_BUFFER_ADDR, UART_RX_BUFFER_SIZE);
+			buffer_Init(&uartRxBuffer, (unsigned char*) UART_RX_BUFFER_ADDR, UART_RX_BUFFER_SIZE);
 		#endif
 		
 		// initialize the UART transmit buffer if enabled
 		#ifdef ENABLE_UART0_TX
-			buffer_Init(&uartTxBuffer, (u08*) UART_TX_BUFFER_ADDR, UART_TX_BUFFER_SIZE);
+			buffer_Init(&uartTxBuffer, (unsigned char*) UART_TX_BUFFER_ADDR, UART_TX_BUFFER_SIZE);
 		#endif
 	#endif
 }
@@ -124,12 +124,12 @@ void uartSetRxHandler(void (*rx_func)(unsigned char c)){
 #endif
 
 // set the uart baud rate
-void uartSetBaudRate(u32 baudrate){
+void uartSetBaudRate(unsigned long baudrate){
 	// calculate division factor for requested baud rate, and set it
-	u16 bauddiv = ((F_CPU+(baudrate*8L))/(baudrate*16L)-1);
-	outb(UBRRL, bauddiv);
+	unsigned int bauddiv = ((F_CPU+(baudrate*8L))/(baudrate*16L)-1);
+	UBRRL = bauddiv;
 	#ifdef UBRRH
-		outb(UBRRH, bauddiv>>8);
+		UBRRH = (bauddiv>>8);
 	#endif
 }
 
@@ -151,7 +151,7 @@ cBuffer* uartGetTxBuffer(void){
 
 #ifdef ENABLE_UART0_TX
 // transmits a byte over the uart
-void uartSendByte(u08 txData){
+void uartSendByte(unsigned char txData){
 	// wait for the transmitter to be ready
 	while(!uartReadyTx){};
 	// send byte
@@ -163,7 +163,7 @@ void uartSendByte(u08 txData){
 
 // gets a single byte from the uart receive buffer (getchar-style)
 int uartGetByte(void){
-	u08 c;
+	unsigned char c;
 	if(uartReceiveByte(&c)){
 		return c;
 	}else{
@@ -173,7 +173,7 @@ int uartGetByte(void){
 
 #ifdef ENABLE_UART0_RX
 // gets a byte (if available) from the uart receive buffer
-bool uartReceiveByte(u08* rxData){
+bool uartReceiveByte(unsigned char* rxData){
 	// make sure we have a receive buffer
 	if(uartRxBuffer.size){
 		// make sure we have data
@@ -212,7 +212,7 @@ bool uartReceiveBufferIsEmpty(void){
 
 #ifdef ENABLE_UART0_TX
 // add byte to end of uart Tx buffer
-bool uartAddToTxBuffer(u08 data){
+bool uartAddToTxBuffer(unsigned char data){
 	// add data byte to the end of the tx buffer
 	return buffer_AddToEnd(&uartTxBuffer, data);
 }
@@ -226,10 +226,10 @@ void uartSendTxBuffer(void){
 }
 /*
 // transmit nBytes from buffer out the uart
-u08 uartSendBuffer(char *buffer, u16 nBytes)
+unsigned char uartSendBuffer(char *buffer, unsigned int nBytes)
 {
-	register u08 first;
-	register u16 i;
+	register unsigned char first;
+	register unsigned int i;
 
 	// check if there's space (and that we have any bytes to send at all)
 	if((uartTxBuffer.datalength + nBytes < uartTxBuffer.size) && nBytes)

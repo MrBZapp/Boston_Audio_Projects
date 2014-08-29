@@ -6,7 +6,6 @@
  */ 
 
 #include "MidiDevice.h"
-#include "../_AVRLib/global.h"
 
 unsigned char MidiStatus = MIDI_Idle;
 

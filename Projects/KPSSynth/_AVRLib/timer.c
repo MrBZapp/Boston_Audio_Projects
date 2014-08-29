@@ -20,7 +20,6 @@
 #include <avr/pgmspace.h>
 #include <avr/sleep.h>
 
-#include "global.h"
 #include "timer.h"
 
 
@@ -36,6 +35,7 @@ const unsigned short __attribute__ ((progmem)) TimerRTCPrescaleFactor[] = {0,1,8
 // time registers
 volatile unsigned long TimerPauseReg;
 #ifdef TIMER0OVERFLOW_INT
+	#pragma message "Timer0 Interrupt enabled"
 	volatile unsigned long Timer0Reg0;
 #endif
 #ifdef TIMER2OVERFLOW_INT
@@ -78,7 +78,7 @@ void delay_ms(unsigned char time_ms)
 */
 void timerInit(void)
 {
-	u08 intNum;
+	unsigned char intNum;
 	// detach all user functions from interrupts
 	for(intNum=0; intNum<TIMER_NUM_INTERRUPTS; intNum++)
 		timerDetach(intNum);
@@ -97,7 +97,7 @@ void timer0Init()
 {
 	// initialize timer 0
 	timer0SetPrescaler( TIMER0PRESCALE );	// set prescaler
-	outb(TCNT0, 0);							// reset TCNT0
+	TCNT0 = 0;							// reset TCNT0
 	#ifdef TIMER0OVERFLOW_INT
 		sbi(TIMSK, TOIE0);						// enable TCNT0 overflow interrupt
 		timer0ClearOverflowCount();				// initialize time registers
@@ -120,7 +120,7 @@ void timer2Init(void)
 {
 	// initialize timer 2
 	timer2SetPrescaler( TIMER2PRESCALE );	// set prescaler
-	outb(TCNT2, 0);							// reset TCNT2
+	TCNT2 = 0;							// reset TCNT2
 	#ifdef TIMER2OVERFLOW_INT
 		sbi(TIMSK, TOIE2);						// enable TCNT2 overflow
 		timer2ClearOverflowCount();				// initialize time registers
@@ -128,45 +128,39 @@ void timer2Init(void)
 }
 #endif
 
-#ifdef TCCR0
-void timer0SetPrescaler( u08 prescale ){
-	// set prescaler on timer 0
-	outb(TCCR0B, (inb(TCCR0B) & ~TIMER_PRESCALE_MASK) | prescale);
-}
-#endif
 
 #ifdef TCCR0B
-void timer0SetPrescaler( u08 prescale ){
-	outb(TCCR0B, (inb(TCCR0B) & ~TIMER_PRESCALE_MASK) | prescale); // set prescaler on timer 0
+void timer0SetPrescaler( unsigned char prescale ){
+	TCCR0B = ((TCCR0B & ~TIMER_PRESCALE_MASK) | prescale); // set prescaler on timer 0
 }
 #endif
 
-void timer1SetPrescaler(u08 prescale){
+void timer1SetPrescaler(unsigned char prescale){
 	// set prescaler on timer 1
-	outb(TCCR1B, (inb(TCCR1B) & ~TIMER_PRESCALE_MASK) | prescale);
+	TCCR1B = ((TCCR1B & ~TIMER_PRESCALE_MASK) | prescale);
 }
 
 #ifdef TCNT2	// support timer2 only if it exists
-void timer2SetPrescaler(u08 prescale){
+void timer2SetPrescaler(unsigned char prescale){
 	// set prescaler on timer 2
-	outb(TCCR2, (inb(TCCR2) & ~TIMER_PRESCALE_MASK) | prescale);
+	TCCR2 = (TCCR2 & ~TIMER_PRESCALE_MASK) | prescale);
 }
 #endif
 
 #ifdef TCCR0
-u16 timer0GetPrescaler(void){
+unsigned int timer0GetPrescaler(void){
 	// get the current prescaler setting
-	return (pgm_read_word(TimerPrescaleFactor+(inb(TCCR0) & TIMER_PRESCALE_MASK)));
+	return (pgm_read_word(TimerPrescaleFactor+(TCCR0 & TIMER_PRESCALE_MASK)));
 }
 #endif
 
-u16 timer1GetPrescaler(void){
+unsigned int timer1GetPrescaler(void){
 	// get the current prescaler setting
-	return (pgm_read_word(TimerPrescaleFactor+(inb(TCCR1B) & TIMER_PRESCALE_MASK)));
+	return (pgm_read_word(TimerPrescaleFactor+(TCCR1B & TIMER_PRESCALE_MASK)));
 }
 
 #ifdef TCNT2	// support timer2 only if it exists
-u16 timer2GetPrescaler(void){
+unsigned int timer2GetPrescaler(void){
 	//TODO: can we assume for all 3-timer AVR processors,
 	// that timer2 is the RTC timer?
 
@@ -175,7 +169,8 @@ u16 timer2GetPrescaler(void){
 }
 #endif
 
-void timerAttach(u08 interruptNum, void (*userFunc)(void) ){
+
+void timerAttach(unsigned char interruptNum, void (*userFunc)(void) ){
 	// make sure the interrupt number is within bounds
 	if(interruptNum < TIMER_NUM_INTERRUPTS)
 	{
@@ -185,7 +180,8 @@ void timerAttach(u08 interruptNum, void (*userFunc)(void) ){
 	}
 }
 
-void timerDetach(u08 interruptNum){
+
+void timerDetach(unsigned char interruptNum){
 	// make sure the interrupt number is within bounds
 	if(interruptNum < TIMER_NUM_INTERRUPTS)
 	{
@@ -193,32 +189,17 @@ void timerDetach(u08 interruptNum){
 		TimerIntFunc[interruptNum] = 0;
 	}
 }
-/*
-u32 timerMsToTics(u16 ms)
-{
-	// calculate the prescaler division rate
-	u16 prescaleDiv = 1<<(pgm_read_byte(TimerPrescaleFactor+inb(TCCR0)));
-	// calculate the number of timer tics in x milliseconds
-	return (ms*(F_CPU/(prescaleDiv*256)))/1000;
-}
 
-u16 timerTicsToMs(u32 tics)
-{
-	// calculate the prescaler division rate
-	u16 prescaleDiv = 1<<(pgm_read_byte(TimerPrescaleFactor+inb(TCCR0)));
-	// calculate the number of milliseconds in x timer tics
-	return (tics*1000*(prescaleDiv*256))/F_CPU;
-}
-*/
+
 void timerPause(unsigned short pause_ms)
 {
 	// pauses for exactly <pause_ms> number of milliseconds
-	u08 timerThres;
-	u32 ticRateHz;
-	u32 pause;
+	unsigned char timerThres;
+	unsigned long ticRateHz;
+	unsigned long pause;
 
 	// capture current pause timer value
-	timerThres = inb(TCNT0);
+	timerThres = TCNT0;
 	// reset pause timer overflow count
 	TimerPauseReg = 0;
 	// calculate delay for [pause_ms] milliseconds
@@ -233,7 +214,7 @@ void timerPause(unsigned short pause_ms)
 		pause = pause_ms*(ticRateHz/1000);
 
 	// loop until time expires
-	while( ((TimerPauseReg<<8) | inb(TCNT0)) < (pause+timerThres) )
+	while( ((TimerPauseReg<<8) | TCNT0) < (pause+timerThres) )
 	{
 		if( TimerPauseReg < (pause>>8));
 		{
@@ -246,8 +227,8 @@ void timerPause(unsigned short pause_ms)
 	/* old inaccurate code, for reference
 	
 	// calculate delay for [pause_ms] milliseconds
-	u16 prescaleDiv = 1<<(pgm_read_byte(TimerPrescaleFactor+inb(TCCR0)));
-	u32 pause = (pause_ms*(F_CPU/(prescaleDiv*256)))/1000;
+	unsigned int prescaleDiv = 1<<(pgm_read_byte(TimerPrescaleFactor+inb(TCCR0)));
+	unsigned long pause = (pause_ms*(F_CPU/(prescaleDiv*256)))/1000;
 	
 	TimerPauseReg = 0;
 	while(TimerPauseReg < pause);
@@ -266,6 +247,7 @@ void timer0SetOverflowPoint( unsigned char overflowPoint ){
 void timer1SetOverflowPoint( unsigned int overflowPoint ){
 	TCCR1B = ( TCCR1B & (1<<WGM12));// enable CTC for Timer1 (16-bit timer)
 	OCR1A = overflowPoint;
+	TCNT1 = 0x0000;
 }
 
 #ifdef TIMER0OVERFLOW_INT
@@ -305,7 +287,7 @@ long timer2GetOverflowCount(void)
 #endif
 #endif
 
-void timer1PWMInit(u08 bitRes)
+void timer1PWMInit(unsigned char bitRes)
 {
 	// configures timer1 for use with PWM output
 	// on OC1A and OC1B pins
@@ -313,38 +295,38 @@ void timer1PWMInit(u08 bitRes)
 	// enable timer1 as 8,9,10bit PWM
 	if(bitRes == 9)
 	{	// 9bit mode
-		sbi(TCCR1A,PWM11);
-		cbi(TCCR1A,PWM10);
+		TCCR1A |= (1<<PWM11);
+		TCCR1A &= ~(1<<PWM10);
 	}
 	else if( bitRes == 10 )
 	{	// 10bit mode
-		sbi(TCCR1A,PWM11);
-		sbi(TCCR1A,PWM10);
+		TCCR1A |= (1<<PWM11);
+		TCCR1A |= (1<<PWM10);
 	}
 	else
 	{	// default 8bit mode
-		cbi(TCCR1A,PWM11);
-		sbi(TCCR1A,PWM10);
+		TCCR1A &= ~(1<<PWM11);
+		TCCR1A |= (1<<PWM10);
 	}
 
 	// clear output compare value A
-	outb(OCR1AH, 0);
-	outb(OCR1AL, 0);
+	OCR1AH = 0;
+	OCR1AL = 0;
 	// clear output compare value B
-	outb(OCR1BH, 0);
-	outb(OCR1BL, 0);
+	OCR1BH = 0;
+	OCR1BL = 0;
 }
 
 #ifdef WGM10
 // include support for arbitrary top-count PWM
 // on new AVR processors that support it
-void timer1PWMInitICR(u16 topcount)
+void timer1PWMInitICR(unsigned int topcount)
 {
 	// set PWM mode with ICR top-count
-	cbi(TCCR1A,WGM10);
-	sbi(TCCR1A,WGM11);
-	sbi(TCCR1B,WGM12);
-	sbi(TCCR1B,WGM13);
+	TCCR1A &= ~(1<<WGM10);
+	TCCR1A |= (1<<WGM11);
+	TCCR1B |= (1<<WGM12);
+	TCCR1B |= (1<<WGM13);
 	
 	// set top count value
 	ICR1 = topcount;
@@ -360,8 +342,8 @@ void timer1PWMInitICR(u16 topcount)
 void timer1PWMOff(void)
 {
 	// turn off timer1 PWM mode
-	cbi(TCCR1A,PWM11);
-	cbi(TCCR1A,PWM10);
+	TCCR1A &= ~(1<<PWM11);
+	TCCR1A &= ~(1<<PWM10);
 	// set PWM1A/B (OutputCompare action) to none
 	timer1PWMAOff();
 	timer1PWMBOff();
@@ -371,35 +353,35 @@ void timer1PWMAOn(void)
 {
 	// turn on channel A (OC1A) PWM output
 	// set OC1A as non-inverted PWM
-	sbi(TCCR1A,COM1A1);
-	cbi(TCCR1A,COM1A0);
+	TCCR1A |= COM1A1;
+	TCCR1A &= ~(1<<COM1A0);
 }
 
 void timer1PWMBOn(void)
 {
 	// turn on channel B (OC1B) PWM output
 	// set OC1B as non-inverted PWM
-	sbi(TCCR1A,COM1B1);
-	cbi(TCCR1A,COM1B0);
+	TCCR1A |= (1<<COM1B1);
+	TCCR1A &= ~(1<<COM1B0);
 }
 
 void timer1PWMAOff(void)
 {
 	// turn off channel A (OC1A) PWM output
 	// set OC1A (OutputCompare action) to none
-	cbi(TCCR1A,COM1A1);
-	cbi(TCCR1A,COM1A0);
+	TCCR1A &= ~(1<<COM1A1);
+	TCCR1A &= ~(1<<COM1A0);
 }
 
 void timer1PWMBOff(void)
 {
 	// turn off channel B (OC1B) PWM output
 	// set OC1B (OutputCompare action) to none
-	cbi(TCCR1A,COM1B1);
-	cbi(TCCR1A,COM1B0);
+	TCCR1A &= ~(1<<COM1B1);
+	TCCR1A &= ~(1<<COM1B0);
 }
 
-void timer1PWMASet(u16 pwmDuty)
+void timer1PWMASet(unsigned int pwmDuty)
 {
 	// set PWM (output compare) duty for channel A
 	// this PWM output is generated on OC1A pin
@@ -411,7 +393,7 @@ void timer1PWMASet(u16 pwmDuty)
 	OCR1A = pwmDuty;
 }
 
-void timer1PWMBSet(u16 pwmDuty)
+void timer1PWMBSet(unsigned int pwmDuty)
 {
 	// set PWM (output compare) duty for channel B
 	// this PWM output is generated on OC1B pin

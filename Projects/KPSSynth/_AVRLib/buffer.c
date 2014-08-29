@@ -26,6 +26,7 @@
 #else
 	#define SHORTVAR short
 #endif
+
 void buffer_Init(cBuffer* buffer, unsigned char *start, unsigned SHORTVAR size)
 {
 	// begin critical section

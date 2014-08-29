@@ -6,6 +6,9 @@
  */ 
 
 #include "WGM.h"
+#include <avr/io.h>
+#include <math.h>
+#include "../_AVRLib/timer.h"
 
 void WaveGen1_Init( /*FREQUENCY_TYPE frequency,*/ unsigned char output ){
 	timer1Init();

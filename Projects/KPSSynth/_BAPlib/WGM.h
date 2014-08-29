@@ -5,12 +5,10 @@
  *  Author: Matt Zapp
  */ 
 
-#include <avr/io.h>
-#include <math.h>
-#include "../_AVRLib/timer.h"
-
 #ifndef WGM_H_
 #define WGM_H_
+
+
 
 #ifdef ENNABLE_HIGH_FREQUENCY_ACCURACY
 	#define FREQUENCY_TYPE float

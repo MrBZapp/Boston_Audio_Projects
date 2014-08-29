@@ -93,6 +93,13 @@
   <avrgcc.compiler.symbols.DefSymbols>
     <ListValues>
       <Value>DEBUG</Value>
+      <Value>F_CPU=8000000</Value>
+      <Value>CYCLES_PER_US=((F_CPU+500000)/1000000)</Value>
+      <Value>USE_SMALL_BUFFER_STRUCTURE</Value>
+      <Value>ENABLE_UART0_RX</Value>
+      <Value>UART_RX_BUFFERSIZE=0x0020</Value>
+      <Value>MIDI_BUFFERED_NOTES</Value>
+      <Value>SPI_USE_TIMER0</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
   <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
@@ -108,6 +115,43 @@
   <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
 </AvrGcc>
     </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'KPSSynthConfig' ">
+    <ToolchainSettings>
+      <AvrGcc>
+  <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+  <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+  <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+  <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+  <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+  <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+  <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>DEBUG</Value>
+      <Value>F_CPU=8000000</Value>
+      <Value>CYCLES_PER_US=((F_CPU+500000)/1000000)</Value>
+      <Value>USE_SMALL_BUFFER_STRUCTURE</Value>
+      <Value>ENABLE_UART0_RX</Value>
+      <Value>UART_RX_BUFFER_SIZE=0x0020</Value>
+      <Value>MIDI_BUFFERED_NOTES</Value>
+      <Value>SPI_USE_TIMER0</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+  <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+  <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.linker.libraries.Libraries>
+    <ListValues>
+      <Value>libm</Value>
+    </ListValues>
+  </avrgcc.linker.libraries.Libraries>
+  <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+</AvrGcc>
+    </ToolchainSettings>
+    <OutputPath>bin\KPSSynthConfig\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="KPSSynth.c">
@@ -125,18 +169,6 @@
     <Compile Include="_AVRLib\buffer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="_AVRLib\global.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\pulse.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\pulse.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="_AVRLib\spi.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="_AVRLib\timer.c">
       <SubType>compile</SubType>
     </Compile>
@@ -150,6 +182,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="_BAPlib\BAP_Debug.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="_BAPlib\HardwareTimer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="_BAPlib\MidiDevice.c">
