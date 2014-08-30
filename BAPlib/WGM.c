@@ -10,6 +10,7 @@
 #include <math.h>
 #include "../AVRLib/timer.h"
 
+#ifdef TIMER1_IS_16BIT
 void WaveGen1_Init( /*FREQUENCY_TYPE frequency,*/ unsigned char output ){
 	timer1Init();
 	timer1SetOverflowPoint( 0xFFFF ); // enable CTC for Timer1 (16-bit timer)
@@ -55,3 +56,4 @@ void WaveGen1_DirectSetOCR( unsigned int ocrValue ){
 	OCR1B = ocrValue;
 	TCNT1 = 0x0000;
 }
+#endif

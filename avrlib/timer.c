@@ -93,6 +93,12 @@ void timerInit(void)
 	sei();
 }
 
+
+#ifdef TCCR0B
+void timer0SetPrescaler( unsigned char prescale ){
+	TCCR0B = ((TCCR0B & ~TIMER_PRESCALE_MASK) | prescale); // set prescaler on timer 0
+}
+
 void timer0Init()
 {
 	// initialize timer 0
@@ -102,6 +108,19 @@ void timer0Init()
 		sbi(TIMSK, TOIE0);						// enable TCNT0 overflow interrupt
 		timer0ClearOverflowCount();				// initialize time registers
 	#endif 
+}
+#endif
+
+#ifdef TCCR1B
+void timer1SetPrescaler(unsigned char prescale){
+	// set prescaler on timer 1
+	TCCR1B = ((TCCR1B & ~TIMER_PRESCALE_MASK) | prescale);
+}
+
+
+unsigned int timer1GetPrescaler(void){
+	// get the current prescaler setting
+	return (pgm_read_word(TimerPrescaleFactor+(TCCR1B & TIMER_PRESCALE_MASK)));
 }
 
 void timer1Init(void)
@@ -114,6 +133,14 @@ void timer1Init(void)
 		TIMSK = (1<<TOIE1);						// enable TCNT1 overflow
 	#endif
 }
+
+void timer1SetOverflowPoint( unsigned int overflowPoint ){
+	TCCR1B = ( TCCR1B & (1<<WGM12));// enable CTC for Timer1 (16-bit timer)
+	OCR1A = overflowPoint;
+	TCNT1 = 0x0000;
+}
+
+#endif
 
 #ifdef TCNT2	// support timer2 only if it exists
 void timer2Init(void)
@@ -129,16 +156,6 @@ void timer2Init(void)
 #endif
 
 
-#ifdef TCCR0B
-void timer0SetPrescaler( unsigned char prescale ){
-	TCCR0B = ((TCCR0B & ~TIMER_PRESCALE_MASK) | prescale); // set prescaler on timer 0
-}
-#endif
-
-void timer1SetPrescaler(unsigned char prescale){
-	// set prescaler on timer 1
-	TCCR1B = ((TCCR1B & ~TIMER_PRESCALE_MASK) | prescale);
-}
 
 #ifdef TCNT2	// support timer2 only if it exists
 void timer2SetPrescaler(unsigned char prescale){
@@ -154,10 +171,6 @@ unsigned int timer0GetPrescaler(void){
 }
 #endif
 
-unsigned int timer1GetPrescaler(void){
-	// get the current prescaler setting
-	return (pgm_read_word(TimerPrescaleFactor+(TCCR1B & TIMER_PRESCALE_MASK)));
-}
 
 #ifdef TCNT2	// support timer2 only if it exists
 unsigned int timer2GetPrescaler(void){
@@ -244,12 +257,6 @@ void timer0SetOverflowPoint( unsigned char overflowPoint ){
 }
 
 
-void timer1SetOverflowPoint( unsigned int overflowPoint ){
-	TCCR1B = ( TCCR1B & (1<<WGM12));// enable CTC for Timer1 (16-bit timer)
-	OCR1A = overflowPoint;
-	TCNT1 = 0x0000;
-}
-
 #ifdef TIMER0OVERFLOW_INT
 void timer0ClearOverflowCount(void)
 {
@@ -287,35 +294,6 @@ long timer2GetOverflowCount(void)
 #endif
 #endif
 
-void timer1PWMInit(unsigned char bitRes)
-{
-	// configures timer1 for use with PWM output
-	// on OC1A and OC1B pins
-
-	// enable timer1 as 8,9,10bit PWM
-	if(bitRes == 9)
-	{	// 9bit mode
-		TCCR1A |= (1<<PWM11);
-		TCCR1A &= ~(1<<PWM10);
-	}
-	else if( bitRes == 10 )
-	{	// 10bit mode
-		TCCR1A |= (1<<PWM11);
-		TCCR1A |= (1<<PWM10);
-	}
-	else
-	{	// default 8bit mode
-		TCCR1A &= ~(1<<PWM11);
-		TCCR1A |= (1<<PWM10);
-	}
-
-	// clear output compare value A
-	OCR1AH = 0;
-	OCR1AL = 0;
-	// clear output compare value B
-	OCR1BH = 0;
-	OCR1BL = 0;
-}
 
 #ifdef WGM10
 // include support for arbitrary top-count PWM
@@ -339,71 +317,6 @@ void timer1PWMInitICR(unsigned int topcount)
 }
 #endif
 
-void timer1PWMOff(void)
-{
-	// turn off timer1 PWM mode
-	TCCR1A &= ~(1<<PWM11);
-	TCCR1A &= ~(1<<PWM10);
-	// set PWM1A/B (OutputCompare action) to none
-	timer1PWMAOff();
-	timer1PWMBOff();
-}
-
-void timer1PWMAOn(void)
-{
-	// turn on channel A (OC1A) PWM output
-	// set OC1A as non-inverted PWM
-	TCCR1A |= COM1A1;
-	TCCR1A &= ~(1<<COM1A0);
-}
-
-void timer1PWMBOn(void)
-{
-	// turn on channel B (OC1B) PWM output
-	// set OC1B as non-inverted PWM
-	TCCR1A |= (1<<COM1B1);
-	TCCR1A &= ~(1<<COM1B0);
-}
-
-void timer1PWMAOff(void)
-{
-	// turn off channel A (OC1A) PWM output
-	// set OC1A (OutputCompare action) to none
-	TCCR1A &= ~(1<<COM1A1);
-	TCCR1A &= ~(1<<COM1A0);
-}
-
-void timer1PWMBOff(void)
-{
-	// turn off channel B (OC1B) PWM output
-	// set OC1B (OutputCompare action) to none
-	TCCR1A &= ~(1<<COM1B1);
-	TCCR1A &= ~(1<<COM1B0);
-}
-
-void timer1PWMASet(unsigned int pwmDuty)
-{
-	// set PWM (output compare) duty for channel A
-	// this PWM output is generated on OC1A pin
-	// NOTE:	pwmDuty should be in the range 0-255 for 8bit PWM
-	//			pwmDuty should be in the range 0-511 for 9bit PWM
-	//			pwmDuty should be in the range 0-1023 for 10bit PWM
-	//outp( (pwmDuty>>8), OCR1AH);		// set the high 8bits of OCR1A
-	//outp( (pwmDuty&0x00FF), OCR1AL);	// set the low 8bits of OCR1A
-	OCR1A = pwmDuty;
-}
-
-void timer1PWMBSet(unsigned int pwmDuty)
-{
-	// set PWM (output compare) duty for channel B
-	// this PWM output is generated on OC1B pin
-	// NOTE:	pwmDuty should be in the range 0-255 for 8bit PWM
-	//			pwmDuty should be in the range 0-511 for 9bit PWM
-	//			pwmDuty should be in the range 0-1023 for 10bit PWM
-	//outp( (pwmDuty>>8), OCR1BH);		// set the high 8bits of OCR1B
-	//outp( (pwmDuty&0x00FF), OCR1BL);	// set the low 8bits of OCR1B
-	OCR1B = pwmDuty;
-}
 
 #ifdef TIMER0OVERFLOW_INT
 //! Interrupt handler for tcnt0 overflow interrupt
