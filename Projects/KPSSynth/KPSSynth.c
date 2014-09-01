@@ -23,6 +23,7 @@
 #include <avr/sleep.h>
 
 #include "AVRlib/uart.h"
+#include "AVRlib/timer.h"
 #include "BAPlib/WGM.h"
 #include "BAPlib/MidiDevice.h"
 #include "BAPlib/MIDI_TranslationCharts.h"

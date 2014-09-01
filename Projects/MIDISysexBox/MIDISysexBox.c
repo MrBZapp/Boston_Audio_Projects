@@ -123,7 +123,7 @@ int main(void)
 	DDRB = (3 << MULTIPLEX); //turn on two pints for input at the multiplexer position
 	uartInit();	//initialize the USART (MIDI is default)
 	encoderInit();	//Initialize page and main encoder inputs
-	timer0Init();	//turn on the timer
+	timer0_Init();	//turn on the timer
 	timerAttach( TIMER0OVERFLOW_INT, &hotSwapEncoder );	//set timer interrupt to change the active encoder
 	
     while(1){// Main Loop

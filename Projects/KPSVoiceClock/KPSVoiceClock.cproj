@@ -20,11 +20,11 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
-    <eraseonlaunchrule>1</eraseonlaunchrule>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data xmlns="">
         <options />
@@ -37,6 +37,17 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+      </ToolOptions>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Simulator</ToolName>
+    </com_atmel_avrdbg_tool_simulator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -83,6 +94,17 @@
       <Value>USE_SMALL_BUFFER_STRUCTURE</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.preprocessor.UndefSymbols>
+    <ListValues>
+      <Value>TIMER0OVERFLOW_INT</Value>
+      <Value>TIMER1OVERFLOW_INT</Value>
+      <Value>TIMER1OUTCOMPAREA_INT</Value>
+      <Value>TIMER1OUTCOMPAREB_INT</Value>
+      <Value>TIMER1INPUTCAPUTRE_INT</Value>
+      <Value>TIMER2OVERFLOW_INT</Value>
+      <Value>TIMER2OUTCOMPARE_INT</Value>
+    </ListValues>
+  </avrgcc.compiler.preprocessor.UndefSymbols>
   <avrgcc.compiler.directories.IncludePaths>
     <ListValues>
       <Value>../../..</Value>
@@ -110,6 +132,10 @@
     <Compile Include="..\..\AVRlib\timer.h">
       <SubType>compile</SubType>
       <Link>_AVRLib\timer.h</Link>
+    </Compile>
+    <Compile Include="..\..\BAPlib\GPIORFlags.h">
+      <SubType>compile</SubType>
+      <Link>_BAPlib\GPIORFlags.h</Link>
     </Compile>
     <Compile Include="..\..\BAPlib\TLV5620.h">
       <SubType>compile</SubType>

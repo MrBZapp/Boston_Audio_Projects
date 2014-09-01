@@ -69,7 +69,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-//#include "global.h"
+#define CYCLES_PER_US ((F_CPU+500000)/1000000)
 
 // constants/macros/typdefs
 
@@ -168,28 +168,6 @@ Redefine these settings in global.h if you want a different default, not here.
 #define TIMER2PRESCALE		TIMERRTC_CLK_DIV64	///< timer 2 prescaler default
 #endif
 
-// interrupt macros for attaching user functions to timer interrupts
-// use these with timerAttach( intNum, function )
-//#define TIMER0OVERFLOW_INT			0
-//#define TIMER1OVERFLOW_INT			1
-#define TIMER1OUTCOMPAREA_INT		2
-#define TIMER1OUTCOMPAREB_INT		3
-#define TIMER1INPUTCAPTURE_INT		4
-#define TIMER2OVERFLOW_INT			5
-#define TIMER2OUTCOMPARE_INT		6
-#ifdef OCR0	// for processors that support output compare on Timer0
-#define TIMER0OUTCOMPARE_INT		7
-#define TIMER_NUM_INTERRUPTS		8
-#else
-#define TIMER_NUM_INTERRUPTS		7
-#endif
-
-// default type of interrupt handler to use for timers
-// *do not change unless you know what you're doing
-// Value may be SIGNAL or INTERRUPT
-#ifndef TIMER_INTERRUPT_HANDLER
-#define TIMER_INTERRUPT_HANDLER		ISR
-#endif
 
 // functions
 #define delay		delay_us
@@ -199,10 +177,10 @@ void delay_us(unsigned short time_us);
 //! initializes timing system (all timers)
 // runs all timer init functions
 // sets all timers to default prescale values #defined in systimer.c
-void timerInit(void);
+void timers_Init(void);
 
 // default initialization routines for each timer
-void timer0Init(void);		///< initialize timer0
+void timer0_Init(void);		///< initialize timer0
 void timer1Init(void);		///< initialize timer1
 #ifdef TCNT2	// support timer2 only if it exists
 	void timer2Init(void);		///< initialize timer2
@@ -214,7 +192,7 @@ void timer1Init(void);		///< initialize timer1
 // you want.
 // When getting the current prescaler setting, the return value
 // will be the [x] division value currently set.
-void timer0SetPrescaler(unsigned char prescale);		///< set timer0 prescaler
+void timer0_SetPrescaler(unsigned char prescale);		///< set timer0 prescaler
 unsigned int  timer0GetPrescaler(void);				///< get timer0 prescaler
 void timer1SetPrescaler(unsigned char prescale);		///< set timer1 prescaler
 unsigned int  timer1GetPrescaler(void);				///< get timer0 prescaler

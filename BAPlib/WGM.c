@@ -57,3 +57,25 @@ void WaveGen1_DirectSetOCR( unsigned int ocrValue ){
 	TCNT1 = 0x0000;
 }
 #endif
+
+void WaveGen0_Init( /*FREQUENCY_TYPE frequency,*/ unsigned char output ){
+	timer0_Init();
+	timer0SetOverflowPoint( 0xFF ); // enable CTC for Timer1 (16-bit timer)
+	//WaveGen1_SetFrequency( frequency );
+	WaveGen0_SetOutput( output );
+	WaveGen0_DirectSetOCR( 0xFF );
+}
+
+void WaveGen0_SetOutput( unsigned char output ){
+	if ( output == OCA ){
+		TCCR0A = ( (TCCR0A & ~OUT_COMPARE_MASK) | 0x10 );
+		} else {
+		TCCR0A = ( (TCCR0A & ~OUT_COMPARE_MASK) | 0x40 );
+	}
+}
+
+void WaveGen0_DirectSetOCR( unsigned char ocrValue ){
+	OCR0A = ocrValue;
+	OCR0B = ocrValue;
+	TCNT0 = 0x00;
+}
