@@ -29,7 +29,7 @@ all: KPS_VoiceClock.axf
 KPS_VoiceClock.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -L"C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\Debug" -Xlinker -Map="KPS_VoiceClock.map" -Xlinker --gc-sections -mcpu=cortex-m0 -mthumb -T "KPS_VoiceClock_Debug.ld" -o "KPS_VoiceClock.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -L"/Users/mzapp/Documents/LPCXpresso_7.3.0/workspace/lpc_chip_8xx_lib/Debug" -Xlinker -Map="KPS_VoiceClock.map" -Xlinker --gc-sections -mcpu=cortex-m0 -mthumb -T "KPS_VoiceClock_Debug.ld" -o "KPS_VoiceClock.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build
