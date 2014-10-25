@@ -65,16 +65,37 @@ int main(void)
 	/* Unhalt the counter to start */
 	LPC_SCT->CTRL_U &= ~(1 << 2);
 
-	uint8_t note = 48;
 
+	uint8_t status = 48;
+	uint8_t value = 0;
 /////////////////////////////////////////////MAINLOOP.////////////////////////////////////////////////////
 
 	while (1) {
-		if (Chip_UART_Read(LPC_USART0, &note, 1))
+		if (Chip_UART_Read(LPC_USART0, &value, 1))
 		{
-			setFreq(&Generator1, MIDItoBBD[(note % 127)]);
-			Chip_UART_SendByte(LPC_USART0, note);
-
+			if ( value == 0xF1 || value == 0xF2 )
+			{
+				LPC_GPIO_PORT->NOT[0] = LED_LOCATION;
+				status = value & 0x0F;
+			}
+			else
+			{
+				switch (status){
+				case(0x01):
+						setFreq(&Generator1, MIDItoBBD[(value % 127)]);
+						LPC_GPIO_PORT->CLR[0] = LED_LOCATION;
+						break;
+				case(0x02):
+						LPC_GPIO_PORT->SET[0] = LED_LOCATION;
+						setWidth(&Generator1, value);
+						break;
+				default:
+					LPC_GPIO_PORT->NOT[0] = LED_LOCATION;
+					break;
+				}
+			}
+			Chip_UART_SendByte(LPC_USART0, status);
+			Chip_UART_SendByte(LPC_USART0, value);
 		}
 	}
 	return 0;
