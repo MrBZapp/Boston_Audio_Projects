@@ -13,20 +13,24 @@
 #include "FrequencyMaps.h"
 #include "BAP_WaveGen.h"
 
+typedef void (*VoidFuncPointer)();
+
 #define UART0RX_BUFFSIZE 10 //Receive 10 values before overflowing the buffer
+#define LED_LOCATION  2
 
-#define LED_LOCATION    (2)
 void setMasterClockFreq(uint32_t freq);
-
+void genNoise(WaveGen* Generator, uint32_t cycleCount);
+void genNoiseService();
 void SCT_IRQHandler(void);
+
 /*****************************************************************************
  * Variables																 *
  ****************************************************************************/
 uint8_t uartRXBuffArr[UART0RX_BUFFSIZE];
 RINGBUFF_T uartRXBuff1;
 
-volatile int noteNumber = 0;
-volatile int countdir = 1;
+volatile VoidFuncPointer interruptFunc = 0;
+volatile uint32_t remainingNoise = 0;
 
 /********************************************************************************************************
  * 											MAIN														*
@@ -75,7 +79,6 @@ int main(void)
 		{
 			if ( value == 0xF1 || value == 0xF2 )
 			{
-				LPC_GPIO_PORT->NOT[0] = LED_LOCATION;
 				status = value & 0x0F;
 			}
 			else
@@ -83,20 +86,19 @@ int main(void)
 				switch (status){
 				case(0x01):
 						setFreq(&Generator1, MIDItoBBD[(value % 127)]);
-						LPC_GPIO_PORT->CLR[0] = LED_LOCATION;
+						genNoise(&Generator1, 500);
 						break;
 				case(0x02):
-						LPC_GPIO_PORT->SET[0] = LED_LOCATION;
 						setWidth(&Generator1, value);
 						break;
 				default:
-					LPC_GPIO_PORT->NOT[0] = LED_LOCATION;
 					break;
 				}
 			}
 			Chip_UART_SendByte(LPC_USART0, status);
 			Chip_UART_SendByte(LPC_USART0, value);
 		}
+
 	}
 	return 0;
 }
@@ -107,13 +109,49 @@ int main(void)
 
 void SCT_IRQHandler(void)
 {
+
+//	LPC_GPIO_PORT->NOT[0] = 1 << LED_LOCATION;
+	if (interruptFunc != 0)
+	{
+		interruptFunc();
+	}
 	Chip_SCT_ClearEventFlag(LPC_SCT, SCT_EVT_0);
 }
+
 
 
 
 void setMasterClockFreq(uint32_t freq)
 {
 	LPC_PMU->PCON;
+}
 
+
+void genNoise(WaveGen* Generator, uint32_t cycleCount)
+{
+	remainingNoise = cycleCount;
+	interruptFunc = &genNoiseService;
+	//TODO: set this up so we can generate noise based on any timer's overflow.
+	Chip_SCT_EnableEventInt(LPC_SCT, SCT_EVT_0);
+	NVIC_EnableIRQ(SCT_IRQn);
+}
+
+
+void genNoiseService()
+{
+
+	//If we still need to generate noise, do so.
+	if (remainingNoise != 0)
+	{
+		LPC_GPIO_PORT->NOT[0] = 1 << LED_LOCATION;
+		remainingNoise--;
+	}
+	else
+	{
+	// else, turn off the interrupt, set the LED low
+		LPC_GPIO_PORT->CLR[0] = 1 << LED_LOCATION;
+		Chip_SCT_DisableEventInt(LPC_SCT, SCT_EVT_0);
+		NVIC_DisableIRQ(SCT_IRQn);
+	}
+	// Decrement the noise remaining
 }
