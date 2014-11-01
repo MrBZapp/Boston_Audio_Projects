@@ -1,10 +1,32 @@
 /*
 ===============================================================================
  Name        : KPS_VoiceClock.c
- Author      : $(author)
- Version     :
- Copyright   : $(copyright)
- Description : main definition
+ Author      : Matt Zapp
+ Version     : 1
+ Copyright   : 2014
+ Description :	This is the software to control a single voice of the BBD-based
+ 	 	 	 	Karplus-Strong synthesizer.
+
+ 	 	 	 	I/O setup:
+ 	 	 	 		GPIO 0: Serial/MIDI input
+ 	 	 	 		GPIO 1: BBD CLK output
+ 	 	 	 		GPIO 2: Trigger
+ 	 	 	 		GPIO 3: SPI CLK
+ 	 	 	 		GPIO 4: SPI MOSI
+ 	 	 	 		GPIO 5: RESET
+
+ 	 	 	 	Program Steps:
+ 	 	 	 		-->	Get pitch data via serial wire
+ 	 	 	 			TODO: replace this with a true MIDI signal
+					-->	translate pitch into BBD clock frequency, and translate
+						that into an overflow count for the on-board counter.
+						TODO: make some Master clock adjustments to allow the counter
+							to more-accurately follow true pitch.
+					--> TODO: Send key-scaling adjustment data to the out-board DACs
+					--> Send a trigger pulse to the analog core to strike a note.
+						TODO: set up this trigger to be adjusted with key-scaling
+						TODO: tailor the trigger's timbre to be less abrasive.
+
 ===============================================================================
 */
 
@@ -19,8 +41,9 @@ typedef void (*VoidFuncPointer)();
 #define LED_LOCATION  2
 
 void setMasterClockFreq(uint32_t freq);
-void genNoise(WaveGen* Generator, uint32_t cycleCount);
+void genNoisePulse(WaveGen* Generator, uint32_t cycleCount);
 void genNoiseService();
+void genNoise();
 void SCT_IRQHandler(void);
 
 /*****************************************************************************
@@ -86,7 +109,7 @@ int main(void)
 				switch (status){
 				case(0x01):
 						setFreq(&Generator1, MIDItoBBD[(value % 127)]);
-						genNoise(&Generator1, 500);
+						genNoisePulse(&Generator1, 256);
 						break;
 				case(0x02):
 						setWidth(&Generator1, value);
@@ -95,9 +118,8 @@ int main(void)
 					break;
 				}
 			}
-			Chip_UART_SendByte(LPC_USART0, status);
-			Chip_UART_SendByte(LPC_USART0, value);
 		}
+	//	genNoise();
 
 	}
 	return 0;
@@ -119,15 +141,28 @@ void SCT_IRQHandler(void)
 }
 
 
-
-
 void setMasterClockFreq(uint32_t freq)
 {
 	LPC_PMU->PCON;
 }
 
 
-void genNoise(WaveGen* Generator, uint32_t cycleCount)
+uint16_t LFSR()
+{
+	static uint16_t lfsr = 0xACE1u;
+	uint8_t lsb = lfsr & 1;
+	lfsr >>= 1;
+
+	if (lsb == 1)
+	{
+		/* Only apply toggle mask if output bit is 1. */
+		lfsr ^= 0xB400u;
+	}
+	return lfsr;
+}
+
+
+void genNoisePulse(WaveGen* Generator, uint32_t cycleCount)
 {
 	remainingNoise = cycleCount;
 	interruptFunc = &genNoiseService;
@@ -143,7 +178,9 @@ void genNoiseService()
 	//If we still need to generate noise, do so.
 	if (remainingNoise != 0)
 	{
-		LPC_GPIO_PORT->NOT[0] = 1 << LED_LOCATION;
+		uint16_t randBit = LFSR() & 0x1;
+		LPC_GPIO_PORT->PIN[0] = (randBit << LED_LOCATION);
+		// Decrement the noise remaining
 		remainingNoise--;
 	}
 	else
@@ -153,5 +190,11 @@ void genNoiseService()
 		Chip_SCT_DisableEventInt(LPC_SCT, SCT_EVT_0);
 		NVIC_DisableIRQ(SCT_IRQn);
 	}
-	// Decrement the noise remaining
 }
+
+void genNoise()
+{
+	uint16_t randBit = LFSR() & 0x1;
+	LPC_GPIO_PORT->PIN[0] = (randBit << LED_LOCATION);
+}
+
