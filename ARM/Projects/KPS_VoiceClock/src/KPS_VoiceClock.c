@@ -37,8 +37,13 @@
 
 typedef void (*VoidFuncPointer)();
 
-#define UART0RX_BUFFSIZE 10 //Receive 10 values before overflowing the buffer
-#define LED_LOCATION  2
+// I/O setup
+#define SERIAL_IN_LOCATION 0
+#define CLOCK_OUT_LOCATION 1
+#define TRIGGER_LOCATION  2
+#define SPI_SCK_LOCATION 3
+#define SPI_MOSI_LOCATION 4
+#define SPI_SEL_LOCATION 5
 
 void setMasterClockFreq(uint32_t freq);
 void genNoisePulse(WaveGen* Generator, uint32_t cycleCount);
@@ -66,32 +71,38 @@ int main(void)
 	// IO setup
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
 
-	Chip_Clock_SetUARTClockDiv(1);	/* divided by 1 */
-
+	// Disable all fixed functions
 	Chip_SWM_DisableFixedPin(SWM_FIXED_ACMP_I1);
 	Chip_SWM_DisableFixedPin(SWM_FIXED_SWDIO);
 
-	// Assign CTOUT0 to pin 0.
-	Chip_SWM_MovablePinAssign(SWM_CTOUT_0_O, 3);
-	// Assign UART0 Receive to pin 4.
-	Chip_SWM_MovablePinAssign(SWM_U0_RXD_I, 0);
-	Chip_SWM_MovablePinAssign(SWM_U0_TXD_O, 4);
+	// Assign CTOUT0
+	Chip_SWM_MovablePinAssign(SWM_CTOUT_0_O, CLOCK_OUT_LOCATION);
 
+	// Assign UART0 Receive
+	Chip_SWM_MovablePinAssign(SWM_U0_RXD_I, SERIAL_IN_LOCATION);
+	Chip_Clock_SetUARTClockDiv(1);	/* divided by 1 */
+
+	// Assign SPI out
+	Chip_SWM_MovablePinAssign(SWM_SPI0_MOSI_IO, SPI_MOSI_LOCATION);
+	Chip_SWM_MovablePinAssign(SWM_SPI0_SCK_IO, SPI_SCK_LOCATION);
+	Chip_SWM_MovablePinAssign(SWM_SPI0_SSEL_IO, SPI_SEL_LOCATION);
+
+	// Setup trigger location
+    LPC_GPIO_PORT->DIR[0] |= (1 << TRIGGER_LOCATION);
+
+    /*END OF PIN ASSIGNMENTS*/
 	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
 
-    LPC_GPIO_PORT->DIR[0] |= (1 << LED_LOCATION);
-
-    //UART0 initialization
+    // UART0 initialization
 	Chip_UART_Init(LPC_USART0);
 	Chip_UART_ConfigData(LPC_USART0, UART_CFG_DATALEN_8 | UART_CFG_PARITY_NONE | UART_CFG_STOPLEN_1);
 	Chip_UART_SetBaud(LPC_USART0, 115200);
 	LPC_USART0->CFG |= UART_CFG_ENABLE;
 
-	WaveGenInit(&Generator1, MIDItoFreq[0]);
+	WaveGenInit(&Generator1, MIDItoBBD[25]);
 
 	/* Unhalt the counter to start */
 	LPC_SCT->CTRL_U &= ~(1 << 2);
-
 
 	uint8_t status = 48;
 	uint8_t value = 0;
@@ -131,15 +142,12 @@ int main(void)
 
 void SCT_IRQHandler(void)
 {
-
-//	LPC_GPIO_PORT->NOT[0] = 1 << LED_LOCATION;
 	if (interruptFunc != 0)
 	{
 		interruptFunc();
 	}
 	Chip_SCT_ClearEventFlag(LPC_SCT, SCT_EVT_0);
 }
-
 
 void setMasterClockFreq(uint32_t freq)
 {
@@ -179,14 +187,14 @@ void genNoiseService()
 	if (remainingNoise != 0)
 	{
 		uint16_t randBit = LFSR() & 0x1;
-		LPC_GPIO_PORT->PIN[0] = (randBit << LED_LOCATION);
+		LPC_GPIO_PORT->PIN[0] = (randBit << TRIGGER_LOCATION);
 		// Decrement the noise remaining
 		remainingNoise--;
 	}
 	else
 	{
 	// else, turn off the interrupt, set the LED low
-		LPC_GPIO_PORT->CLR[0] = 1 << LED_LOCATION;
+		LPC_GPIO_PORT->CLR[0] = 1 << TRIGGER_LOCATION;
 		Chip_SCT_DisableEventInt(LPC_SCT, SCT_EVT_0);
 		NVIC_DisableIRQ(SCT_IRQn);
 	}
@@ -195,6 +203,6 @@ void genNoiseService()
 void genNoise()
 {
 	uint16_t randBit = LFSR() & 0x1;
-	LPC_GPIO_PORT->PIN[0] = (randBit << LED_LOCATION);
+	LPC_GPIO_PORT->PIN[0] = (randBit << TRIGGER_LOCATION);
 }
 
