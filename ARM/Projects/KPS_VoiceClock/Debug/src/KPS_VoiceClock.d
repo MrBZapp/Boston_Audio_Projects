@@ -30,7 +30,9 @@ src/KPS_VoiceClock.o src/KPS_VoiceClock.d: ../src/KPS_VoiceClock.c \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h \
  C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/FrequencyMaps.h \
- ../src/BAP_WaveGen.h
+ ../src/BAP_WaveGen.h \
+ C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/BAP_TLV_DAC.h \
+ C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/BAP_Type.h
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/chip.h:
 
@@ -95,3 +97,7 @@ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_
 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/FrequencyMaps.h:
 
 ../src/BAP_WaveGen.h:
+
+C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/BAP_TLV_DAC.h:
+
+C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/BAP_Type.h:

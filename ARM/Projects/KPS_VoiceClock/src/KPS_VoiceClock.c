@@ -34,13 +34,13 @@
 #include <cr_section_macros.h>
 #include "FrequencyMaps.h"
 #include "BAP_WaveGen.h"
-
-typedef void (*VoidFuncPointer)();
+#include "BAP_TLV_DAC.h"
+#include "BAP_Type.h"
 
 // I/O setup
 #define SERIAL_IN_LOCATION 0
-#define CLOCK_OUT_LOCATION 1
-#define TRIGGER_LOCATION  2
+#define CLOCK_OUT_LOCATION 2
+#define TRIGGER_LOCATION  1
 #define SPI_SCK_LOCATION 3
 #define SPI_MOSI_LOCATION 4
 #define SPI_SEL_LOCATION 5
@@ -54,8 +54,7 @@ void SCT_IRQHandler(void);
 /*****************************************************************************
  * Variables																 *
  ****************************************************************************/
-uint8_t uartRXBuffArr[UART0RX_BUFFSIZE];
-RINGBUFF_T uartRXBuff1;
+
 
 volatile VoidFuncPointer interruptFunc = 0;
 volatile uint32_t remainingNoise = 0;
@@ -71,21 +70,19 @@ int main(void)
 	// IO setup
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
 
-	// Disable all fixed functions
-	Chip_SWM_DisableFixedPin(SWM_FIXED_ACMP_I1);
-	Chip_SWM_DisableFixedPin(SWM_FIXED_SWDIO);
+    /* U0_RXD */
+    LPC_SWM->PINASSIGN[0] = 0xffff00ffUL;
+    /* SPI0_SCK */
+    LPC_SWM->PINASSIGN[3] = 0x03ffffffUL;
+    /* SPI0_MOSI */
+    /* SPI0_SSEL */
+    LPC_SWM->PINASSIGN[4] = 0xff05ff04UL;
+    /* CTOUT_0 */
+    LPC_SWM->PINASSIGN[6] = 0x02ffffffUL;
 
-	// Assign CTOUT0
-	Chip_SWM_MovablePinAssign(SWM_CTOUT_0_O, CLOCK_OUT_LOCATION);
+    /* Pin Assign 1 bit Configuration */
+    LPC_SWM->PINENABLE0 = 0xffffffffUL;
 
-	// Assign UART0 Receive
-	Chip_SWM_MovablePinAssign(SWM_U0_RXD_I, SERIAL_IN_LOCATION);
-	Chip_Clock_SetUARTClockDiv(1);	/* divided by 1 */
-
-	// Assign SPI out
-	Chip_SWM_MovablePinAssign(SWM_SPI0_MOSI_IO, SPI_MOSI_LOCATION);
-	Chip_SWM_MovablePinAssign(SWM_SPI0_SCK_IO, SPI_SCK_LOCATION);
-	Chip_SWM_MovablePinAssign(SWM_SPI0_SSEL_IO, SPI_SEL_LOCATION);
 
 	// Setup trigger location
     LPC_GPIO_PORT->DIR[0] |= (1 << TRIGGER_LOCATION);
@@ -94,15 +91,20 @@ int main(void)
 	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
 
     // UART0 initialization
+	Chip_Clock_SetUARTClockDiv(1);	/* divided by 1 */
 	Chip_UART_Init(LPC_USART0);
 	Chip_UART_ConfigData(LPC_USART0, UART_CFG_DATALEN_8 | UART_CFG_PARITY_NONE | UART_CFG_STOPLEN_1);
 	Chip_UART_SetBaud(LPC_USART0, 115200);
 	LPC_USART0->CFG |= UART_CFG_ENABLE;
 
+	// Enable the SPI interface to the DAC
+	TLV_Init();
+
 	WaveGenInit(&Generator1, MIDItoBBD[25]);
 
 	/* Unhalt the counter to start */
 	LPC_SCT->CTRL_U &= ~(1 << 2);
+
 
 	uint8_t status = 48;
 	uint8_t value = 0;
@@ -119,8 +121,9 @@ int main(void)
 			{
 				switch (status){
 				case(0x01):
+						TLV_SetDACValue(TLV_DAC_1, 0, value);
 						setFreq(&Generator1, MIDItoBBD[(value % 127)]);
-						genNoisePulse(&Generator1, 256);
+	//					genNoisePulse(&Generator1, 256);
 						break;
 				case(0x02):
 						setWidth(&Generator1, value);
