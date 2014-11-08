@@ -9,10 +9,10 @@
 #include "ring_buffer.h"
 #include "BAP_TLV_DAC.h"
 
-#define BUFFER_SIZE         5
+#define BUFFER_SIZE         0
 
 /* Tx buffer */
-static uint16_t TxBufData[BUFFER_SIZE];
+volatile uint16_t TxBufData[BUFFER_SIZE];
 RINGBUFF_T TxBuffer;
 
 
@@ -26,10 +26,10 @@ void TLV_Init()
 	Chip_SYSCTL_PeriphReset(RESET_SPI0);
 
 	// SPI Configure
-	LPC_SPI0->CFG = ((uint32_t) SPI_MODE_MASTER) | ((uint32_t) SPI_DATA_MSB_FIRST) | ((uint32_t) SPI_CLOCK_MODE2) | ((uint32_t) SPI_SSEL_ACTIVE_LO);
+	LPC_SPI0->CFG = (((uint32_t) SPI_MODE_MASTER) | ((uint32_t) SPI_DATA_MSB_FIRST) | ((uint32_t) SPI_CLOCK_MODE2) | ((uint32_t) SPI_SSEL_ACTIVE_LO)) & ~((uint32_t) SPI_CFG_SPI_EN);
 
-	// Rate Divider setting
-	LPC_SPI0->DIV = SPI_DIV_VAL(Chip_SPI_CalClkRateDivider(LPC_SPI0, 10000));
+	// Set the rate to 20MHz
+	LPC_SPI0->DIV = SPI_DIV_VAL(Chip_SPI_CalClkRateDivider(LPC_SPI0, 20000000));
 
 	// Clear status flags
 	Chip_SPI_ClearStatus(LPC_SPI0, SPI_STAT_CLR_RXOV | SPI_STAT_CLR_TXUR | SPI_STAT_CLR_SSA | SPI_STAT_CLR_SSD);
@@ -61,47 +61,45 @@ void TLV_SetDACValue(TLV_DACNumber DAC, TLV_Speed speed, uint16_t value)
 		break;
 	}
 
-	// Insert the new frame onto the buffer
-	if (!RingBuffer_IsFull(&TxBuffer))
-	{
-		// If the buffer isn't full, add the value
-		RingBuffer_Insert(&TxBuffer, &frame);
+	// If the SPI is ready and the buffer is empty.
+    if ((Chip_SPI_GetStatus(LPC_SPI0) & SPI_STAT_TXRDY) && RingBuffer_IsEmpty(&TxBuffer))
+    {
+    	// Send a frame.
+    	// Since there is no need to read a response,
+    	// and the full message fits with a frame,
+    	// we assume this will be the final frame.
+    	Chip_SPI_SendLastFrame_RxIgnore(LPC_SPI0, frame, 16);
 
-		LPC_GPIO_PORT->PIN[0] = (1 << 1);
-
-		// and enable the interrupt
+		// enable the interrupt
 		Chip_SPI_Int_Cmd(LPC_SPI0, SPI_INTENSET_TXDYEN, ENABLE);
+    }
+
+	// Otherwise insert the new frame onto the buffer
+    else if (RingBuffer_Insert(&TxBuffer, &frame))
+	{
 	}
 }
 
 
 void SPI0_IRQHandler(void)
 {
-
 	// Disable all interrupts
 	Chip_SPI_Int_Cmd(LPC_SPI0, SPI_INTENCLR_TXDYEN, DISABLE);
-
-	LPC_GPIO_PORT->NOT[0] = (1 << 1);
 
 	// If the buffer isn't empty, load up the next frame
 	if (!RingBuffer_IsEmpty(&TxBuffer))
 	{
-
 		// Get the next value
 		uint16_t frame = 0;
 		RingBuffer_Pop(&TxBuffer, &frame);
 
-		// Place the data in the transmit buffer
-		if (RingBuffer_GetCount(&TxBuffer) == 1)
-		{
-			Chip_SPI_SendLastFrame_RxIgnore(LPC_SPI0, frame, 16);
-		}
-		else
-		{
-			Chip_SPI_SendMidFrame(LPC_SPI0, frame);
-		}
+    	// Send a frame.
+    	// Since there is no need to read a response,
+    	// and the full message fits with a frame,
+    	// we assume this will be the final frame.
+    	Chip_SPI_SendLastFrame_RxIgnore(LPC_SPI0, frame, 16);
 
-		// Enable the interrupt
+    	// Enable the interrupt
 		Chip_SPI_Int_Cmd(LPC_SPI0, SPI_INTENSET_TXDYEN , ENABLE);
 	}
 }

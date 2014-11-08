@@ -45,6 +45,10 @@
 #define SPI_MOSI_LOCATION 4
 #define SPI_SEL_LOCATION 5
 
+// Define TLV DAC functions
+#define FilterDAC TLV_DAC_1
+#define FeedbackDAC TLV_DAC_2
+
 void setMasterClockFreq(uint32_t freq);
 void genNoisePulse(WaveGen* Generator, uint32_t cycleCount);
 void genNoiseService();
@@ -64,7 +68,6 @@ volatile uint32_t remainingNoise = 0;
  *******************************************************************************************************/
 int main(void)
 {
-
 	SystemCoreClockUpdate();
 
 	// IO setup
@@ -83,19 +86,11 @@ int main(void)
     /* Pin Assign 1 bit Configuration */
     LPC_SWM->PINENABLE0 = 0xffffffffUL;
 
-
 	// Setup trigger location
     LPC_GPIO_PORT->DIR[0] |= (1 << TRIGGER_LOCATION);
 
     /*END OF PIN ASSIGNMENTS*/
 	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
-
-    // UART0 initialization
-	Chip_Clock_SetUARTClockDiv(1);	/* divided by 1 */
-	Chip_UART_Init(LPC_USART0);
-	Chip_UART_ConfigData(LPC_USART0, UART_CFG_DATALEN_8 | UART_CFG_PARITY_NONE | UART_CFG_STOPLEN_1);
-	Chip_UART_SetBaud(LPC_USART0, 115200);
-	LPC_USART0->CFG |= UART_CFG_ENABLE;
 
 	// Enable the SPI interface to the DAC
 	TLV_Init();
@@ -106,8 +101,20 @@ int main(void)
 	LPC_SCT->CTRL_U &= ~(1 << 2);
 
 
+    // UART0 initialization
+	Chip_Clock_SetUARTClockDiv(1);	/* divided by 1 */
+	Chip_UART_Init(LPC_USART0);
+	Chip_UART_ConfigData(LPC_USART0, UART_CFG_DATALEN_8 | UART_CFG_PARITY_NONE | UART_CFG_STOPLEN_1);
+	Chip_UART_SetBaud(LPC_USART0, 115200);
+
+	// UART variables
 	uint8_t status = 48;
 	uint8_t value = 0;
+
+	// Enable the UART to start receiving messages
+	LPC_USART0->CFG |= UART_CFG_ENABLE;
+
+
 /////////////////////////////////////////////MAINLOOP.////////////////////////////////////////////////////
 
 	while (1) {
@@ -121,9 +128,15 @@ int main(void)
 			{
 				switch (status){
 				case(0x01):
-						TLV_SetDACValue(TLV_DAC_1, 0, value);
+						// Set the filter and feedback DAC values.
+						TLV_SetDACValue(FilterDAC, 0, (value << 4));
+						TLV_SetDACValue(FeedbackDAC, 0, value);
+
+						// Set frequency generator's frequency
 						setFreq(&Generator1, MIDItoBBD[(value % 127)]);
-	//					genNoisePulse(&Generator1, 256);
+
+						// generate trigger noise
+						genNoisePulse(&Generator1, 256);
 						break;
 				case(0x02):
 						setWidth(&Generator1, value);
