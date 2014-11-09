@@ -9,7 +9,7 @@
 #include "ring_buffer.h"
 #include "BAP_TLV_DAC.h"
 
-#define BUFFER_SIZE         0
+#define BUFFER_SIZE 0
 
 /* Tx buffer */
 volatile uint16_t TxBufData[BUFFER_SIZE];

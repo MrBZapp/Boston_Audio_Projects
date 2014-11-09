@@ -13,6 +13,7 @@
 #define TLV_SPD(x) (x << 14)
 #define TLV_PWR(x) (x << 13)
 #define TLV_R2(x) (x << 12)
+#define DACSIZE 4096
 
 typedef enum{
 	TLV_DAC_1,

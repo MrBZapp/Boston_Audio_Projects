@@ -36,6 +36,7 @@
 #include "BAP_WaveGen.h"
 #include "BAP_TLV_DAC.h"
 #include "BAP_Type.h"
+#include "BAP_math.h"
 
 // I/O setup
 #define SERIAL_IN_LOCATION 0
@@ -49,10 +50,10 @@
 #define FilterDAC TLV_DAC_1
 #define FeedbackDAC TLV_DAC_2
 
-void setMasterClockFreq(uint32_t freq);
 void genNoisePulse(WaveGen* Generator, uint32_t cycleCount);
 void genNoiseService();
 void genNoise();
+void serviceNote(uint8_t noteValue);
 void SCT_IRQHandler(void);
 
 /*****************************************************************************
@@ -128,9 +129,7 @@ int main(void)
 			{
 				switch (status){
 				case(0x01):
-						// Set the filter and feedback DAC values.
-						TLV_SetDACValue(FilterDAC, 0, (value << 4));
-						TLV_SetDACValue(FeedbackDAC, 0, value);
+						serviceNote(value);// Set the filter and feedback DAC values.
 
 						// Set frequency generator's frequency
 						setFreq(&Generator1, MIDItoBBD[(value % 127)]);
@@ -138,16 +137,11 @@ int main(void)
 						// generate trigger noise
 						genNoisePulse(&Generator1, 256);
 						break;
-				case(0x02):
-						setWidth(&Generator1, value);
-						break;
 				default:
 					break;
 				}
 			}
 		}
-	//	genNoise();
-
 	}
 	return 0;
 }
@@ -165,9 +159,23 @@ void SCT_IRQHandler(void)
 	Chip_SCT_ClearEventFlag(LPC_SCT, SCT_EVT_0);
 }
 
-void setMasterClockFreq(uint32_t freq)
+void serviceNote(uint8_t note)
 {
-	LPC_PMU->PCON;
+	uint16_t value = (uint16_t) i_lscale(0, 127, 0, DACSIZE - 1, note);
+	TLV_SetDACValue(FilterDAC, 0, value);
+
+	value = (uint16_t) i_lscale(0, 127, DACSIZE - 1, 0, note);
+	TLV_SetDACValue(FeedbackDAC, 0, value);
+
+	if (note >= 84)
+	{
+		value = (uint16_t)  i_lscale(84, 127, 40, 15, note);
+	}
+	else
+	{
+		value = 50;
+	}
+	setWidth(&Generator1, (value % 100));
 }
 
 
