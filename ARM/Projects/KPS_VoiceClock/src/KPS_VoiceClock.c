@@ -33,6 +33,7 @@
 #include "chip.h"
 #include <cr_section_macros.h>
 #include "FrequencyMaps.h"
+#include "BAP_Midi.h"
 #include "BAP_WaveGen.h"
 #include "BAP_TLV_DAC.h"
 #include "BAP_Type.h"
@@ -49,6 +50,9 @@
 // Define TLV DAC functions
 #define FilterDAC TLV_DAC_1
 #define FeedbackDAC TLV_DAC_2
+
+// Define Address
+#define LOCAL_ADDRESS 0x1
 
 void genNoisePulse(WaveGen* Generator, uint32_t cycleCount);
 void genNoiseService();
@@ -110,6 +114,7 @@ int main(void)
 
 	// UART variables
 	uint8_t status = 48;
+	uint8_t address = LOCAL_ADDRESS;
 	uint8_t value = 0;
 
 	// Enable the UART to start receiving messages
@@ -121,20 +126,23 @@ int main(void)
 	while (1) {
 		if (Chip_UART_Read(LPC_USART0, &value, 1))
 		{
-			if ( value == 0xF1 || value == 0xF2 )
+			if ( (value & MIDI_STATBIT) )
 			{
-				status = value & 0x0F;
+				status = value & MIDI_STATMSK;
+				address = value & MIDI_CHMSK;
 			}
-			else
+			else if (address == LOCAL_ADDRESS)
 			{
-				switch (status){
-				case(0x01):
-						serviceNote(value);// Set the filter and feedback DAC values.
+				switch (status)
+				{
+				case(MIDI_NOTEON):
+						// Set up the scaling for the DACs and PWM.
+						serviceNote(value);
 
-						// Set frequency generator's frequency
+						// Set frequency generator's frequency.
 						setFreq(&Generator1, MIDItoBBD[(value % 127)]);
 
-						// generate trigger noise
+						// generate trigger noise.
 						genNoisePulse(&Generator1, 256);
 						break;
 				default:
