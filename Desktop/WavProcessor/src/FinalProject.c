@@ -51,9 +51,11 @@ int main(int argc, char* argv[]) {
         return 2;
     }
 
-    fileEcho(&wavFile, 1, 0.95);
-
+    //fileReverse(&wavFile);
+    fileEcho(&wavFile, 10000, 0.5);
+    fileGain(&wavFile, 0.4);
 	wavEncode_PCM(&wavFile, outptr);
+
     free(wavFile.data);
     fclose(inptr);
     fclose(outptr);

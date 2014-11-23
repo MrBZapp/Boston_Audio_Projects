@@ -17,44 +17,59 @@
 typedef struct delayLine
 {
 	float* buffer;
-	int size;
+	long size;
 	int ReadHead;
 	int WriteHead;
 }delayLine_t;
+
 
 /**
  * Initializes a delay struct for use with delay functions
  * size is the sample maximum for the buffer and thus determines
  * the maximum delay length of the buffer.
  ***/
-int initDelay(delayLine_t* delay, int size)
+int delayInit(delayLine_t* delay, long size)
 {
 	// Allocate memory in the size of the delay buffer.
 	delay->buffer = calloc(size, sizeof(float));
+	if (delay->buffer == NULL)
+	{
+		return 0;
+	}
 	delay->WriteHead = 0;
 	delay->ReadHead = 0;
 	delay->size = size;
+	return 1;
 }
+
 
 /**
  * Sets the read head a fixed distance away from the write head
  ***/
-void setDelay(delayLine_t* delay, int delSamp) {
+void delaySetDistance(delayLine_t* delay, long delSamp) {
 	// move the read head to the delay, length away from the write head, wrapping around for the size of the buffer
 	delay->ReadHead = (delay->WriteHead + delSamp) % delay->size;
 }
 
+
 /**
- * Writes the provided sample to the delay line.
- * Reads the sample underneath the read head and returns it.
- */
-float delayWriteRead(delayLine_t* delay, float sample)
+ * Progressively writes data to a buffer
+ ***/
+void delayProgWrite(delayLine_t* delay, float data)
 {
-	// write the new sample to the write pointer
-	delay->buffer[delay->WriteHead] = sample;
-	float temp = delayStaticRead(delay);
-	delay->WriteHead = delay->WriteHead++ % delay->size;
-	delay->ReadHead = delay->ReadHead++ % delay->size;
+	delay->buffer[delay->WriteHead] = data;
+    delay->WriteHead = (delay->WriteHead + 1) % delay->size;
+}
+
+
+/**
+ * Progressively reads data from a buffer
+ ***/
+float delayProgRead(delayLine_t* delay)
+{
+	float temp = delay->buffer[delay->ReadHead];
+	delay->ReadHead++;
+	delay->ReadHead %= delay->size;
 	return temp;
 }
 

@@ -10,6 +10,7 @@
 #include "wavSample.h"
 #include "wavFile.h"
 #include "wavProcesses.h"
+#include "delayLine.h"
 
 /**
  * Reverses a file
@@ -45,76 +46,110 @@ void fileGain(wavFilePCM_t* file, float factor)
 /**
  * copies a file and repeats it, gradually fading out the copy until all samples are 0
  ***/
-int fileEcho(wavFilePCM_t* file, long sampDelay, float decay)
+int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 {
-	// create a copy of the file
-	int sampleCount = wavGetSampCount(file);
-	int echoSampCount = sampleCount;
-	wavSample_float_t* echo = calloc(sizeof(wavSample_float_t), sampleCount);
-	memcpy(echo, file->data, sampleCount * sizeof(wavSample_float_t));
+	// create a static delay line
+	delayLine_t delayBufferL;
+	delayLine_t delayBufferR;
 
-	// echoing flag
+	delayInit(&delayBufferL, sampDelay * 2);
+	delayInit(&delayBufferR, sampDelay * 2);
+
+	delaySetDistance(&delayBufferL, sampDelay);
+	delaySetDistance(&delayBufferR, sampDelay);
+
+	// get the size of the file
+	int newSize = wavGetSampCount(file);
+
+	// for every sample in the file, read/write into the buffer
+	for (int i = 0; i < newSize; i++)
+	{
+		// select the sample to delay
+		wavSample_float_t tempSamp = file->data[i];
+
+		// read a sample out of the buffer
+		float tempLeft = delayProgRead(&delayBufferL);
+		float tempRight = delayProgRead(&delayBufferR);
+
+		// mix that data back to the file
+		file->data[i].left += tempLeft;
+		file->data[i].right += tempRight;
+
+		// Calculate how much of that sample will be fed back into the buffer
+		tempLeft *= feedback;
+		tempRight *= feedback;
+
+		// add the buffer and the file's samples together
+		tempLeft += tempSamp.left;
+		tempRight += tempSamp.right;
+
+		// write them to the buffer
+		delayProgWrite(&delayBufferL, tempLeft);
+		delayProgWrite(&delayBufferR, tempRight);
+	}
+
+	// Flush the buffer until the echo has decayed completely
+	// echoing flag.
 	int echoing = 0;
-
-	// used to keep track of the write head for the echo
-	long writeHead = sampDelay;
 
 	do
 	{
-		// assume we've run out of data to copy
+		// Assume we've fully flushed the buffer
 		echoing = 0;
 
-		// modify the gain of the echo.
-		for ( int i = 0; i < echoSampCount; i++)
-		{
-			wavSample_float_t test = sampleMult((echo + i), decay);
+		// calculate where to start the buffer
+		int buffStart = wavGetSampCount(file);
 
-			// if any sample doesn't return 0, we're still echoing.
-			if (((short) test.left) != 0 || ((short)test.right) != 0)
+		// determine the new file size
+		newSize = buffStart + delayBufferL.size;
+		
+		// Reallocate the memory
+		wavSample_float_t* tmp = realloc(file->data, (sizeof(wavSample_float_t) * newSize));
+		if (tmp == NULL)
+		{
+			// if realloc fails.
+			// free the delay buffer's memory.
+			free(delayBufferL.buffer);
+			free(delayBufferR.buffer);
+			return 0;
+		}
+
+		// if realloc succeeds, re-assign the pointer.
+
+		file->data = tmp;
+		// update the file size
+		wavSetSampleCount(file, newSize);
+
+		// flush the buffer
+		for (int i = buffStart; i < newSize; i++)
+		{
+			// read a sample out of the buffer
+			float tempLeft = delayProgRead(&delayBufferL);
+			float tempRight = delayProgRead(&delayBufferR);
+
+			// add that data back to the file
+			file->data[i].left = tempLeft;
+			file->data[i].right = tempRight;
+
+			// Calculate how much of that sample will be fed back into the buffer
+			tempLeft *= feedback;
+			tempRight *= feedback;
+
+			// If either sample has data in it, keep echoing.
+			if (((short) tempLeft) != 0 || ((short) tempRight) != 0)
 			{
 				echoing = 1;
 			}
-		}
 
-		// only do this if we're actually echoing
-		if(echoing == 1)
-		{
-			// calculate the number up updated samples
-			sampleCount += sampDelay;
-
-			// Reallocate the memory
-			wavSample_float_t* tmp = realloc(file->data, (sizeof(wavSample_float_t) * sampleCount));
-			if (tmp == NULL)
-			{
-				// exit if realloc fails.
-				return 0;
-			}
-
-			// If successful, update the data pointer
-			file->data = tmp;
-
-			// update the file header
-			wavSetSampleCount(file, sampleCount);
-
-			// zero the new memory
-			for ( int i = sampleCount - sampDelay; i < sampleCount; i++ )
-			{
-				file->data[i].left = 0;
-				file->data[i].right = 0;
-			}
-
-			// add the echo
-			for (int i = 0; i < echoSampCount; i++)
-			{
-				file->data[i + writeHead].left += echo[i].left;
-				file->data[i + writeHead].right += echo[i].right;
-			}
-
-			// update the write head with the new position of the echo
-			writeHead += sampDelay;
+			// write them to the buffer
+			delayProgWrite(&delayBufferL, tempLeft);
+			delayProgWrite(&delayBufferR, tempRight);
 		}
 
 	}while (echoing == 1);
 
+	// free the delay buffer's memory.
+	free(delayBufferL.buffer);
+	free(delayBufferR.buffer);
 	return 1;
 }
