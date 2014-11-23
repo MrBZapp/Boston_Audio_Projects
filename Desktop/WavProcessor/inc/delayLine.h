@@ -18,7 +18,7 @@ typedef struct delayLine
 {
 	float* buffer;
 	long size;
-	int ReadHead;
+	float ReadHead;
 	int WriteHead;
 }delayLine_t;
 
@@ -51,6 +51,28 @@ void delaySetDistance(delayLine_t* delay, long delSamp) {
 	delay->ReadHead = (delay->WriteHead + delSamp) % delay->size;
 }
 
+/**
+ * Interpolating read
+ ***/
+float delayInterRead(delayLine_t* delay)
+{
+	// find the closest previous sample
+	int intRHead0 = floor(delay->ReadHead);
+
+	// find the next nearest sample in the buffer, wrap this around if at the end of a buffer
+	int intRHead1 = intRHead0 + 1;
+	intRHead1 %= delay->size;
+
+	// find the distance between the fractional and actual samples
+	double a = delay->ReadHead - intRHead0;
+
+
+	// linearly interpolate between the nearest int sample and the next-nearest int sample
+	float temp = (a * delay->buffer[intRHead0]) + ((1-a) * delay->buffer[intRHead1]);
+
+	//return the linearly interpolated value
+	return temp;
+}
 
 /**
  * Progressively writes data to a buffer
@@ -65,27 +87,15 @@ void delayProgWrite(delayLine_t* delay, float data)
 /**
  * Progressively reads data from a buffer
  ***/
-float delayProgRead(delayLine_t* delay)
+float delayProgRead(delayLine_t* delay, float progress)
 {
-	float temp = delay->buffer[delay->ReadHead];
-	delay->ReadHead++;
-	delay->ReadHead %= delay->size;
+	float temp = delayInterRead(delay);
+	delay->ReadHead += progress;
+	if (floor(delay->ReadHead) >= delay->size)
+	{
+		delay->ReadHead -= delay->size;
+	}
 	return temp;
 }
 
-/**
- * Interpolating read
- ***/
-float delayInterRead(delayLine_t* delay)
-{
-	long rpi = (long)floor(delay->ReadHead);
-	double a = delay->ReadHead - (double)rpi;
-	float temp = a * delay->buffer[rpi] + (1-a) * delay->buffer[rpi+1];
-	return temp;
-}
-
-float delayStaticRead(delayLine_t* delay)
-{
-	return delay->buffer[delay->ReadHead];
-}
 #endif /* DELAYLINE_H_ */

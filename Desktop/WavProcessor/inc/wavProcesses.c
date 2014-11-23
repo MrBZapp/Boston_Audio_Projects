@@ -44,7 +44,7 @@ void fileGain(wavFilePCM_t* file, float factor)
 
 
 /**
- * copies a file and repeats it, gradually fading out the copy until all samples are 0
+ * uses a ring buffer delay line to repeat an input signal, gradually fading it out until all samples are 0
  ***/
 int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 {
@@ -52,11 +52,11 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 	delayLine_t delayBufferL;
 	delayLine_t delayBufferR;
 
-	delayInit(&delayBufferL, sampDelay * 2);
-	delayInit(&delayBufferR, sampDelay * 2);
+	delayInit(&delayBufferL, sampDelay);
+	delayInit(&delayBufferR, sampDelay);
 
-	delaySetDistance(&delayBufferL, sampDelay);
-	delaySetDistance(&delayBufferR, sampDelay);
+//	delaySetDistance(&delayBufferL, sampDelay);
+//	delaySetDistance(&delayBufferR, sampDelay);
 
 	// get the size of the file
 	int newSize = wavGetSampCount(file);
@@ -68,8 +68,8 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 		wavSample_float_t tempSamp = file->data[i];
 
 		// read a sample out of the buffer
-		float tempLeft = delayProgRead(&delayBufferL);
-		float tempRight = delayProgRead(&delayBufferR);
+		float tempLeft = delayProgRead(&delayBufferL, 1);
+		float tempRight = delayProgRead(&delayBufferR, 1);
 
 		// mix that data back to the file
 		file->data[i].left += tempLeft;
@@ -115,8 +115,8 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 		}
 
 		// if realloc succeeds, re-assign the pointer.
-
 		file->data = tmp;
+
 		// update the file size
 		wavSetSampleCount(file, newSize);
 
@@ -124,8 +124,8 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 		for (int i = buffStart; i < newSize; i++)
 		{
 			// read a sample out of the buffer
-			float tempLeft = delayProgRead(&delayBufferL);
-			float tempRight = delayProgRead(&delayBufferR);
+			float tempLeft = delayProgRead(&delayBufferL, 1);
+			float tempRight = delayProgRead(&delayBufferR, 1);
 
 			// add that data back to the file
 			file->data[i].left = tempLeft;
