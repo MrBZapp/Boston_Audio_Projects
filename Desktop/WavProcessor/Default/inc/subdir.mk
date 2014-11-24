@@ -5,18 +5,21 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../inc/delayLine.c \
+../inc/lfo.c \
 ../inc/wavFile.c \
 ../inc/wavProcesses.c \
 ../inc/wavSample.c 
 
 OBJS += \
 ./inc/delayLine.o \
+./inc/lfo.o \
 ./inc/wavFile.o \
 ./inc/wavProcesses.o \
 ./inc/wavSample.o 
 
 C_DEPS += \
 ./inc/delayLine.d \
+./inc/lfo.d \
 ./inc/wavFile.d \
 ./inc/wavProcesses.d \
 ./inc/wavSample.d 

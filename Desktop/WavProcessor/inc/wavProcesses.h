@@ -10,26 +10,37 @@
 
 #include "wavSample.h"
 #include "wavFile.h"
+#include "lfo.h"
 
 /**
  * Changes the gain of an entire file
  ***/
 void fileGain(wavFilePCM_t* file, float factor);
 
+
 /**
  * Reverses a file
  ***/
 void fileReverse(wavFilePCM_t* file);
 
+
 /**
  * stretches or shrinks a file
+ * returns 1 on success, 0 upon failure (requires malloc)
  ***/
-void filePitch(wavFilePCM_t* file);
+int filePitch(wavFilePCM_t* file, float pitch);
+
 
 /**
  * copies a file and repeats it, gradually fading out the copy until all samples are 0
  * returns 1 upon success, 0 upon failure (requires realloc)
  ***/
 int fileEcho(wavFilePCM_t* file, long sampDelay, float decay);
+
+
+/**
+ * Applies a variation in volume over time given a frequency and depth
+ ***/
+void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
 
 #endif /* WAVPROCESSES_H_ */

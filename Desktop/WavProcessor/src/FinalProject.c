@@ -13,6 +13,7 @@
 #include <stdbool.h>
 #include "../inc/wavFile.h"
 #include "../inc/wavProcesses.h"
+#include "../inc/lfo.h"
 
 int main(int argc, char* argv[]) {
 
@@ -52,8 +53,16 @@ int main(int argc, char* argv[]) {
     }
 
     //fileReverse(&wavFile);
-    fileEcho(&wavFile, 1, 0.5);
-    fileGain(&wavFile, 0.4);
+ //   fileTremolo(&wavFile, TRI, 4 , 1);
+ //   fileGain(&wavFile, .5);
+ //   fileEcho(&wavFile, 10000, 0.5);
+    filePitch(&wavFile, .80);
+
+    // Print LFO
+//    for (int i = 0; i < wavGetSampCount(&wavFile); i ++)
+//    {
+//    	wavFile.data[i].left = wavFile.data[i].right = 2000 * ((lfoGetValue(SINE, 1000, wavFile.FormatChunk.SampleRate , i)));
+//    }
 
 	wavEncode_PCM(&wavFile, outptr);
 

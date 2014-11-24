@@ -11,6 +11,7 @@
 #include "wavFile.h"
 #include "wavProcesses.h"
 #include "delayLine.h"
+#include "lfo.h"
 
 /**
  * Reverses a file
@@ -29,6 +30,7 @@ void fileReverse(wavFilePCM_t* file)
 	}
 }
 
+
 /**
  * Changes the gain of an entire file
  ***/
@@ -44,6 +46,57 @@ void fileGain(wavFilePCM_t* file, float factor)
 
 
 /**
+ * stretches or shrinks a file
+ * returns 1 on success, 0 upon failure (requires malloc)
+ ***/
+int filePitch(wavFilePCM_t* file, float shift)
+{
+	// calculate the new size of the file
+	int oldSize = wavGetSampCount(file);
+	int newSize = ceil(oldSize * (1 / shift));
+
+	// Build the buffers used for pitch shifting
+	delayLine_t left;
+	delayLine_t right;
+	delayInit(&left, oldSize);
+	delayInit(&right,oldSize);
+
+	// Write the file out into the buffer
+	for (int i = 0; i < oldSize; i++)
+	{
+		delayProgWrite(&left, file->data[i].left);
+		delayProgWrite(&right, file->data[i].right);
+	}
+
+	// Try to realloc to the new file size
+	wavSample_float_t* tmp = realloc(file->data, sizeof(wavSample_float_t) * newSize);
+	if (tmp == NULL)
+	{
+		free(tmp);
+		free(left.buffer);
+		free(right.buffer);
+		return 0;
+	}
+
+	// assign the new pointer
+	file->data = tmp;
+
+	// update the file size
+	wavSetSampleCount(file, newSize);
+
+
+	// Read the file back
+	for (int i = 0; i < wavGetSampCount(file); i++)
+	{
+		file->data[i].left = delayProgRead(&left, shift);
+		file->data[i].right = delayProgRead(&right, shift);
+	}
+
+	free(left.buffer);
+	free(right.buffer);
+	return 1;
+}
+/**
  * uses a ring buffer delay line to repeat an input signal, gradually fading it out until all samples are 0
  ***/
 int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
@@ -55,9 +108,6 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 	delayInit(&delayBufferL, sampDelay);
 	delayInit(&delayBufferR, sampDelay);
 
-//	delaySetDistance(&delayBufferL, sampDelay);
-//	delaySetDistance(&delayBufferR, sampDelay);
-
 	// get the size of the file
 	int newSize = wavGetSampCount(file);
 
@@ -67,7 +117,7 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 		// select the sample to delay
 		wavSample_float_t tempSamp = file->data[i];
 
-		// read a sample out of the buffer
+		// read a sample out of the buffer one sample at a time
 		float tempLeft = delayProgRead(&delayBufferL, 1);
 		float tempRight = delayProgRead(&delayBufferR, 1);
 
@@ -152,4 +202,21 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 	free(delayBufferL.buffer);
 	free(delayBufferR.buffer);
 	return 1;
+}
+
+
+/**
+ * Applies a variation in volume over time given an LFO shape, frequency, and depth
+ ***/
+void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
+{
+	for(int i = 0; i < wavGetSampCount(file); i++)
+	{
+		// Get the 0 to 1 LFO value
+		float lfoValue = (lfoGetValue(shape, freq, file->FormatChunk.SampleRate, i) / LFO_DEPTH) + (LFO_OFFSET / LFO_DEPTH);
+		float offset = 1 - depth;
+		float multValue = (lfoValue * depth) / 2 + offset;
+
+		sampleMult(&file->data[i], multValue);
+	}
 }
