@@ -32,6 +32,12 @@ int filePitch(wavFilePCM_t* file, float pitch);
 
 
 /**
+ * shifts a file in time by an arbitrary ammount
+ ***/
+int fileDelay(wavFilePCM_t* file, float delay);
+
+
+/**
  * copies a file and repeats it, gradually fading out the copy until all samples are 0
  * returns 1 upon success, 0 upon failure (requires realloc)
  ***/

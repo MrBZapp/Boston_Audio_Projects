@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../inc/convolution.c \
 ../inc/delayLine.c \
 ../inc/lfo.c \
 ../inc/wavFile.c \
@@ -11,6 +12,7 @@ C_SRCS += \
 ../inc/wavSample.c 
 
 OBJS += \
+./inc/convolution.o \
 ./inc/delayLine.o \
 ./inc/lfo.o \
 ./inc/wavFile.o \
@@ -18,6 +20,7 @@ OBJS += \
 ./inc/wavSample.o 
 
 C_DEPS += \
+./inc/convolution.d \
 ./inc/delayLine.d \
 ./inc/lfo.d \
 ./inc/wavFile.d \

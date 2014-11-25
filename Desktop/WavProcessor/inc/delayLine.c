@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "delayLine.h"
+#include "convolution.h"
 
 /**
  * Initializes a delay struct for use with delay functions
@@ -19,16 +20,35 @@
  ***/
 int delayInit(delayLine_t* delay, long size)
 {
+	// minimum delay line size is the interpolation window
+	size += INTERP_WINDOW;
+
+	// set the size for reference later.
+	delay->size = size;
+
 	// Allocate memory in the size of the delay buffer.
 	delay->buffer = calloc(size, sizeof(float));
 	if (delay->buffer == NULL)
 	{
 		return 0;
 	}
-	delay->WriteHead = 0;
-	delay->ReadHead = 0;
-	delay->size = size;
+
+	// initialize the read/write heads
+	delaySetReadHead(delay, 0);
+
+	// set delay time to be the full length of the delay
+	delay->WriteHead = delay->size - 1;
+
 	return 1;
+}
+
+
+/**
+ * Sets the read head, takes into account proper interpolation range
+ */
+void delaySetReadHead(delayLine_t* delay, float i)
+{
+	delay->ReadHead = INTERP_WINDOW + i;
 }
 
 
@@ -41,9 +61,9 @@ void delaySetDistance(delayLine_t* delay, long delSamp) {
 }
 
 /**
- * Interpolating read
+ * Linear Interpolating read
  ***/
-float delayInterRead(delayLine_t* delay, int nextSamp)
+float delayLinearRead(delayLine_t* delay, int nextSamp)
 {
 	// find the closest previous sample
 	int intRHead0 = floor(delay->ReadHead);
@@ -55,13 +75,50 @@ float delayInterRead(delayLine_t* delay, int nextSamp)
 	// find the distance between the fractional and actual samples
 	double a = delay->ReadHead - intRHead0;
 
-
 	// linearly interpolate between the nearest int sample and the next-nearest int sample
 	float temp = (a * delay->buffer[intRHead0]) + ((1-a) * delay->buffer[intRHead1]);
 
 	//return the linearly interpolated value
 	return temp;
 }
+
+
+/**
+ *  Sinc interpolating read.
+ * Reads a value from the read head using Sinc interpolation
+ * to find fractional read values.
+ ***/
+float delaySincRead(delayLine_t* delay)
+{
+	// find the closest previous sample
+	int intRHead = floor(delay->ReadHead);
+
+	// find the distance between the fractional and actual samples
+	float fracDelay = delay->ReadHead - intRHead;
+
+	float y = 0;
+
+	// convolve a set of samples against a sinc function
+	for (int i = 0; i < INTERP_WINDOW; i++)
+	{
+		double sincVal = normSinc(i - (INTERP_WINDOW/2) + fracDelay) * window(i);
+
+		int read = intRHead - i;
+
+		// wrap around to the end of the buffer if at the end of the file
+		if (read < 0)
+		{
+			read += delay->size;
+		}
+
+		y += sincVal * delay->buffer[read];
+	}
+
+	//return the interpolated value
+	return y;
+}
+
+
 
 float delayStaticRead(delayLine_t* delay)
 {
@@ -85,12 +142,12 @@ void delayProgWrite(delayLine_t* delay, float data)
  ***/
 float delayProgRead(delayLine_t* delay, float progress)
 {
-	float temp = delayInterRead(delay, 1);
+	float temp = delaySincRead(delay);//delayLinearRead(delay, ceil(progress));
 	delay->ReadHead += progress;
-	if (floor(delay->ReadHead) >= delay->size)
-	{
-		delay->ReadHead -= delay->size;
-	}
+
+	// wrap the value if greater than the size of the buffer
+	delay->ReadHead = fmod(delay->ReadHead, delay->size);
+
 	return temp;
 }
 

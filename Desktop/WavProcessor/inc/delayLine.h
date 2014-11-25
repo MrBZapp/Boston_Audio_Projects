@@ -30,6 +30,11 @@ typedef struct delayLine
  ***/
 int delayInit(delayLine_t* delay, long size);
 
+/**
+ * Sets the read head, takes into account proper interpolation range
+ */
+void delaySetReadHead(delayLine_t* delay, float i);
+
 
 /**
  * Sets the read head a fixed distance away from the write head
@@ -38,9 +43,18 @@ void delaySetDistance(delayLine_t* delay, long delSamp);
 
 
 /**
- * Interpolating read
+ * Linear Interpolating read
  ***/
-float delayInterRead(delayLine_t* delay, int nextSamp);
+float delayLinearRead(delayLine_t* delay, int nextSamp);
+
+
+/**
+ * Sinc interpolating read.
+ * Reads a value from the read head using Sinc interpolation
+ * to find fractional read values.
+ ***/
+float delaySincRead(delayLine_t* delay);
+
 
 /**
  * Static int read

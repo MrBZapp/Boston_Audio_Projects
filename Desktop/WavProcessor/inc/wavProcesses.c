@@ -12,6 +12,7 @@
 #include "wavProcesses.h"
 #include "delayLine.h"
 #include "lfo.h"
+#include "convolution.h"
 
 /**
  * Reverses a file
@@ -84,18 +85,99 @@ int filePitch(wavFilePCM_t* file, float shift)
 	// update the file size
 	wavSetSampleCount(file, newSize);
 
+	// reset the write head. In order to properly interpolate certain values, the buffer must be overwritten
+	left.WriteHead = 0;
+	right.WriteHead = 0;
 
-	// Read the file back
+
+	// Read the file back, overwritting previous samples previously written
 	for (int i = 0; i < wavGetSampCount(file); i++)
 	{
-		file->data[i].left = delayProgRead(&left, shift);
-		file->data[i].right = delayProgRead(&right, shift);
+		left.WriteHead = floor(left.ReadHead);
+		/*left.buffer[left.WriteHead] =*/ file->data[i].left = delayProgRead(&left, shift);
+		right.WriteHead = floor(right.ReadHead);
+		/*right.buffer[right.WriteHead] =*/ file->data[i].right = delayProgRead(&right, shift);
+
 	}
 
 	free(left.buffer);
 	free(right.buffer);
 	return 1;
 }
+
+
+/**
+ * shifts a file in time by an arbitrary amount
+ ***/
+int fileDelay(wavFilePCM_t* file, float delay)
+{
+	// calculate the old size of the file
+	int oldSize = wavGetSampCount(file);
+
+	// calculate the added length of the file
+	int newSize = oldSize + ceil(delay);
+
+	// realloc to the new size
+	wavSample_float_t* tmp = realloc(file->data, sizeof(wavSample_float_t) * newSize);
+	if (tmp == NULL)
+	{
+		return 0;
+	}
+
+	// reset the data to the new size.
+	file->data = tmp;
+	wavSetSampleCount(file, newSize);
+
+	// create a delay buffer
+	delayLine_t left;
+	delayLine_t right;
+
+	/*
+	 * if you're doing any kind of fractional delay you'll
+	 * need to be reaching back in time to get samples.
+	 * as a result, you'll need at least and interpolation
+	 * window's quantity of samples before the read head and
+	 * write heads to account for the first few 0 samples.
+	 */
+	delayInit(&left, ceil(delay) + 1);
+	delayInit(&right, ceil(delay) + 1);
+
+	// find the fractional part of the delay and apply it to the read head
+	// FF the read head to give all 0's in the interpolation window to start.
+	float fracDel = delay - floor(delay);
+	delaySetReadHead(&left, fracDel);
+	delaySetReadHead(&right, fracDel);
+
+
+	// read/write out the file
+	for (int i = 0; i < oldSize; i++)
+	{
+		// read a sample out of the delay buffer.
+		float tempLeft = delayProgRead(&left, 1);
+		float tempRight = delayProgRead(&right, 1);
+
+		// write a sample from the file to the delay buffer.
+		delayProgWrite(&left, file->data[i].left);
+		delayProgWrite(&right, file->data[i].right);
+
+		// write the temp sample back to the file
+		file->data[i].left = tempLeft;
+		file->data[i].right = tempRight;
+	}
+
+	// flush the buffer
+	for (int i = oldSize; i < newSize; i++)
+	{
+		file->data[i].left = delayProgRead(&left, 1);
+		file->data[i].right = delayProgRead(&right, 1);
+		delayProgWrite(&left, 0);
+		delayProgWrite(&right, 0);
+	}
+
+	return 1;
+}
+
+
 /**
  * uses a ring buffer delay line to repeat an input signal, gradually fading it out until all samples are 0
  ***/

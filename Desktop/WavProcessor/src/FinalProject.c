@@ -14,6 +14,10 @@
 #include "../inc/wavFile.h"
 #include "../inc/wavProcesses.h"
 #include "../inc/lfo.h"
+#include "../inc/convolution.h"
+
+
+
 
 int main(int argc, char* argv[]) {
 
@@ -52,16 +56,20 @@ int main(int argc, char* argv[]) {
         return 2;
     }
 
-    //fileReverse(&wavFile);
- //   fileTremolo(&wavFile, TRI, 4 , 1);
- //   fileGain(&wavFile, .5);
- //   fileEcho(&wavFile, 10000, 0.5);
-    filePitch(&wavFile, .80);
+//    fileReverse(&wavFile);
+//    fileTremolo(&wavFile, TRI, 4 , 1);
+//    fileEcho(&wavFile, 10000, 0.5);
+//    filePitch(&wavFile, 2);
+    fileDelay(&wavFile, 100.5);
+//    fileGain(&wavFile, .5);
 
     // Print LFO
 //    for (int i = 0; i < wavGetSampCount(&wavFile); i ++)
 //    {
-//    	wavFile.data[i].left = wavFile.data[i].right = 2000 * ((lfoGetValue(SINE, 1000, wavFile.FormatChunk.SampleRate , i)));
+
+//    	float freq = (i * wavFile.FormatChunk.SampleRate) / wavGetSampCount(&wavFile);
+//    	float phase = i;
+//    	wavFile.data[i].left = wavFile.data[i].right = 4000 * sinc(M_PI *.5);//((lfoGetValue(SINE, freq , wavFile.FormatChunk.SampleRate , phase)));
 //    }
 
 	wavEncode_PCM(&wavFile, outptr);
