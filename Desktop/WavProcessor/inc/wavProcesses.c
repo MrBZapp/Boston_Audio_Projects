@@ -139,8 +139,8 @@ int fileDelay(wavFilePCM_t* file, float delay)
 	 * window's quantity of samples before the read head and
 	 * write heads to account for the first few 0 samples.
 	 */
-	delayInit(&left, ceil(delay) + 1);
-	delayInit(&right, ceil(delay) + 1);
+	delayInit(&left, ceil(delay));
+	delayInit(&right, ceil(delay));
 
 	// find the fractional part of the delay and apply it to the read head
 	// FF the read head to give all 0's in the interpolation window to start.

@@ -60,8 +60,8 @@ int main(int argc, char* argv[]) {
 //    fileTremolo(&wavFile, TRI, 4 , 1);
 //    fileEcho(&wavFile, 10000, 0.5);
 //    filePitch(&wavFile, 2);
-    fileDelay(&wavFile, 100.5);
-//    fileGain(&wavFile, .5);
+    fileDelay(&wavFile, 1);
+//    fileGain(&wavFile, .2);
 
     // Print LFO
 //    for (int i = 0; i < wavGetSampCount(&wavFile); i ++)

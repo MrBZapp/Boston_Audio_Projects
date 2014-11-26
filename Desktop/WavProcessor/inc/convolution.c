@@ -21,7 +21,12 @@ double sinc(double x)
 
 double normSinc(double x)
 {
-	return sinc(M_PI * x);
+	if (x == 0)
+	{
+		return 1;
+	}
+	double sinc = sin(M_PI * x) / (M_PI * x);
+	return sinc;
 }
 
 

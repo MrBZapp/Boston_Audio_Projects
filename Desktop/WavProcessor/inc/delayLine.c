@@ -48,7 +48,7 @@ int delayInit(delayLine_t* delay, long size)
  */
 void delaySetReadHead(delayLine_t* delay, float i)
 {
-	delay->ReadHead = INTERP_WINDOW + i;
+	delay->ReadHead = (INTERP_WINDOW - 1) + i;
 }
 
 
@@ -101,7 +101,9 @@ float delaySincRead(delayLine_t* delay)
 	// convolve a set of samples against a sinc function
 	for (int i = 0; i < INTERP_WINDOW; i++)
 	{
-		double sincVal = normSinc(i - (INTERP_WINDOW/2) + fracDelay) * window(i);
+		int h = INTERP_WINDOW / 2;
+		float x = i - h + fracDelay;
+		float sincVal = normSinc(x) * window(i);
 
 		int read = intRHead - i;
 
