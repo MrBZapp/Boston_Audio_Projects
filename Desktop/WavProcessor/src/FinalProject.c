@@ -57,11 +57,11 @@ int main(int argc, char* argv[]) {
     }
 
 //    fileReverse(&wavFile);
-//    fileTremolo(&wavFile, RAMP_DOWN, 4 , .5);
+//    fileTremolo(&wavFile, TRI, 4 , 1);
 //    fileRing(&wavFile, TRI, 2000, 1);
 //    fileEcho(&wavFile, 40000, 0.5);
 //    filePitch(&wavFile, .5);
-    fileVibrato(&wavFile, TRI, 1, 0.5);
+//    fileVibrato(&wavFile, TRI, 1, 0.5);
 //    fileDelay(&wavFile, 100);
 //    fileGain(&wavFile, .2);
 

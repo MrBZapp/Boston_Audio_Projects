@@ -1,0 +1,8 @@
+{"process": {
+  "type": "echo",
+  "params": {
+    "samples": 44100,
+    "feedback": 0.5,
+	}
+}
+}
