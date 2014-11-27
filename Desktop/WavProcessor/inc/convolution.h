@@ -10,11 +10,12 @@
 
 #include <math.h>
 
-#define INTERP_WINDOW 9
 
 double sinc(double x);
 
-double normSinc(double x);
+float normSinc(double x);
+
+float precisionf(double x, long places);
 
 float window(int i);
 

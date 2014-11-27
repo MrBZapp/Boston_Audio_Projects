@@ -17,6 +17,8 @@
  * Initializes a delay struct for use with delay functions
  * size is the sample maximum for the buffer and thus determines
  * the maximum delay length of the buffer.
+ *
+ * SEEDING OF THE BUFFER MUST BE PERFORMED MANUALLY
  ***/
 int delayInit(delayLine_t* delay, long size)
 {
@@ -34,21 +36,36 @@ int delayInit(delayLine_t* delay, long size)
 	}
 
 	// initialize the read/write heads
-	delaySetReadHead(delay, 0);
+	delaySetReadHead(delay,0);
 
 	// set delay time to be the full length of the delay
-	delay->WriteHead = delay->size - 1;
+	delaySetWriteHead(delay, size - INTERP_WINDOW);
 
 	return 1;
 }
 
 
+
+
 /**
  * Sets the read head, takes into account proper interpolation range
+ * and wraps properly with the delay line.
  */
 void delaySetReadHead(delayLine_t* delay, float i)
 {
-	delay->ReadHead = (INTERP_WINDOW - 1) + i;
+	delay->ReadHead = HALF_WINDOW + i;
+	delay->ReadHead = fmod(delay->ReadHead, delay->size);
+}
+
+
+/**
+ * Sets the write head, takes into account proper interpolation range
+ * and wraps properly with the delay line.
+ ***/
+void delaySetWriteHead(delayLine_t* delay, int i)
+{
+	delay->WriteHead = HALF_WINDOW + i;
+	delay->WriteHead %= delay->size;
 }
 
 
@@ -59,6 +76,7 @@ void delaySetDistance(delayLine_t* delay, long delSamp) {
 	// move the read head to the delay, length away from the write head, wrapping around for the size of the buffer
 	delay->ReadHead = (delay->WriteHead + delSamp) % delay->size;
 }
+
 
 /**
  * Linear Interpolating read
@@ -85,7 +103,7 @@ float delayLinearRead(delayLine_t* delay, int nextSamp)
 
 /**
  *  Sinc interpolating read.
- * Reads a value from the read head using Sinc interpolation
+ * Reads a value from the read head using Windowed Sinc Interpolation
  * to find fractional read values.
  ***/
 float delaySincRead(delayLine_t* delay)
@@ -96,24 +114,24 @@ float delaySincRead(delayLine_t* delay)
 	// find the distance between the fractional and actual samples
 	float fracDelay = delay->ReadHead - intRHead;
 
+	// return value
 	float y = 0;
 
 	// convolve a set of samples against a sinc function
 	for (int i = 0; i < INTERP_WINDOW; i++)
 	{
-		int h = INTERP_WINDOW / 2;
-		float x = i - h + fracDelay;
+		// calculate the window offset
+		int offset = i - HALF_WINDOW;
+
+		// select the correct position from the sinc function and window
+		float x = offset + fracDelay;
 		float sincVal = normSinc(x) * window(i);
 
-		int read = intRHead - i;
+		// select the appropriate sample
+		float sampleVal = delayStaticRead(delay, offset );
 
-		// wrap around to the end of the buffer if at the end of the file
-		if (read < 0)
-		{
-			read += delay->size;
-		}
-
-		y += sincVal * delay->buffer[read];
+		// sum the function.
+		y += sincVal * sampleVal;
 	}
 
 	//return the interpolated value
@@ -122,9 +140,27 @@ float delaySincRead(delayLine_t* delay)
 
 
 
-float delayStaticRead(delayLine_t* delay)
+
+
+/**
+ * reads whatever is currently under the read head plus an offset
+ * adjusts the read head to be within bounds
+ ***/
+float delayStaticRead(delayLine_t* delay, float offset)
 {
-	int rhi = floor(delay->ReadHead);
+
+	// bound the read head to the buffer
+	float tempHead = fmod(delay->ReadHead + offset, delay->size);
+
+	// TODO: I am concerned this is a bit of a hack.
+	// The delay buffer should never be 0, but if it were, this would hang.
+	while (tempHead < 0)
+	{
+		tempHead += delay->size;
+	}
+
+	// find the nearest actual buffer position and return it
+	int rhi = trunc(tempHead);
 	return delay->buffer[rhi];
 }
 
@@ -144,7 +180,7 @@ void delayProgWrite(delayLine_t* delay, float data)
  ***/
 float delayProgRead(delayLine_t* delay, float progress)
 {
-	float temp = delaySincRead(delay);//delayLinearRead(delay, ceil(progress));
+	float temp = delaySincRead(delay);
 	delay->ReadHead += progress;
 
 	// wrap the value if greater than the size of the buffer

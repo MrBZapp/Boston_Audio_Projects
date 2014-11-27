@@ -57,13 +57,16 @@ int main(int argc, char* argv[]) {
     }
 
 //    fileReverse(&wavFile);
-//    fileTremolo(&wavFile, TRI, 4 , 1);
-//    fileEcho(&wavFile, 10000, 0.5);
-//    filePitch(&wavFile, 2);
-    fileDelay(&wavFile, 1);
+//    fileTremolo(&wavFile, RAMP_DOWN, 4 , .5);
+//    fileRing(&wavFile, TRI, 2000, 1);
+//    fileEcho(&wavFile, 40000, 0.5);
+//    filePitch(&wavFile, .5);
+    fileVibrato(&wavFile, TRI, 1, 0.5);
+//    fileDelay(&wavFile, 100);
 //    fileGain(&wavFile, .2);
 
-    // Print LFO
+
+//    // Print data to wav
 //    for (int i = 0; i < wavGetSampCount(&wavFile); i ++)
 //    {
 
@@ -75,7 +78,6 @@ int main(int argc, char* argv[]) {
 	wavEncode_PCM(&wavFile, outptr);
 
     free(wavFile.data);
-    fclose(inptr);
     fclose(outptr);
 
     return 0;

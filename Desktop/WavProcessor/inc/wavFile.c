@@ -157,14 +157,13 @@ int wavDecode_PCM(wavFilePCM_t* wavFile, FILE* file){
 
 /**
  * Encodes a wav file from a wav file type to a file stream out.
- ***/
-/*
+ *
  * HACK WARNING: the output is ONLY available in 16-bit audio at the moment.
  * as a result, a few assumptions are being made that will need to be addressed
  * if a more full-featured implementation is to be built.
  *
  * TODO: Don't hard-code the bits-per sample to 16
- */
+ ***/
 int wavEncode_PCM(wavFilePCM_t* wavFile, FILE* file)
 {
 	wavFilePCM_t tempSamp;
@@ -256,6 +255,49 @@ int wavEncode_PCM(wavFilePCM_t* wavFile, FILE* file)
 
 
 /**
+ * changes the length of a file, truncating if making shorter,
+ * and reallocing/zeroing data if longer.
+ ***/
+int wavChangeLength(wavFilePCM_t* file, long change)
+{
+	// we don't need to do a ton of work moving data around if we're not changing anything
+	if (change == 0)
+		return 1;
+
+	// get the old and new lengths
+	long oldSize = wavGetSampCount(file);
+	long newSize = oldSize + change;
+
+	// if we've been asked to make a file with a nonsense length, fail.
+	if (newSize <= 0 )
+		return 0;
+
+
+	// realloc to the new size
+	wavSample_float_t* tmp = realloc(file->data, sizeof(wavSample_float_t) * newSize);
+	if (tmp == NULL)
+	{
+		return 0;
+	}
+
+	// reset the data to the new size.
+	file->data = tmp;
+
+	// zero any new data
+	for (int i = oldSize; i < newSize; i++)
+	{
+		file->data[i].left = 0;
+		file->data[i].right = 0;
+	}
+
+	// Update the sample count
+	wavSetSampleCount(file, newSize);
+
+	return 1;
+}
+
+
+/**
  * returns the sample count of a file
  ***/
 int wavGetByteCount(wavFilePCM_t* file)
@@ -279,8 +321,33 @@ int wavGetSampCount(wavFilePCM_t* file)
 
 
 /**
+ *
+ ***/
+wavSample_float_t wavReadAtPosition(wavFilePCM_t* file, long sample)
+{
+	wavSample_float_t x = {0, 0};
+	if (sample < 0 || sample > wavGetSampCount(file))
+		return x;
+	x = file->data[sample];
+	return x;
+}
+
+
+/**
+ *
+ ***/
+void wavWriteAtPosition(wavFilePCM_t* file, long position, wavSample_float_t* sample)
+{
+	if (position < 0 || position > wavGetSampCount(file))
+		return;
+	file->data[position] = *sample;
+	return;
+}
+
+
+/**
  * update the sample count of a file
- */
+ ***/
 void wavSetSampleCount(wavFilePCM_t* file, int sampleCount)
 {
 	// update the subchunk size
@@ -332,4 +399,3 @@ int wavError(int error){
 	}
 	return 0;
 }
-

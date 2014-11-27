@@ -32,7 +32,7 @@ int filePitch(wavFilePCM_t* file, float pitch);
 
 
 /**
- * shifts a file in time by an arbitrary ammount
+ * shifts a file in time by an arbitrary amount
  ***/
 int fileDelay(wavFilePCM_t* file, float delay);
 
@@ -48,5 +48,13 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float decay);
  * Applies a variation in volume over time given a frequency and depth
  ***/
 void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
+
+
+void fileRing(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
+
+/**
+ * Applies a variation in pitch over time given a frequency and depth
+ ***/
+int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
 
 #endif /* WAVPROCESSES_H_ */

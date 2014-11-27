@@ -54,7 +54,7 @@ int filePitch(wavFilePCM_t* file, float shift)
 {
 	// calculate the new size of the file
 	int oldSize = wavGetSampCount(file);
-	int newSize = ceil(oldSize * (1 / shift));
+	int lenChange = ceil(oldSize * (1 / shift)) - oldSize;
 
 	// Build the buffers used for pitch shifting
 	delayLine_t left;
@@ -69,35 +69,26 @@ int filePitch(wavFilePCM_t* file, float shift)
 		delayProgWrite(&right, file->data[i].right);
 	}
 
-	// Try to realloc to the new file size
-	wavSample_float_t* tmp = realloc(file->data, sizeof(wavSample_float_t) * newSize);
-	if (tmp == NULL)
+	// update the length of the file
+	if (!wavChangeLength(file,lenChange))
 	{
-		free(tmp);
 		free(left.buffer);
 		free(right.buffer);
 		return 0;
 	}
-
-	// assign the new pointer
-	file->data = tmp;
-
-	// update the file size
-	wavSetSampleCount(file, newSize);
 
 	// reset the write head. In order to properly interpolate certain values, the buffer must be overwritten
 	left.WriteHead = 0;
 	right.WriteHead = 0;
 
 
-	// Read the file back, overwritting previous samples previously written
+	// Read the file back at half speed
 	for (int i = 0; i < wavGetSampCount(file); i++)
 	{
-		left.WriteHead = floor(left.ReadHead);
-		/*left.buffer[left.WriteHead] =*/ file->data[i].left = delayProgRead(&left, shift);
-		right.WriteHead = floor(right.ReadHead);
-		/*right.buffer[right.WriteHead] =*/ file->data[i].right = delayProgRead(&right, shift);
-
+		wavSample_float_t temp = {0,0};
+		temp.left = delayProgRead(&left, shift);
+		temp.right = delayProgRead(&right, shift);
+		wavWriteAtPosition(file, i, &temp);
 	}
 
 	free(left.buffer);
@@ -114,33 +105,23 @@ int fileDelay(wavFilePCM_t* file, float delay)
 	// calculate the old size of the file
 	int oldSize = wavGetSampCount(file);
 
-	// calculate the added length of the file
-	int newSize = oldSize + ceil(delay);
-
-	// realloc to the new size
-	wavSample_float_t* tmp = realloc(file->data, sizeof(wavSample_float_t) * newSize);
-	if (tmp == NULL)
-	{
+	// update the length of the file with the added delay
+	if (!wavChangeLength(file, ceil(delay)))
 		return 0;
-	}
-
-	// reset the data to the new size.
-	file->data = tmp;
-	wavSetSampleCount(file, newSize);
 
 	// create a delay buffer
 	delayLine_t left;
 	delayLine_t right;
-
-	/*
-	 * if you're doing any kind of fractional delay you'll
-	 * need to be reaching back in time to get samples.
-	 * as a result, you'll need at least and interpolation
-	 * window's quantity of samples before the read head and
-	 * write heads to account for the first few 0 samples.
-	 */
 	delayInit(&left, ceil(delay));
 	delayInit(&right, ceil(delay));
+
+	//seed the buffers
+	int fileReadHead = 0;
+	for (int i = 0; i < HALF_WINDOW; i++, fileReadHead++)
+	{
+		delayProgWrite(&left, wavReadAtPosition(file, fileReadHead).left);
+		delayProgWrite(&right, wavReadAtPosition(file, fileReadHead).right);
+	}
 
 	// find the fractional part of the delay and apply it to the read head
 	// FF the read head to give all 0's in the interpolation window to start.
@@ -148,32 +129,39 @@ int fileDelay(wavFilePCM_t* file, float delay)
 	delaySetReadHead(&left, fracDel);
 	delaySetReadHead(&right, fracDel);
 
-
 	// read/write out the file
-	for (int i = 0; i < oldSize; i++)
+	for (int i = 0; i < oldSize; i++, fileReadHead++)
 	{
 		// read a sample out of the delay buffer.
-		float tempLeft = delayProgRead(&left, 1);
-		float tempRight = delayProgRead(&right, 1);
+		wavSample_float_t temp = {0, 0};
+
+		temp.left = delayProgRead(&left, 1);
+		temp.right = delayProgRead(&right, 1);
 
 		// write a sample from the file to the delay buffer.
-		delayProgWrite(&left, file->data[i].left);
-		delayProgWrite(&right, file->data[i].right);
+		delayProgWrite(&left, wavReadAtPosition(file, fileReadHead).left);
+		delayProgWrite(&right, wavReadAtPosition(file, fileReadHead).right);
 
 		// write the temp sample back to the file
-		file->data[i].left = tempLeft;
-		file->data[i].right = tempRight;
+		wavWriteAtPosition(file, i, &temp);
 	}
 
 	// flush the buffer
-	for (int i = oldSize; i < newSize; i++)
+	for (int i = oldSize; i < wavGetSampCount(file); i++)
 	{
-		file->data[i].left = delayProgRead(&left, 1);
-		file->data[i].right = delayProgRead(&right, 1);
+		wavSample_float_t temp = {0, 0};
+		temp.left = delayProgRead(&left, 1);
+		temp.right = delayProgRead(&right, 1);
+
+		wavWriteAtPosition(file, i, &temp);
+
 		delayProgWrite(&left, 0);
 		delayProgWrite(&right, 0);
 	}
 
+	// free the buffers
+	free(left.buffer);
+	free(right.buffer);
 	return 1;
 }
 
@@ -183,12 +171,12 @@ int fileDelay(wavFilePCM_t* file, float delay)
  ***/
 int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 {
-	// create a static delay line
-	delayLine_t delayBufferL;
-	delayLine_t delayBufferR;
+	// create a delay line
+	delayLine_t left;
+	delayLine_t right;
 
-	delayInit(&delayBufferL, sampDelay);
-	delayInit(&delayBufferR, sampDelay);
+	delayInit(&left, sampDelay);
+	delayInit(&right, sampDelay);
 
 	// get the size of the file
 	int newSize = wavGetSampCount(file);
@@ -200,8 +188,8 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 		wavSample_float_t tempSamp = file->data[i];
 
 		// read a sample out of the buffer one sample at a time
-		float tempLeft = delayProgRead(&delayBufferL, 1);
-		float tempRight = delayProgRead(&delayBufferR, 1);
+		float tempLeft = delayProgRead(&left, 1);
+		float tempRight = delayProgRead(&right, 1);
 
 		// mix that data back to the file
 		file->data[i].left += tempLeft;
@@ -216,8 +204,8 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 		tempRight += tempSamp.right;
 
 		// write them to the buffer
-		delayProgWrite(&delayBufferL, tempLeft);
-		delayProgWrite(&delayBufferR, tempRight);
+		delayProgWrite(&left, tempLeft);
+		delayProgWrite(&right, tempRight);
 	}
 
 	// Flush the buffer until the echo has decayed completely
@@ -233,7 +221,7 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 		int buffStart = wavGetSampCount(file);
 
 		// determine the new file size
-		newSize = buffStart + delayBufferL.size;
+		newSize = buffStart + left.size;
 		
 		// Reallocate the memory
 		wavSample_float_t* tmp = realloc(file->data, (sizeof(wavSample_float_t) * newSize));
@@ -241,8 +229,8 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 		{
 			// if realloc fails.
 			// free the delay buffer's memory.
-			free(delayBufferL.buffer);
-			free(delayBufferR.buffer);
+			free(left.buffer);
+			free(right.buffer);
 			return 0;
 		}
 
@@ -256,8 +244,8 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 		for (int i = buffStart; i < newSize; i++)
 		{
 			// read a sample out of the buffer
-			float tempLeft = delayProgRead(&delayBufferL, 1);
-			float tempRight = delayProgRead(&delayBufferR, 1);
+			float tempLeft = delayProgRead(&left, 1);
+			float tempRight = delayProgRead(&right, 1);
 
 			// add that data back to the file
 			file->data[i].left = tempLeft;
@@ -274,15 +262,15 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 			}
 
 			// write them to the buffer
-			delayProgWrite(&delayBufferL, tempLeft);
-			delayProgWrite(&delayBufferR, tempRight);
+			delayProgWrite(&left, tempLeft);
+			delayProgWrite(&right, tempRight);
 		}
 
 	}while (echoing == 1);
 
 	// free the delay buffer's memory.
-	free(delayBufferL.buffer);
-	free(delayBufferR.buffer);
+	free(left.buffer);
+	free(right.buffer);
 	return 1;
 }
 
@@ -295,10 +283,97 @@ void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
 	for(int i = 0; i < wavGetSampCount(file); i++)
 	{
 		// Get the 0 to 1 LFO value
-		float lfoValue = (lfoGetValue(shape, freq, file->FormatChunk.SampleRate, i) / LFO_DEPTH) + (LFO_OFFSET / LFO_DEPTH);
-		float offset = 1 - depth;
+		float lfoValue = lfoGetValueUni(shape, freq, file->FormatChunk.SampleRate, i);
+
+		// if the depth is greater less than 1, adjust the offset accordingly, else it is 0
+		float offset = 0;
+		if ( depth < 1)
+		{
+			offset = 1 - depth;
+		}
+
 		float multValue = (lfoValue * depth) / 2 + offset;
 
 		sampleMult(&file->data[i], multValue);
 	}
+}
+
+void fileRing(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
+{
+	for(int i = 0; i < wavGetSampCount(file); i++)
+	{
+		// Get the 0 to 1 LFO value
+		float lfoValue = lfoGetValue(shape, freq, file->FormatChunk.SampleRate, i);
+
+		float multValue = (lfoValue * depth) / 2;
+
+		sampleMult(&file->data[i], multValue);
+	}
+}
+/**
+ * Applies a variation in pitch over time given a frequency and depth
+ ***/
+int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
+{
+	/*
+	 * Calculating the new length of the file:
+	 * The length of the file will only change if the LFO does not end
+	 * on a 0 crossing.  Otherwise, no change will be needed.
+	 */
+	int oldSize = wavGetSampCount(file);
+	int newSize = (lfoGetValueUni(shape, freq, file->FormatChunk.SampleRate, oldSize) * depth * oldSize) + oldSize;
+
+	// allocate delay lines
+	delayLine_t left;
+	delayLine_t right;
+	delayInit(&left, newSize);
+	delayInit(&right, newSize);
+
+	// update the length of the file
+	int lenChange = newSize - oldSize;
+	if (!wavChangeLength(file,lenChange))
+	{
+		free(left.buffer);
+		free(right.buffer);
+		return 0;
+	}
+
+	// we don't want a delay here, so set the write heads back to 0 to fill the buffers
+	delaySetWriteHead(&left, 0);
+	delaySetWriteHead(&left, 0);
+
+	// read the file out into the buffer
+	// Write the file out into the buffer
+	for (int i = 0; i < oldSize; i++)
+	{
+		delayProgWrite(&left, wavReadAtPosition(file, i).left);
+		delayProgWrite(&right, wavReadAtPosition(file, i).right);
+	}
+
+
+	// Read the file back at a variable speed
+	for (int i = 0; i < wavGetSampCount(file); i++)
+	{
+		wavSample_float_t temp = {0,0};
+
+		// Get the 0 to 1 LFO value
+		float lfoValue = lfoGetValueUni(shape, freq, file->FormatChunk.SampleRate, i);
+
+		// if the depth is greater less than 1, adjust the offset accordingly, else it is 0
+		float offset = 0;
+		if ( depth < 1)
+		{
+			offset = 1 - depth;
+		}
+
+		float progress = (lfoValue * depth) / 2 + offset;
+
+		temp.left = delayProgRead(&left, progress);
+		temp.right = delayProgRead(&right, progress);
+		wavWriteAtPosition(file, i, &temp);
+	}
+	// free the delay buffers
+	free(left.buffer);
+	free(right.buffer);
+	return 1;
 }

@@ -46,4 +46,12 @@ typedef enum
  ***/
 float lfoGetValue(lfoShape_t shape, float lfoFreq, int sampleRate, float samplePosition);
 
+
+
+/**
+ * this is functionally equivalent to lfoGetValue() but is unipolar, returning 0 - 1.
+ * Use this for control signals unless processing requires a bi-polar signal.
+ ***/
+float lfoGetValueUni(lfoShape_t shape, float lfoFreq, int sampleRate, float samplePosition);
+
 #endif /* LFO_H_ */

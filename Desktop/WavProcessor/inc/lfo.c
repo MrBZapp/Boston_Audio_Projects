@@ -70,3 +70,14 @@ float lfoGetValue(lfoShape_t shape, float lfoFreq, int sampleRate, float sampleP
 	}
 	return retVal / M_PI;
 }
+
+
+/**
+ * this is functionally equivalent to lfoGetValue() but is unipolar, returning 0 - 1.
+ * Use this for control signals unless processing requires a bi-polar signal.
+ ***/
+float lfoGetValueUni(lfoShape_t shape, float lfoFreq, int sampleRate, float samplePosition)
+{
+	float uniPolarValue = (lfoGetValue(shape, lfoFreq, sampleRate, samplePosition) / LFO_DEPTH) + (LFO_OFFSET / LFO_DEPTH);
+	return uniPolarValue;
+}

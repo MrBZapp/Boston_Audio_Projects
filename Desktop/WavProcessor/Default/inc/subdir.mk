@@ -7,6 +7,7 @@ C_SRCS += \
 ../inc/convolution.c \
 ../inc/delayLine.c \
 ../inc/lfo.c \
+../inc/wavDelay.c \
 ../inc/wavFile.c \
 ../inc/wavProcesses.c \
 ../inc/wavSample.c 
@@ -15,6 +16,7 @@ OBJS += \
 ./inc/convolution.o \
 ./inc/delayLine.o \
 ./inc/lfo.o \
+./inc/wavDelay.o \
 ./inc/wavFile.o \
 ./inc/wavProcesses.o \
 ./inc/wavSample.o 
@@ -23,6 +25,7 @@ C_DEPS += \
 ./inc/convolution.d \
 ./inc/delayLine.d \
 ./inc/lfo.d \
+./inc/wavDelay.d \
 ./inc/wavFile.d \
 ./inc/wavProcesses.d \
 ./inc/wavSample.d 

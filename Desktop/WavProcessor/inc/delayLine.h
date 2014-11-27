@@ -7,12 +7,17 @@
  *  heavily informed by Stanford CCRMA's design found at:
  *  https://ccrma.stanford.edu/~jos/doppler/Variable_Delay_Line_Software.html
  *
- *  Delay lines are sample-agnostic. You must have a delay line for each channel
- *  when working with multi-channel audio.
+ *  Delay lines are sample-agnostic to allow for separate processing of multi-channel
+ *  audio.  As a result, even if processing is identical on both samples, two buffers
+ *  will need to be used and addressed independently.
  */
 
 #ifndef DELAYLINE_H_
 #define DELAYLINE_H_
+
+
+#define INTERP_WINDOW 9
+#define HALF_WINDOW truncf(INTERP_WINDOW / 2)
 
 typedef struct delayLine
 {
@@ -27,13 +32,25 @@ typedef struct delayLine
  * Initializes a delay struct for use with delay functions
  * size is the sample maximum for the buffer and thus determines
  * the maximum delay length of the buffer.
+ *
+ * THIS DOES NOT SEED THE BUFFER, THAT MUST BE DONE SEPARATELY.
  ***/
 int delayInit(delayLine_t* delay, long size);
 
+
+
 /**
  * Sets the read head, takes into account proper interpolation range
- */
+ ***/
 void delaySetReadHead(delayLine_t* delay, float i);
+
+
+
+/**
+ * Sets the write head, takes into account proper interpolation range
+ * and wraps properly with the delay line.
+ ***/
+void delaySetWriteHead(delayLine_t* delay, int i);
 
 
 /**
@@ -57,9 +74,10 @@ float delaySincRead(delayLine_t* delay);
 
 
 /**
- * Static int read
+ * reads whatever is currently under the read head plus an offset
+ * adjusts the read head to be within bounds
  ***/
-float delayStaticRead(delayLine_t* delay);
+float delayStaticRead(delayLine_t* delay, float offset);
 
 
 /**

@@ -16,17 +16,32 @@ double sinc(double x)
 		return 1;
 	}
 
-	return sin(x)/x;
+	double sine = sin(x);
+	double csine = sine/x;
+	return csine;
 }
 
-double normSinc(double x)
+float normSinc(double x)
 {
 	if (x == 0)
 	{
 		return 1;
 	}
-	double sinc = sin(M_PI * x) / (M_PI * x);
-	return sinc;
+	// get a normalized sinc function rounded to
+	// ten decimal places of precision.
+	// trolololol.
+	float nsync = precisionf( sinc(M_PI * x), 10);
+	return nsync;
+}
+
+
+float precisionf(double x, long places)
+{
+	// find the multipule for places
+	places = pow(10, places);
+	long i = x * places;
+	float y = ((float)i) / places;
+	return y;
 }
 
 

@@ -59,6 +59,14 @@ int wavDecode_PCM(wavFilePCM_t* wavFile, FILE* file);
  ***/
 int wavEncode_PCM(wavFilePCM_t* wavFile, FILE* file);
 
+
+/**
+ * changes the length of a file, truncating if making shorter,
+ * and reallocing/zeroing data if longer.
+ ***/
+int wavChangeLength(wavFilePCM_t* file, long change);
+
+
 /**
  * returns the sample count of a file
  ***/
@@ -73,6 +81,17 @@ void wavSetSampleCount(wavFilePCM_t* file, int sampleCount);
  * returns the sample count of a file
  ***/
 int wavGetByteCount(wavFilePCM_t* file);
+
+
+/**
+ * returns the sample of an theoretically infinite file.
+ ***/
+wavSample_float_t wavReadAtPosition(wavFilePCM_t* file, long sample);
+
+/**
+ * Writes a sample at a position in a file.  automatically bounds to the file's length.
+ ***/
+void wavWriteAtPosition(wavFilePCM_t* file, long position, wavSample_float_t* sample);
 
 /**
  * Prints the error code's meaning to the terminal
