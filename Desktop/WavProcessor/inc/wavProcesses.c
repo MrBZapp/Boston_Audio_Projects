@@ -171,6 +171,12 @@ int fileDelay(wavFilePCM_t* file, float delay)
  ***/
 int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 {
+	// protect against hangs:
+	if (feedback >= 1)
+	{
+		feedback = 0.9;
+	}
+
 	// create a delay line
 	delayLine_t left;
 	delayLine_t right;

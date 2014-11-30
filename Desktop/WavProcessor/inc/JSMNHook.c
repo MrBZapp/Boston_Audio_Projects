@@ -5,73 +5,23 @@
  *      Author: mzapp
  */
 
-#include "stdio.h"
-#include "string.h"
 #include "wavFile.h"
 #include "wavProcesses.h"
+#include "processParams.h"
 #include "jsmn/jsmn.h"
+#include "JSON.h"
+
 //18
 
 #define ERR_BADPROCESS 0
-#define ERR_BADMEM 1
-#define ERR_BADJSON 2
-
-typedef struct jsonFile
-{
-	char* text;
-	jsmntok_t* tokens;
-}jsonFile_t;
-
-/**
- * reads a file into a string and returns a pointer to that string.
- ***/
-static char* readJSONFile(const char* JSONPath)
-{
-    // open input file
-	FILE* infile = fopen(JSONPath, "r");
-	if(infile == NULL)
-	    return NULL;
-
-	// find out how big the file is and reset
-	fseek(infile, 0L, SEEK_END);
-	long bytecount = ftell(infile);
-	fseek(infile, 0L, SEEK_SET);
-
-	// allocate a (hopefully not) epic amount of memory.
-	char* json = (char*)calloc(bytecount, sizeof(char));
-	if(json == NULL)
-	{
-		return NULL;
-	}
-
-	// if we've got a pointer, turn that mother out and close the file.
-	fread(json, sizeof(char), bytecount, infile);
-	fclose(infile);
-
-	// return the string
-	return json;
-}
+#define ERR_BADMEM -1
+#define ERR_BADJSON -2
 
 
 /**
- * compares a token against a string.  returns 1 if match, 0 if no match
+ * returns the type of process specified by a provided "type" token
  */
-static int jsonStrcmp(jsonFile_t* jsonFile, const char* s, unsigned int location) {
-	// get the length of the token
-	int tokLength = jsonFile->tokens[location].end - jsonFile->tokens[location].start;
-
-	// if the token is a string AND the string is the right length AND the string is the right string...
-	// return 1.
-	if (jsonFile->tokens[location].type == JSMN_STRING
-			&& (int) strlen(s) == tokLength
-			&& strncmp(jsonFile->text + jsonFile->tokens[location].start, s, tokLength) == 0)
-	{
-		return 1;
-	}
-	return 0;
-}
-
-int getProcessType(jsonFile_t* jsonFile, unsigned int index)
+proscessType_t getProcessType(jsonFile_t* jsonFile, unsigned int index)
 {
 	if (jsonStrcmp(jsonFile, "type", index))
 	{
@@ -112,37 +62,360 @@ int getProcessType(jsonFile_t* jsonFile, unsigned int index)
 }
 
 /**
+ * TODO: complete all process types
+ * parses parameters for each type of processor from a
+ * location in a json file.  returns the distance the
+ * global index needs to be advanced, and places
+ * information into an array of parameters.
+ * expects a params token to being, or will return 0.
+ ***/
+int jsonGetParams(jsonFile_t* jsonFile, int tokIndex, proscessType_t processType, float* params)
+{
+	// keep track of how man tokens we consume
+	int counterAdv = 0;
+
+	// are we at a params index?
+	if (!jsonStrcmp(jsonFile,"params", tokIndex))
+		return 0;
+
+	// if we are indeed at the params, make sure there's an object there.
+	tokIndex++;
+	counterAdv++;
+
+	// make sure we're not trying to read things that don't exist
+	if(tokIndex >= jsonFile->tokenCount)
+		return counterAdv;
+
+	//if there isn't a params object, return and use the process defaults.
+	if (jsonFile->tokens[tokIndex].type != JSMN_OBJECT)
+	{
+		return counterAdv;
+	}
+
+	// token index should now be inside the params object
+	tokIndex++;
+	counterAdv++;
+
+	// make sure we're not trying to read things that don't exist
+	if(tokIndex >= jsonFile->tokenCount)
+		return counterAdv;
+
+	// while we haven't hit another process, or the end of the available tokens:
+	while(tokIndex < jsonFile->tokenCount && !jsonStrcmp(jsonFile, "process", tokIndex))
+	{
+		switch (processType)
+		{
+		case(GAIN):
+				// find the parameter
+				if (jsonStrcmp(jsonFile, "mult", tokIndex))
+				{
+					// get the value and place it in the appropriate params location
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				break;
+
+		case(REVERSE):
+				break;
+
+		case(STRETCH):
+				if (jsonStrcmp(jsonFile, "ratio", tokIndex))
+				{
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				break;
+
+		case(DELAY):
+				if (jsonStrcmp(jsonFile, "samples", tokIndex))
+				{
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				break;
+
+		case(ECHO):
+				if (jsonStrcmp(jsonFile, "samples", tokIndex))
+				{
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "feedback", tokIndex))
+				{
+					params[1] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				break;
+
+		case(TREMOLO):
+				if (jsonStrcmp(jsonFile, "shape", tokIndex))
+				{
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "freq", tokIndex) || jsonStrcmp(jsonFile, "frequency", tokIndex) )
+				{
+					params[1] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "depth", tokIndex))
+				{
+					params[2] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				break;
+
+		case(RINGMOD):
+				if (jsonStrcmp(jsonFile, "shape", tokIndex))
+				{
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "freq", tokIndex) || jsonStrcmp(jsonFile, "frequency", tokIndex) )
+				{
+					params[2] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "depth", tokIndex))
+				{
+					params[3] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				break;
+
+		case(VIBRATO):
+				if (jsonStrcmp(jsonFile, "shape", tokIndex))
+				{
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "freq", tokIndex) || jsonStrcmp(jsonFile, "frequency", tokIndex) )
+				{
+					params[1] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "depth", tokIndex))
+				{
+					params[2] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				break;
+
+		case(CHORUS):
+				if (jsonStrcmp(jsonFile, "shape", tokIndex))
+				{
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "freq", tokIndex) || jsonStrcmp(jsonFile, "frequency", tokIndex) )
+				{
+					params[1] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "depth", tokIndex))
+				{
+					params[2] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "mix", tokIndex))
+				{
+					params[3] = jsonTokToF(jsonFile,tokIndex + 1);
+				}
+				break;
+
+		case(FLANGE):
+				break;
+
+		default:
+			// this is for catching errors.
+			break;
+		}
+
+		tokIndex++;
+		counterAdv++;
+	}
+
+	// the minus 1 here is to allow the main loop to account for the "process" token
+	return counterAdv - 1;
+}
+
+
+/**
  * selects and applies processing from a json string and a set of token markers
  ***/
-static int processFromTokens(wavFilePCM_t* file, jsonFile_t* jsonFile, int tokenCount)
+static int processFromJSON(wavFilePCM_t* wavFile, jsonFile_t* jsonFile)
 {
 	// require we start with a JSMN object
-	if (tokenCount < 1 || jsonFile->tokens[0].type != JSMN_OBJECT) {
+	if (jsonFile->tokenCount < 1 || jsonFile->tokens[0].type != JSMN_OBJECT) {
 		return ERR_BADJSON;
 	}
 
 	unsigned int processCount = 0;
 
 	// iterate over all tokens
-	for (int i = 0; i <= tokenCount; i++)
+	for (int i = 1; i < jsonFile->tokenCount; i++)
 	{
-		// If we find a process token, add it to the list
-		if (jsonStrcmp(jsonFile, "Process", i))
+		// If we find a process token, dive into that object.
+		if (jsonStrcmp(jsonFile, "process", i))
 		{
-			//get the next token
-			i++;
-			// if it isn't an object, throw it back.
-			if (jsonFile->tokens[i].type != JSMN_OBJECT)
+			//if there isn't a process object, skip that process, it's bogus.
+			if (jsonFile->tokens[i + 1].type != JSMN_OBJECT)
 			{
-				return ERR_BADJSON;
+				//return ERR_BADJSON;
+				continue;
 			}
 
-			//get the next token
+			// i now points to Process Object
 			i++;
+
+			// get the process by submitting the type token
+			// i now points to the Type Token
+			i++;
+
+
+			// make sure we're not trying to read things that don't exist
+			if(i >= jsonFile->tokenCount)
+				continue;
+
 			int processType = getProcessType(jsonFile, i);
+			// i now points to the process type token
+			i++;
+
+
+			// advance the index to indicate the process type has been acquired
+			// i now points to the params token
+			i++ ;
+
+			// make sure we're not trying to read things that don't exist
+			if(i >= jsonFile->tokenCount)
+				continue;
+
+			// using do loops to maintain scope of the
+			// params array without wigging out the compiler
+			switch (processType)
+			{
+			case(GAIN):
+					do
+					{
+						// set default params
+						float params[1] = {1};
+
+						// get params from JSON file and advance the counter for each token consumed
+						i += jsonGetParams(jsonFile, i, GAIN, params);
+
+						// tell the user what they're doing
+						printf("process: gain\n    params:\n        gain: %f\n", params[0]);
+
+						// apply params
+						fileGain(wavFile, params[0]);
+					} while(0);
+					break;
+
+			case(REVERSE):
+					// tell the user what they are doing
+					printf("process: reverse\n");
+					fileReverse(wavFile);
+					break;
+
+			case(STRETCH):
+					do
+					{
+						// set default params
+						float params[1] = {1};
+
+						// get params from JSON file and advance the counter for each token consumed
+						i += jsonGetParams(jsonFile, i, STRETCH, params);
+
+						// tell the user what they're doing
+						printf("process: stretch\n    params:\n        ratio: %f\n", params[0]);
+
+						// apply params
+						filePitch(wavFile, params[0]);
+					} while(0);
+					break;
+
+			case(DELAY):
+					do
+					{
+						// set default params
+						float params[1] = {wavGetSampCount(wavFile)};
+
+						// get params from JSON file and advance the counter for each token consumed
+						i += jsonGetParams(jsonFile, i, DELAY, params);
+
+						// tell the user what they're doing to their file.
+						printf("process: delay\n    params:\n        samples: %f\n", params[0]);
+
+						// apply params
+						fileDelay(wavFile, params[0]);
+					} while(0);
+					break;
+
+			case(ECHO):
+					do
+					{
+						// set default params
+						float params[2] = {wavFile->FormatChunk.SampleRate, 0};
+
+						// get params from JSON file and advance the counter for each token consumed
+						i += jsonGetParams(jsonFile, i, ECHO, params);
+
+						// tell the user what they're doing to their file.
+						printf("process: echo\n    params:\n        samples: %f\n        feedback: %f\n", params[0], params[1]);
+
+						// apply params
+						fileEcho(wavFile, params[0], params[1]);
+					} while(0);
+					break;
+
+			case(TREMOLO):
+					do
+					{
+						// set default params
+						float params[3] = {SINE, 1, 0};
+
+						// get params from JSON file and advance the counter for each token consumed
+						i += jsonGetParams(jsonFile, i, TREMOLO, params);
+
+						// tell the user what they are doing
+						printf("process: tremolo\n    params:\n        shape: %f\n        rate: %f\n        depth: %f\n", params[0], params[1], params[2]);
+
+						// apply params
+						fileTremolo(wavFile,params[0], params[1], params[2]);
+					} while(0);
+					break;
+
+			case(RINGMOD):
+					do
+					{
+						// set default params
+						float params[3] = {SINE, 1, 1};
+
+						// get params from JSON file and advance the counter for each token consumed
+						i += jsonGetParams(jsonFile, i, RINGMOD, params);
+
+						// tell the user what they are doing
+						printf("process: ringmod\n    params:\n        shape: %f\n        rate: %f\n        depth: %f\n", params[0], params[1], params[2]);
+
+						// apply params
+						fileRing(wavFile,params[0], params[1], params[2]);
+					} while(0);
+					break;
+
+			case(VIBRATO):
+					do
+					{
+						// set default params
+						float params[3] = {SINE, 1, 0};
+
+						// get params from JSON file and advance the counter for each token consumed
+						i += jsonGetParams(jsonFile, i, VIBRATO, params);
+
+						// tell the user what they are doing
+						printf("process: vibrato\n    params:\n        shape: %f\n        rate: %f\n        depth: %f\n", params[0], params[1], params[2]);
+
+						// apply params
+						fileVibrato(wavFile,params[0], params[1], params[2]);
+					} while(0);
+					break;
+
+			case(CHORUS):
+					break;
+
+			case(FLANGE):
+					break;
+
+			default:
+				// this is for catching errors.
+				processCount--;
+				break;
+			}
 
 			processCount++;
-		}
+	}
 	}
 
 	printf("%i processes applied to file.\n", processCount);
@@ -156,73 +429,21 @@ static int processFromTokens(wavFilePCM_t* file, jsonFile_t* jsonFile, int token
  * and passes the commands on to processing. will return errors if
  * they occur during parsing or processing. returns an error code.
  ***/
-int processWavFromJSON(wavFilePCM_t* wavFile, const char* JSONPath)
+int processWavFromJSONString(wavFilePCM_t* wavFile, const char* JSONPath)
 {
-	// create a blank JSON file.
-	jsonFile_t jsonFile;
+	int err = 0;
 
-	// try to read out the file
-	jsonFile.text = readJSONFile(JSONPath);
-	jsonFile.tokens = NULL;
+	jsonFile_t* jsonFile = openJSONFile(JSONPath);
 
-	if (jsonFile.text == NULL)
-		return ERR_BADMEM;
-
-	// create and initialize the jsmn parser
-	jsmn_parser parser;
-	jsmn_init(&parser);
-
-	// prepare to read an arbitrary number of tokens
-	unsigned int tokenCount = 0;
-
-	/* We assume we're not giving the parser enough memory to work with,
-	 * and gradually increase it so as to not limit the amount of processing
-	 * one can do to a file.
-	 *
-	 * if realloc ever fails this should abort, but this has the potential
-	 * to hang if there are any other memory errors within jsmn. There shouldn't
-	 * be; NOMEM only returns when the user doesn't give jsmn enough memory,
-	 * and they don't alloc anything so gradually increasing the memory provided
-	 * should be sufficient to avoid hangs.
-	 */
-	jsmnerr_t err = JSMN_ERROR_NOMEM;
-	printf("Parsing JSON\n");
-	while (err == JSMN_ERROR_NOMEM)
-	{
-		//expand the token count
-		tokenCount++;
-		jsmntok_t* tmp = realloc(jsonFile.tokens, sizeof(jsmntok_t) * tokenCount);
-
-		// make sure the pointer is valid before assignment
-		if (tmp == NULL)
-		{
-			// if it isn't, make sure the tokens pointer is free'd before returning
-			if (jsonFile.tokens != NULL)
-			{
-				free(jsonFile.tokens);
-			}
-
-			// we're done with the string, free that memory.
-			free(jsonFile.text);
-			return ERR_BADMEM;
-		}
-
-		// reassign the pointer.
-		jsonFile.tokens = tmp;
-
-		// re-initialize the parser
-		jsmn_init(&parser);
-
-		// try to read the file
-		err = jsmn_parse(&parser, jsonFile.text,  strlen(jsonFile.text),jsonFile.tokens , tokenCount );
-	}
+	if (jsonFile == NULL)
+		return -1;
 
 	// Process the audio!
-	err = processFromTokens(wavFile, &jsonFile, tokenCount);
+	err = processFromJSON(wavFile, jsonFile);
 
-	// we're done with the string and tokens, free that memory.
-	free(jsonFile.text);
-	free(jsonFile.tokens);
+	// we're done with the json file, close it down
+	closeJSONFile(jsonFile);
+
 	// Complete! return no errors!
 	return 0;
 }

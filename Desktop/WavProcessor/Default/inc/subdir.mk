@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../inc/JSMNHook.c \
+../inc/JSON.c \
 ../inc/convolution.c \
 ../inc/delayLine.c \
 ../inc/lfo.c \
@@ -14,6 +15,7 @@ C_SRCS += \
 
 OBJS += \
 ./inc/JSMNHook.o \
+./inc/JSON.o \
 ./inc/convolution.o \
 ./inc/delayLine.o \
 ./inc/lfo.o \
@@ -23,6 +25,7 @@ OBJS += \
 
 C_DEPS += \
 ./inc/JSMNHook.d \
+./inc/JSON.d \
 ./inc/convolution.d \
 ./inc/delayLine.d \
 ./inc/lfo.d \

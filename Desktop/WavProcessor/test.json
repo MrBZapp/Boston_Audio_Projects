@@ -1,10 +1,17 @@
 {
-	"test" : "kapooie"
+	"test": "kapooie"
 	"process": {
-		"type": "echo",
+		"type": "delay",
 		"params": {
-			"samples": 44100,
-			"feedback": 0.5,
+			"samples": 50000,
+			"bug":"yeahSeriously",
+			"feedback": 0.5
+		}
+	}
+	"process": {
+		"type": "gain",
+		"params": {
+			"mult": 0.3
 		}
 	}
 }

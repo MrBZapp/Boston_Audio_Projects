@@ -13,28 +13,6 @@
 #include "lfo.h"
 
 
-// list of all available processes and their associated numbers
-
-		// gain, reverse, and stretch operations
-#define GAIN 1
-#define REVERSE 2
-#define STRETCH 3
-
-		// delay and echo operations
-#define DELAY 4
-#define ECHO 5
-
-		// standard modulation operations
-#define TREMOLO 6
-#define RINGMOD 7
-#define VIBRATO 8
-
-		// advanced modulation operations
-#define CHORUS 9
-#define FLANGE 10
-
-
-////////////////////////// functions for processing //////////////////////////
 
 /**
  * Changes the gain of an entire file

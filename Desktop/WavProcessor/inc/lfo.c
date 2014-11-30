@@ -14,6 +14,9 @@
  *
  * CHANGING PHASE: if you wish to change the phase of the oscillator,
  * simply add a constant to the sample Position.
+ *
+ * TODO: track the phase so that different frequencies and wavs can
+ * be stitched together on the fly.
  ***/
 float lfoGetValue(lfoShape_t shape, float lfoFreq, int sampleRate, float samplePosition)
 {

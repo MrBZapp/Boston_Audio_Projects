@@ -15,6 +15,6 @@
  * and passes the commands on to processing. will return errors if
  * they occur during parsing or processing.
  ***/
-int processWavFromJSON(wavFilePCM_t* wavFile, const char* JSONPath);
+int processWavFromJSONString(wavFilePCM_t* wavFile, const char* JSONPath);
 
 #endif /* JSMNHOOK_H_ */

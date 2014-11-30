@@ -12,7 +12,16 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "../inc/wavFile.h"
+#include "../inc/lfo.h"
 #include "../inc/JSMNHook.h"
+
+//    fileReverse(&wavFile);
+//    fileTremolo(&wavFile, TRI, 4 , 1);
+//    fileRing(&wavFile, TRI, 2000, 1);
+//    filePitch(&wavFile, .5);
+//    fileVibrato(&wavFile, TRI, 1, 0.5);
+//    fileDelay(&wavFile, 100);
+//    fileGain(&wavFile, .2);
 
 
 
@@ -62,7 +71,7 @@ int main(int argc, char* argv[]) {
     }
 
     // parse the json file and process the audio
-    error = processWavFromJSON(&wavFile, JSONPath);
+    error = processWavFromJSONString(&wavFile, JSONPath);
 
     // encode the wav file to the output file.
 	error = wavEncode_PCM(&wavFile, outptr);
