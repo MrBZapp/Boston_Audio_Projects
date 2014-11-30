@@ -62,7 +62,6 @@ proscessType_t getProcessType(jsonFile_t* jsonFile, unsigned int index)
 }
 
 /**
- * TODO: complete all process types
  * parses parameters for each type of processor from a
  * location in a json file.  returns the distance the
  * global index needs to be advanced, and places
@@ -436,7 +435,10 @@ int processWavFromJSONString(wavFilePCM_t* wavFile, const char* JSONPath)
 	jsonFile_t* jsonFile = openJSONFile(JSONPath);
 
 	if (jsonFile == NULL)
+	{
+		printf("Failed to read JSON file.\n");
 		return -1;
+	}
 
 	// Process the audio!
 	err = processFromJSON(wavFile, jsonFile);

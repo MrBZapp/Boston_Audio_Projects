@@ -76,8 +76,7 @@ int main(int argc, char* argv[]) {
     // encode the wav file to the output file.
 	error = wavEncode_PCM(&wavFile, outptr);
 
-	// clean up the final open pointers and return success!
-    printf("Processing completed successfully!\n");
+	// clean up the final open pointers and return
     free(wavFile.data);
     fclose(outptr);
     return 0;

@@ -14,4 +14,17 @@
 			"mult": 0.3
 		}
 	}
+	"process": {
+		"type": "tremolo",
+		"params": {
+			"shape": 1,
+			"depth" : 1,
+		}
+	}
+	"process":{
+		"type": "echo"
+		"params":{
+			"samples": 22500
+		}
+	}
 }
