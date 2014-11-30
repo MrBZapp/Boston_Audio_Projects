@@ -93,7 +93,7 @@ jsonFile_t* openJSONFile(const char* JSONPath)
 	}
 
 	// if there were any other errors, do not return the file.
-	if (err != 0)
+	if (err < 0)
 	{
 		free(jsonFile->text);
 		free(jsonFile);
