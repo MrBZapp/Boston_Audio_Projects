@@ -13,9 +13,9 @@
 
 //18
 
-#define ERR_BADPROCESS 0
 #define ERR_BADMEM -1
 #define ERR_BADJSON -2
+#define ERR_BADPROCESS -3
 
 
 /**
@@ -60,6 +60,7 @@ proscessType_t getProcessType(jsonFile_t* jsonFile, unsigned int index)
 	}
 	return ERR_BADJSON;
 }
+
 
 /**
  * parses parameters for each type of processor from a

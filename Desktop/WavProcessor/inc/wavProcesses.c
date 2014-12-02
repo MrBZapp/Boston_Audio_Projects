@@ -62,6 +62,10 @@ int filePitch(wavFilePCM_t* file, float shift)
 	delayInit(&left, oldSize);
 	delayInit(&right,oldSize);
 
+	// we don't want a delay, so we'll need to reset the write heads
+    delaySetWriteHead(&left, 0);
+    delaySetWriteHead(&right, 0);
+
 	// Write the file out into the buffer
 	for (int i = 0; i < oldSize; i++)
 	{
@@ -77,12 +81,7 @@ int filePitch(wavFilePCM_t* file, float shift)
 		return 0;
 	}
 
-	// reset the write head. In order to properly interpolate certain values, the buffer must be overwritten
-	left.WriteHead = 0;
-	right.WriteHead = 0;
-
-
-	// Read the file back at half speed
+	// Read the file back at speed
 	for (int i = 0; i < wavGetSampCount(file); i++)
 	{
 		wavSample_float_t temp = {0,0};
@@ -383,3 +382,6 @@ int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
 	free(right.buffer);
 	return 1;
 }
+
+
+

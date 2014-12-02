@@ -53,6 +53,15 @@ int delayInit(delayLine_t* delay, long size)
  */
 void delaySetReadHead(delayLine_t* delay, float i)
 {
+	// block some weirdnesses that could hang the app.
+	if (delay->size <= 0)
+	{
+		i = 0;
+	}
+	while ( i  < 0)
+	{
+		i += delay->size;
+	}
 	delay->ReadHead = HALF_WINDOW + i;
 	delay->ReadHead = fmod(delay->ReadHead, delay->size);
 }
@@ -83,21 +92,14 @@ void delaySetDistance(delayLine_t* delay, long delSamp) {
  ***/
 float delayLinearRead(delayLine_t* delay, int nextSamp)
 {
-	// find the closest previous sample
-	int intRHead0 = floor(delay->ReadHead);
-
-	// find the next nearest sample in the buffer, wrap this around if at the end of a buffer
-	int intRHead1 = intRHead0 + nextSamp;
-	intRHead1 %= delay->size;
-
 	// find the distance between the fractional and actual samples
-	double a = delay->ReadHead - intRHead0;
+	double frac = delay->ReadHead - floor(delay->ReadHead);
 
 	// linearly interpolate between the nearest int sample and the next-nearest int sample
-	float temp = (a * delay->buffer[intRHead0]) + ((1-a) * delay->buffer[intRHead1]);
+	float interp = ((1 - frac) * delayStaticRead(delay, 0)) + (frac * delayStaticRead(delay, nextSamp));
 
 	//return the linearly interpolated value
-	return temp;
+	return interp;
 }
 
 
@@ -115,7 +117,7 @@ float delaySincRead(delayLine_t* delay)
 	float fracDelay = delay->ReadHead - intRHead;
 
 	// return value
-	float y = 0;
+	double y = 0;
 
 	// convolve a set of samples against a sinc function
 	for (int i = 0; i < INTERP_WINDOW; i++)
@@ -124,43 +126,67 @@ float delaySincRead(delayLine_t* delay)
 		int offset = i - HALF_WINDOW;
 
 		// select the correct position from the sinc function and window
-		float x = offset + fracDelay;
-		float sincVal = normSinc(x) * window(i);
+		double x = offset + fracDelay;
+		double sincVal = normSinc(x) * window(RECTANGLE, HALF_WINDOW, i);
 
 		// select the appropriate sample
-		float sampleVal = delayStaticRead(delay, offset );
+		double sampleVal = delayModRead(delay, offset);
 
 		// sum the function.
 		y += sincVal * sampleVal;
 	}
 
 	//return the interpolated value
-	return y;
+	return precisionf(y, 10);
 }
-
-
-
 
 
 /**
  * reads whatever is currently under the read head plus an offset
- * adjusts the read head to be within bounds
+ * offsets outside the range of the delay line return 0
  ***/
 float delayStaticRead(delayLine_t* delay, float offset)
 {
+	float tempHead = delay->ReadHead + offset;
 
-	// bound the read head to the buffer
-	float tempHead = fmod(delay->ReadHead + offset, delay->size);
-
-	// TODO: I am concerned this is a bit of a hack.
-	// The delay buffer should never be 0, but if it were, this would hang.
-	while (tempHead < 0)
+	// return 0 if out of range
+	if (tempHead < 0 || tempHead > delay->size)
 	{
-		tempHead += delay->size;
+		return 0;
 	}
 
 	// find the nearest actual buffer position and return it
 	int rhi = trunc(tempHead);
+	return delay->buffer[rhi];
+}
+
+
+/**
+ * reads whatever is currently under the read head plus an offset
+ * offsets outside the range of the delay wrap around
+ ***/
+float delayModRead(delayLine_t* delay, float offset)
+{
+	float tempHead = delay->ReadHead + offset;
+
+	// block hangs
+	if (delay->size <= 0)
+		return 0;
+
+	// if the the readhead is too small, make it bigger.
+	while (tempHead < 0)
+	{
+		tempHead = tempHead + delay->size;
+	}
+
+	// if it's larger, wrap to the beginning.
+	if (tempHead > delay->size)
+	{
+		tempHead = fmod(tempHead, delay->size);
+	}
+
+	// find the closest preceding actual buffer position and return it
+	int rhi = floor(tempHead);
 	return delay->buffer[rhi];
 }
 
@@ -180,7 +206,7 @@ void delayProgWrite(delayLine_t* delay, float data)
  ***/
 float delayProgRead(delayLine_t* delay, float progress)
 {
-	float temp = delaySincRead(delay);
+	float temp = delaySincRead(delay);//delayLinearRead(delay, 1);
 	delay->ReadHead += progress;
 
 	// wrap the value if greater than the size of the buffer
@@ -188,7 +214,6 @@ float delayProgRead(delayLine_t* delay, float progress)
 
 	return temp;
 }
-
 
 
 #endif /* DELAYLINE_C_ */

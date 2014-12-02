@@ -10,13 +10,18 @@
 
 #include <math.h>
 
+// Window types.
+typedef enum windowType {
+	RECTANGLE,
+	HAMMING
+} windowType_t;
 
 double sinc(double x);
 
-float normSinc(double x);
+double normSinc(double x);
 
 float precisionf(double x, long places);
 
-float window(int i);
+double window(windowType_t winType, int winSize, float x);
 
 #endif /* CONVOLUTION_H_ */

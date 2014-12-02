@@ -16,8 +16,8 @@
 #define DELAYLINE_H_
 
 
-#define INTERP_WINDOW 9
-#define HALF_WINDOW truncf(INTERP_WINDOW / 2)
+#define INTERP_WINDOW 11
+#define HALF_WINDOW (INTERP_WINDOW / 2)
 
 typedef struct delayLine
 {
@@ -79,6 +79,12 @@ float delaySincRead(delayLine_t* delay);
  ***/
 float delayStaticRead(delayLine_t* delay, float offset);
 
+
+/**
+ * reads whatever is currently under the read head plus an offset
+ * offsets outside the range of the delay wrap around
+ ***/
+float delayModRead(delayLine_t* delay, float offset);
 
 /**
  * Progressively writes data to a buffer

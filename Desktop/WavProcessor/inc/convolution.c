@@ -21,7 +21,7 @@ double sinc(double x)
 	return csine;
 }
 
-float normSinc(double x)
+double normSinc(double x)
 {
 	if (x == 0)
 	{
@@ -30,7 +30,7 @@ float normSinc(double x)
 	// get a normalized sinc function rounded to
 	// ten decimal places of precision.
 	// trolololol.
-	float nsync = precisionf( sinc(M_PI * x), 10);
+	double nsync = sinc(M_PI * x);
 	return nsync;
 }
 
@@ -45,9 +45,20 @@ float precisionf(double x, long places)
 }
 
 
-float window(int i)
+
+double window(windowType_t winType, int winSize, float x)
 {
-	float y = 1;
+	double y = 1;
+	switch(winType)
+	{
+	case(HAMMING):
+			y = 0.54 - 0.46 * cos(M_PI * x / winSize);
+			break;
+
+	default:
+		break;
+	}
+
 	return y;
 }
 
