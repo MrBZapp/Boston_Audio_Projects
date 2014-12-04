@@ -16,16 +16,6 @@
 #include "../inc/JSMNHook.h"
 #include "../inc/convolution.h"
 
-//    fileReverse(&wavFile);
-//    fileTremolo(&wavFile, TRI, 4 , 1);
-//    fileRing(&wavFile, TRI, 2000, 1);
-//    filePitch(&wavFile, .5);
-//    fileVibrato(&wavFile, TRI, 1, 0.5);
-//    fileDelay(&wavFile, 100);
-//    fileGain(&wavFile, .2);
-
-
-
 int main(int argc, char* argv[]) {
 
 	// block gooberish behaviour.
@@ -73,16 +63,6 @@ int main(int argc, char* argv[]) {
 
     // parse the json file and process the audio
     error = processWavFromJSONString(&wavFile, JSONPath);
-
-  //  wavChangeLength(&wavFile, 1100000);
-
-    //	double x = -50;
-//
-//    for (int i = 0; i < 1100000 ; i++)
-//    {
-//    	wavFile.data[i].left = wavFile.data[i].right = 32767 * (normSinc(x));// * window(HAMMING, 11 , x));
-//    	x += 0.0001;
-//    }
 
     // encode the wav file to the output file.
 	error = wavEncode_PCM(&wavFile, outptr);

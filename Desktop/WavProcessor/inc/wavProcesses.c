@@ -13,6 +13,8 @@
 #include "delayLine.h"
 #include "lfo.h"
 #include "convolution.h"
+#include "distort.h"
+#include "filter.h"
 
 /**
  * Reverses a file
@@ -42,6 +44,35 @@ void fileGain(wavFilePCM_t* file, float factor)
 	for (int i = 0; i < sampleCount; i++)
 	{
 		sampleMult(&file->data[i], factor);
+	}
+}
+
+
+/**
+ * applies a Delinearizing function to every sample in a file
+ ***/
+void fileDist(wavFilePCM_t* file, distType_t type, float knee)
+{
+	for (int i = 0; i < wavGetSampCount(file); i++)
+	{
+		// get a sample
+		wavSample_float_t temp = file->data[i];
+
+		// process the sample
+		switch(type)
+		{
+		case(SOFT):
+				temp = sampleDeLinearize(temp, &distSoft, knee);
+				break;
+		case(HARD):
+				temp = sampleDeLinearize(temp, &distHard, knee);
+				break;
+		default:
+			break;
+		}
+
+		// place the sample back in the file
+		file->data[i] = temp;
 	}
 }
 
@@ -303,6 +334,7 @@ void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
 	}
 }
 
+
 void fileRing(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
 {
 	for(int i = 0; i < wavGetSampCount(file); i++)
@@ -315,6 +347,8 @@ void fileRing(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
 		sampleMult(&file->data[i], multValue);
 	}
 }
+
+
 /**
  * Applies a variation in pitch over time given a frequency and depth
  ***/
@@ -384,4 +418,30 @@ int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
 }
 
 
+/**
+ * applies a Low pass filter at a specific cutoff and quality to a file
+ ***/
+void fileLPF(wavFilePCM_t* file, double cutoff, float q)
+{
+	// create two filter streams, one for each channel
+	filtStream_t left = {
+			{0,0,0},
+			{0,0,0}
+	};
+	filtStream_t right = {
+			{0,0,0},
+			{0,0,0}
+	};
 
+	int sampleRate = file->FormatChunk.SampleRate;
+
+	// run the file through the filter sample by sample
+	for (int i = 0; i < wavGetSampCount(file); i++)
+	{
+		filtWriteXStream(&left, file->data[i].left);
+		file->data[i].left = filtLowPass(sampleRate, &left, cutoff, q);
+
+		filtWriteXStream(&right, file->data[i].right);
+		file->data[i].right = filtLowPass(sampleRate, &right, cutoff, q);
+	}
+}

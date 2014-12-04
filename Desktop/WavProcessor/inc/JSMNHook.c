@@ -27,13 +27,15 @@ proscessType_t getProcessType(jsonFile_t* jsonFile, unsigned int index)
 	{
 		// get the type of the processing
 		index++;
-		// gain, reverse, and stretch operations
+		// gain, reverse, distortion, and stretch operations
 		if (jsonStrcmp(jsonFile, "gain", index))
 			return GAIN;
 		else if (jsonStrcmp(jsonFile, "reverse", index))
 			return REVERSE;
 		else if (jsonStrcmp(jsonFile, "stretch", index))
 			return STRETCH;
+		else if (jsonStrcmp(jsonFile, "distort", index))
+			return DISTORT;
 
 		// delay and echo operations
 		else if (jsonStrcmp(jsonFile, "delay", index))
@@ -54,6 +56,8 @@ proscessType_t getProcessType(jsonFile_t* jsonFile, unsigned int index)
 			return CHORUS;
 		if (jsonStrcmp(jsonFile, "flange", index))
 			return FLANGE;
+		if (jsonStrcmp(jsonFile, "lowpass", index))
+			return LOWPASS;
 		else
 			return ERR_BADPROCESS;
 
@@ -114,6 +118,21 @@ int jsonGetParams(jsonFile_t* jsonFile, int tokIndex, proscessType_t processType
 				}
 				break;
 
+		case(DISTORT):
+				// find the parameter
+				if (jsonStrcmp(jsonFile, "algorithm", tokIndex))
+				{
+					// get the value and place it in the appropriate params location
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				// find the parameter
+				if (jsonStrcmp(jsonFile, "knee", tokIndex))
+				{
+					// get the value and place it in the appropriate params location
+					params[1] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				break;
+
 		case(REVERSE):
 				break;
 
@@ -147,7 +166,9 @@ int jsonGetParams(jsonFile_t* jsonFile, int tokIndex, proscessType_t processType
 				{
 					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
 				}
-				if (jsonStrcmp(jsonFile, "freq", tokIndex) || jsonStrcmp(jsonFile, "frequency", tokIndex) )
+				if (jsonStrcmp(jsonFile, "freq", tokIndex) ||
+					jsonStrcmp(jsonFile, "frequency", tokIndex) ||
+					jsonStrcmp(jsonFile, "rate", tokIndex))
 				{
 					params[1] = jsonTokToF(jsonFile, tokIndex + 1);
 				}
@@ -162,7 +183,9 @@ int jsonGetParams(jsonFile_t* jsonFile, int tokIndex, proscessType_t processType
 				{
 					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
 				}
-				if (jsonStrcmp(jsonFile, "freq", tokIndex) || jsonStrcmp(jsonFile, "frequency", tokIndex) )
+				if (jsonStrcmp(jsonFile, "freq", tokIndex) ||
+					jsonStrcmp(jsonFile, "frequency", tokIndex) ||
+					jsonStrcmp(jsonFile, "rate", tokIndex))
 				{
 					params[2] = jsonTokToF(jsonFile, tokIndex + 1);
 				}
@@ -177,7 +200,9 @@ int jsonGetParams(jsonFile_t* jsonFile, int tokIndex, proscessType_t processType
 				{
 					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
 				}
-				if (jsonStrcmp(jsonFile, "freq", tokIndex) || jsonStrcmp(jsonFile, "frequency", tokIndex) )
+				if (jsonStrcmp(jsonFile, "freq", tokIndex) ||
+				jsonStrcmp(jsonFile, "frequency", tokIndex) ||
+				jsonStrcmp(jsonFile, "rate", tokIndex))
 				{
 					params[1] = jsonTokToF(jsonFile, tokIndex + 1);
 				}
@@ -209,6 +234,16 @@ int jsonGetParams(jsonFile_t* jsonFile, int tokIndex, proscessType_t processType
 		case(FLANGE):
 				break;
 
+		case(LOWPASS):
+				if (jsonStrcmp(jsonFile, "cutoff", tokIndex))
+				{
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "q", tokIndex))
+				{
+					params[1] = jsonTokToF(jsonFile,tokIndex + 1);
+				}
+				break;
 		default:
 			// this is for catching errors.
 			break;
@@ -291,6 +326,23 @@ static int processFromJSON(wavFilePCM_t* wavFile, jsonFile_t* jsonFile)
 
 						// apply params
 						fileGain(wavFile, params[0]);
+					} while(0);
+					break;
+
+			case(DISTORT):
+					do
+					{
+						// set default params
+						float params[2] = {0, 0};
+
+						// get params from JSON file and advance the counter for each token consumed
+						i += jsonGetParams(jsonFile, i, DISTORT, params);
+
+						// tell the user what they're doing
+						printf("process: distort\n    params:\n        algorithm: %f\n        knee: %f\n", params[0], params[1]);
+
+						// apply params
+						fileDist(wavFile, params[0], params[1]);
 					} while(0);
 					break;
 
@@ -408,6 +460,22 @@ static int processFromJSON(wavFilePCM_t* wavFile, jsonFile_t* jsonFile)
 			case(FLANGE):
 					break;
 
+			case(LOWPASS):
+					do
+					{
+						// set default params
+						float params[2] = {10000, 1};
+
+						// get params from JSON file and advance the counter for each token consumed
+						i += jsonGetParams(jsonFile, i, LOWPASS, params);
+
+						// tell the user what they are doing
+						printf("process: lowpass\n    params:\n        cutoff: %f\n        q: %f\n", params[0], params[1]);
+
+						// apply params
+						fileLPF(wavFile, params[0], params[1]);
+					} while(0);
+					break;
 			default:
 				// this is for catching errors.
 				processCount--;

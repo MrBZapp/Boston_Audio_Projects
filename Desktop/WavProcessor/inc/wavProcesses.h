@@ -21,6 +21,12 @@ void fileGain(wavFilePCM_t* file, float factor);
 
 
 /**
+ * applies a Delinearizing function to every sample in a file
+ ***/
+void fileDist(wavFilePCM_t* file, distType_t type, float knee);
+
+
+/**
  * Reverses a file
  ***/
 void fileReverse(wavFilePCM_t* file);
@@ -52,11 +58,22 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float decay);
 void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
 
 
+/**
+ * Applies amplitude modulation and phase inversion over time for a given
+ * frequency and depth
+ ***/
 void fileRing(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
+
 
 /**
  * Applies a variation in pitch over time given a frequency and depth
  ***/
 int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
+
+
+/**
+ * applies a Low pass filter at a specific cutoff and quality to a file
+ ***/
+void fileLPF(wavFilePCM_t* file, double cutoff, float q);
 
 #endif /* WAVPROCESSES_H_ */

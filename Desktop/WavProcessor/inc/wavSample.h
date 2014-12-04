@@ -9,6 +9,7 @@
 
 #include <math.h>
 #include <limits.h>
+#include "distort.h"
 
 #ifndef WAVSAMPLE_H_
 #define WAVSAMPLE_H_
@@ -36,6 +37,11 @@ wavSample_float_t sampleMult(wavSample_float_t* sample, float factor);
  ***/
 wavSample_float_t sampleSum(wavSample_float_t* sampA, wavSample_float_t* sampB);
 
+/**
+ * Changes samples' value based on a distortion function
+ * and a knee value.
+ ***/
+wavSample_float_t sampleDeLinearize(wavSample_float_t samp, distortion_pt func, float knee);
 
 /**
  * prevents 16-bit over/underflow

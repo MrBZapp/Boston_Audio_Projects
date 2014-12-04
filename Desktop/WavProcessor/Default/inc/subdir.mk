@@ -8,6 +8,8 @@ C_SRCS += \
 ../inc/JSON.c \
 ../inc/convolution.c \
 ../inc/delayLine.c \
+../inc/distort.c \
+../inc/filter.c \
 ../inc/lfo.c \
 ../inc/wavFile.c \
 ../inc/wavProcesses.c \
@@ -18,6 +20,8 @@ OBJS += \
 ./inc/JSON.o \
 ./inc/convolution.o \
 ./inc/delayLine.o \
+./inc/distort.o \
+./inc/filter.o \
 ./inc/lfo.o \
 ./inc/wavFile.o \
 ./inc/wavProcesses.o \
@@ -28,6 +32,8 @@ C_DEPS += \
 ./inc/JSON.d \
 ./inc/convolution.d \
 ./inc/delayLine.d \
+./inc/distort.d \
+./inc/filter.d \
 ./inc/lfo.d \
 ./inc/wavFile.d \
 ./inc/wavProcesses.d \

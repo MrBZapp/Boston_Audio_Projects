@@ -40,6 +40,19 @@ wavSample_float_t sampleSum(wavSample_float_t* sampA, wavSample_float_t* sampB )
 	return tempSamp;
 }
 
+
+/**
+ * Changes samples' value based on a distortion function
+ * and a knee value.
+ ***/
+wavSample_float_t sampleDeLinearize(wavSample_float_t samp, distortion_pt func, float knee)
+{
+	samp.left = func(samp.left, knee);
+	samp.right = func(samp.right, knee);
+	return samp;
+}
+
+
 /**
  * prevents 16-bit over/underflow
  ***/

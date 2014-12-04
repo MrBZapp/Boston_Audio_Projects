@@ -1,19 +1,17 @@
 {
 	"test": "kapooie"
 	"process": {
-		"type": "stretch",
+		"type": "vibrato",
 		"params": {
-			"ratio": 0.125,
-			"bug":"yeahSeriously",
-			"feedback": 2
+			"shape": 0,
+			"depth": 0.5,
+			"rate": 10,
 		}
 	}
 	"process": {
 	"type": "gain",
 	"params": {
-		"mult": .5,
-		"bug":"yeahSeriously",
-		"feedback": 0.5
+		"mult": 1
 		}
 	}
 }

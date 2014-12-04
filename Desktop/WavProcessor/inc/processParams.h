@@ -12,22 +12,26 @@
 // list of all available processes and their associated numbers
 typedef enum processType{
 	// gain, reverse, and stretch operations
-	GAIN = 1,
-	REVERSE = 2,
-	STRETCH = 3,
+	GAIN,
+	REVERSE,
+	DISTORT,
+	STRETCH,
 
 	// delay and echo operations
-	DELAY = 4,
-	ECHO = 5,
+	DELAY,
+	ECHO,
 
 	// standard modulation operations
-	TREMOLO = 6,
-	RINGMOD = 7,
-	VIBRATO = 8,
+	TREMOLO,
+	RINGMOD,
+	VIBRATO,
 
 	// advanced modulation operations
-	CHORUS = 9,
-	FLANGE = 10
+	CHORUS,
+	FLANGE,
+
+	// Filters
+	LOWPASS
 }proscessType_t;
 
 #endif /* PROCESSPARAMS_H_ */

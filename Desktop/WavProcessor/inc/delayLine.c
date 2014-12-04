@@ -206,7 +206,7 @@ void delayProgWrite(delayLine_t* delay, float data)
  ***/
 float delayProgRead(delayLine_t* delay, float progress)
 {
-	float temp = delaySincRead(delay);//delayLinearRead(delay, 1);
+	float temp = delayLinearRead(delay, 1);
 	delay->ReadHead += progress;
 
 	// wrap the value if greater than the size of the buffer
