@@ -63,7 +63,7 @@ static double biquad(filter_t* f, filtStream_t* stream)
  * Given a sample rate, a buffer of 3 samples, the cutoff frequency, and the quality
  * of the filter, will return a single sample
  ***/
-float filtLowPass(int sampRate, filtStream_t* stream, double cutoff, float q )
+float filtLowPass(float sampRate, filtStream_t* stream, double cutoff, float q )
 {
 	double w0 = 2 * M_PI * (cutoff / sampRate);
 

@@ -81,9 +81,19 @@ void delaySetWriteHead(delayLine_t* delay, int i)
 /**
  * Sets the read head a fixed distance away from the write head
  ***/
-void delaySetDistance(delayLine_t* delay, long delSamp) {
+void delaySetDistance(delayLine_t* delay, float delSamp) {
 	// move the read head to the delay, length away from the write head, wrapping around for the size of the buffer
-	delay->ReadHead = (delay->WriteHead + delSamp) % delay->size;
+	delaySetReadHead(delay, delay->WriteHead + delSamp);
+}
+
+
+
+/**
+ * returns the distance of the write head to the read head
+ ***/
+float delayGetDistance(delayLine_t* delay)
+{
+	return delay->WriteHead - delay->ReadHead;
 }
 
 

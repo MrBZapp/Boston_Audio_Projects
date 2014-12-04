@@ -17,6 +17,7 @@
 #include "filter.h"
 
 /**
+ * REVERSE:
  * Reverses a file
  ***/
 void fileReverse(wavFilePCM_t* file)
@@ -35,6 +36,7 @@ void fileReverse(wavFilePCM_t* file)
 
 
 /**
+ * GAIN:
  * Changes the gain of an entire file
  ***/
 void fileGain(wavFilePCM_t* file, float factor)
@@ -49,6 +51,7 @@ void fileGain(wavFilePCM_t* file, float factor)
 
 
 /**
+ * DISTORTION:
  * applies a Delinearizing function to every sample in a file
  ***/
 void fileDist(wavFilePCM_t* file, distType_t type, float knee)
@@ -78,6 +81,7 @@ void fileDist(wavFilePCM_t* file, distType_t type, float knee)
 
 
 /**
+ * STRETCH:
  * stretches or shrinks a file
  * returns 1 on success, 0 upon failure (requires malloc)
  ***/
@@ -128,6 +132,7 @@ int filePitch(wavFilePCM_t* file, float shift)
 
 
 /**
+ * DELAY:
  * shifts a file in time by an arbitrary amount
  ***/
 int fileDelay(wavFilePCM_t* file, float delay)
@@ -197,6 +202,7 @@ int fileDelay(wavFilePCM_t* file, float delay)
 
 
 /**
+ * ECHO:
  * uses a ring buffer delay line to repeat an input signal, gradually fading it out until all samples are 0
  ***/
 int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
@@ -312,6 +318,7 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
 
 
 /**
+ * TREMOLO:
  * Applies a variation in volume over time given an LFO shape, frequency, and depth
  ***/
 void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
@@ -335,6 +342,12 @@ void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
 }
 
 
+
+/**
+ * RINGMOD:
+ * Applies amplitude modulation and phase inversion over time for a given
+ * frequency and depth.
+ ***/
 void fileRing(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
 {
 	for(int i = 0; i < wavGetSampCount(file); i++)
@@ -350,6 +363,7 @@ void fileRing(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
 
 
 /**
+ * VIBRATO:
  * Applies a variation in pitch over time given a frequency and depth
  ***/
 int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
@@ -419,6 +433,148 @@ int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
 
 
 /**
+ * FLANGE:
+ * Applies variation in pitch, and feeds the output back into the input
+ ***/
+int fileFlange(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth, float feedback)
+{
+	// protect against hangs:
+	if (feedback >= 1)
+	{
+		feedback = 0.9;
+	}
+
+	// create a delay line of 20 milliseconds
+	delayLine_t left;
+	delayLine_t right;
+	delayInit(&left, mstosamps(file->FormatChunk.SampleRate, 20) + 1);
+	delayInit(&right,mstosamps(file->FormatChunk.SampleRate, 20) + 1);
+
+	// set the read head 10 ms away from the write head.
+	delaySetDistance(&left, mstosamps(file->FormatChunk.SampleRate, 10));
+	delaySetDistance(&right, mstosamps(file->FormatChunk.SampleRate, 10));
+
+	// get the size of the file
+	int newSize = wavGetSampCount(file);
+
+	// for every sample in the file, read/write into the buffer
+	for (int i = 0; i < newSize; i++)
+	{
+		// Get the 0 to 20ms LFO value
+		float lfoValue = (lfoGetValue(shape, freq, file->FormatChunk.SampleRate, i) * 20) + 20;
+
+		// apply the depth
+		lfoValue *= depth;
+
+		// calculate and apply the offset
+		float offset = 10 - (10 * depth);
+		lfoValue += offset;
+
+		printf("%f\n", delayGetDistance(&left));
+
+		// convert lfo to samps
+		lfoValue = mstosamps(file->FormatChunk.SampleRate, lfoValue);
+
+		/** READ **/
+		// select the sample to delay
+		wavSample_float_t tempSamp = file->data[i];
+
+		// read a sample out of the buffer one sample at a time
+		float tempLeft = delayStaticRead(&left, 0);
+		float tempRight = delayStaticRead(&right, 0);
+
+		/** MODIFY **/
+		// mix that data back to the file
+		file->data[i].left += tempLeft;
+		file->data[i].right += tempRight;
+
+		// Calculate how much of that sample will be fed back into the buffer
+		tempLeft *= feedback;
+		tempRight *= feedback;
+
+		// add the buffer and the file's samples together
+		tempLeft += tempSamp.left;
+		tempRight += tempSamp.right;
+
+		/** WRITE **/
+		// write them to the buffer
+		delayProgWrite(&left, tempLeft);
+		delayProgWrite(&right, tempRight);
+
+		// update the delay distance
+		delaySetDistance(&left, lfoValue);
+		delaySetDistance(&right, lfoValue);
+	}
+
+	// Flush the buffer until the echo has decayed completely
+	// echoing flag.
+	int echoing = 0;
+
+	do
+	{
+		// Assume we've fully flushed the buffer
+		echoing = 0;
+
+		// calculate where to start the buffer
+		int buffStart = wavGetSampCount(file);
+
+		// determine the new file size
+		newSize = buffStart + left.size;
+
+		// Reallocate the memory
+		wavSample_float_t* tmp = realloc(file->data, (sizeof(wavSample_float_t) * newSize));
+		if (tmp == NULL)
+		{
+			// if realloc fails.
+			// free the delay buffer's memory.
+			free(left.buffer);
+			free(right.buffer);
+			return 0;
+		}
+
+		// if realloc succeeds, re-assign the pointer.
+		file->data = tmp;
+
+		// update the file size
+		wavSetSampleCount(file, newSize);
+
+		// flush the buffer
+		for (int i = buffStart; i < newSize; i++)
+		{
+			// read a sample out of the buffer
+			float tempLeft = delayProgRead(&left, 1);
+			float tempRight = delayProgRead(&right, 1);
+
+			// add that data back to the file
+			file->data[i].left = tempLeft;
+			file->data[i].right = tempRight;
+
+			// Calculate how much of that sample will be fed back into the buffer
+			tempLeft *= feedback;
+			tempRight *= feedback;
+
+			// If either sample has data in it, keep echoing.
+			if (((short) tempLeft) != 0 || ((short) tempRight) != 0)
+			{
+				echoing = 1;
+			}
+
+			// write them to the buffer
+			delayProgWrite(&left, tempLeft);
+			delayProgWrite(&right, tempRight);
+		}
+
+	}while (echoing == 1);
+
+	// free the delay buffer's memory.
+	free(left.buffer);
+	free(right.buffer);
+	return 1;
+}
+
+
+/**
+ * LOWPASS:
  * applies a Low pass filter at a specific cutoff and quality to a file
  ***/
 void fileLPF(wavFilePCM_t* file, double cutoff, float q)

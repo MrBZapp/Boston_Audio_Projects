@@ -232,6 +232,22 @@ int jsonGetParams(jsonFile_t* jsonFile, int tokIndex, proscessType_t processType
 				break;
 
 		case(FLANGE):
+				if (jsonStrcmp(jsonFile, "shape", tokIndex))
+				{
+					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "freq", tokIndex) || jsonStrcmp(jsonFile, "frequency", tokIndex) )
+				{
+					params[1] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "depth", tokIndex))
+				{
+					params[2] = jsonTokToF(jsonFile, tokIndex + 1);
+				}
+				if (jsonStrcmp(jsonFile, "feedback", tokIndex))
+				{
+					params[3] = jsonTokToF(jsonFile,tokIndex + 1);
+				}
 				break;
 
 		case(LOWPASS):
@@ -458,6 +474,20 @@ static int processFromJSON(wavFilePCM_t* wavFile, jsonFile_t* jsonFile)
 					break;
 
 			case(FLANGE):
+					do
+					{
+					// set default params
+					float params[4] = {SINE, 1, 0.5, 0.5};
+
+					// get params from JSON file and advance the counter for each token consumed
+					i += jsonGetParams(jsonFile, i, FLANGE, params);
+
+					// tell the user what they are doing
+					printf("process: flange\n    params:\n        shape: %f\n        rate: %f\n        depth: %f\n        feedback: %f\n", params[0], params[1], params[2], params[3]);
+
+					// apply params
+					fileFlange(wavFile,params[0], params[1], params[2], params[3]);
+					} while (0);
 					break;
 
 			case(LOWPASS):

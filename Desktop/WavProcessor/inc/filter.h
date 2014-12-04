@@ -39,6 +39,6 @@ typedef struct filtStream
  ***/
 void filtWriteXStream(filtStream_t* stream, float samp);
 
-float filtLowPass(int sampRate, filtStream_t* stream, double cutoff, float q );
+float filtLowPass(float sampRate, filtStream_t* stream, double cutoff, float q );
 
 #endif /* FILTER_H_ */

@@ -68,3 +68,26 @@ wavSample_float_t sampleClip16Bit(wavSample_float_t* sample)
 
 	return tempSamp;
 }
+
+
+
+/**
+ * converts a sample count to a millisecond value for
+ * a given sample rate
+ ***/
+float sampstoms(float sampleRate, float sampleCount)
+{
+	float ms = (sampleRate / 1000) * sampleCount;
+	return ms;
+}
+
+
+/**
+ * converts a millisecond count to a sample count for
+ * a given sample rate
+ ***/
+float mstosamps(float sampleRate, float msCount)
+{
+	float samps = (sampleRate * msCount) / 1000;
+	return samps;
+}

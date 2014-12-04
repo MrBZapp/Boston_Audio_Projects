@@ -1,16 +1,20 @@
-/*
+/********************
  * delayLine.h
  *
  *  Created on: Nov 22, 2014
  *      Author: mzapp
  *  structures and methods for creating and manipulating a delay line
- *  heavily informed by Stanford CCRMA's design found at:
+ *  informed by Stanford CCRMA's design found at:
  *  https://ccrma.stanford.edu/~jos/doppler/Variable_Delay_Line_Software.html
  *
  *  Delay lines are sample-agnostic to allow for separate processing of multi-channel
  *  audio.  As a result, even if processing is identical on both samples, two buffers
  *  will need to be used and addressed independently.
- */
+ *
+ *  Care needs to be taken when using these delay lines to never "cross the streams."
+ *  if the read and write heads do cross, there is a very good chance of creating
+ *  discontinuity, especially if the buffer is used for an audio stream.
+ ********************/
 
 #ifndef DELAYLINE_H_
 #define DELAYLINE_H_
@@ -54,10 +58,21 @@ void delaySetWriteHead(delayLine_t* delay, int i);
 
 
 /**
- * Sets the read head a fixed distance away from the write head
+ * Sets the read head a fixed distance away from the write head.
+ * Assumes the write-head is fixed.  allows for varying the read
+ * head's distance from the write head without calling a
+ * progressive read function.
+ *
+ * This function will wrap the read head if a goofy value is
+ * provided.
  ***/
-void delaySetDistance(delayLine_t* delay, long delSamp);
+void delaySetDistance(delayLine_t* delay, float delSamp);
 
+
+/**
+ * returns the distance of the write head to the read head
+ ***/
+float delayGetDistance(delayLine_t* delay);
 
 /**
  * Linear Interpolating read

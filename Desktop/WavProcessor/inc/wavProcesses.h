@@ -72,6 +72,13 @@ int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
 
 
 /**
+ * FLANGE:
+ * Applies variation in pitch, and feeds the output back into the input
+ ***/
+int fileFlange(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth, float feedback);
+
+
+/**
  * applies a Low pass filter at a specific cutoff and quality to a file
  ***/
 void fileLPF(wavFilePCM_t* file, double cutoff, float q);

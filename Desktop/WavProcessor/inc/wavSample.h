@@ -48,4 +48,17 @@ wavSample_float_t sampleDeLinearize(wavSample_float_t samp, distortion_pt func, 
  ***/
 wavSample_float_t sampleClip16Bit(wavSample_float_t* samp);
 
+/**
+ * converts a sample count to a millisecond value for
+ * a given sample rate
+ ***/
+float sampstoms(float sampleRate, float sampleCount);
+
+
+/**
+ * converts a millisecond count to a sample count for
+ * a given sample rate
+ ***/
+float mstosamps(float sampleRate, float msCount);
+
 #endif /* WAVSAMPLE_H_ */
