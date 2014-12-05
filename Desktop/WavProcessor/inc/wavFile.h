@@ -1,9 +1,15 @@
-/*
+/****
  * wavFile.h
  *
  *  Created on: Nov 14, 2014
  *      Author: mzapp
- */
+ *
+ *  functions associated with encoding and decoding "cannonical"
+ *  *.wav format files.  Cannonical wav format spec can be found
+ *  at ccrma's website on the subject:
+ *
+ *  https://ccrma.stanford.edu/courses/422/projects/WaveFormat/
+ ****/
 
 #ifndef WAVFILE_H_
 #define WAVFILE_H_

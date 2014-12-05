@@ -20,7 +20,7 @@
 #define DELAYLINE_H_
 
 
-#define INTERP_WINDOW 11
+#define INTERP_WINDOW 0
 #define HALF_WINDOW (INTERP_WINDOW / 2)
 
 typedef struct delayLine

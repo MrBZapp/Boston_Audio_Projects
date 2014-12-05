@@ -321,7 +321,7 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float feedback)
  * TREMOLO:
  * Applies a variation in volume over time given an LFO shape, frequency, and depth
  ***/
-void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
+void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, float freq, float depth)
 {
 	for(int i = 0; i < wavGetSampCount(file); i++)
 	{
@@ -348,7 +348,7 @@ void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
  * Applies amplitude modulation and phase inversion over time for a given
  * frequency and depth.
  ***/
-void fileRing(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
+void fileRing(wavFilePCM_t* file, lfoShape_t shape, float freq, float depth)
 {
 	for(int i = 0; i < wavGetSampCount(file); i++)
 	{
@@ -366,7 +366,7 @@ void fileRing(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
  * VIBRATO:
  * Applies a variation in pitch over time given a frequency and depth
  ***/
-int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
+int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, float freq, float depth)
 {
 	/*
 	 * Calculating the new length of the file:
@@ -436,8 +436,11 @@ int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth)
  * FLANGE:
  * Applies variation in pitch, and feeds the output back into the input
  ***/
-int fileFlange(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth, float feedback)
+int fileFlange(wavFilePCM_t* file, lfoShape_t shape, float freq, float depth, float feedback)
 {
+	// Flange actually requires that the range of the depth swings from 0 to 0.5.
+	depth /= 2;
+
 	// protect against hangs:
 	if (feedback >= 1)
 	{
@@ -457,11 +460,14 @@ int fileFlange(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth, floa
 	// get the size of the file
 	int newSize = wavGetSampCount(file);
 
+	// variable for keeping track of last-known distance from read-head
+	float delta = mstosamps(file->FormatChunk.SampleRate, 10);
+
 	// for every sample in the file, read/write into the buffer
 	for (int i = 0; i < newSize; i++)
 	{
 		// Get the 0 to 20ms LFO value
-		float lfoValue = (lfoGetValue(shape, freq, file->FormatChunk.SampleRate, i) * 20) + 20;
+		float lfoValue = (lfoGetValue(shape, freq, file->FormatChunk.SampleRate, i) * 20) + 10;
 
 		// apply the depth
 		lfoValue *= depth;
@@ -470,8 +476,6 @@ int fileFlange(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth, floa
 		float offset = 10 - (10 * depth);
 		lfoValue += offset;
 
-		printf("%f\n", delayGetDistance(&left));
-
 		// convert lfo to samps
 		lfoValue = mstosamps(file->FormatChunk.SampleRate, lfoValue);
 
@@ -479,9 +483,12 @@ int fileFlange(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth, floa
 		// select the sample to delay
 		wavSample_float_t tempSamp = file->data[i];
 
+		// calculate the interpolation sample
+		delta -= lfoValue;
+
 		// read a sample out of the buffer one sample at a time
-		float tempLeft = delayStaticRead(&left, 0);
-		float tempRight = delayStaticRead(&right, 0);
+		float tempLeft = delayLinearRead(&left, delta);
+		float tempRight = delayLinearRead(&right, delta);
 
 		/** MODIFY **/
 		// mix that data back to the file
@@ -504,6 +511,9 @@ int fileFlange(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth, floa
 		// update the delay distance
 		delaySetDistance(&left, lfoValue);
 		delaySetDistance(&right, lfoValue);
+
+		// store the old lfo value
+		delta = lfoValue;
 	}
 
 	// Flush the buffer until the echo has decayed completely

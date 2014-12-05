@@ -236,7 +236,9 @@ int jsonGetParams(jsonFile_t* jsonFile, int tokIndex, proscessType_t processType
 				{
 					params[0] = jsonTokToF(jsonFile, tokIndex + 1);
 				}
-				if (jsonStrcmp(jsonFile, "freq", tokIndex) || jsonStrcmp(jsonFile, "frequency", tokIndex) )
+				if (jsonStrcmp(jsonFile, "freq", tokIndex) ||
+				jsonStrcmp(jsonFile, "frequency", tokIndex) ||
+				jsonStrcmp(jsonFile, "rate", tokIndex))
 				{
 					params[1] = jsonTokToF(jsonFile, tokIndex + 1);
 				}

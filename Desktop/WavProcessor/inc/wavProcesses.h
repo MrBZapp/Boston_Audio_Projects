@@ -55,27 +55,27 @@ int fileEcho(wavFilePCM_t* file, long sampDelay, float decay);
 /**
  * Applies a variation in volume over time given a frequency and depth
  ***/
-void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
+void fileTremolo(wavFilePCM_t* file, lfoShape_t shape, float freq, float depth);
 
 
 /**
  * Applies amplitude modulation and phase inversion over time for a given
  * frequency and depth
  ***/
-void fileRing(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
+void fileRing(wavFilePCM_t* file, lfoShape_t shape, float freq, float depth);
 
 
 /**
  * Applies a variation in pitch over time given a frequency and depth
  ***/
-int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth);
+int fileVibrato(wavFilePCM_t* file, lfoShape_t shape, float freq, float depth);
 
 
 /**
  * FLANGE:
  * Applies variation in pitch, and feeds the output back into the input
  ***/
-int fileFlange(wavFilePCM_t* file, lfoShape_t shape, int freq, float depth, float feedback);
+int fileFlange(wavFilePCM_t* file, lfoShape_t shape, float freq, float depth, float feedback);
 
 
 /**
