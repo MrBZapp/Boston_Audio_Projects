@@ -11,8 +11,6 @@ RM := rm
 -include src/subdir.mk
 -include inc/jsmn/subdir.mk
 -include inc/subdir.mk
--include Debug/src/subdir.mk
--include Debug/inc/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -27,19 +25,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: FinalProject
+all: MZCWaveProcessor
 
 # Tool invocations
-FinalProject: $(OBJS) $(USER_OBJS)
+MZCWaveProcessor: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MacOS X C Linker'
-	gcc  -o "FinalProject" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc  -o "MZCWaveProcessor" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) FinalProject
+	-$(RM) $(OBJS)$(C_DEPS)$(EXECUTABLES) MZCWaveProcessor
 	-@echo ' '
 
 .PHONY: all clean dependents

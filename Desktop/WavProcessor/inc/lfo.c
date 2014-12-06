@@ -5,6 +5,7 @@
  *      Author: mzapp
  */
 #include <math.h>
+#include <stdlib.h>
 #include "lfo.h"
 
 /**
@@ -20,6 +21,14 @@
  ***/
 float lfoGetValue(lfoShape_t shape, float lfoFreq, int sampleRate, float samplePosition)
 {
+	// if we're being asked to create a negative value, just flip the oscillator over at a later point.
+	int negFlag = 0;
+	if (lfoFreq < 0 )
+	{
+		lfoFreq = abs(lfoFreq);
+		negFlag = 1;
+	}
+
 	// calculate the quantity of samples in an LFO cycle based upon the provided sample rate and frequency.
 	float lfoSamps = (1/lfoFreq) * sampleRate;
 
@@ -71,7 +80,15 @@ float lfoGetValue(lfoShape_t shape, float lfoFreq, int sampleRate, float sampleP
 	default:
 		break;
 	}
-	return retVal / M_PI;
+
+	retVal /= M_PI;
+
+	// flip the value over if it's negative
+	if (negFlag)
+	{
+		retVal = -retVal;
+	}
+	return retVal;
 }
 
 

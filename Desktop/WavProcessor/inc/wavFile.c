@@ -87,7 +87,7 @@ int wavDecode_PCM(wavFilePCM_t* wavFile, FILE* file){
 	{
 		for (int i = 0; i < sampleCount; i++)
 		{
-			// temp data for 16-bit ints
+			// temp data for 16-bit ints. Trololol.
 			short temper = 0;
 
 			// mono files, only use the left channel of the sample
@@ -111,7 +111,7 @@ int wavDecode_PCM(wavFilePCM_t* wavFile, FILE* file){
 	{
 		for (int i = 0; i < sampleCount; i++)
 		{
-			// temp data for 16-bit ints
+			// temp data for 16-bit ints.
 			short temper = 0;
 
 			// Left channel

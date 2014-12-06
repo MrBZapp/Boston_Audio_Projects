@@ -106,7 +106,7 @@ float delayLinearRead(delayLine_t* delay, int nextSamp)
 	double frac = delay->ReadHead - floor(delay->ReadHead);
 
 	// linearly interpolate between the nearest int sample and the next-nearest int sample
-	float interp = ((1 - frac) * delayStaticRead(delay, 0)) + (frac * delayStaticRead(delay, nextSamp));
+	float interp = ((1 - frac) * delayStaticRead(delay, 0)) + (frac * delayModRead(delay, nextSamp));
 
 	//return the linearly interpolated value
 	return interp;

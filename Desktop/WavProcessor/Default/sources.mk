@@ -16,6 +16,4 @@ SUBDIRS := \
 src \
 inc \
 inc/jsmn \
-Debug/src \
-Debug/inc \
 

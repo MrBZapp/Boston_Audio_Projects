@@ -12,7 +12,6 @@
 #include "wavProcesses.h"
 #include "delayLine.h"
 #include "lfo.h"
-#include "convolution.h"
 #include "distort.h"
 #include "filter.h"
 

@@ -1,10 +1,8 @@
 /*
  ============================================================================
  Name        : FinalProject.c
- Author      : 
- Version     :
- Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
+ Author      : Matt Zapp
+ Version     : 1
  ============================================================================
  */
 
@@ -17,6 +15,9 @@
 #include "../inc/convolution.h"
 
 int main(int argc, char* argv[]) {
+
+	// Let the people know what they're dealing with.
+	printf("MZ C Wave Processor. Created 2014 by Matt Zapp. \n");
 
 	// block gooberish behaviour.
 	if (argc != 4)
