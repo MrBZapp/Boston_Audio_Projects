@@ -177,7 +177,7 @@ void serviceNote(uint8_t note)
 
 	if (note >= 84)
 	{
-		value = (uint16_t)  i_lscale(84, 127, 40, 15, note);
+		value = 15;
 	}
 	else
 	{

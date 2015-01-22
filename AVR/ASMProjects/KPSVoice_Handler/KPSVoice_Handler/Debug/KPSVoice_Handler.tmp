@@ -1,0 +1,66 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.52</VERSION>
+ <DEVICE>"ATtiny2313A"</DEVICE>
+ <WORKING_DIR>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.39.1005\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.39.1005\avrassembler\Include\tn2313Adef.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\Debug/KPSVoice_Handler.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>KPSVoice_Handler.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>KPSVoice_Handler.map</FILE>
+  <FILE>KPSVoice_Handler.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <MCU_INIT><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>101</LINE></MCU_INIT>
+  <START><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>157</LINE></START>
+  <POLLKB><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>158</LINE></POLLKB>
+  <CONV2DEC><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>192</LINE></CONV2DEC>
+  <PULACTVN><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>199</LINE></PULACTVN>
+  <POLNOTES><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>216</LINE></POLNOTES>
+  <NOCHANGE><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>225</LINE></NOCHANGE>
+  <OLDNOTES><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>230</LINE></OLDNOTES>
+  <NEWNOTES><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>248</LINE></NEWNOTES>
+  <DONEPOL><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>266</LINE></DONEPOL>
+  <REMOVEVCE><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>377</LINE></REMOVEVCE>
+  <STARTCOND><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>279</LINE></STARTCOND>
+  <SENDBYTE><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>299</LINE></SENDBYTE>
+  <ACKBIT><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>322</LINE></ACKBIT>
+  <STOPCOND><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>343</LINE></STOPCOND>
+  <ADDVOICE><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>400</LINE></ADDVOICE>
+  <DELAY_16><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>359</LINE></DELAY_16>
+  <CYCLESTART><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>306</LINE></CYCLESTART>
+  <WAIT1><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>307</LINE></WAIT1>
+  <WAIT2><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>311</LINE></WAIT2>
+  <WAIT3><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>328</LINE></WAIT3>
+  <WAIT4><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>331</LINE></WAIT4>
+  <LOADLIST><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>465</LINE></LOADLIST>
+  <SRCHLIST><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>500</LINE></SRCHLIST>
+  <REMOVED><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>398</LINE></REMOVED>
+  <REMOVELI><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>551</LINE></REMOVELI>
+  <STORLIST><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>483</LINE></STORLIST>
+  <SHIFTIN><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>434</LINE></SHIFTIN>
+  <SHIFTOUT><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>450</LINE></SHIFTOUT>
+  <VOICESTEAL><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>423</LINE></VOICESTEAL>
+  <RETLOCAT><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>542</LINE></RETLOCAT>
+  <LISTSTART><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>560</LINE></LISTSTART>
+  <NOOVERFLOW><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>559</LINE></NOOVERFLOW>
+  <SHIFTALL><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>576</LINE></SHIFTALL>
+  <SHIFT1><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>577</LINE></SHIFT1>
+  <SHIFT2><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>578</LINE></SHIFT2>
+  <SHIFT3><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>579</LINE></SHIFT3>
+  <SHIFT4><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>580</LINE></SHIFT4>
+  <SHIFT5><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>581</LINE></SHIFT5>
+  <SHIFT6><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>582</LINE></SHIFT6>
+  <SHIFT7><FILE>C:\Users\Matt\Documents\Atmel Studio\KPSVoice_Handler\KPSVoice_Handler\KPSVoice_Handler.asm</FILE><LINE>583</LINE></SHIFT7>
+ </LABELS>
+</ASSEMBLER_INFO>
