@@ -38,6 +38,7 @@ void WaveGenInit(WaveGen* Generator1, float freq);
 
 void setFreq(WaveGen* Generator, float frequency);
 void setWidth(WaveGen* Generator, uint8_t percentage);
+void setReload(WaveGen* Generator, int reload);
 
 uint32_t getRealFreq(WaveGen* Generator);
 uint32_t getRealWidth(WaveGen* Generator);

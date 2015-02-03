@@ -100,7 +100,7 @@ int main(void)
 	// Enable the SPI interface to the DAC
 	TLV_Init();
 
-	WaveGenInit(&Generator1, MIDItoBBD[25]);
+	WaveGenInit(&Generator1, MIDIto12MhzReload[25]);
 
 	/* Unhalt the counter to start */
 	LPC_SCT->CTRL_U &= ~(1 << 2);
@@ -140,10 +140,9 @@ int main(void)
 						serviceNote(value);
 
 						// Set frequency generator's frequency.
-						setFreq(&Generator1, MIDItoBBD[(value % 127)]);
+						setReload(&Generator1, MIDIto12MhzReload[value % 128]);
+						updateFreq(&Generator1);
 
-						// generate trigger noise.
-						genNoisePulse(&Generator1, 256);
 						break;
 				default:
 					break;

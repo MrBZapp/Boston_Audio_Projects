@@ -49,6 +49,12 @@ void WaveGenInit(WaveGen* Generator, float freq)
 	/* Initial CTOUT0 state is high */
 	LPC_SCT->OUTPUT = (7 << 0);
 
+	// Block Div0!
+	if (freq == 0)
+	{
+		freq = 1;
+	}
+
 	/* The PWM will use a cycle time of (PWMCYCLERATE)Hz based off the bus clock */
 	uint32_t cycleTicks = Chip_Clock_GetSystemClockRate() / freq;
 
@@ -128,4 +134,20 @@ void setFreq(WaveGen* Generator, float frequency)
 	// Update the associated Match Reload register
 	int reload =(int)(Chip_Clock_GetSystemClockRate() / frequency);
 	LPC_SCT->MATCHREL[Generator->ID].U = reload;
+}
+
+int calcReload(float freq)
+{
+	return 0;
+}
+
+void setReload(WaveGen* Generator, int reload)
+{
+	LPC_SCT->MATCHREL[Generator->ID].U = reload;
+}
+
+void updateFreq(WaveGen* Generator)
+{
+	Generator->frequency = Chip_Clock_GetSystemClockRate() / LPC_SCT->MATCHREL[Generator->ID].U;
+	setWidth(Generator, Generator->width);
 }

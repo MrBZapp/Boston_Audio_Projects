@@ -16,4 +16,12 @@
 // Statuses
 #define MIDI_NOTEON 0x10
 
+/***
+ * Midi initialize for USART (1 or 2)
+ */
+void MIDI_USARTInit();
+/***
+ * Midi Master Clock initialize
+ */
+
 #endif /* BAP_MIDI_H_ */
