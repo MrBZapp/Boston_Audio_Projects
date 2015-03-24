@@ -1,0 +1,19 @@
+{
+  "process": {
+    "1" : {
+      "type": "vibrato",
+      "params": {
+        "depth": 0.5,
+        "rate": 5,
+        "junk": 500
+      }
+    },
+    "2" : {
+      "type": "echo",
+      "params":{
+        "samples": 5,
+        "Junk": 500
+      }
+    }
+  }
+}

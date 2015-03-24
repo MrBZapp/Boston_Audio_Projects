@@ -1,0 +1,27 @@
+__author__ = "Matt Zapp"
+
+import FormGenerator as FG
+import TimeSigGenerator as TSG
+import HarmonyGenerator
+
+# generate segments to fit the segment count
+gen = FG.FormGenerator()
+
+i = 0
+
+while i < 3:
+    form = gen.generate_segments(7)
+    i = gen.calc_segment_relationship_level(form)
+
+form = TSG.generate_time_signature(form, 5, 8)
+
+for segment in form:
+    print segment
+print gen.fill_form_from_segments(form, duration=100)
+print "correlation: " + str(i)
+
+chord = HarmonyGenerator.RootChords['A']
+chord.rotate(1)
+
+HarmonyGenerator.FindRoot(chord)
+
