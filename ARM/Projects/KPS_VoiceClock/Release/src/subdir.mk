@@ -4,7 +4,6 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/BAP_WaveGen.c \
 ../src/KPS_VoiceClock.c \
 ../src/cr_startup_lpc8xx.c \
 ../src/crp.c \
@@ -12,7 +11,6 @@ C_SRCS += \
 ../src/sysinit.c 
 
 OBJS += \
-./src/BAP_WaveGen.o \
 ./src/KPS_VoiceClock.o \
 ./src/cr_startup_lpc8xx.o \
 ./src/crp.o \
@@ -20,7 +18,6 @@ OBJS += \
 ./src/sysinit.o 
 
 C_DEPS += \
-./src/BAP_WaveGen.d \
 ./src/KPS_VoiceClock.d \
 ./src/cr_startup_lpc8xx.d \
 ./src/crp.d \

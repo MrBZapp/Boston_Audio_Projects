@@ -38,6 +38,8 @@
 #include "BAP_TLV_DAC.h"
 #include "BAP_Type.h"
 #include "BAP_math.h"
+#include "BAP_Debug.h"
+
 
 // I/O setup
 #define SERIAL_IN_LOCATION 0
@@ -52,9 +54,10 @@
 #define FeedbackDAC TLV_DAC_2
 
 // Define Address
-#define LOCAL_ADDRESS 0x1
+#define LOCAL_ADDRESS 0x00
 
-void genNoisePulse(WaveGen* Generator, uint32_t cycleCount);
+void noteOn(uint8_t num, uint8_t vel);
+void genNoisePulse(uint32_t cycleCount);
 void genNoiseService();
 void genNoise();
 void serviceNote(uint8_t noteValue);
@@ -78,18 +81,22 @@ int main(void)
 	// IO setup
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
 
+
+    /* Pin Assign 8 bit Configuration */
     /* U0_RXD */
     LPC_SWM->PINASSIGN[0] = 0xffff00ffUL;
     /* SPI0_SCK */
-    LPC_SWM->PINASSIGN[3] = 0x03ffffffUL;
+    LPC_SWM->PINASSIGN[3] = 0x04ffffffUL;
     /* SPI0_MOSI */
     /* SPI0_SSEL */
-    LPC_SWM->PINASSIGN[4] = 0xff05ff04UL;
+    LPC_SWM->PINASSIGN[4] = 0xff05ff03UL;
     /* CTOUT_0 */
     LPC_SWM->PINASSIGN[6] = 0x02ffffffUL;
 
     /* Pin Assign 1 bit Configuration */
     LPC_SWM->PINENABLE0 = 0xffffffffUL;
+
+
 
 	// Setup trigger location
     LPC_GPIO_PORT->DIR[0] |= (1 << TRIGGER_LOCATION);
@@ -106,49 +113,16 @@ int main(void)
 	LPC_SCT->CTRL_U &= ~(1 << 2);
 
 
-    // UART0 initialization
-	Chip_Clock_SetUARTClockDiv(1);	/* divided by 1 */
-	Chip_UART_Init(LPC_USART0);
-	Chip_UART_ConfigData(LPC_USART0, UART_CFG_DATALEN_8 | UART_CFG_PARITY_NONE | UART_CFG_STOPLEN_1);
-	Chip_UART_SetBaud(LPC_USART0, 115200);
-
-	// UART variables
-	uint8_t status = 48;
-	uint8_t address = LOCAL_ADDRESS;
-	uint8_t value = 0;
-
-	// Enable the UART to start receiving messages
-	LPC_USART0->CFG |= UART_CFG_ENABLE;
+    // MIDI init
+	MIDI_USARTInit(LPC_USART0, MIDI_ENABLERX);
+	MIDI_SetAddress(LOCAL_ADDRESS);
+	MIDI_SetFunction(MIDI_NOTEON, &noteOn);
+	MIDI_Enable(LPC_USART0);
 
 
 /////////////////////////////////////////////MAINLOOP.////////////////////////////////////////////////////
-
 	while (1) {
-		if (Chip_UART_Read(LPC_USART0, &value, 1))
-		{
-			if ( (value & MIDI_STATBIT) )
-			{
-				status = value & MIDI_STATMSK;
-				address = value & MIDI_CHMSK;
-			}
-			else if (address == LOCAL_ADDRESS)
-			{
-				switch (status)
-				{
-				case(MIDI_NOTEON):
-						// Set up the scaling for the DACs and PWM.
-						serviceNote(value);
-
-						// Set frequency generator's frequency.
-						setReload(&Generator1, MIDIto12MhzReload[value % 128]);
-						updateFreq(&Generator1);
-
-						break;
-				default:
-					break;
-				}
-			}
-		}
+		MIDI_ProcessRXBuffer();
 	}
 	return 0;
 }
@@ -156,25 +130,16 @@ int main(void)
 /********************************************************************************************************
  * 											FUNCTIONS													*
  *******************************************************************************************************/
-
-void SCT_IRQHandler(void)
+void noteOn(uint8_t num, uint8_t vel)
 {
-	if (interruptFunc != 0)
-	{
-		interruptFunc();
-	}
-	Chip_SCT_ClearEventFlag(LPC_SCT, SCT_EVT_0);
-}
-
-void serviceNote(uint8_t note)
-{
-	uint16_t value = (uint16_t) i_lscale(0, 127, 0, DACSIZE - 1, note);
+	// Set up the scaling for the DACs and PWM.
+	uint16_t value = (uint16_t) i_lscale(0, 127, 0, DACSIZE - 1, num);
 	TLV_SetDACValue(FilterDAC, 0, value);
 
-	value = (uint16_t) i_lscale(0, 127, DACSIZE - 1, 0, note);
+	value = (uint16_t) i_lscale(0, 127, DACSIZE - 1, 0, num);
 	TLV_SetDACValue(FeedbackDAC, 0, value);
 
-	if (note >= 84)
+	if (num >= 84)
 	{
 		value = 15;
 	}
@@ -183,6 +148,20 @@ void serviceNote(uint8_t note)
 		value = 50;
 	}
 	setWidth(&Generator1, (value % 100));
+
+	// Set frequency generator's frequency.
+	setReload(&Generator1, MIDIto12MhzReload[num % 128]);
+	updateFreq(&Generator1);
+	genNoisePulse(256);
+}
+
+void SCT_IRQHandler(void)
+{
+	if (interruptFunc != 0)
+	{
+		interruptFunc();
+	}
+	Chip_SCT_ClearEventFlag(LPC_SCT, SCT_EVT_0);
 }
 
 
@@ -201,7 +180,7 @@ uint16_t LFSR()
 }
 
 
-void genNoisePulse(WaveGen* Generator, uint32_t cycleCount)
+void genNoisePulse(uint32_t cycleCount)
 {
 	remainingNoise = cycleCount;
 	interruptFunc = &genNoiseService;
@@ -224,7 +203,7 @@ void genNoiseService()
 	}
 	else
 	{
-	// else, turn off the interrupt, set the LED low
+		// else, turn off the interrupt, set the LED low
 		LPC_GPIO_PORT->CLR[0] = 1 << TRIGGER_LOCATION;
 		Chip_SCT_DisableEventInt(LPC_SCT, SCT_EVT_0);
 		NVIC_DisableIRQ(SCT_IRQn);

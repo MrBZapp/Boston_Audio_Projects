@@ -5,15 +5,18 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../inc/BAP_Midi.c \
-../inc/BAP_TLV_DAC.c 
+../inc/BAP_TLV_DAC.c \
+../inc/BAP_WaveGen.c 
 
 OBJS += \
 ./inc/BAP_Midi.o \
-./inc/BAP_TLV_DAC.o 
+./inc/BAP_TLV_DAC.o \
+./inc/BAP_WaveGen.o 
 
 C_DEPS += \
 ./inc/BAP_Midi.d \
-./inc/BAP_TLV_DAC.d 
+./inc/BAP_TLV_DAC.d \
+./inc/BAP_WaveGen.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
