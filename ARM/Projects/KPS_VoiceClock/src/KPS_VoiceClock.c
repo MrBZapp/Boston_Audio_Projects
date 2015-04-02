@@ -81,7 +81,6 @@ int main(void)
 	// IO setup
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
 
-
     /* Pin Assign 8 bit Configuration */
     /* U0_RXD */
     LPC_SWM->PINASSIGN[0] = 0xffff00ffUL;
@@ -95,8 +94,6 @@ int main(void)
 
     /* Pin Assign 1 bit Configuration */
     LPC_SWM->PINENABLE0 = 0xffffffffUL;
-
-
 
 	// Setup trigger location
     LPC_GPIO_PORT->DIR[0] |= (1 << TRIGGER_LOCATION);
@@ -112,16 +109,18 @@ int main(void)
 	/* Unhalt the counter to start */
 	LPC_SCT->CTRL_U &= ~(1 << 2);
 
-
     // MIDI init
 	MIDI_USARTInit(LPC_USART0, MIDI_ENABLERX);
 	MIDI_SetAddress(LOCAL_ADDRESS);
-	MIDI_SetFunction(MIDI_NOTEON, &noteOn);
+	MIDI_NoteOnFunc = &noteOn;
 	MIDI_Enable(LPC_USART0);
 
 
 /////////////////////////////////////////////MAINLOOP.////////////////////////////////////////////////////
+		//uint8_t i = 0;
 	while (1) {
+		//i++;
+		//TLV_SetDACValue(FilterDAC, 0, i);
 		MIDI_ProcessRXBuffer();
 	}
 	return 0;

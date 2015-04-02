@@ -37,9 +37,9 @@ static uint8_t MIDI_Address = 0;
 static MIDI_Status_t MIDI_Status0 = {MIDI_IDLE, 0, 0, 0};
 
 // Midi Command Function Pointers
-static MidiFuncPtr MIDI_NoteOnFunc = 0;
-static MidiFuncPtr MIDI_PCChFunc = 0;
-static MidiFuncPtr MIDI_PitchFunc = 0;
+MidiFuncPtr MIDI_NoteOnFunc = 0;
+MidiFuncPtr MIDI_PCChFunc = 0;
+MidiFuncPtr MIDI_PitchFunc = 0;
 
 static void MIDI_ClearStatus0()
 {

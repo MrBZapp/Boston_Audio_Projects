@@ -9,18 +9,18 @@
 #include "ring_buffer.h"
 #include "BAP_TLV_DAC.h"
 
-#define BUFFER_SIZE 0
+#define TLV_BUFFER_SIZE 0
 
 /* Tx buffer */
-volatile uint16_t TxBufData[BUFFER_SIZE];
-RINGBUFF_T TxBuffer;
+volatile uint16_t TLC_TxBufData[TLV_BUFFER_SIZE];
+RINGBUFF_T TLC_TxBuffer;
 
 
 
 void TLV_Init()
 {
 	// Prep the Transmit frame buffer
-	RingBuffer_Init(&TxBuffer, &TxBufData, sizeof(uint16_t), BUFFER_SIZE);
+	RingBuffer_Init(&TLC_TxBuffer, &TLC_TxBufData, sizeof(uint16_t), TLV_BUFFER_SIZE);
 
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SPI0);
 	Chip_SYSCTL_PeriphReset(RESET_SPI0);
@@ -29,7 +29,7 @@ void TLV_Init()
 	LPC_SPI0->CFG = (((uint32_t) SPI_MODE_MASTER) | ((uint32_t) SPI_DATA_MSB_FIRST) | ((uint32_t) SPI_CLOCK_MODE2) | ((uint32_t) SPI_SSEL_ACTIVE_LO)) & ~((uint32_t) SPI_CFG_SPI_EN);
 
 	// Set the rate to 20MHz
-	LPC_SPI0->DIV = SPI_DIV_VAL(Chip_SPI_CalClkRateDivider(LPC_SPI0, 2000000));
+	LPC_SPI0->DIV = SPI_DIV_VAL(Chip_SPI_CalClkRateDivider(LPC_SPI0, 200000));
 
 	// Clear status flags
 	Chip_SPI_ClearStatus(LPC_SPI0, SPI_STAT_CLR_RXOV | SPI_STAT_CLR_TXUR | SPI_STAT_CLR_SSA | SPI_STAT_CLR_SSD);
@@ -62,7 +62,7 @@ void TLV_SetDACValue(TLV_DACNumber DAC, TLV_Speed speed, uint16_t value)
 	}
 
 	// If the SPI is ready and the buffer is empty.
-    if ((Chip_SPI_GetStatus(LPC_SPI0) & SPI_STAT_TXRDY) && RingBuffer_IsEmpty(&TxBuffer))
+    if ((Chip_SPI_GetStatus(LPC_SPI0) & SPI_STAT_TXRDY) && RingBuffer_IsEmpty(&TLC_TxBuffer))
     {
     	// Send a frame.
     	// Since there is no need to read a response,
@@ -75,7 +75,7 @@ void TLV_SetDACValue(TLV_DACNumber DAC, TLV_Speed speed, uint16_t value)
     }
 
 	// Otherwise insert the new frame onto the buffer
-    else if (RingBuffer_Insert(&TxBuffer, &frame))
+    else if (RingBuffer_Insert(&TLC_TxBuffer, &frame))
 	{
 	}
 }
@@ -87,11 +87,11 @@ void SPI0_IRQHandler(void)
 	Chip_SPI_Int_Cmd(LPC_SPI0, SPI_INTENCLR_TXDYEN, DISABLE);
 
 	// If the buffer isn't empty, load up the next frame
-	if (!RingBuffer_IsEmpty(&TxBuffer))
+	if (!RingBuffer_IsEmpty(&TLC_TxBuffer))
 	{
 		// Get the next value
 		uint16_t frame = 0;
-		RingBuffer_Pop(&TxBuffer, &frame);
+		RingBuffer_Pop(&TLC_TxBuffer, &frame);
 
     	// Send a frame.
     	// Since there is no need to read a response,

@@ -13,6 +13,11 @@
 typedef void(*MidiFuncPtr)(uint8_t D1, uint8_t D2);
 
 
+// Midi Command Function Pointers
+MidiFuncPtr MIDI_NoteOnFunc;
+MidiFuncPtr MIDI_PCChFunc;
+MidiFuncPtr MIDI_PitchFunc;
+
 #define MIDI_ENABLERX 0x02
 #define MIDI_ENABLETX 0x01
 
