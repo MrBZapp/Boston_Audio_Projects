@@ -32,50 +32,48 @@
 
 #include "chip.h"
 #include <cr_section_macros.h>
-#include "FrequencyMaps.h"
 #include "BAP_Midi.h"
+#include "FrequencyMaps.h"
 #include "BAP_WaveGen.h"
-#include "BAP_TLV_DAC.h"
+#include "BAP_TLC_DAC.h"
 #include "BAP_Type.h"
 #include "BAP_math.h"
 #include "BAP_Debug.h"
 
 
 // I/O setup
-#define SERIAL_IN_LOCATION 0
-#define CLOCK_OUT_LOCATION 2
-#define TRIGGER_LOCATION  1
-#define SPI_SCK_LOCATION 3
-#define SPI_MOSI_LOCATION 4
-#define SPI_SEL_LOCATION 5
+#define TRIGGER_LOCATION  2
+#define TLC_LDAC_LOCATION 3
 
 // Define TLV DAC functions
-#define FilterDAC TLV_DAC_1
-#define FeedbackDAC TLV_DAC_2
+#define FilterDAC TLC_DAC_1
+#define FeedbackDAC TLC_DAC_2
+#define PulseDAC TLC_DAC_4
 
 // Define Address
 #define LOCAL_ADDRESS 0x00
 
-void noteOn(uint8_t num, uint8_t vel);
-void genNoisePulse(uint32_t cycleCount);
-void genNoiseService();
-void genNoise();
-void serviceNote(uint8_t noteValue);
+#define PULSE_LENGTH 384
+#define TRANSIENT_LENGTH 128
+
+void genPluck(uint32_t cycleCount, uint8_t strength);
 void SCT_IRQHandler(void);
+void MIDI_NoteOn(uint8_t note, uint8_t vel);
+uint16_t LFSR();
 
 /*****************************************************************************
  * Variables																 *
  ****************************************************************************/
-
-
-volatile VoidFuncPointer interruptFunc = 0;
 volatile uint32_t remainingNoise = 0;
+volatile uint8_t pluckStrength = 0;
+volatile uint8_t triggered = 0;
 
 /********************************************************************************************************
  * 											MAIN														*
  *******************************************************************************************************/
 int main(void)
 {
+	MIDI_NoteOnFunc = &MIDI_NoteOn;
 	SystemCoreClockUpdate();
 
 	// IO setup
@@ -85,24 +83,21 @@ int main(void)
     /* U0_RXD */
     LPC_SWM->PINASSIGN[0] = 0xffff00ffUL;
     /* SPI0_SCK */
-    LPC_SWM->PINASSIGN[3] = 0x04ffffffUL;
+    LPC_SWM->PINASSIGN[3] = 0x05ffffffUL;
     /* SPI0_MOSI */
     /* SPI0_SSEL */
-    LPC_SWM->PINASSIGN[4] = 0xff05ff03UL;
+    LPC_SWM->PINASSIGN[4] = 0xff03ff04UL;
     /* CTOUT_0 */
     LPC_SWM->PINASSIGN[6] = 0x02ffffffUL;
 
     /* Pin Assign 1 bit Configuration */
     LPC_SWM->PINENABLE0 = 0xffffffffUL;
 
-	// Setup trigger location
-    LPC_GPIO_PORT->DIR[0] |= (1 << TRIGGER_LOCATION);
-
     /*END OF PIN ASSIGNMENTS*/
 	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
 
 	// Enable the SPI interface to the DAC
-	TLV_Init();
+	TLC_Init(TLC_LDAC_LOCATION);
 
 	WaveGenInit(&Generator1, MIDIto12MhzReload[25]);
 
@@ -112,57 +107,92 @@ int main(void)
     // MIDI init
 	MIDI_USARTInit(LPC_USART0, MIDI_ENABLERX);
 	MIDI_SetAddress(LOCAL_ADDRESS);
-	MIDI_NoteOnFunc = &noteOn;
 	MIDI_Enable(LPC_USART0);
 
-
 /////////////////////////////////////////////MAINLOOP.////////////////////////////////////////////////////
-		//uint8_t i = 0;
 	while (1) {
-		//i++;
-		//TLV_SetDACValue(FilterDAC, 0, i);
 		MIDI_ProcessRXBuffer();
-	}
+
+		// If we need to generate any data from a pulse, do so.
+		if (triggered)
+		{
+			//If we still need to generate noise, do so.
+			if (remainingNoise != 0)
+			{
+				// get a random number
+				int8_t noise = LFSR() & 0xFF;
+
+				// calculate the strength of the pluck
+				int32_t velocity = (pluckStrength * 1000) / 127;
+
+				// depending on how much is left to the pluck, change the gain of the noise
+				int32_t decay = (remainingNoise * 1000) / PULSE_LENGTH;
+
+				if (remainingNoise > (PULSE_LENGTH - TRANSIENT_LENGTH))
+				{
+					noise = PULSE_LENGTH - remainingNoise;
+				}
+
+				noise = (noise * velocity)/1000;
+				// update the noise variable accordingly
+				noise = (noise * decay)/1000;
+
+				noise = 127 + noise;
+
+				uint8_t randBit = (uint8_t) noise;
+				TLC_SetDACValue(PulseDAC, 1, &randBit);
+
+				// Decrement the noise remaining
+				remainingNoise--;
+			}
+
+			// else, turn off the interrupt, set the DAC to idle
+			else
+			{
+				Chip_SCT_DisableEventInt(LPC_SCT, SCT_EVT_0);
+				NVIC_DisableIRQ(SCT_IRQn);
+			}
+			// Clear the triggered variable
+			triggered = 0;
+		}// end pulse code
+
+	}// end main loop
+
 	return 0;
 }
 
 /********************************************************************************************************
  * 											FUNCTIONS													*
  *******************************************************************************************************/
-void noteOn(uint8_t num, uint8_t vel)
+void MIDI_NoteOn(uint8_t num, uint8_t vel)
 {
 	// Set up the scaling for the DACs and PWM.
-	uint16_t value = (uint16_t) i_lscale(0, 127, 0, DACSIZE - 1, num);
-	TLV_SetDACValue(FilterDAC, 0, value);
+	uint8_t value = num * 2;
+	TLC_SetDACValue(0, 1, &value);
 
-	value = (uint16_t) i_lscale(0, 127, DACSIZE - 1, 0, num);
-	TLV_SetDACValue(FeedbackDAC, 0, value);
-
-	if (num >= 84)
-	{
-		value = 15;
-	}
-	else
-	{
-		value = 50;
-	}
-	setWidth(&Generator1, (value % 100));
+	// Knee for PWM adjustment in higher registers
+	value = (num >= 84) ? 15 : 50;
+	setWidth(&Generator1, value);
 
 	// Set frequency generator's frequency.
 	setReload(&Generator1, MIDIto12MhzReload[num % 128]);
 	updateFreq(&Generator1);
-	genNoisePulse(256);
+
+	// Generate main pluck
+	genPluck(PULSE_LENGTH, vel);
 }
 
-void SCT_IRQHandler(void)
+/**
+ * Pluck Generation
+ */
+void genPluck(uint32_t cycleCount, uint8_t strength)
 {
-	if (interruptFunc != 0)
-	{
-		interruptFunc();
-	}
-	Chip_SCT_ClearEventFlag(LPC_SCT, SCT_EVT_0);
+	pluckStrength = strength;
+	remainingNoise = cycleCount;
+	//TODO: set this up so we can generate noise based on any timer's overflow.
+	Chip_SCT_EnableEventInt(LPC_SCT, SCT_EVT_0);
+	NVIC_EnableIRQ(SCT_IRQn);
 }
-
 
 uint16_t LFSR()
 {
@@ -178,40 +208,9 @@ uint16_t LFSR()
 	return lfsr;
 }
 
-
-void genNoisePulse(uint32_t cycleCount)
+void SCT_IRQHandler(void)
 {
-	remainingNoise = cycleCount;
-	interruptFunc = &genNoiseService;
-	//TODO: set this up so we can generate noise based on any timer's overflow.
-	Chip_SCT_EnableEventInt(LPC_SCT, SCT_EVT_0);
-	NVIC_EnableIRQ(SCT_IRQn);
+	triggered = 1;
+	// reset the interrupt flag
+	Chip_SCT_ClearEventFlag(LPC_SCT, SCT_EVT_0);
 }
-
-
-void genNoiseService()
-{
-
-	//If we still need to generate noise, do so.
-	if (remainingNoise != 0)
-	{
-		uint16_t randBit = LFSR() & 0x1;
-		LPC_GPIO_PORT->PIN[0] = (randBit << TRIGGER_LOCATION);
-		// Decrement the noise remaining
-		remainingNoise--;
-	}
-	else
-	{
-		// else, turn off the interrupt, set the LED low
-		LPC_GPIO_PORT->CLR[0] = 1 << TRIGGER_LOCATION;
-		Chip_SCT_DisableEventInt(LPC_SCT, SCT_EVT_0);
-		NVIC_DisableIRQ(SCT_IRQn);
-	}
-}
-
-void genNoise()
-{
-	uint16_t randBit = LFSR() & 0x1;
-	LPC_GPIO_PORT->PIN[0] = (randBit << TRIGGER_LOCATION);
-}
-

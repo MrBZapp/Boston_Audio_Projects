@@ -3,6 +3,7 @@
 	<name>KPS_VoiceClock</name>
 	<comment></comment>
 	<projects>
+		<project>BAP_LPC8xx_lib</project>
 		<project>lpc_chip_8xx_lib</project>
 	</projects>
 	<buildSpec>
