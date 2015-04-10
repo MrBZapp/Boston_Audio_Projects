@@ -36,14 +36,7 @@
 #include "FrequencyMaps.h"
 #include "BAP_WaveGen.h"
 #include "BAP_TLC_DAC.h"
-#include "BAP_Type.h"
-#include "BAP_math.h"
 #include "BAP_Debug.h"
-
-
-// I/O setup
-#define TRIGGER_LOCATION  2
-#define TLC_LDAC_LOCATION 3
 
 // Define TLV DAC functions
 #define FilterDAC TLC_DAC_1
@@ -53,16 +46,21 @@
 // Define Address
 #define LOCAL_ADDRESS 0x00
 
+// Define Pulse characteristics
 #define PULSE_LENGTH 384
 #define TRANSIENT_LENGTH 128
 
-void genPluck(uint32_t cycleCount, uint8_t strength);
+// exciter generation forward declarations
 void SCT_IRQHandler(void);
 void MIDI_NoteOn(uint8_t note, uint8_t vel);
 uint16_t LFSR();
 
+// exciter types
+void GenPulse();
+
+
 /*****************************************************************************
- * Variables																 *
+ * IRQ-accessible Variables																 *
  ****************************************************************************/
 volatile uint32_t remainingNoise = 0;
 volatile uint8_t pluckStrength = 0;
@@ -73,7 +71,7 @@ volatile uint8_t triggered = 0;
  *******************************************************************************************************/
 int main(void)
 {
-	MIDI_NoteOnFunc = &MIDI_NoteOn;
+	// Standard boot procedure
 	SystemCoreClockUpdate();
 
 	// IO setup
@@ -92,66 +90,31 @@ int main(void)
 
     /* Pin Assign 1 bit Configuration */
     LPC_SWM->PINENABLE0 = 0xffffffffUL;
-
-    /*END OF PIN ASSIGNMENTS*/
 	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
 
+	/*END OF PIN ASSIGNMENTS*/
 	// Enable the SPI interface to the DAC
-	TLC_Init(TLC_LDAC_LOCATION);
+	TLC_Init();
 
+	// Initialize the frequency generation timer
 	WaveGenInit(&Generator1, MIDIto12MhzReload[25]);
-
-	/* Unhalt the counter to start */
-	LPC_SCT->CTRL_U &= ~(1 << 2);
+	WaveGenStart(&Generator1);
 
     // MIDI init
 	MIDI_USARTInit(LPC_USART0, MIDI_ENABLERX);
 	MIDI_SetAddress(LOCAL_ADDRESS);
+	MIDI_NoteOnFunc = &MIDI_NoteOn;
 	MIDI_Enable(LPC_USART0);
 
 /////////////////////////////////////////////MAINLOOP.////////////////////////////////////////////////////
 	while (1) {
+		// Check if we've received any data
 		MIDI_ProcessRXBuffer();
 
-		// If we need to generate any data from a pulse, do so.
+		// If the timer has requested a sample, we need to generate any data from a pulse, do so.
 		if (triggered)
 		{
-			//If we still need to generate noise, do so.
-			if (remainingNoise != 0)
-			{
-				// get a random number
-				int8_t noise = LFSR() & 0xFF;
-
-				// calculate the strength of the pluck
-				int32_t velocity = (pluckStrength * 1000) / 127;
-
-				// depending on how much is left to the pluck, change the gain of the noise
-				int32_t decay = (remainingNoise * 1000) / PULSE_LENGTH;
-
-				if (remainingNoise > (PULSE_LENGTH - TRANSIENT_LENGTH))
-				{
-					noise = PULSE_LENGTH - remainingNoise;
-				}
-
-				noise = (noise * velocity)/1000;
-				// update the noise variable accordingly
-				noise = (noise * decay)/1000;
-
-				noise = 127 + noise;
-
-				uint8_t randBit = (uint8_t) noise;
-				TLC_SetDACValue(PulseDAC, 1, &randBit);
-
-				// Decrement the noise remaining
-				remainingNoise--;
-			}
-
-			// else, turn off the interrupt, set the DAC to idle
-			else
-			{
-				Chip_SCT_DisableEventInt(LPC_SCT, SCT_EVT_0);
-				NVIC_DisableIRQ(SCT_IRQn);
-			}
+			GenPulse();
 			// Clear the triggered variable
 			triggered = 0;
 		}// end pulse code
@@ -174,24 +137,22 @@ void MIDI_NoteOn(uint8_t num, uint8_t vel)
 	value = (num >= 84) ? 15 : 50;
 	setWidth(&Generator1, value);
 
+	// Load exciter variables
+	pluckStrength = vel;
+	remainingNoise = PULSE_LENGTH;
+
+	// start the pluck
+	Chip_SCT_EnableEventInt(LPC_SCT, SCT_EVT_0);
+	NVIC_EnableIRQ(SCT_IRQn);
+
 	// Set frequency generator's frequency.
 	setReload(&Generator1, MIDIto12MhzReload[num % 128]);
 	updateFreq(&Generator1);
-
-	// Generate main pluck
-	genPluck(PULSE_LENGTH, vel);
 }
 
-/**
- * Pluck Generation
- */
-void genPluck(uint32_t cycleCount, uint8_t strength)
+void MIDI_NoteOff(uint8_t note)
 {
-	pluckStrength = strength;
-	remainingNoise = cycleCount;
-	//TODO: set this up so we can generate noise based on any timer's overflow.
-	Chip_SCT_EnableEventInt(LPC_SCT, SCT_EVT_0);
-	NVIC_EnableIRQ(SCT_IRQn);
+
 }
 
 uint16_t LFSR()
@@ -210,7 +171,54 @@ uint16_t LFSR()
 
 void SCT_IRQHandler(void)
 {
-	triggered = 1;
+	//If we still need to generate a signal, do so.
+	if (remainingNoise != 0)
+	{
+		// Enable the trigger
+		triggered = 1;
+
+		// Decrement the noise remaining
+		remainingNoise--;
+	}
+
+	// else, turn off the interrupt, set the DAC to idle
+	else
+	{
+
+		Chip_SCT_DisableEventInt(LPC_SCT, SCT_EVT_0);
+		NVIC_DisableIRQ(SCT_IRQn);
+	}
+
 	// reset the interrupt flag
 	Chip_SCT_ClearEventFlag(LPC_SCT, SCT_EVT_0);
+}
+
+
+/////// EXCITER TYPES
+
+void GenPulse()
+{
+	// get a random number
+	int8_t noise = LFSR() & 0xFF;
+
+	// calculate the strength of the pluck
+	int32_t velocity = (pluckStrength * 1000) / 127;
+
+	// depending on how much is left to the pluck, change the gain of the noise
+	int32_t decay = (remainingNoise * 1000) / PULSE_LENGTH;
+
+	if (remainingNoise > (PULSE_LENGTH - TRANSIENT_LENGTH))
+	{
+		noise = PULSE_LENGTH - remainingNoise;
+	}
+
+	// update the noise variable accordingly
+	noise = (noise * velocity)/1000;
+	noise = (noise * decay)/1000;
+
+	// Set bias to be 1/2 available range
+	noise = 127 + noise;
+
+	uint8_t randBit = (uint8_t) noise;
+	TLC_SetDACValue(PulseDAC, 1, &randBit);
 }
