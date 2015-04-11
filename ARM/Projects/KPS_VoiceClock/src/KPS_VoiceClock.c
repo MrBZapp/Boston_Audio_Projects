@@ -32,6 +32,7 @@
 
 #include "chip.h"
 #include <cr_section_macros.h>
+#include "BAP_Clk.h"
 #include "BAP_Midi.h"
 #include "FrequencyMaps.h"
 #include "BAP_WaveGen.h"
@@ -40,7 +41,7 @@
 
 // Define TLV DAC functions
 #define FilterDAC TLC_DAC_1
-#define FeedbackDAC TLC_DAC_2
+#define AmpDAC TLC_DAC_2
 #define PulseDAC TLC_DAC_4
 
 // Define Address
@@ -49,22 +50,33 @@
 // Define Pulse characteristics
 #define PULSE_LENGTH 384
 #define TRANSIENT_LENGTH 128
+#define RELEASE_LENGTH 1024
+#define BIAS 127
 
 // exciter generation forward declarations
 void SCT_IRQHandler(void);
 void MIDI_NoteOn(uint8_t note, uint8_t vel);
+void MIDI_NoteOff(uint8_t note, uint8_t ignore);
 uint16_t LFSR();
 
 // exciter types
 void GenPulse();
+void GenRelease();
 
 
 /*****************************************************************************
  * IRQ-accessible Variables																 *
  ****************************************************************************/
-volatile uint32_t remainingNoise = 0;
-volatile uint8_t pluckStrength = 0;
 volatile uint8_t triggered = 0;
+volatile uint32_t remainingNoise = 0;
+
+/*****************************************************************************
+ * GLOBAL Variables
+ ****************************************************************************/
+uint8_t pluckStrength = 0;
+int8_t activeNote = -1;
+
+uint8_t ampTable[6] = {130, 130, 148, 169, 188, 211};
 
 /********************************************************************************************************
  * 											MAIN														*
@@ -72,7 +84,7 @@ volatile uint8_t triggered = 0;
 int main(void)
 {
 	// Standard boot procedure
-	SystemCoreClockUpdate();
+	CoreClockInit_30Hz();
 
 	// IO setup
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
@@ -97,13 +109,14 @@ int main(void)
 	TLC_Init();
 
 	// Initialize the frequency generation timer
-	WaveGenInit(&Generator1, MIDIto12MhzReload[25]);
+	WaveGenInit(&Generator1, MIDIto30MhzReload[25]);
 	WaveGenStart(&Generator1);
 
     // MIDI init
 	MIDI_USARTInit(LPC_USART0, MIDI_ENABLERX);
 	MIDI_SetAddress(LOCAL_ADDRESS);
 	MIDI_NoteOnFunc = &MIDI_NoteOn;
+	MIDI_NoteOffFunc = &MIDI_NoteOff;
 	MIDI_Enable(LPC_USART0);
 
 /////////////////////////////////////////////MAINLOOP.////////////////////////////////////////////////////
@@ -119,6 +132,7 @@ int main(void)
 			triggered = 0;
 		}// end pulse code
 
+
 	}// end main loop
 
 	return 0;
@@ -129,9 +143,13 @@ int main(void)
  *******************************************************************************************************/
 void MIDI_NoteOn(uint8_t num, uint8_t vel)
 {
+	activeNote = num;
+	uint8_t value = 127 - num;
+
 	// Set up the scaling for the DACs and PWM.
-	uint8_t value = num * 2;
-	TLC_SetDACValue(0, 1, &value);
+	TLC_SetDACValue(FilterDAC, 1, &value);
+	value = ampTable[((num % 67) / 12) % 6] + (num % 12);
+	TLC_SetDACValue(AmpDAC, 0, &value);
 
 	// Knee for PWM adjustment in higher registers
 	value = (num >= 84) ? 15 : 50;
@@ -146,13 +164,19 @@ void MIDI_NoteOn(uint8_t num, uint8_t vel)
 	NVIC_EnableIRQ(SCT_IRQn);
 
 	// Set frequency generator's frequency.
-	setReload(&Generator1, MIDIto12MhzReload[num % 128]);
+	setReload(&Generator1, MIDIto30MhzReload[num % 67]);
 	updateFreq(&Generator1);
 }
 
-void MIDI_NoteOff(uint8_t note)
+void MIDI_NoteOff(uint8_t note, uint8_t ignore)
 {
-
+	if (note == activeNote)
+	{
+		uint8_t value = 255 - activeNote;
+		TLC_SetDACValue(FilterDAC, 1, &value);
+		// set to Idle
+		activeNote = -1;
+	}
 }
 
 uint16_t LFSR()
@@ -181,7 +205,6 @@ void SCT_IRQHandler(void)
 		remainingNoise--;
 	}
 
-	// else, turn off the interrupt, set the DAC to idle
 	else
 	{
 
@@ -195,6 +218,7 @@ void SCT_IRQHandler(void)
 
 
 /////// EXCITER TYPES
+
 
 void GenPulse()
 {
@@ -217,8 +241,9 @@ void GenPulse()
 	noise = (noise * decay)/1000;
 
 	// Set bias to be 1/2 available range
-	noise = 127 + noise;
+	noise = BIAS + noise;
 
 	uint8_t randBit = (uint8_t) noise;
 	TLC_SetDACValue(PulseDAC, 1, &randBit);
 }
+

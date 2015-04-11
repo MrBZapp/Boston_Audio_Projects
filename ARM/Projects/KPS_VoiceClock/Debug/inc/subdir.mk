@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../inc/BAP_WaveGen.c 
+../inc/BAP_Envelope.c 
 
 OBJS += \
-./inc/BAP_WaveGen.o 
+./inc/BAP_Envelope.o 
 
 C_DEPS += \
-./inc/BAP_WaveGen.d 
+./inc/BAP_Envelope.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
