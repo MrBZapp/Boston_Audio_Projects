@@ -86,7 +86,12 @@ int main(void)
 	// Standard boot procedure
 	CoreClockInit_30Hz();
 
-	// IO setup
+	// Global Inits:
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SCT); // Clock used for freq generation and envelope timing
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_UART0); // UART0 used for MIDI
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SPI0); // SPI0 used for DAC control
+
+	// Ready To assign Pinouts
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
 
     /* Pin Assign 8 bit Configuration */
@@ -102,21 +107,25 @@ int main(void)
 
     /* Pin Assign 1 bit Configuration */
     LPC_SWM->PINENABLE0 = 0xffffffffUL;
-	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
 
+	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
 	/*END OF PIN ASSIGNMENTS*/
-	// Enable the SPI interface to the DAC
+
+	// Configure the SPI to use TLC DAC settings
 	TLC_Init();
 
 	// Initialize the frequency generation timer
 	WaveGenInit(&Generator1, MIDIto30MhzReload[25]);
 	WaveGenStart(&Generator1);
 
-    // MIDI init
+    // Configure the USART to Use MIDI protocol
 	MIDI_USARTInit(LPC_USART0, MIDI_ENABLERX);
 	MIDI_SetAddress(LOCAL_ADDRESS);
+
+	// Assign note on and off functions
 	MIDI_NoteOnFunc = &MIDI_NoteOn;
 	MIDI_NoteOffFunc = &MIDI_NoteOff;
+
 	MIDI_Enable(LPC_USART0);
 
 /////////////////////////////////////////////MAINLOOP.////////////////////////////////////////////////////
@@ -127,6 +136,7 @@ int main(void)
 		// If the timer has requested a sample, we need to generate any data from a pulse, do so.
 		if (triggered)
 		{
+
 			GenPulse();
 			// Clear the triggered variable
 			triggered = 0;
@@ -148,7 +158,7 @@ void MIDI_NoteOn(uint8_t num, uint8_t vel)
 
 	// Set up the scaling for the DACs and PWM.
 	TLC_SetDACValue(FilterDAC, 1, &value);
-	value = ampTable[((num % 67) / 12) % 6] + (num % 12);
+	value = ampTable[((num % 66) / 12) % 6] + (num % 12);
 	TLC_SetDACValue(AmpDAC, 0, &value);
 
 	// Knee for PWM adjustment in higher registers
@@ -164,7 +174,7 @@ void MIDI_NoteOn(uint8_t num, uint8_t vel)
 	NVIC_EnableIRQ(SCT_IRQn);
 
 	// Set frequency generator's frequency.
-	setReload(&Generator1, MIDIto30MhzReload[num % 67]);
+	setReload(&Generator1, MIDIto30MhzReload[num % 66]);
 	updateFreq(&Generator1);
 }
 
