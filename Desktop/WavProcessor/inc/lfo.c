@@ -7,7 +7,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include "lfo.h"
-
+#define M_PI 3.14159
 /**
  * Returns the value of the LFO of a specified frequency and shape
  * requires the file sample rate and current global sample position

@@ -8,9 +8,9 @@
  *  You can find documentation on these filters at:
  *  http://www.musicdsp.org/files/Audio-EQ-Cookbook.txt
  */
+#define _USE_MATH_DEFINES
 #include <math.h>
 #include "filter.h"
-
 
 
 

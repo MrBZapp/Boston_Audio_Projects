@@ -32,6 +32,9 @@
 
 #include "chip.h"
 #include <cr_section_macros.h>
+#include <stdbool.h>
+#include "BAP_math.h"
+#include "BAP_Envelope.h"
 #include "BAP_Clk.h"
 #include "BAP_Midi.h"
 #include "FrequencyMaps.h"
@@ -48,9 +51,10 @@
 #define LOCAL_ADDRESS 0x00
 
 // Define Pulse characteristics
-#define PULSE_LENGTH 384
-#define TRANSIENT_LENGTH 128
-#define RELEASE_LENGTH 1024
+#define PULSE_LENGTH 300
+#define TRANSIENT_LENGTH 0
+#define SUSTAIN 50
+#define RELEASE 10000
 #define BIAS 127
 
 // exciter generation forward declarations
@@ -60,9 +64,9 @@ void MIDI_NoteOff(uint8_t note, uint8_t ignore);
 uint16_t LFSR();
 
 // exciter types
-void GenPulse();
-void GenRelease();
 
+void GenPluckBow(envLinADSR_t* Envelope, uint32_t Position);
+void GenPluckBow_NoteOff(envLinADSR_t* Envelope, int32_t Position);
 
 /*****************************************************************************
  * IRQ-accessible Variables																 *
@@ -74,9 +78,11 @@ volatile uint32_t remainingNoise = 0;
  * GLOBAL Variables
  ****************************************************************************/
 uint8_t pluckStrength = 0;
+bool ACMP_Status;
 int8_t activeNote = -1;
-
+int32_t EnvPosition = 0;
 uint8_t ampTable[6] = {130, 130, 148, 169, 188, 211};
+
 
 /********************************************************************************************************
  * 											MAIN														*
@@ -86,10 +92,12 @@ int main(void)
 	// Standard boot procedure
 	CoreClockInit_30Hz();
 
-	// Global Inits:
+	// Global Peripheral Enables:
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SCT); // Clock used for freq generation and envelope timing
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_UART0); // UART0 used for MIDI
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SPI0); // SPI0 used for DAC control
+//	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_ACOMP);// ACOMP used to select between envelope variables
+
 
 	// Ready To assign Pinouts
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
@@ -114,9 +122,18 @@ int main(void)
 	// Configure the SPI to use TLC DAC settings
 	TLC_Init();
 
+	// Configure ACOMP
+//	Chip_ACMP_EnableVoltLadder(LPC_CMP);
+//	Chip_ACMP_SetupVoltLadder(LPC_CMP, 0, FALSE);
+//	ACMP_Status = Chip_ACMP_GetCompStatus(LPC_CMP);
+
 	// Initialize the frequency generation timer
 	WaveGenInit(&Generator1, MIDIto30MhzReload[25]);
 	WaveGenStart(&Generator1);
+
+	// Initialize the envelope
+	envLinADSR_t envelope;
+	SetEnvelopeTimes(&envelope, TRANSIENT_LENGTH, PULSE_LENGTH, SUSTAIN,0x0);
 
     // Configure the USART to Use MIDI protocol
 	MIDI_USARTInit(LPC_USART0, MIDI_ENABLERX);
@@ -134,48 +151,66 @@ int main(void)
 		MIDI_ProcessRXBuffer();
 
 		// If the timer has requested a sample, we need to generate any data from a pulse, do so.
-		if (triggered)
+		if (triggered != 0)
 		{
+			//Hard Stop at Max.
+			if (EnvPosition < 0)
+			{
+				EnvPosition = INT32_MAX;
+			}
 
-			GenPulse();
+			// Generate the sound
+			if (activeNote == -1)
+			{
+				GenPluckBow_NoteOff(&envelope, EnvPosition);
+			}
+			else
+			{
+				GenPluckBow(&envelope, EnvPosition);
+			}
+
 			// Clear the triggered variable
 			triggered = 0;
-		}// end pulse code
+
+			// Advance the Envelope Position
+			EnvPosition++;
+		}// end exciter code
 
 
 	}// end main loop
-
 	return 0;
 }
 
 /********************************************************************************************************
  * 											FUNCTIONS													*
  *******************************************************************************************************/
+
+
 void MIDI_NoteOn(uint8_t num, uint8_t vel)
 {
+	// Load global variables
 	activeNote = num;
-	uint8_t value = 127 - num;
+	pluckStrength = vel;
+	EnvPosition = 0;
+	remainingNoise = PULSE_LENGTH;
 
 	// Set up the scaling for the DACs and PWM.
+	uint8_t value = 127 - num;
 	TLC_SetDACValue(FilterDAC, 1, &value);
-	value = ampTable[((num % 66) / 12) % 6] + (num % 12);
+	value = ampTable[((num % 67) / 12) % 6] + (num % 12);
 	TLC_SetDACValue(AmpDAC, 0, &value);
 
 	// Knee for PWM adjustment in higher registers
-	value = (num >= 84) ? 15 : 50;
-	setWidth(&Generator1, value);
-
-	// Load exciter variables
-	pluckStrength = vel;
-	remainingNoise = PULSE_LENGTH;
-
-	// start the pluck
-	Chip_SCT_EnableEventInt(LPC_SCT, SCT_EVT_0);
-	NVIC_EnableIRQ(SCT_IRQn);
+	//value = (num >= 84) ? 15 : 50;
+	//setWidth(&Generator1, value);
 
 	// Set frequency generator's frequency.
-	setReload(&Generator1, MIDIto30MhzReload[num % 66]);
+	setReload(&Generator1, MIDIto30MhzReload[num % 67]);
 	updateFreq(&Generator1);
+
+	// start the exciter
+	Chip_SCT_EnableEventInt(LPC_SCT, SCT_EVT_0);
+	NVIC_EnableIRQ(SCT_IRQn);
 }
 
 void MIDI_NoteOff(uint8_t note, uint8_t ignore)
@@ -186,6 +221,7 @@ void MIDI_NoteOff(uint8_t note, uint8_t ignore)
 		TLC_SetDACValue(FilterDAC, 1, &value);
 		// set to Idle
 		activeNote = -1;
+		EnvPosition = 0;
 	}
 }
 
@@ -203,57 +239,57 @@ uint16_t LFSR()
 	return lfsr;
 }
 
-void SCT_IRQHandler(void)
-{
-	//If we still need to generate a signal, do so.
-	if (remainingNoise != 0)
-	{
-		// Enable the trigger
-		triggered = 1;
-
-		// Decrement the noise remaining
-		remainingNoise--;
-	}
-
-	else
-	{
-
-		Chip_SCT_DisableEventInt(LPC_SCT, SCT_EVT_0);
-		NVIC_DisableIRQ(SCT_IRQn);
-	}
-
-	// reset the interrupt flag
-	Chip_SCT_ClearEventFlag(LPC_SCT, SCT_EVT_0);
-}
-
 
 /////// EXCITER TYPES
 
 
-void GenPulse()
+void GenPluckBow(envLinADSR_t* Envelope, uint32_t Position)
 {
-	// get a random number
-	int8_t noise = LFSR() & 0xFF;
-
-	// calculate the strength of the pluck
-	int32_t velocity = (pluckStrength * 1000) / 127;
-
-	// depending on how much is left to the pluck, change the gain of the noise
-	int32_t decay = (remainingNoise * 1000) / PULSE_LENGTH;
-
-	if (remainingNoise > (PULSE_LENGTH - TRANSIENT_LENGTH))
+	if (Position < Envelope->dk || Envelope->sus != 0)
 	{
-		noise = PULSE_LENGTH - remainingNoise;
+		int32_t envVal = GenLinADS(Envelope, Position);
+		int32_t noise = LFSR() & 0x7F;
+
+		// calculate the strength of the pluck
+
+		// Generate the attack
+		//if (Position < Envelope->atk)
+		//{
+		//	noise = (uint8_t) envVal;
+		//}
+
+		// scale the amplitude
+		noise = i_lscale(0, 127, 0, pluckStrength, noise);
+		noise = i_lscale(0,127, 0, envVal, noise);
+
+		// Set bias to be 1/2 available range
+		noise = 127 + noise;
+		uint8_t output = noise;
+		TLC_SetDACValue(PulseDAC, 1, &output);
 	}
-
-	// update the noise variable accordingly
-	noise = (noise * velocity)/1000;
-	noise = (noise * decay)/1000;
-
-	// Set bias to be 1/2 available range
-	noise = BIAS + noise;
-
-	uint8_t randBit = (uint8_t) noise;
-	TLC_SetDACValue(PulseDAC, 1, &randBit);
 }
 
+void GenPluckBow_NoteOff(envLinADSR_t* Envelope, int32_t Position)
+{
+	if (Position <= RELEASE && Envelope->sus != 0)
+	{
+		int32_t envVal = GenLinRelease(Envelope, Position + Envelope->dk);
+		int32_t noise = LFSR() & 0x7F;
+
+		// scale the amplitude
+		noise = i_lscale(0, 127, 0, pluckStrength, noise);
+		noise = i_lscale(0,127, 0, envVal, noise);
+
+		// Set bias to be 1/2 available range
+		noise = 127 + noise;
+		uint8_t output = noise;
+		TLC_SetDACValue(PulseDAC, 1, &output);
+	}
+}
+
+void SCT_IRQHandler(void)
+{
+	triggered = 1;
+	// reset the interrupt flag
+	Chip_SCT_ClearEventFlag(LPC_SCT, SCT_EVT_0);
+}

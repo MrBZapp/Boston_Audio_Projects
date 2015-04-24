@@ -16,7 +16,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <libkern/OSByteOrder.h>
+//#include <libkern/OSByteOrder.h>
 #include <limits.h>
 
 #include "wavSample.h"

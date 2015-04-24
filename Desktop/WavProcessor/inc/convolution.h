@@ -8,7 +8,10 @@
 #ifndef CONVOLUTION_H_
 #define CONVOLUTION_H_
 
+#define _USE_MATH_DEFINES
 #include <math.h>
+
+
 
 // Window types.
 typedef enum windowType {

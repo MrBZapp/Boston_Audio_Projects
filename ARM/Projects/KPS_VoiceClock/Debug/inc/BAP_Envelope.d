@@ -1,4 +1,5 @@
-inc/BAP_WaveGen.o inc/BAP_WaveGen.d: ../inc/BAP_WaveGen.c \
+inc/BAP_Envelope.o inc/BAP_Envelope.d: ../inc/BAP_Envelope.c \
+ ../inc/BAP_Envelope.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/chip.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/lpc_types.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/sys_config.h \
@@ -29,7 +30,9 @@ inc/BAP_WaveGen.o inc/BAP_WaveGen.d: ../inc/BAP_WaveGen.c \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/sct_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h \
- ../inc/BAP_WaveGen.h
+ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_math.h
+
+../inc/BAP_Envelope.h:
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/chip.h:
 
@@ -91,4 +94,4 @@ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h:
 
-../inc/BAP_WaveGen.h:
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_math.h:

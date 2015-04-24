@@ -1,4 +1,5 @@
-inc/BAP_Midi.o inc/BAP_Midi.d: ../inc/BAP_Midi.c ../inc/BAP_Midi.h \
+inc/BAP_Envelope.o inc/BAP_Envelope.d: ../inc/BAP_Envelope.c \
+ ../inc/BAP_Envelope.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/chip.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/lpc_types.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/sys_config.h \
@@ -29,9 +30,9 @@ inc/BAP_Midi.o inc/BAP_Midi.d: ../inc/BAP_Midi.c ../inc/BAP_Midi.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/sct_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h \
- ../inc/BAP_Debug.h
+ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_math.h
 
-../inc/BAP_Midi.h:
+../inc/BAP_Envelope.h:
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/chip.h:
 
@@ -93,4 +94,4 @@ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h:
 
-../inc/BAP_Debug.h:
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_math.h:

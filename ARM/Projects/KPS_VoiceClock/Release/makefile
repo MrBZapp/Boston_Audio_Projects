@@ -42,7 +42,7 @@ clean:
 
 post-build:
 	-@echo 'Performing post-build steps'
-	-arm-none-eabi-size "KPS_VoiceClock.axf"; # arm-none-eabi-objcopy -v -O binary "KPS_VoiceClock.axf" "KPS_VoiceClock.bin" ; # checksum -p LPC810 -d "KPS_VoiceClock.bin";
+	-arm-none-eabi-size "KPS_VoiceClock.axf" ; arm-none-eabi-objdump -S "KPS_VoiceClock.axf" > "KPS_VoiceClock.txt" ; arm-none-eabi-objcopy -O binary "KPS_VoiceClock.axf" "KPS_VoiceClock.bin" ; arm-none-eabi-objcopy -O ihex "KPS_VoiceClock.axf" "KPS_VoiceClock.hex" ; checksum -p LPC810 -d "KPS_VoiceClock.bin"
 	-@echo ' '
 
 .PHONY: all clean dependents

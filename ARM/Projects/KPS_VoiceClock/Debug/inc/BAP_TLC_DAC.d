@@ -1,4 +1,4 @@
-inc/BAP_TLV_DAC.o inc/BAP_TLV_DAC.d: ../inc/BAP_TLV_DAC.c \
+inc/BAP_TLC_DAC.o inc/BAP_TLC_DAC.d: ../inc/BAP_TLC_DAC.c \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/chip.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/lpc_types.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/sys_config.h \
@@ -29,8 +29,7 @@ inc/BAP_TLV_DAC.o inc/BAP_TLV_DAC.d: ../inc/BAP_TLV_DAC.c \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/sct_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h \
- C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/ring_buffer.h \
- ../inc/BAP_TLV_DAC.h
+ ../inc/BAP_TLC_DAC.h
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/chip.h:
 
@@ -92,6 +91,4 @@ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h:
 
-C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/ring_buffer.h:
-
-../inc/BAP_TLV_DAC.h:
+../inc/BAP_TLC_DAC.h:

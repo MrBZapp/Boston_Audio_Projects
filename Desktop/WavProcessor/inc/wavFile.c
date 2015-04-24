@@ -7,7 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <libkern/OSByteOrder.h>
+//#include <libkern/OSByteOrder.h>
 #include <math.h>
 #include "wavSample.h"
 #include "wavFile.h"
