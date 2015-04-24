@@ -1,4 +1,5 @@
-src/KPS_VoiceClock.o src/KPS_VoiceClock.d: ../src/KPS_VoiceClock.c \
+inc/LocalMIDIFunc.o inc/LocalMIDIFunc.d: ../inc/LocalMIDIFunc.c \
+ ../inc/GlobalDEF.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/chip.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/lpc_types.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/sys_config.h \
@@ -29,16 +30,12 @@ src/KPS_VoiceClock.o src/KPS_VoiceClock.d: ../src/KPS_VoiceClock.c \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/sct_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h \
- C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/GlobalDEF.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_TLC_DAC.h \
- C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/LocalMIDIFunc.h \
- C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/GlobalDEF.h \
- C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Debug.h \
- C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Clk.h \
- C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Midi.h \
+ ../inc/LocalMIDIFunc.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_WaveGen.h \
- C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/KPS_Exciter.h \
- C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/BAP_Envelope.h
+ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/FrequencyMaps.h
+
+../inc/GlobalDEF.h:
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/chip.h:
 
@@ -100,22 +97,10 @@ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h:
 
-C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/GlobalDEF.h:
-
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_TLC_DAC.h:
 
-C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/LocalMIDIFunc.h:
-
-C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/GlobalDEF.h:
-
-C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Debug.h:
-
-C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Clk.h:
-
-C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Midi.h:
+../inc/LocalMIDIFunc.h:
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_WaveGen.h:
 
-C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/KPS_Exciter.h:
-
-C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\Projects\KPS_VoiceClock\inc/BAP_Envelope.h:
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/FrequencyMaps.h:

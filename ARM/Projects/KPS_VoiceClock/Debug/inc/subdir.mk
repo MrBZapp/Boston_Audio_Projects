@@ -4,13 +4,22 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../inc/BAP_Envelope.c 
+../inc/BAP_Envelope.c \
+../inc/GlobalDEF.c \
+../inc/KPS_Exciter.c \
+../inc/LocalMIDIFunc.c 
 
 OBJS += \
-./inc/BAP_Envelope.o 
+./inc/BAP_Envelope.o \
+./inc/GlobalDEF.o \
+./inc/KPS_Exciter.o \
+./inc/LocalMIDIFunc.o 
 
 C_DEPS += \
-./inc/BAP_Envelope.d 
+./inc/BAP_Envelope.d \
+./inc/GlobalDEF.d \
+./inc/KPS_Exciter.d \
+./inc/LocalMIDIFunc.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
