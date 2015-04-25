@@ -24,10 +24,6 @@ void MIDI_NoteOn(uint8_t num, uint8_t vel)
 	value = ampTable[((num % 67) / 12) % 6] + (num % 12);
 	TLC_SetDACValue(AmpDAC, 0, &value);
 
-	// Knee for PWM adjustment in higher registers
-	//value = (num >= 84) ? 15 : 50;
-	//setWidth(&Generator1, value);
-
 	// Set frequency generator's frequency.
 	setReload(&Generator1, MIDIto30MhzReload[num % 67]);
 	updateFreq(&Generator1);
@@ -43,8 +39,11 @@ void MIDI_NoteOff(uint8_t note, uint8_t ignore)
 	{
 		uint8_t value = 255 - activeNote;
 		TLC_SetDACValue(FilterDAC, 1, &value);
+
 		// set to Idle
 		activeNote = -1;
+
+		// reset envelope to release
 		EnvPosition = 0;
 	}
 }

@@ -615,15 +615,14 @@ void SystemInit(void)
  43a:	bd08      	pop	{r3, pc}
 
 0000043c <GenLinADS>:
-
-#include "BAP_Envelope.h"
 #include "BAP_math.h"
+
+
 
 uint32_t GenLinADS(envLinADSR_t* env, uint32_t pos)
 {
  43c:	b513      	push	{r0, r1, r4, lr}
  43e:	1c0a      	adds	r2, r1, #0
-
 	// Attack
 	if (pos < env->atk){
  440:	6801      	ldr	r1, [r0, #0]
@@ -983,9 +982,6 @@ void MIDI_NoteOn(uint8_t num, uint8_t vel)
 	TLC_SetDACValue(AmpDAC, 0, &value);
  59c:	1c31      	adds	r1, r6, #0
  59e:	f000 f905 	bl	7ac <TLC_SetDACValue>
-	// Knee for PWM adjustment in higher registers
-	//value = (num >= 84) ? 15 : 50;
-	//setWidth(&Generator1, value);
 
 	// Set frequency generator's frequency.
 	setReload(&Generator1, MIDIto30MhzReload[num % 67]);
@@ -1063,10 +1059,13 @@ void MIDI_NoteOff(uint8_t note, uint8_t ignore)
  602:	7013      	strb	r3, [r2, #0]
 		TLC_SetDACValue(FilterDAC, 1, &value);
  604:	f000 f8d2 	bl	7ac <TLC_SetDACValue>
+
 		// set to Idle
 		activeNote = -1;
  608:	23ff      	movs	r3, #255	; 0xff
  60a:	7023      	strb	r3, [r4, #0]
+
+		// reset envelope to release
 		EnvPosition = 0;
  60c:	4b02      	ldr	r3, [pc, #8]	; (618 <MIDI_NoteOff+0x2c>)
  60e:	2200      	movs	r2, #0
