@@ -16,7 +16,9 @@ void MIDI_NoteOn(uint8_t num, uint8_t vel)
 	// Load global variables
 	activeNote = num;
 	pluckStrength = vel;
-	EnvPosition = 0;
+
+	// Reset the Envelope
+	EnvReset(&GlobalEnv);
 
 	// Set up the scaling for the DACs and PWM.
 	uint8_t value = 127 - num;
@@ -44,6 +46,6 @@ void MIDI_NoteOff(uint8_t note, uint8_t ignore)
 		activeNote = -1;
 
 		// reset envelope to release
-		EnvPosition = 0;
+		EnvRelease(&GlobalEnv);
 	}
 }

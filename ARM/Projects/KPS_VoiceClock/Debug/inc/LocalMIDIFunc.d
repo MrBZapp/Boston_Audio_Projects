@@ -31,6 +31,7 @@ inc/LocalMIDIFunc.o inc/LocalMIDIFunc.d: ../inc/LocalMIDIFunc.c \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_TLC_DAC.h \
+ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Envelope.h \
  ../inc/LocalMIDIFunc.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_WaveGen.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/FrequencyMaps.h
@@ -98,6 +99,8 @@ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h:
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_TLC_DAC.h:
+
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Envelope.h:
 
 ../inc/LocalMIDIFunc.h:
 

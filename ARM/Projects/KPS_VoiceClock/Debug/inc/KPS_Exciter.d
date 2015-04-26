@@ -32,7 +32,7 @@ inc/KPS_Exciter.o inc/KPS_Exciter.d: ../inc/KPS_Exciter.c \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h \
  ../inc/GlobalDEF.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_TLC_DAC.h \
- ../inc/BAP_Envelope.h \
+ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Envelope.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_math.h
 
 ../inc/KPS_Exciter.h:
@@ -101,6 +101,6 @@ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_TLC_DAC.h:
 
-../inc/BAP_Envelope.h:
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Envelope.h:
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_math.h:

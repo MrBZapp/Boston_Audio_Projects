@@ -12,8 +12,6 @@
 #include "GlobalDEF.h"
 #include "BAP_Envelope.h"
 
-void GenPluckBow(envLinADSR_t* Envelope, uint32_t Position);
-
-void GenPluckBow_NoteOff(envLinADSR_t* Envelope, int32_t Position);
+uint8_t GenExciter(env_t* env);
 
 #endif /* KPS_EXCITER_H_ */

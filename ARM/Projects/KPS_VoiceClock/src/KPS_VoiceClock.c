@@ -29,42 +29,29 @@
 
 ===============================================================================
 */
+
+// Standard lib includes
 #include "chip.h"
 #include <cr_section_macros.h>
 #include <stdbool.h>
 
+// project global includes
 #include "GlobalDEF.h"
 #include "LocalMIDIFunc.h"
-#include "BAP_Debug.h"
+#include "KPS_Exciter.h"
 
+// BAP_lib includes
 #include "BAP_Clk.h"
 #include "BAP_Midi.h"
 #include "BAP_TLC_DAC.h"
 #include "BAP_WaveGen.h"
 
-#include "KPS_Exciter.h"
 
-// Define Pulse characteristics
-#define PULSE_LENGTH 300
-#define TRANSIENT_LENGTH 0
-#define SUSTAIN 50
-#define RELEASE 10000
-#define BIAS 127
-
-// exciter generation forward declarations
+/*****************************************************************************
+ * IRQ-accessible Variables													 *
+ ****************************************************************************/
 void SCT_IRQHandler(void);
-
-/*****************************************************************************
- * IRQ-accessible Variables																 *
- ****************************************************************************/
 volatile uint8_t triggered = 0;
-
-/*****************************************************************************
- * GLOBAL Variables
- ****************************************************************************/
-
-bool ACMP_Status;
-
 
 /********************************************************************************************************
  * 											MAIN														*
@@ -78,8 +65,7 @@ int main(void)
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SCT); // Clock used for freq generation and envelope timing
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_UART0); // UART0 used for MIDI
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SPI0); // SPI0 used for DAC control
-//	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_ACOMP);// ACOMP used to select between envelope variables
-
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_ACOMP);// ACOMP used to select between envelope variables
 
 	// Ready To assign Pinouts
 	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
@@ -104,18 +90,18 @@ int main(void)
 	// Configure the SPI to use TLC DAC settings
 	TLC_Init();
 
-	// Configure ACOMP
-//	Chip_ACMP_EnableVoltLadder(LPC_CMP);
-//	Chip_ACMP_SetupVoltLadder(LPC_CMP, 0, FALSE);
-//	ACMP_Status = Chip_ACMP_GetCompStatus(LPC_CMP);
 
 	// Initialize the frequency generation timer
 	WaveGenInit(&Generator1, 200);
 	WaveGenStart(&Generator1);
 
-	// Initialize the envelope
-	envLinADSR_t envelope;
-	SetEnvelopeTimes(&envelope, TRANSIENT_LENGTH, PULSE_LENGTH, SUSTAIN, RELEASE);
+	// Initialize the exciter envelope
+	envNode_t ADSRarr[3] = {
+			{ATTACK, ENVAMP_MAX, FALSE},
+			{DECAY, RELEASE, TRUE},
+			{RELEASE, 0, TRUE}
+	};
+	EnvInit(&GlobalEnv, ADSRarr, 3);
 
     // Configure the USART to Use MIDI protocol
 	MIDI_USARTInit(LPC_USART0, MIDI_ENABLERX);
@@ -127,41 +113,32 @@ int main(void)
 
 	MIDI_Enable(LPC_USART0);
 
+	// variable for storing the previously transmitted DAC value
+	uint8_t prev_Value = 0;
+
 /////////////////////////////////////////////MAINLOOP.////////////////////////////////////////////////////
 	while (1) {
 		// Check if we've received any data
 		MIDI_ProcessRXBuffer();
 
-		// If the timer has requested a sample, we need to generate any data from a pulse, do so.
+		// If the timer has requested a sample from the exciter...
 		if (triggered != 0)
 		{
-			//Hard Stop at Max.
-			if (EnvPosition < 0)
-			{
-				EnvPosition = INT32_MAX;
-			}
+			// Get a sample
+			uint8_t DAC_Value = GenExciter(&GlobalEnv);
 
-			// Generate the sound
-			if (activeNote == -1)
+			// check if it's different from the previous value
+			if (DAC_Value != prev_Value)
 			{
-				GenPluckBow_NoteOff(&envelope, EnvPosition);
-			}
-			else
-			{
-				GenPluckBow(&envelope, EnvPosition);
+				TLC_SetDACValue(PulseDAC, 1, &DAC_Value);
 			}
 
 			// Clear the triggered variable
 			triggered = 0;
-
-			// Advance the Envelope Position
-			EnvPosition++;
 		}// end exciter code
-
-
 	}// end main loop
 	return 0;
-}
+}// end MAIN
 
 
 /********************************************************************************************************

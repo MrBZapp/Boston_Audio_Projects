@@ -29,7 +29,8 @@ inc/GlobalDEF.o inc/GlobalDEF.d: ../inc/GlobalDEF.c ../inc/GlobalDEF.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/sct_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h \
- C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_TLC_DAC.h
+ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_TLC_DAC.h \
+ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Envelope.h
 
 ../inc/GlobalDEF.h:
 
@@ -94,3 +95,5 @@ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/spi_
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx_lib\inc/i2c_8xx.h:
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_TLC_DAC.h:
+
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\BAP_LPC8xx_lib\inc/BAP_Envelope.h:
