@@ -98,7 +98,7 @@ int main(void)
 	// Initialize the exciter envelope
 	envNode_t ADSRarr[3] = {
 			{ATTACK, ENVAMP_MAX, FALSE},
-			{DECAY, RELEASE, TRUE},
+			{DECAY, SUSTAIN, TRUE},
 			{RELEASE, 0, TRUE}
 	};
 	EnvInit(&GlobalEnv, ADSRarr, 3);
@@ -131,6 +131,7 @@ int main(void)
 			if (DAC_Value != prev_Value)
 			{
 				TLC_SetDACValue(PulseDAC, 1, &DAC_Value);
+				prev_Value = DAC_Value;
 			}
 
 			// Clear the triggered variable

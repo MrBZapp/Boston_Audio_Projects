@@ -21,10 +21,10 @@
 #define LOCAL_ADDRESS 0x00
 
 // Define Pulse characteristics
-#define ATTACK 0
+#define ATTACK 128
 #define DECAY 300
-#define SUSTAIN 50
-#define RELEASE 10000
+#define SUSTAIN 0//(INT16_MAX / 4)
+#define RELEASE 3000
 #define BIAS 127
 
 // Global Variables

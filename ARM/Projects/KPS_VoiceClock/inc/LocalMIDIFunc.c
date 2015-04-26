@@ -13,6 +13,13 @@
 
 void MIDI_NoteOn(uint8_t num, uint8_t vel)
 {
+	// Block Note Offs disguised as note-ons.
+	if (vel == 0)
+	{
+		MIDI_NoteOff(num, vel);
+		return;
+	}
+
 	// Load global variables
 	activeNote = num;
 	pluckStrength = vel;
