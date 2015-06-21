@@ -325,6 +325,7 @@
 		<configuration configurationName="Release">
 			<resource resourceType="PROJECT" workspacePath="/KPS_VoiceClock"/>
 		</configuration>
+		<configuration configurationName="MainRelease"/>
 		<configuration configurationName="Debug">
 			<resource resourceType="PROJECT" workspacePath="/KPS_VoiceClock"/>
 		</configuration>

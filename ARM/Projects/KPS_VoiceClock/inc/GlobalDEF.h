@@ -35,4 +35,5 @@ uint8_t pluckStrength;
 // Global Access to envelope
 env_t GlobalEnv;
 
+
 #endif /* GLOBALDEF_H_ */

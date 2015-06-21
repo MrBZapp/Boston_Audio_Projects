@@ -41,17 +41,18 @@
 #include "KPS_Exciter.h"
 
 // BAP_lib includes
+#include "BAP_math.h"
 #include "BAP_Clk.h"
 #include "BAP_Midi.h"
 #include "BAP_TLC_DAC.h"
 #include "BAP_WaveGen.h"
+#include "BAP_32Sel.h"
 
-
+void SCT_IRQHandler(void);
 /*****************************************************************************
  * IRQ-accessible Variables													 *
  ****************************************************************************/
-void SCT_IRQHandler(void);
-volatile uint8_t triggered = 0;
+volatile bool triggered = 0;
 
 /********************************************************************************************************
  * 											MAIN														*
@@ -72,7 +73,7 @@ int main(void)
 
     /* Pin Assign 8 bit Configuration */
     /* U0_RXD */
-    LPC_SWM->PINASSIGN[0] = 0xffff00ffUL;
+    LPC_SWM->PINASSIGN[0] = 0xffff01ffUL;
     /* SPI0_SCK */
     LPC_SWM->PINASSIGN[3] = 0x05ffffffUL;
     /* SPI0_MOSI */
@@ -82,7 +83,8 @@ int main(void)
     LPC_SWM->PINASSIGN[6] = 0x02ffffffUL;
 
     /* Pin Assign 1 bit Configuration */
-    LPC_SWM->PINENABLE0 = 0xffffffffUL;
+    /* ACMP_I1 */
+    LPC_SWM->PINENABLE0 = 0xfffffffeUL;
 
 	Chip_Clock_DisablePeriphClock(SYSCTL_CLOCK_SWM);
 	/*END OF PIN ASSIGNMENTS*/
@@ -90,6 +92,8 @@ int main(void)
 	// Configure the SPI to use TLC DAC settings
 	TLC_Init();
 
+	// Enable the mode selector
+	Selector_Init(LPC_CMP);
 
 	// Initialize the frequency generation timer
 	WaveGenInit(&Generator1, 200);
@@ -113,25 +117,43 @@ int main(void)
 
 	MIDI_Enable(LPC_USART0);
 
-	// variable for storing the previously transmitted DAC value
-	uint8_t prev_Value = 0;
-
+	uint8_t prev_ValueA = BIAS;
+	TLC_SetDACValue(PulseDAC, 1, &prev_ValueA);
+	uint8_t ladderValue = 0;
+	uint32_t lastTest = 0;
 /////////////////////////////////////////////MAINLOOP.////////////////////////////////////////////////////
 	while (1) {
+		uint8_t cmpVal = ((LPC_CMP->LAD & ACMP_LADSEL_MASK) >> 1);
+		if (!(LPC_CMP->CTRL & ACMP_COMPSTAT_BIT))
+		{
+			ADSRarr[1].length = i_lscale(0, 31, 0, 200, lastTest);
+		}
+		else
+		{
+			lastTest = cmpVal;
+		}
+
 		// Check if we've received any data
 		MIDI_ProcessRXBuffer();
 
 		// If the timer has requested a sample from the exciter...
 		if (triggered != 0)
 		{
+			ladderValue++;
+			ladderValue %= 31;
+			Chip_ACMP_SetupVoltLadder(LPC_CMP, (ladderValue << 0), FALSE);
+			if (ladderValue == 0)
+			{
+
+			}
 			// Get a sample
 			uint8_t DAC_Value = GenExciter(&GlobalEnv);
 
 			// check if it's different from the previous value
-			if (DAC_Value != prev_Value)
+			if (DAC_Value != prev_ValueA)
 			{
 				TLC_SetDACValue(PulseDAC, 1, &DAC_Value);
-				prev_Value = DAC_Value;
+				prev_ValueA = DAC_Value;
 			}
 
 			// Clear the triggered variable

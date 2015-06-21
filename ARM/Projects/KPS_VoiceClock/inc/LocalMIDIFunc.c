@@ -7,9 +7,22 @@
 
 #include "GlobalDEF.h"
 #include "LocalMIDIFunc.h"
+#include "BAP_math.h"
+#include "BAP_32Sel.h"
 #include "BAP_TLC_DAC.h"
 #include "BAP_WaveGen.h"
 #include "FrequencyMaps.h"
+
+void SetMode(){
+	//Check what mode we're in
+	static 	uint8_t prev_ValueB = 1;
+	uint8_t cmpVal = i_lscale(0, 32, 0, 127, SelectorGetValue(LPC_CMP));
+	if (prev_ValueB != cmpVal)
+	{
+		TLC_SetDACValue(TLC_DAC_3, 1, &cmpVal);
+		prev_ValueB = cmpVal;
+	}
+}
 
 void MIDI_NoteOn(uint8_t num, uint8_t vel)
 {
@@ -19,6 +32,7 @@ void MIDI_NoteOn(uint8_t num, uint8_t vel)
 		MIDI_NoteOff(num, vel);
 		return;
 	}
+
 
 	// Load global variables
 	activeNote = num;

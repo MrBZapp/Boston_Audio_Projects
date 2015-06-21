@@ -11,6 +11,8 @@
 #include "chip.h"
 #include "GlobalDEF.h"
 
+
+void SetMode();
 void MIDI_NoteOff(uint8_t note, uint8_t ignore);
 void MIDI_NoteOn(uint8_t num, uint8_t vel);
 
