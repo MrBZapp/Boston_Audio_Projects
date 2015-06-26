@@ -135,7 +135,7 @@ void MAX1164x_SetSpeed(MAX1164x_t* MAX1164x, bool spd)
 		// Set the UseStopFlag bool
 		MAX1164x->UseStopFlag = FALSE;
 
-		I2C_InitiateHighSpeedMode(MAX1164x->i2cHandleMaster);
+		BAP_I2C_InitiateHighSpeedMode(MAX1164x->i2cHandleMaster);
 
 		// Set I2C bitrate to normal "High Speed" mode
 		if (LPC_I2CD_API->i2c_set_bitrate( localHandle,
@@ -187,9 +187,3 @@ ErrorCode_t MAX1164x_RequestNewSample(MAX1164x_t* MAX1164x)
 	return error;
 }
 
-
-void I2C_IRQHandler(void)
-{
-	/* Call I2C ISR function in ROM with the I2C handle */
-	LPC_I2CD_API->i2c_isr_handler(localHandle);
-}
