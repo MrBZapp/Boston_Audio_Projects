@@ -132,10 +132,72 @@ typedef struct {
 #define BAP_I2C_MONRESTART (1 << 0)
 #define BAP_I2C_MONNACK (1 << 0)
 
-#define I2C_MASTERCMD_HIGHSPEED 0b00001111
+#define BAP_I2C_MASTERCMD_HIGHSPEED 0b00001111
+#define BAP_I2C_MASTRCMD_TENBITADDR(x) (0xF6 & (x << 1))
+typedef union {
+	uint8_t sevenbit;
+	uint8_t byte[2];
+	uint16_t tenbit;
+}BAP_I2C_Address_t;
 
-void BAP_I2C_MasterInit(uint8_t * start_of_tx_ram, uint32_t available_space);
-ErrorCode_t BAP_I2C_MasterProcessNewMessage(I2C_PARAM_T* param);
+// Details about an I2C message
+typedef struct BAP_I2C_MsgParam{
+	//how many bytes are we sending?
+	//Does not include address, that is sent at the beginning of any message
+	uint32_t txcnt;
+
+	// how many bytes should we get back?
+	uint32_t rxcnt;
+
+	// what should we do when we're done?
+	I2C_CALLBK_T callback;
+
+	// where is this all happening?
+	BAP_I2C_Address_t addr;
+
+	// Is it a 10-bit address?
+	bool tenbit;
+}BAP_I2C_MsgParam_t;
+
+
+enum {
+	BAP_I2C_IDLE,
+	BAP_I2C_ADDRESSING,
+	BAP_I2C_TENBITADDRESSING,
+	BAP_I2C_MSGINPROGRESS,
+};
+
+//// struct for maintaining I2C bus state
+typedef struct BAP_I2C_Bus{
+	// Buffer for RX and index
+	uint8_t* master_tx_data;
+	uint32_t master_tx_index;
+
+	// Buffer for TX and index
+	uint8_t* master_rx_data;
+	uint32_t master_rx_index;
+
+	// max amount of bytes transmittable and receivable.
+	uint32_t mem_size;
+
+	// current I2C state
+	uint32_t state;
+
+	// currently in-progress message
+	BAP_I2C_MsgParam_t msg;
+
+	// stop at the end of a message?
+	bool stop_flag;
+}BAP_I2C_Bus_t;
+
+void BAP_I2C_Init(CHIP_PINx_T sda, CHIP_PINx_T scl);
+void BAP_I2C_SetAsMaster(BAP_I2C_Bus_t* I2C);
+ErrorCode_t BAP_I2C_MasterProcessNewMessage(BAP_I2C_MsgParam_t* param, uint8_t* data);
 ErrorCode_t BAP_I2C_InitiateHighSpeedMode();
+
+ErrorCode_t BAP_I2C_SetTimeout(uint32_t timeout);
+
+ErrorCode_t BAP_I2C_SetBaud(uint32_t baud);
+void BAP_I2C_DisableHighSpeedMode();
 
 #endif /* BAP_I2C_H_ */

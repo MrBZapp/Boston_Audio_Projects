@@ -9,9 +9,6 @@
 #ifndef BAP_MAX1164X_ADC_H_
 #define BAP_MAX1164X_ADC_H_
 
-// I2C Memory allocation constant for structure use 0x20 is default
-#define MAX1164x_MEMSIZE 0x20
-
 // Constant defines for each channel
 #define MAX1164x_CHAN_A 0
 #define MAX1164x_CHAN_B 1
@@ -41,11 +38,9 @@
 #define MAX1164x_CHANCNT 2
 #define MAX1164x_SAMPBYTECNT 4
 
-typedef struct MAX1164x_Sample
-{
-	uint16_t A;
-	uint16_t B;
-}MAX1164x_Sample_t;
+// I2C Memory allocation constant for rx and tx buffers
+// to allow for a full channel receive with a byte of slop room
+#define MAX1164x_MEMSIZE 5
 
 // Register definition of the Configuration Register
 // Note, these structs are currently arranged for little-endianness.
@@ -82,16 +77,9 @@ typedef union
 
 // Definition a single MAX1164x Chip
 typedef struct MAX1164x{
-	// Registers
-	MAX1164x_Setup_t SetupReg;
-	MAX1164x_Config_t ConfigReg;
-
-	// I2C master handle and memory for ROM API
-	I2C_HANDLE_T* i2cHandleMaster;
-
-	// Use a buffer size larger than the expected return value of
-	// i2c_get_mem_size() for the static I2C handle type
-	uint32_t i2cMasterHandleMEM[MAX1164x_MEMSIZE];
+	// place for raw data to live before being shipped to the sample buffer
+	uint8_t tx_buffer[MAX1164x_MEMSIZE];
+	uint8_t rx_buffer[MAX1164x_MEMSIZE];
 
 	// Last bank of sample data that was received
 	union {
@@ -99,15 +87,14 @@ typedef struct MAX1164x{
 		uint16_t channel[MAX1164x_SAMPBYTECNT / 2];
 	}sample_buffer;
 
-	// variables for storing state of MAX1164x
-	bool UseStopFlag;
+	// MAX1164x Write-only register models
+	MAX1164x_Setup_t setup;
+	MAX1164x_Config_t config;
 }MAX1164x_t;
 
-// Global error flag
-volatile ErrorCode_t interruptErrorFlag;
-volatile uint16_t sample_count;
+void MAX1164x_Init(MAX1164x_t* MAX1164x);
 
-void MAX1164x_Init(MAX1164x_t* MAX1164x, CHIP_PINx_T sda, CHIP_PINx_T scl);
+void MAX1164x_AttachToI2C(MAX1164x_t* ADC, BAP_I2C_Bus_t* I2C);
 
 ErrorCode_t MAX1164x_RequestNewSample(MAX1164x_t* MAX1164x);
 
@@ -117,6 +104,6 @@ void MAX1164x_UpdateSetup(MAX1164x_t* MAX1164x);
 
 void MAX1164x_SetChannel(MAX1164x_t* MAX1164x, bool chnl);
 
-void MAX1164x_SetSpeed(MAX1164x_t* MAX1164x, bool spd);
+void MAX1164x_SetSpeed(bool spd);
 
 #endif /* BAP_MAX1164X_ADC_H_ */
