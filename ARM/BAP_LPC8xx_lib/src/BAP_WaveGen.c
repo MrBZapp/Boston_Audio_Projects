@@ -53,10 +53,10 @@ void WaveGenInit(WaveGen* Generator, float freq)
 	LPC_SCT->REGMODE_L = 0;
 
 	// what does this do?
-	LPC_SCT->EVENT[0].CTRL = 0x00001000;
+	//LPC_SCT->EVENT[0].CTRL = 0x00001000;
 
 	// By writing all ones, all events are unmasked and allowed to happen.
-	LPC_SCT->EVENT[0].STATE = 0xFFFFFFFF;
+	//LPC_SCT->EVENT[0].STATE = 0xFFFFFFFF;
 
 	// Event 0 is used to limit the counter
 	LPC_SCT->LIMIT_L = (1 << 0);
@@ -67,9 +67,9 @@ void WaveGenInit(WaveGen* Generator, float freq)
 	LPC_SCT->OUT[1].CLR = (1 << 0);
 
 	/* Setup event 1 to trigger on match 1 and set CTOUT0 high */
-	LPC_SCT->EVENT[1].CTRL = (1 << 0) | (1 << 12);
+	//LPC_SCT->EVENT[1].CTRL = (1 << 0) | (1 << 12);
 	// What does this do?
-	LPC_SCT->EVENT[1].STATE = 1;
+	//LPC_SCT->EVENT[1].STATE = 1;
 	LPC_SCT->OUT[0].SET = (1 << 1);
 
 	setWidth(Generator, 50);

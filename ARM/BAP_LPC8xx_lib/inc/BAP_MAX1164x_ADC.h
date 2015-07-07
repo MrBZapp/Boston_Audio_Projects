@@ -16,7 +16,7 @@
 
 //Speeds of bit rates
 #define MAX1164x_FAST_BITRATE        400000
-#define MAX1164x_HIGHSPEED_BITRATE  1000000
+#define MAX1164x_HIGHSPEED_BITRATE  1700000
 #define	MAX1164x_SPD_LOW FALSE
 #define MAX1164x_SPD_HI TRUE
 
@@ -78,23 +78,20 @@ typedef union
 // Definition a single MAX1164x Chip
 typedef struct MAX1164x{
 	// place for raw data to live before being shipped to the sample buffer
-	uint8_t tx_buffer[MAX1164x_MEMSIZE];
-	uint8_t rx_buffer[MAX1164x_MEMSIZE];
+	volatile uint8_t rx_buffer[MAX1164x_MEMSIZE];
 
 	// Last bank of sample data that was received
 	union {
 		uint8_t buffer[MAX1164x_SAMPBYTECNT];
 		uint16_t channel[MAX1164x_SAMPBYTECNT / 2];
 	}sample_buffer;
-
+	uint8_t stop;
 	// MAX1164x Write-only register models
 	MAX1164x_Setup_t setup;
 	MAX1164x_Config_t config;
 }MAX1164x_t;
 
-void MAX1164x_Init(MAX1164x_t* MAX1164x);
-
-void MAX1164x_AttachToI2C(MAX1164x_t* ADC, BAP_I2C_Bus_t* I2C);
+void MAX1164x_InitChip(MAX1164x_t* MAX1164x);
 
 ErrorCode_t MAX1164x_RequestNewSample(MAX1164x_t* MAX1164x);
 

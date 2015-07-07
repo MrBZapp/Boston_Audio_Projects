@@ -12,176 +12,137 @@
 #define SEVENBIT_MASK 0x7F
 #define BAP_WRITE_BIT (1 << 0)
 
-//// Allow the IRQ to access the I2C structure
-static BAP_I2C_Bus_t* local_I2C;
+#define BAP_I2C_BUFFER_SIZE 16
 
+/* Tx buffer */
+static BAP_I2C_Frame_t BAP_I2C_FrameData[BAP_I2C_BUFFER_SIZE];
+static RINGBUFF_T BAP_I2C_Frames;
+
+
+//// Allow the IRQ to access the last frame sent by the I2C bus
+static BAP_I2C_Frame_t local_frame;
+static volatile uint8_t rxtx_message_flag;
 
 //// Static functions and IRQ
-/*
- * Begins the transmission of the message
- * by managing the current message's address
- * and initiating the start condition
- */
-static void BAP_I2C_Master_AddressSlave()
+static void BAP_I2C_Reset()
 {
-	uint8_t frame = 0; // empty frame
-	uint8_t strst = BAP_I2C_MSTSTART; // assume we're starting a new transmission
+	rxtx_message_flag = 0;
 
-	if (local_I2C->msg.tenbit)
+	local_frame.callback = 0;
+	local_frame.txdata = 0;
+	local_frame.rxcnt = 0;
+	local_frame.rxpoint = 0;
+	local_frame.ack_nack_ = 0;
+	local_frame.start = 0;
+	local_frame.stop = 0;
+
+	RingBuffer_Flush(&BAP_I2C_Frames);
+
+	// Clear the arbitration loss and errors.
+	Chip_I2CM_ClearStatus(LPC_I2C, I2C_STAT_MSTRARBLOSS | I2C_STAT_MSTSTSTPERR);
+
+	Chip_I2C_ClearInt(LPC_I2C, I2C_INTENSET_MSTPENDING | I2C_INTENSET_MSTRARBLOSS | I2C_INTENSET_MSTSTSTPERR);
+
+}
+
+static ErrorCode_t BAP_I2C_NextFrame()
+{
+	// If there is a frame, process it
+	if (RingBuffer_Pop(&BAP_I2C_Frames, &local_frame))
 	{
-		switch(local_I2C->state){
-		// Entry Point 1
-		default:
-			// make sure the message accounts for the extra byte we need to send
-			local_I2C->msg.txcnt++;
+		// The I2C Bus is now active.
+		rxtx_message_flag = 1;
 
-			// format the MSB correctly
-			frame = BAP_I2C_MASTRCMD_TENBITADDR(local_I2C->msg.addr.byte[1]);
+		// write address or whatever other data is there to be written
+		LPC_I2C->MSTDAT = (uint32_t) local_frame.txdata;
 
-			// set state to indicate the next byte will be from the address
-			local_I2C->state = BAP_I2C_ADDRESSING;
-			break;
-
-		// Entry Point 2
-		case(BAP_I2C_ADDRESSING):
-			// If we're Addressing, we've been here before.
-			// we have no extra bytes to transmit, remove the extra byte from the count
-			local_I2C->msg.txcnt--;
-
-			// Load up the second byte
-			frame = local_I2C->msg.addr.byte[0];
-
-			// Set the state to indicate we need to re-start next time we come through here.
-			local_I2C->state = BAP_I2C_TENBITADDRESSING;
-
-			// Set the Master command type to "continue" instead of start to continue the address.
-			strst = BAP_I2C_MSTCONTINUE;
-			break;
-
-		// Entry Point 3
-		case(BAP_I2C_TENBITADDRESSING):
-			// Place the two most significant bits in the data frame after the 10-Bit address Master command.
-			frame = BAP_I2C_MASTRCMD_TENBITADDR(local_I2C->msg.addr.byte[1]);
-
-			// set the state to indicate that the next byte will be from the message
-			local_I2C->state = BAP_I2C_MSGINPROGRESS;
-			break;
+		// if the frame is a start condition, send the start condition, otherwise, send a continue.
+		if (local_frame.start == 1)
+		{
+			LPC_I2C->MSTCTL = I2C_MSTCTL_MSTSTART;
 		}
+
+		// if it isn't, we're continuing a transmission
+		else
+		{
+			LPC_I2C->MSTCTL = I2C_MSTCTL_MSTCONTINUE;
+		}
+
+		// Enable the interrupts
+		Chip_I2C_EnableInt(LPC_I2C, I2C_INTENSET_MSTPENDING);
 	}
+
+	// If there are no frames, turn off the interrupts and tell everyone.
 	else
 	{
-		// Otherwise, we need to send the most significant byte first.
-		frame = ((local_I2C->msg.addr.sevenbit & SEVENBIT_MASK) << 1);
-
-		// set the state to indicate that the next byte will be from the message
-		local_I2C->state = BAP_I2C_MSGINPROGRESS;
+		// Reset messaging, I2C Bus is now idle.
+		BAP_I2C_Reset();
 	}
-
-	// assume we're reading by setting the read-bit (bit0) high.
-	frame++;
-
-	// if we have more than the address to transmit we are writing. Set the r/w bit low.
-	if (local_I2C->msg.txcnt !=0)
-	{
-		frame &= ~(1 << 0);
-	}
-
-	// Load the data register with the frame
-	BAP_I2C->MSTDAT = frame;
-
-	// enable the MSTPENDING interrupt flag
-	BAP_I2C->INTENSET |= BAP_I2C_MSTPENDING;
-
-	// start/continue/restart the transfer
-	BAP_I2C->MSTCTL |= strst;
-
-	// Increment the index and reduce the count
-	local_I2C->master_tx_index++;
-	local_I2C->msg.txcnt--;
+	return LPC_OK;
 }
-
-
-static void BAP_I2C_Master_TX_Continue()
-{
-	// Load the data register with the value under the index.
-	BAP_I2C->MSTDAT = local_I2C->master_rx_data[local_I2C->master_tx_index];
-
-	// continue the transfer
-	BAP_I2C->MSTCTL |= BAP_I2C_MSTCONTINUE;
-
-	// increment the index and reduce the count
-	local_I2C->master_tx_index++;
-	local_I2C->msg.txcnt--;
-}
-
-
-static void BAP_I2C_Master_RX_Continue()
-{
-	// Copy the byte into the buffer
-	local_I2C->master_rx_data[local_I2C->master_rx_index] = BAP_I2C->MSTDAT;
-
-	// Continue with the reception
-	BAP_I2C->MSTCTL |= BAP_I2C_MSTCONTINUE;
-
-	// increment the index and reduce the count
-	local_I2C->master_rx_index++;
-	local_I2C->msg.rxcnt--;
-}
-
 
 void I2C_IRQHandler(void)
 {
-	// Check what interrupt triggered the request
-	// If it was the service becoming available, check on the status of the message
-	if (BAP_I2C->INTSTAT & BAP_I2C_MSTPENDING)
+	uint32_t status = LPC_I2C->STAT & ~I2C_STAT_RESERVED;
+	/* Master is Pending */
+	if (status & I2C_STAT_MSTPENDING)
 	{
-		switch(local_I2C->state)
+		/* Branch based on Master State Code */
+		switch (Chip_I2CM_GetMasterState(LPC_I2C))
 		{
-		// If we're addressing, just keep on doing that
-		case(BAP_I2C_ADDRESSING):
-		case(BAP_I2C_TENBITADDRESSING):
-				BAP_I2C_Master_AddressSlave();
-				break;
-
-		// If we're in the message, figgure out whether we should transmit or receive
-		case(BAP_I2C_MSGINPROGRESS):
-			// Transmit comes before receive
-			// If the transmit isn't over, transmit! This should clear the interrupt on its own?
-			if(local_I2C->msg.txcnt != 0)
+		// If there is receive data available and the receive frame has a pointer
+		case I2C_STAT_MSTCODE_RXREADY:
+			// If we're still receiving more data, break early to do that
+			if (local_frame.rxcnt > 0)
 			{
-				BAP_I2C_Master_TX_Continue();
-			}
-
-			// If the receive isn't over, receive!
-			else if (local_I2C->msg.rxcnt != 0)
-			{
-				BAP_I2C_Master_RX_Continue();
-			}
-
-			// If everything is done
-			else
-			{
-				// turn off the interrupt
-				BAP_I2C->INTENCLR = BAP_I2C_MSTPENDING;
-
-				// issue a stop or not
-				BAP_I2C->MSTCTL |= BAP_I2C_MSTSTOP(local_I2C->stop_flag);
-
-				// Set the state to idle
-				local_I2C->state = BAP_I2C_IDLE;
-
-				// fire the callback or not.
-				if(local_I2C->msg.callback != NULL)
-					local_I2C->msg.callback(LPC_OK, 0);
+				local_frame.rxcnt--;
+				// read the data into wherever the index and icrement it
+				local_frame.rxpoint[local_frame.rxcnt] = LPC_I2C->MSTDAT;
+				Chip_I2CM_MasterContinue(LPC_I2C);
+				return;
 			}
 			break;
 
-		// Bad news if we get here.
+			// If master is ready to send or just chillin
+		case I2C_STAT_MSTCODE_IDLE:
+		case I2C_STAT_MSTCODE_TXREADY:
+			break;
+
+		// If the slave was disobedient
+		case I2C_STAT_MSTCODE_NACKADR:
+		case I2C_STAT_MSTCODE_NACKDAT:
+			// Stop
+			break;
+
+		// If there is ... things that happen? Maybe? Hopefully not?
 		default:
+			//Bad news Bears.
 			break;
 		}
 	}
+
+	// POST-FRAME ACTION!!
+	// if the frame is supposed to have a stop condition, do so and release the I2C bus
+	if (local_frame.stop == 1)
+	{
+		Chip_I2CM_SendStop(LPC_I2C);
+	}
+
+	// Save the callback momentarily, we can run it after we ask for the next frame
+	VoidFuncPointer CB = local_frame.callback;
+
+	// get the next message frame.
+	BAP_I2C_NextFrame();
+
+	// if the old frame had a callback, fire it.
+	if (CB != 0)
+	{
+		CB();
+	}
+LPC_GPIO_PORT->NOT[0] |= 1<<14;
 }
+
+
 
 //// Public Functions
 /***
@@ -189,110 +150,67 @@ void I2C_IRQHandler(void)
  * It is expected that the user code will have enabled the system clock
  * and routed the pins before calling this function
  **/
-void BAP_I2C_Init(CHIP_PINx_T sda, CHIP_PINx_T scl)
+void BAP_I2C_Init()
 {
 	// Initialize the peripheral
-	Chip_I2C_Init();
+	Chip_I2C_Init(LPC_I2C);
 
-	// Allow for 400kHz+ bit rate
-	Chip_IOCON_PinSetI2CMode(LPC_IOCON, sda, PIN_I2CMODE_FASTPLUS);
-	Chip_IOCON_PinSetI2CMode(LPC_IOCON, scl, PIN_I2CMODE_FASTPLUS);
+	/* Setup clock rate for I2C */
+	Chip_I2C_SetClockDiv(LPC_I2C, 1);
 
-	// Enable the I2C IRQ
+	/* Setup I2CM transfer rate */
+	Chip_I2CM_SetBusSpeed(LPC_I2C, 400000);
+
+	// Initialize the buffer
+	RingBuffer_Init(&BAP_I2C_Frames, &BAP_I2C_FrameData, sizeof(BAP_I2C_Frame_t), BAP_I2C_BUFFER_SIZE);
+
+	// Initialize the buffer and message
+	BAP_I2C_Reset();
 	NVIC_EnableIRQ(I2C_IRQn);
 }
 
 
-/***
- * Sets the current I2C channel hardware as master
- **/
-void BAP_I2C_SetAsMaster(BAP_I2C_Bus_t* I2C)
+int BAP_I2C_GetBufferSpace()
 {
-	// Assign the local pointer
-	local_I2C = I2C;
-
-	// Enable the bus for use as a master
-	BAP_I2C->CFG |= BAP_I2C_MSTEN(1);
+	return RingBuffer_GetFree(&BAP_I2C_Frames);
 }
 
 
-ErrorCode_t BAP_I2C_SetBaud(uint32_t speed)
+ErrorCode_t BAP_I2C_AddFrame(BAP_I2C_Frame_t* frame)
 {
-	//block div 0
-	if (speed == 0)
+	if (RingBuffer_Insert(&BAP_I2C_Frames, frame))
 	{
-		return LPC_ERROR;
-	}
-
-	speed = speed * 4;
-
-	BAP_I2C->DIV = (Chip_Clock_GetSystemClockRate() / speed) & 0x0000FFFF;
-	return LPC_OK;
-
-}
-
-
-ErrorCode_t BAP_I2C_SetTimeout(uint32_t timeout)
-{
-
-	return LPC_OK; //TODO: Actually set the baud rate.
-}
-
-ErrorCode_t BAP_I2C_MasterProcessNewMessage(BAP_I2C_MsgParam_t* param, uint8_t* data)
-{
-	// check to make sure everything will fit
-	if (param->rxcnt > local_I2C->mem_size || param->txcnt > local_I2C->mem_size)
-	{
-		return ERR_I2C_BUFFER_OVERFLOW;
-	}
-
-	// is the I2C bus finished processing the last message?
-	if ((local_I2C->msg.txcnt == 0) && (local_I2C->msg.rxcnt == 0))
-	{
-		// Copy the message parameters
-		local_I2C->msg = *param;
-
-		// clear the indexes
-		local_I2C->master_rx_index = 0;
-		local_I2C->master_tx_index = 0;
-
-		// Copy the transmitting data to the tx buffer
-		memcpy(local_I2C->master_tx_data, data, param->txcnt);
-
-		// Start the transmission
-		BAP_I2C_Master_AddressSlave();
+		// If the status is idle, send the new frame(s)!
+		if (rxtx_message_flag == 0)
+		{
+			BAP_I2C_NextFrame();
+		}
+		return LPC_OK;
 	}
 	else
 	{
-		return LPC_ERROR;
+
 	}
-	return LPC_OK;
+	return LPC_ERROR;
 }
+
 
 
 /***
  * Remember to set the pins to operate in high-speed mode if using this function
  */
-ErrorCode_t BAP_I2C_InitiateHighSpeedMode()
+ErrorCode_t BAP_I2C_InitiateHighSpeedMode(VoidFuncPointer new_speed_CB)
 {
-	uint8_t hispeed = BAP_I2C_MASTERCMD_HIGHSPEED;
-	BAP_I2C_MsgParam_t param;
-
-	param.txcnt = 1;
-	param.rxcnt = 0;
-	param.callback = NULL;
-
-	 // No stop flags after going into high-speed mode!
-	local_I2C->stop_flag = 0;
+	BAP_I2C_Frame_t frame;
+	frame.msgst = 1;
+	frame.start = 1;
+	frame.rxcnt = 0;
+	frame.stop = 0;
+	// Nack from slaves
+	frame.ack_nack_ = 0;
+	frame.callback = new_speed_CB;
+	frame.txdata = BAP_I2C_MASTERCMD_HIGHSPEED;
 
 	// Start the new message, return the errors.
-	return  BAP_I2C_MasterProcessNewMessage(&param, &hispeed);
+	return  BAP_I2C_AddFrame(&frame);
 }
-
-
-void BAP_I2C_DisableHighSpeedMode(uint32_t newspeed)
-{
-	local_I2C->stop_flag = 1; // turn the stop-flag back on
-	BAP_I2C_SetBaud(newspeed); // reset to new speed
-}
-

@@ -9,7 +9,7 @@
 #define BAP_I2C_H_
 
 #include "chip.h"
-
+#include "BAP_Type.h"
 #ifndef CORE_M0PLUS
 #error CORE_M0PLUS is not defined for the LPC8xx architecture
 #error CORE_M0PLUS should be defined as part of your compiler define list
@@ -43,8 +43,7 @@ typedef struct {
 } BAP_I2C_T;
 
 // Definition of the location of the I2C registers in the LPC8XX
-#define BAP_I2C_BASE (0x40050000UL)
-#define BAP_I2C      ((BAP_I2C_T*) BAP_I2C_BASE)
+#define BAP_I2C      ((BAP_I2C_T*) LPC_I2C_BASE)
 
 // Configuration bits and offsets
 #define BAP_I2C_MSTEN(x) (x << 0)
@@ -132,33 +131,8 @@ typedef struct {
 #define BAP_I2C_MONRESTART (1 << 0)
 #define BAP_I2C_MONNACK (1 << 0)
 
-#define BAP_I2C_MASTERCMD_HIGHSPEED 0b00001111
+#define BAP_I2C_MASTERCMD_HIGHSPEED 0b00001110
 #define BAP_I2C_MASTRCMD_TENBITADDR(x) (0xF6 & (x << 1))
-typedef union {
-	uint8_t sevenbit;
-	uint8_t byte[2];
-	uint16_t tenbit;
-}BAP_I2C_Address_t;
-
-// Details about an I2C message
-typedef struct BAP_I2C_MsgParam{
-	//how many bytes are we sending?
-	//Does not include address, that is sent at the beginning of any message
-	uint32_t txcnt;
-
-	// how many bytes should we get back?
-	uint32_t rxcnt;
-
-	// what should we do when we're done?
-	I2C_CALLBK_T callback;
-
-	// where is this all happening?
-	BAP_I2C_Address_t addr;
-
-	// Is it a 10-bit address?
-	bool tenbit;
-}BAP_I2C_MsgParam_t;
-
 
 enum {
 	BAP_I2C_IDLE,
@@ -167,37 +141,17 @@ enum {
 	BAP_I2C_MSGINPROGRESS,
 };
 
-//// struct for maintaining I2C bus state
-typedef struct BAP_I2C_Bus{
-	// Buffer for RX and index
-	uint8_t* master_tx_data;
-	uint32_t master_tx_index;
+typedef struct BAP_I2C_Frame {
+	VoidFuncPointer callback; // post-frame callback. set to null if no action required.
+	uint8_t* rxpoint; // Data to be received location
+	uint8_t txdata; // Data to be transmitted
+	uint8_t rxcnt;   // receiving frame bit
+	uint8_t msgst: 1; // Message start bit
+	uint8_t start : 1;// start/repeated-start bit
+	uint8_t ack_nack_ : 1; //Acknowledge/_not-ackowledge_ expected.
+	uint8_t stop : 1;      // stop for end of frame flag;
+}BAP_I2C_Frame_t;
 
-	// Buffer for TX and index
-	uint8_t* master_rx_data;
-	uint32_t master_rx_index;
-
-	// max amount of bytes transmittable and receivable.
-	uint32_t mem_size;
-
-	// current I2C state
-	uint32_t state;
-
-	// currently in-progress message
-	BAP_I2C_MsgParam_t msg;
-
-	// stop at the end of a message?
-	bool stop_flag;
-}BAP_I2C_Bus_t;
-
-void BAP_I2C_Init(CHIP_PINx_T sda, CHIP_PINx_T scl);
-void BAP_I2C_SetAsMaster(BAP_I2C_Bus_t* I2C);
-ErrorCode_t BAP_I2C_MasterProcessNewMessage(BAP_I2C_MsgParam_t* param, uint8_t* data);
-ErrorCode_t BAP_I2C_InitiateHighSpeedMode();
-
-ErrorCode_t BAP_I2C_SetTimeout(uint32_t timeout);
-
-ErrorCode_t BAP_I2C_SetBaud(uint32_t baud);
-void BAP_I2C_DisableHighSpeedMode();
-
+void BAP_I2C_Init();
+ErrorCode_t BAP_I2C_InitiateHighSpeedMode(VoidFuncPointer new_speedCB);
 #endif /* BAP_I2C_H_ */
