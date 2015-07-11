@@ -141,7 +141,7 @@ int main(void)
 		{
 			ladderValue++;
 			ladderValue %= 31;
-			Chip_ACMP_SetupVoltLadder(LPC_CMP, (ladderValue << 0), FALSE);
+			Chip_ACMP_SetupVoltLadder(LPC_CMP, ladderValue, FALSE);
 			if (ladderValue == 0)
 			{
 

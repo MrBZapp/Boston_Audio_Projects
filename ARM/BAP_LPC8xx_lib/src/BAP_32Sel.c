@@ -16,7 +16,7 @@ void Selector_Init(LPC_CMP_T* ACMP){
 
 	// Set up comparator:
 	// set COMPEDGE on both edges, use the ACMP_in1 as the positive input, the ladder as the negative, with no hysteresis.
-	Chip_ACMP_SetupAMCPRefs(LPC_CMP, ACMP_EDGESEL_BOTH, ACMP_POSIN_ACMP_I1, ACMP_NEGIN_VLO, ACMP_HYS_NONE);
+	Chip_ACMP_SetupAMCPRefs(LPC_CMP, ACMP_EDGESEL_BOTH, ACMP_POSIN_ACMP_I2, ACMP_NEGIN_VLO, ACMP_HYS_NONE);
 }
 
 
