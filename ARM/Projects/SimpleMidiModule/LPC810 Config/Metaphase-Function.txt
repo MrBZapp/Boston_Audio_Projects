@@ -1,0 +1,1991 @@
+
+Metaphase-Function.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <g_pfnVectors>:
+   0:	00 10 00 10 ed 00 00 00 d5 00 00 00 d9 00 00 00     ................
+	...
+  2c:	dd 00 00 00 00 00 00 00 00 00 00 00 e1 00 00 00     ................
+  3c:	e5 00 00 00 a1 05 00 00 e9 00 00 00 00 00 00 00     ................
+  4c:	e9 00 00 00 e9 00 00 00 e9 00 00 00 00 00 00 00     ................
+  5c:	00 00 00 00 e9 00 00 00 e9 00 00 00 e9 00 00 00     ................
+  6c:	e9 00 00 00 e9 00 00 00 e9 00 00 00 00 00 00 00     ................
+  7c:	e9 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+	...
+  a0:	e9 00 00 00 e9 00 00 00 e9 00 00 00 e9 00 00 00     ................
+  b0:	e9 00 00 00 e9 00 00 00 e9 00 00 00 e9 00 00 00     ................
+
+000000c0 <__data_section_table>:
+  c0:	0000090c 	.word	0x0000090c
+  c4:	10000000 	.word	0x10000000
+  c8:	00000000 	.word	0x00000000
+
+000000cc <__bss_section_table>:
+  cc:	10000000 	.word	0x10000000
+  d0:	0000002c 	.word	0x0000002c
+
+000000d4 <NMI_Handler>:
+// Default exception handlers. Override the ones here by defining your own
+// handler routines in your application code.
+//*****************************************************************************
+__attribute__ ((section(".after_vectors")))
+void NMI_Handler(void)
+{
+  d4:	e7fe      	b.n	d4 <NMI_Handler>
+  d6:	46c0      	nop			; (mov r8, r8)
+
+000000d8 <HardFault_Handler>:
+    {
+    }
+}
+__attribute__ ((section(".after_vectors")))
+void HardFault_Handler(void)
+{
+  d8:	e7fe      	b.n	d8 <HardFault_Handler>
+  da:	46c0      	nop			; (mov r8, r8)
+
+000000dc <SVC_Handler>:
+    {
+    }
+}
+__attribute__ ((section(".after_vectors")))
+void SVC_Handler(void)
+{
+  dc:	e7fe      	b.n	dc <SVC_Handler>
+  de:	46c0      	nop			; (mov r8, r8)
+
+000000e0 <PendSV_Handler>:
+    {
+    }
+}
+__attribute__ ((section(".after_vectors")))
+void PendSV_Handler(void)
+{
+  e0:	e7fe      	b.n	e0 <PendSV_Handler>
+  e2:	46c0      	nop			; (mov r8, r8)
+
+000000e4 <SysTick_Handler>:
+    {
+    }
+}
+__attribute__ ((section(".after_vectors")))
+void SysTick_Handler(void)
+{
+  e4:	e7fe      	b.n	e4 <SysTick_Handler>
+  e6:	46c0      	nop			; (mov r8, r8)
+
+000000e8 <BOD_IRQHandler>:
+// handler is not present in the application code.
+//
+//*****************************************************************************
+__attribute__ ((section(".after_vectors")))
+void IntDefaultHandler(void)
+{
+  e8:	e7fe      	b.n	e8 <BOD_IRQHandler>
+  ea:	46c0      	nop			; (mov r8, r8)
+
+000000ec <ResetISR>:
+// Sets up a simple runtime environment and initializes the C/C++
+// library.
+//*****************************************************************************
+__attribute__ ((section(".after_vectors")))
+void
+ResetISR(void) {
+  ec:	b570      	push	{r4, r5, r6, lr}
+
+    // Load base address of Global Section Table
+    SectionTableAddr = &__data_section_table;
+
+    // Copy the data sections from flash to SRAM.
+    while (SectionTableAddr < &__data_section_table_end) {
+  ee:	4c17      	ldr	r4, [pc, #92]	; (14c <ResetISR+0x60>)
+  f0:	4d17      	ldr	r5, [pc, #92]	; (150 <ResetISR+0x64>)
+  f2:	42ac      	cmp	r4, r5
+  f4:	d20e      	bcs.n	114 <ResetISR+0x28>
+        LoadAddr = *SectionTableAddr++;
+  f6:	6820      	ldr	r0, [r4, #0]
+        ExeAddr = *SectionTableAddr++;
+  f8:	6861      	ldr	r1, [r4, #4]
+  fa:	340c      	adds	r4, #12
+  fc:	1f23      	subs	r3, r4, #4
+        SectionLen = *SectionTableAddr++;
+  fe:	681a      	ldr	r2, [r3, #0]
+__attribute__ ((section(".after_vectors")))
+void data_init(unsigned int romstart, unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int *pulSrc = (unsigned int*) romstart;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+ 100:	2300      	movs	r3, #0
+ 102:	2a00      	cmp	r2, #0
+ 104:	d0f5      	beq.n	f2 <ResetISR+0x6>
+        *pulDest++ = *pulSrc++;
+ 106:	581e      	ldr	r6, [r3, r0]
+ 108:	505e      	str	r6, [r3, r1]
+__attribute__ ((section(".after_vectors")))
+void data_init(unsigned int romstart, unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int *pulSrc = (unsigned int*) romstart;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+ 10a:	3304      	adds	r3, #4
+ 10c:	429a      	cmp	r2, r3
+ 10e:	d8fa      	bhi.n	106 <ResetISR+0x1a>
+
+    // Load base address of Global Section Table
+    SectionTableAddr = &__data_section_table;
+
+    // Copy the data sections from flash to SRAM.
+    while (SectionTableAddr < &__data_section_table_end) {
+ 110:	42ac      	cmp	r4, r5
+ 112:	d3f0      	bcc.n	f6 <ResetISR+0xa>
+        SectionLen = *SectionTableAddr++;
+        data_init(LoadAddr, ExeAddr, SectionLen);
+    }
+    // At this point, SectionTableAddr = &__bss_section_table;
+    // Zero fill the bss segment
+    while (SectionTableAddr < &__bss_section_table_end) {
+ 114:	4a0f      	ldr	r2, [pc, #60]	; (154 <ResetISR+0x68>)
+ 116:	4294      	cmp	r4, r2
+ 118:	d213      	bcs.n	142 <ResetISR+0x56>
+ 11a:	1c23      	adds	r3, r4, #0
+ 11c:	3308      	adds	r3, #8
+ 11e:	1dd5      	adds	r5, r2, #7
+ 120:	1aed      	subs	r5, r5, r3
+ 122:	08ed      	lsrs	r5, r5, #3
+ 124:	00ed      	lsls	r5, r5, #3
+ 126:	195d      	adds	r5, r3, r5
+
+__attribute__ ((section(".after_vectors")))
+void bss_init(unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+ 128:	2100      	movs	r1, #0
+    }
+    // At this point, SectionTableAddr = &__bss_section_table;
+    // Zero fill the bss segment
+    while (SectionTableAddr < &__bss_section_table_end) {
+        ExeAddr = *SectionTableAddr++;
+        SectionLen = *SectionTableAddr++;
+ 12a:	6862      	ldr	r2, [r4, #4]
+        data_init(LoadAddr, ExeAddr, SectionLen);
+    }
+    // At this point, SectionTableAddr = &__bss_section_table;
+    // Zero fill the bss segment
+    while (SectionTableAddr < &__bss_section_table_end) {
+        ExeAddr = *SectionTableAddr++;
+ 12c:	6820      	ldr	r0, [r4, #0]
+
+__attribute__ ((section(".after_vectors")))
+void bss_init(unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+ 12e:	2300      	movs	r3, #0
+ 130:	2a00      	cmp	r2, #0
+ 132:	d003      	beq.n	13c <ResetISR+0x50>
+        *pulDest++ = 0;
+ 134:	5019      	str	r1, [r3, r0]
+
+__attribute__ ((section(".after_vectors")))
+void bss_init(unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+ 136:	3304      	adds	r3, #4
+ 138:	429a      	cmp	r2, r3
+ 13a:	d8fb      	bhi.n	134 <ResetISR+0x48>
+ 13c:	3408      	adds	r4, #8
+        SectionLen = *SectionTableAddr++;
+        data_init(LoadAddr, ExeAddr, SectionLen);
+    }
+    // At this point, SectionTableAddr = &__bss_section_table;
+    // Zero fill the bss segment
+    while (SectionTableAddr < &__bss_section_table_end) {
+ 13e:	42ac      	cmp	r4, r5
+ 140:	d1f3      	bne.n	12a <ResetISR+0x3e>
+        ExeAddr = *SectionTableAddr++;
+        SectionLen = *SectionTableAddr++;
+        bss_init(ExeAddr, SectionLen);
+    }
+#if defined (__USE_CMSIS) || defined (__USE_LPCOPEN)
+    SystemInit();
+ 142:	f000 f995 	bl	470 <SystemInit>
+    __libc_init_array();
+#endif
+
+#if defined (__REDLIB__)
+    // Call the Redlib library, which in turn calls main()
+    __main() ;
+ 146:	f000 fb65 	bl	814 <__weak_main>
+ 14a:	e7fe      	b.n	14a <ResetISR+0x5e>
+ 14c:	000000c0 	.word	0x000000c0
+ 150:	000000cc 	.word	0x000000cc
+ 154:	000000d4 	.word	0x000000d4
+
+00000158 <data_init>:
+// are written as separate functions rather than being inlined within the
+// ResetISR() function in order to cope with MCUs with multiple banks of
+// memory.
+//*****************************************************************************
+__attribute__ ((section(".after_vectors")))
+void data_init(unsigned int romstart, unsigned int start, unsigned int len) {
+ 158:	b510      	push	{r4, lr}
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int *pulSrc = (unsigned int*) romstart;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+ 15a:	2300      	movs	r3, #0
+ 15c:	2a00      	cmp	r2, #0
+ 15e:	d004      	beq.n	16a <data_init+0x12>
+        *pulDest++ = *pulSrc++;
+ 160:	581c      	ldr	r4, [r3, r0]
+ 162:	505c      	str	r4, [r3, r1]
+__attribute__ ((section(".after_vectors")))
+void data_init(unsigned int romstart, unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int *pulSrc = (unsigned int*) romstart;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+ 164:	3304      	adds	r3, #4
+ 166:	429a      	cmp	r2, r3
+ 168:	d8fa      	bhi.n	160 <data_init+0x8>
+        *pulDest++ = *pulSrc++;
+}
+ 16a:	bd10      	pop	{r4, pc}
+
+0000016c <bss_init>:
+
+__attribute__ ((section(".after_vectors")))
+void bss_init(unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+ 16c:	2300      	movs	r3, #0
+        *pulDest++ = 0;
+ 16e:	2200      	movs	r2, #0
+
+__attribute__ ((section(".after_vectors")))
+void bss_init(unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+ 170:	2900      	cmp	r1, #0
+ 172:	d003      	beq.n	17c <bss_init+0x10>
+        *pulDest++ = 0;
+ 174:	501a      	str	r2, [r3, r0]
+
+__attribute__ ((section(".after_vectors")))
+void bss_init(unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+ 176:	3304      	adds	r3, #4
+ 178:	4299      	cmp	r1, r3
+ 17a:	d8fb      	bhi.n	174 <bss_init+0x8>
+        *pulDest++ = 0;
+}
+ 17c:	4770      	bx	lr
+ 17e:	46c0      	nop			; (mov r8, r8)
+ 180:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 184:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 188:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 18c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 190:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 194:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 198:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 19c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1a0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1a4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1a8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1ac:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1b0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1b4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1b8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1bc:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1c0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1c4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1c8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1cc:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1d0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1d4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1d8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1dc:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1e0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1e4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1e8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1ec:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1f0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1f4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1f8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 1fc:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 200:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 204:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 208:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 20c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 210:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 214:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 218:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 21c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 220:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 224:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 228:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 22c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 230:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 234:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 238:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 23c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 240:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 244:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 248:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 24c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 250:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 254:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 258:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 25c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 260:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 264:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 268:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 26c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 270:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 274:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 278:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 27c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 280:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 284:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 288:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 28c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 290:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 294:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 298:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 29c:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2a0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2a4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2a8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2ac:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2b0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2b4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2b8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2bc:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2c0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2c4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2c8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2cc:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2d0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2d4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2d8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2dc:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2e0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2e4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2e8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2ec:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2f0:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2f4:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+ 2f8:	ffff ffff 			; <UNDEFINED> instruction: 0xffffffff
+
+000002fc <CRP_WORD>:
+ 2fc:	ffff ffff                                   ....
+
+00000300 <main>:
+
+void SelectDAC(){
+
+}
+
+int main(void) {
+ 300:	b5f0      	push	{r4, r5, r6, r7, lr}
+ 302:	4646      	mov	r6, r8
+ 304:	4657      	mov	r7, sl
+ 306:	b4c0      	push	{r6, r7}
+ * @param	clk	: Clock to enable
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_Clock_EnablePeriphClock(CHIP_SYSCTL_CLOCK_T clk)
+{
+	LPC_SYSCTL->SYSAHBCLKCTRL = (1 << clk) | (LPC_SYSCTL->SYSAHBCLKCTRL & ~SYSCTL_SYSAHBCLKCTRL_RESERVED);
+ 308:	4c50      	ldr	r4, [pc, #320]	; (44c <main+0x14c>)
+ 30a:	b09f      	sub	sp, #124	; 0x7c
+	// Standard boot procedure
+	CoreClockInit_30Hz();
+ 30c:	f000 f8f2 	bl	4f4 <CoreClockInit_30Hz>
+ 310:	2380      	movs	r3, #128	; 0x80
+ 312:	58e2      	ldr	r2, [r4, r3]
+#define REC 1
+#define LPC812
+
+void SelectADC1(){
+    /* SPI0_SCK */
+    LPC_SWM->PINASSIGN[3] = 0x0bffffffUL;
+ 314:	494e      	ldr	r1, [pc, #312]	; (450 <main+0x150>)
+ 316:	0312      	lsls	r2, r2, #12
+ 318:	0b12      	lsrs	r2, r2, #12
+ 31a:	431a      	orrs	r2, r3
+ 31c:	50e2      	str	r2, [r4, r3]
+ 31e:	4a4d      	ldr	r2, [pc, #308]	; (454 <main+0x154>)
+    /* Pin Assign 1 bit Configuration */
+    /* ACMP_I2 */
+    /* SWCLK */
+    /* SWDIO */
+    /* RESET */
+    LPC_SWM->PINENABLE0 = 0xffffffb1UL;
+ 320:	204f      	movs	r0, #79	; 0x4f
+#define REC 1
+#define LPC812
+
+void SelectADC1(){
+    /* SPI0_SCK */
+    LPC_SWM->PINASSIGN[3] = 0x0bffffffUL;
+ 322:	60d1      	str	r1, [r2, #12]
+    /* SPI0_MISO */
+    /* SPI0_SSEL */
+    LPC_SWM->PINASSIGN[4] = 0xff0f0affUL;
+ 324:	494c      	ldr	r1, [pc, #304]	; (458 <main+0x158>)
+    /* Pin Assign 1 bit Configuration */
+    /* ACMP_I2 */
+    /* SWCLK */
+    /* SWDIO */
+    /* RESET */
+    LPC_SWM->PINENABLE0 = 0xffffffb1UL;
+ 326:	4240      	negs	r0, r0
+void SelectADC1(){
+    /* SPI0_SCK */
+    LPC_SWM->PINASSIGN[3] = 0x0bffffffUL;
+    /* SPI0_MISO */
+    /* SPI0_SSEL */
+    LPC_SWM->PINASSIGN[4] = 0xff0f0affUL;
+ 328:	6111      	str	r1, [r2, #16]
+    /* Pin Assign 1 bit Configuration */
+    /* ACMP_I2 */
+    /* SWCLK */
+    /* SWDIO */
+    /* RESET */
+    LPC_SWM->PINENABLE0 = 0xffffffb1UL;
+ 32a:	21e0      	movs	r1, #224	; 0xe0
+ 32c:	0049      	lsls	r1, r1, #1
+ 32e:	5050      	str	r0, [r2, r1]
+ 330:	58e1      	ldr	r1, [r4, r3]
+ 332:	2240      	movs	r2, #64	; 0x40
+ 334:	0309      	lsls	r1, r1, #12
+ 336:	0b09      	lsrs	r1, r1, #12
+ 338:	430a      	orrs	r2, r1
+ 33a:	50e2      	str	r2, [r4, r3]
+ 33c:	58e1      	ldr	r1, [r4, r3]
+ 33e:	2280      	movs	r2, #128	; 0x80
+ 340:	0309      	lsls	r1, r1, #12
+ 342:	0b09      	lsrs	r1, r1, #12
+ 344:	0112      	lsls	r2, r2, #4
+ 346:	430a      	orrs	r2, r1
+ 348:	50e2      	str	r2, [r4, r3]
+ 34a:	58e1      	ldr	r1, [r4, r3]
+ 34c:	2280      	movs	r2, #128	; 0x80
+ 34e:	0309      	lsls	r1, r1, #12
+ 350:	0b09      	lsrs	r1, r1, #12
+ 352:	0312      	lsls	r2, r2, #12
+ 354:	430a      	orrs	r2, r1
+ 356:	50e2      	str	r2, [r4, r3]
+
+	// We leave the Switch Matrix clock enabled so we can change where the Slave Select output goes
+
+// Configure debug LED
+// TODO: get rid of this
+LPC_GPIO_PORT->DIR[0] |= (1 << LED_LOCATION);
+ 358:	26a0      	movs	r6, #160	; 0xa0
+ 35a:	2280      	movs	r2, #128	; 0x80
+ 35c:	0192      	lsls	r2, r2, #6
+ 35e:	0636      	lsls	r6, r6, #24
+ 360:	58b1      	ldr	r1, [r6, r2]
+ 362:	01db      	lsls	r3, r3, #7
+LPC_GPIO_PORT->SET[0] = 1 << LED_LOCATION;
+ 364:	2788      	movs	r7, #136	; 0x88
+
+	// We leave the Switch Matrix clock enabled so we can change where the Slave Select output goes
+
+// Configure debug LED
+// TODO: get rid of this
+LPC_GPIO_PORT->DIR[0] |= (1 << LED_LOCATION);
+ 366:	4319      	orrs	r1, r3
+LPC_GPIO_PORT->SET[0] = 1 << LED_LOCATION;
+ 368:	01bf      	lsls	r7, r7, #6
+
+	// We leave the Switch Matrix clock enabled so we can change where the Slave Select output goes
+
+// Configure debug LED
+// TODO: get rid of this
+LPC_GPIO_PORT->DIR[0] |= (1 << LED_LOCATION);
+ 36a:	50b1      	str	r1, [r6, r2]
+LPC_GPIO_PORT->SET[0] = 1 << LED_LOCATION;
+
+	// Initialize the 32-position selector
+	Selector_Init(LPC_CMP);
+ 36c:	483b      	ldr	r0, [pc, #236]	; (45c <main+0x15c>)
+	// We leave the Switch Matrix clock enabled so we can change where the Slave Select output goes
+
+// Configure debug LED
+// TODO: get rid of this
+LPC_GPIO_PORT->DIR[0] |= (1 << LED_LOCATION);
+LPC_GPIO_PORT->SET[0] = 1 << LED_LOCATION;
+ 36e:	51f3      	str	r3, [r6, r7]
+
+	// Initialize the 32-position selector
+	Selector_Init(LPC_CMP);
+ 370:	f000 f882 	bl	478 <Selector_Init>
+ * @note	The peripheral will stay in reset until reset is de-asserted. Call
+ * Chip_SYSCTL_DeassertPeriphReset() to de-assert the reset
+ */
+STATIC INLINE void Chip_SYSCTL_AssertPeriphReset(CHIP_SYSCTL_PERIPH_RESET_T periph)
+{
+	LPC_SYSCTL->PRESETCTRL &= ~((1 << (uint32_t) periph) | SYSCTL_PRESETCTRL_RESERVED);
+ 374:	6862      	ldr	r2, [r4, #4]
+ 376:	4b3a      	ldr	r3, [pc, #232]	; (460 <main+0x160>)
+
+	// Clear settings of whatever other hardware was using the SPI previously
+	Chip_SYSCTL_PeriphReset(RESET_SPI0);
+
+	LPC_SPI0->DIV = SPI_DIV_VAL(Chip_SPI_CalClkRateDivider(LPC_SPI0, 20000000));
+ 378:	493a      	ldr	r1, [pc, #232]	; (464 <main+0x164>)
+ 37a:	4013      	ands	r3, r2
+ 37c:	6063      	str	r3, [r4, #4]
+ * @param	periph	: Peripheral to de-assert reset for
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SYSCTL_DeassertPeriphReset(CHIP_SYSCTL_PERIPH_RESET_T periph)
+{
+	LPC_SYSCTL->PRESETCTRL = (1 << (uint32_t) periph) | (LPC_SYSCTL->PRESETCTRL & ~SYSCTL_PRESETCTRL_RESERVED);
+ 37e:	6862      	ldr	r2, [r4, #4]
+ 380:	2301      	movs	r3, #1
+ 382:	04d2      	lsls	r2, r2, #19
+ 384:	0cd2      	lsrs	r2, r2, #19
+ 386:	4313      	orrs	r3, r2
+ 388:	6063      	str	r3, [r4, #4]
+ 38a:	4c37      	ldr	r4, [pc, #220]	; (468 <main+0x168>)
+
+	// Variables for storing the last DAC outputs, and new samples
+	uint8_t record = 0, activeChan = 0;
+	uint32_t LSBytes = 0, MSBytes = 0, out = 0, ref = 0;
+ 38c:	2500      	movs	r5, #0
+	Selector_Init(LPC_CMP);
+
+	// Clear settings of whatever other hardware was using the SPI previously
+	Chip_SYSCTL_PeriphReset(RESET_SPI0);
+
+	LPC_SPI0->DIV = SPI_DIV_VAL(Chip_SPI_CalClkRateDivider(LPC_SPI0, 20000000));
+ 38e:	1c20      	adds	r0, r4, #0
+ 390:	f000 f9e0 	bl	754 <Chip_SPI_CalClkRateDivider>
+ 394:	0403      	lsls	r3, r0, #16
+ 396:	0c1b      	lsrs	r3, r3, #16
+ 398:	6263      	str	r3, [r4, #36]	; 0x24
+
+	// Variables for storing the last DAC outputs, and new samples
+	uint8_t record = 0, activeChan = 0;
+	uint32_t LSBytes = 0, MSBytes = 0, out = 0, ref = 0;
+	uint16_t newA = 0, newB = 0;
+ 39a:	466a      	mov	r2, sp
+ 39c:	2300      	movs	r3, #0
+ 39e:	ac02      	add	r4, sp, #8
+ 3a0:	8013      	strh	r3, [r2, #0]
+ 3a2:	8023      	strh	r3, [r4, #0]
+	{
+
+		// Finished talking with the DAC, Attach the ADC to the SPI again.
+		ADC121S0_AttatchToSPI(LPC_SPI0);
+
+		LPC_GPIO_PORT->SET[0] = 1 << LED_LOCATION;
+ 3a4:	46b8      	mov	r8, r7
+
+	while(1)
+	{
+
+		// Finished talking with the DAC, Attach the ADC to the SPI again.
+		ADC121S0_AttatchToSPI(LPC_SPI0);
+ 3a6:	4830      	ldr	r0, [pc, #192]	; (468 <main+0x168>)
+ 3a8:	f000 f87c 	bl	4a4 <ADC121S0_AttatchToSPI>
+
+		LPC_GPIO_PORT->SET[0] = 1 << LED_LOCATION;
+ 3ac:	2380      	movs	r3, #128	; 0x80
+ 3ae:	01db      	lsls	r3, r3, #7
+ 3b0:	4642      	mov	r2, r8
+ 3b2:	50b3      	str	r3, [r6, r2]
+#define REC 1
+#define LPC812
+
+void SelectADC1(){
+    /* SPI0_SCK */
+    LPC_SWM->PINASSIGN[3] = 0x0bffffffUL;
+ 3b4:	4b27      	ldr	r3, [pc, #156]	; (454 <main+0x154>)
+ 3b6:	4a26      	ldr	r2, [pc, #152]	; (450 <main+0x150>)
+ 3b8:	60da      	str	r2, [r3, #12]
+    /* SPI0_MISO */
+    /* SPI0_SSEL */
+    LPC_SWM->PINASSIGN[4] = 0xff0f0affUL;
+ 3ba:	4a27      	ldr	r2, [pc, #156]	; (458 <main+0x158>)
+ 3bc:	611a      	str	r2, [r3, #16]
+
+		LPC_GPIO_PORT->SET[0] = 1 << LED_LOCATION;
+		SelectADC1();
+
+		// when the SPI is ready, start a new request from the ADC
+		while(ADC121S0_RequestSample(LPC_SPI0) != ADC121S0_OK){}
+ 3be:	482a      	ldr	r0, [pc, #168]	; (468 <main+0x168>)
+ 3c0:	f000 f880 	bl	4c4 <ADC121S0_RequestSample>
+ 3c4:	2801      	cmp	r0, #1
+ 3c6:	d1fa      	bne.n	3be <main+0xbe>
+		
+		// The SPI should be ready to give us the next ChanA result
+		while(ADC121S0_GetRequestResult(LPC_SPI0, &newA) != ADC121S0_OK) {}
+ 3c8:	4827      	ldr	r0, [pc, #156]	; (468 <main+0x168>)
+ 3ca:	4669      	mov	r1, sp
+ 3cc:	f000 f886 	bl	4dc <ADC121S0_GetRequestResult>
+ 3d0:	2801      	cmp	r0, #1
+ 3d2:	d1f9      	bne.n	3c8 <main+0xc8>
+    LPC_SWM->PINASSIGN[4] = 0xff0f0affUL;
+}
+
+void SelectADC2(){
+   /* SPI0_SCK */
+	LPC_SWM->PINASSIGN[3] = 0x0bffffffUL;
+ 3d4:	4b1f      	ldr	r3, [pc, #124]	; (454 <main+0x154>)
+ 3d6:	4a1e      	ldr	r2, [pc, #120]	; (450 <main+0x150>)
+ 3d8:	60da      	str	r2, [r3, #12]
+	/* SPI0_MISO */
+	/* SPI0_SSEL */
+	LPC_SWM->PINASSIGN[4] = 0xff100affUL;
+ 3da:	4a24      	ldr	r2, [pc, #144]	; (46c <main+0x16c>)
+ 3dc:	611a      	str	r2, [r3, #16]
+		while(ADC121S0_GetRequestResult(LPC_SPI0, &newA) != ADC121S0_OK) {}
+
+		SelectADC2();
+
+		// when the SPI is ready, start a new request from the ADC
+		while(ADC121S0_RequestSample(LPC_SPI0) != ADC121S0_OK){}
+ 3de:	4822      	ldr	r0, [pc, #136]	; (468 <main+0x168>)
+ 3e0:	f000 f870 	bl	4c4 <ADC121S0_RequestSample>
+ 3e4:	2801      	cmp	r0, #1
+ 3e6:	d1fa      	bne.n	3de <main+0xde>
+
+		LSBytes = SAMPLE_WIDTH & out;
+ 3e8:	052b      	lsls	r3, r5, #20
+ 3ea:	0d1b      	lsrs	r3, r3, #20
+ 3ec:	469a      	mov	sl, r3
+		MSBytes = SAMPLE_WIDTH & (out >> 12);
+ 3ee:	022b      	lsls	r3, r5, #8
+ 3f0:	0d1f      	lsrs	r7, r3, #20
+
+		// Wait for the sample to be ready
+		while(ADC121S0_GetRequestResult(LPC_SPI0, &newB) != ADC121S0_OK){}
+ 3f2:	481d      	ldr	r0, [pc, #116]	; (468 <main+0x168>)
+ 3f4:	1c21      	adds	r1, r4, #0
+ 3f6:	f000 f871 	bl	4dc <ADC121S0_GetRequestResult>
+ 3fa:	2801      	cmp	r0, #1
+ 3fc:	d1f9      	bne.n	3f2 <main+0xf2>
+
+		LPC_GPIO_PORT->CLR[0] = 1 << LED_LOCATION;
+ 3fe:	2280      	movs	r2, #128	; 0x80
+ 400:	238a      	movs	r3, #138	; 0x8a
+ 402:	019b      	lsls	r3, r3, #6
+ 404:	01d2      	lsls	r2, r2, #7
+ 406:	50f2      	str	r2, [r6, r3]
+
+		// Attach The DAC to the SPI
+		TLV_AttatchToSPI(LPC_SPI0);
+ 408:	4817      	ldr	r0, [pc, #92]	; (468 <main+0x168>)
+ 40a:	f000 f8a7 	bl	55c <TLV_AttatchToSPI>
+ 40e:	4653      	mov	r3, sl
+ 410:	b29d      	uxth	r5, r3
+
+		SelectDAC();
+
+		// send out the new value, wait for the value to be placed in TX successfully
+		while (TLV_SetDACValue_noread(LPC_SPI0, TLV_DAC_1, TLV_SPD_Fast, LSBytes) != TLV_OK){}
+ 412:	4815      	ldr	r0, [pc, #84]	; (468 <main+0x168>)
+ 414:	2100      	movs	r1, #0
+ 416:	2201      	movs	r2, #1
+ 418:	1c2b      	adds	r3, r5, #0
+ 41a:	f000 f8af 	bl	57c <TLV_SetDACValue_noread>
+ 41e:	2801      	cmp	r0, #1
+ 420:	d1f7      	bne.n	412 <main+0x112>
+
+		// While we're waiting, store the old values
+		uint16_t MSbuff = newA & SAMPLE_WIDTH;
+ 422:	466b      	mov	r3, sp
+ 424:	881a      	ldrh	r2, [r3, #0]
+		uint16_t LSbuff = newB & SAMPLE_WIDTH;
+ 426:	8823      	ldrh	r3, [r4, #0]
+
+		// send out the new value, wait for the value to be placed in TX successfully
+		while (TLV_SetDACValue_noread(LPC_SPI0, TLV_DAC_1, TLV_SPD_Fast, LSBytes) != TLV_OK){}
+
+		// While we're waiting, store the old values
+		uint16_t MSbuff = newA & SAMPLE_WIDTH;
+ 428:	0512      	lsls	r2, r2, #20
+		uint16_t LSbuff = newB & SAMPLE_WIDTH;
+ 42a:	051b      	lsls	r3, r3, #20
+		{
+			data[ref] = (MSbuff << 12) | (LSbuff);
+		}
+		else
+		{
+			ref = (MSbuff << 12) | (LSbuff);
+ 42c:	0a12      	lsrs	r2, r2, #8
+ 42e:	0d1b      	lsrs	r3, r3, #20
+ 430:	4313      	orrs	r3, r2
+			out = data[ref];
+ 432:	009b      	lsls	r3, r3, #2
+ 434:	aa04      	add	r2, sp, #16
+ 436:	58d5      	ldr	r5, [r2, r3]
+ 438:	b2bf      	uxth	r7, r7
+		}
+
+		// send out the new value, wait for the value to be placed in TX successfully
+		while (TLV_SetDACValue_noread(LPC_SPI0, TLV_DAC_2, TLV_SPD_Fast, MSBytes) != TLV_OK){}
+ 43a:	480b      	ldr	r0, [pc, #44]	; (468 <main+0x168>)
+ 43c:	2101      	movs	r1, #1
+ 43e:	2201      	movs	r2, #1
+ 440:	1c3b      	adds	r3, r7, #0
+ 442:	f000 f89b 	bl	57c <TLV_SetDACValue_noread>
+ 446:	2801      	cmp	r0, #1
+ 448:	d1f7      	bne.n	43a <main+0x13a>
+ 44a:	e7ac      	b.n	3a6 <main+0xa6>
+ 44c:	40048000 	.word	0x40048000
+ 450:	0bffffff 	.word	0x0bffffff
+ 454:	4000c000 	.word	0x4000c000
+ 458:	ff0f0aff 	.word	0xff0f0aff
+ 45c:	40024000 	.word	0x40024000
+ 460:	00001ffe 	.word	0x00001ffe
+ 464:	01312d00 	.word	0x01312d00
+ 468:	40058000 	.word	0x40058000
+ 46c:	ff100aff 	.word	0xff100aff
+
+00000470 <SystemInit>:
+ * Public functions
+ ****************************************************************************/
+
+/* Set up and initialize hardware prior to call to main */
+void SystemInit(void)
+{
+ 470:	b508      	push	{r3, lr}
+#if defined(NO_BOARD_LIB)
+	/* Chip specific SystemInit */
+	Chip_SystemInit();
+ 472:	f000 f9c7 	bl	804 <Chip_SystemInit>
+#else
+	/* Board specific SystemInit */
+	Board_SystemInit();
+#endif
+}
+ 476:	bd08      	pop	{r3, pc}
+
+00000478 <Selector_Init>:
+ *      Author: Matt
+ */
+
+#include "BAP_32Sel.h"
+
+void Selector_Init(LPC_CMP_T* ACMP){
+ 478:	b507      	push	{r0, r1, r2, lr}
+	// Turn on the analog comparator
+	Chip_SYSCTL_PowerUp(SYSCTL_SLPWAKE_ACMP_PD);
+ 47a:	2080      	movs	r0, #128	; 0x80
+ 47c:	0200      	lsls	r0, r0, #8
+ 47e:	f000 f989 	bl	794 <Chip_SYSCTL_PowerUp>
+ * @param	pACMP	: Pointer to Analog Comparator block
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_ACMP_EnableVoltLadder(LPC_CMP_T *pACMP)
+{
+	pACMP->LAD = ACMP_LADENAB_BIT | (pACMP->LAD & ~ACMP_LAD_RESERVED);
+ 482:	4807      	ldr	r0, [pc, #28]	; (4a0 <Selector_Init+0x28>)
+ 484:	237e      	movs	r3, #126	; 0x7e
+ 486:	6842      	ldr	r2, [r0, #4]
+	// Enable the voltage ladder
+	Chip_ACMP_EnableVoltLadder(LPC_CMP);
+
+	// Set up comparator:
+	// set COMPEDGE on both edges, use the ACMP_in1 as the positive input, the ladder as the negative, with no hysteresis.
+	Chip_ACMP_SetupAMCPRefs(LPC_CMP, ACMP_EDGESEL_BOTH, ACMP_POSIN_ACMP_I2, ACMP_NEGIN_VLO, ACMP_HYS_NONE);
+ 488:	2110      	movs	r1, #16
+ 48a:	4013      	ands	r3, r2
+ 48c:	2201      	movs	r2, #1
+ 48e:	4313      	orrs	r3, r2
+ 490:	6043      	str	r3, [r0, #4]
+ 492:	2280      	movs	r2, #128	; 0x80
+ 494:	2300      	movs	r3, #0
+ 496:	9300      	str	r3, [sp, #0]
+ 498:	0092      	lsls	r2, r2, #2
+ 49a:	f000 f8a3 	bl	5e4 <Chip_ACMP_SetupAMCPRefs>
+}
+ 49e:	bd07      	pop	{r0, r1, r2, pc}
+ 4a0:	40024000 	.word	0x40024000
+
+000004a4 <ADC121S0_AttatchToSPI>:
+ * It can be used to disable multiple bits at once.
+ */
+STATIC INLINE void Chip_SPI_ClearCFGRegBits(LPC_SPI_T *pSPI, uint32_t bits)
+{
+	/* Update CFG register with only selected bits disabled */
+	pSPI->CFG = ~bits & (pSPI->CFG & SPI_CFG_BITMASK);
+ 4a4:	6802      	ldr	r2, [r0, #0]
+ 4a6:	2382      	movs	r3, #130	; 0x82
+ 4a8:	33ff      	adds	r3, #255	; 0xff
+ 4aa:	4013      	ands	r3, r2
+ 4ac:	6003      	str	r3, [r0, #0]
+ * It can be used to enable multiple bits at once.
+ */
+STATIC INLINE void Chip_SPI_SetCFGRegBits(LPC_SPI_T *pSPI, uint32_t bits)
+{
+	/* Update CFG register with only selected bits disabled */
+	pSPI->CFG = bits | (pSPI->CFG & SPI_CFG_BITMASK);
+ 4ae:	6802      	ldr	r2, [r0, #0]
+ 4b0:	23be      	movs	r3, #190	; 0xbe
+ 4b2:	33ff      	adds	r3, #255	; 0xff
+ 4b4:	4013      	ands	r3, r2
+ 4b6:	2205      	movs	r2, #5
+ 4b8:	4313      	orrs	r3, r2
+ 4ba:	6003      	str	r3, [r0, #0]
+	Chip_SPI_ClearCFGRegBits(pSPI, SPI_CFG_MASTER_EN | SPI_CFG_LSB_FIRST_EN |
+			SPI_CFG_CPHA_SECOND | SPI_CFG_CPOL_HI);
+	Chip_SPI_SetCFGRegBits(pSPI, config);
+
+	/* Deassert all chip selects, only in master mode */
+	pSPI->TXCTRL = SPI_TXDATCTL_DEASSERT_ALL;
+ 4bc:	23f0      	movs	r3, #240	; 0xf0
+ 4be:	031b      	lsls	r3, r3, #12
+ 4c0:	6203      	str	r3, [r0, #32]
+	Chip_SPI_ConfigureSPI(spi, SPI_CFG_CPOL_LO | // Resting state is high
+			                   SPI_CFG_CPHA_FIRST | // Data is clocked in when SCL returns to a resting state
+			                   SPI_CFG_MSB_FIRST_EN | // Data is transferred Most-significant-bit first
+			                   SPI_CFG_MASTER_EN | // Enabled as a master
+			                   SPI_CFG_SPI_EN); // Enable the spi
+}
+ 4c2:	4770      	bx	lr
+
+000004c4 <ADC121S0_RequestSample>:
+ * @note	Mask the return value with a value of type SPI_STAT_* to determine
+ * if that status is active.
+ */
+STATIC INLINE uint32_t Chip_SPI_GetStatus(LPC_SPI_T *pSPI)
+{
+	return pSPI->STAT & ~SPI_STAT_RESERVED;
+ 4c4:	6882      	ldr	r2, [r0, #8]
+    {
+		// Send a dummy frame
+		Chip_SPI_SendLastFrame(pSPI, 0xFFFF, 16);
+		return ADC121S0_OK;
+    }
+    return ERR_ADC121S0_BUSY;
+ 4c6:	2300      	movs	r3, #0
+ * and places said data in the location pointed to by the buffer
+ */
+ADC121S0_Error_t ADC121S0_RequestSample(LPC_SPI_T* pSPI)
+{
+	// If the SPI is ready and the buffer is empty.
+    if ((Chip_SPI_GetStatus(pSPI) & SPI_STAT_TXRDY))
+ 4c8:	0791      	lsls	r1, r2, #30
+ 4ca:	d502      	bpl.n	4d2 <ADC121S0_RequestSample+0xe>
+ * @param	DataSize	:  Data Size (1-16)
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SPI_SendLastFrame(LPC_SPI_T *pSPI, uint16_t Data, uint8_t DataSize)
+{
+	pSPI->TXDATCTL = SPI_TXDATCTL_ASSERT_SSEL | SPI_TXDATCTL_EOF | SPI_TXDATCTL_EOT |
+ 4cc:	4b02      	ldr	r3, [pc, #8]	; (4d8 <ADC121S0_RequestSample+0x14>)
+ 4ce:	6183      	str	r3, [r0, #24]
+    {
+		// Send a dummy frame
+		Chip_SPI_SendLastFrame(pSPI, 0xFFFF, 16);
+		return ADC121S0_OK;
+ 4d0:	2301      	movs	r3, #1
+    }
+    return ERR_ADC121S0_BUSY;
+}
+ 4d2:	1c18      	adds	r0, r3, #0
+ 4d4:	4770      	bx	lr
+ 4d6:	46c0      	nop			; (mov r8, r8)
+ 4d8:	0f30ffff 	.word	0x0f30ffff
+
+000004dc <ADC121S0_GetRequestResult>:
+
+ADC121S0_Error_t ADC121S0_GetRequestResult(LPC_SPI_T* pSPI, uint16_t* sample)
+{
+ 4dc:	b510      	push	{r4, lr}
+ 4de:	6884      	ldr	r4, [r0, #8]
+	// wait for the receive to be ready
+	if(!(Chip_SPI_GetStatus(pSPI) & SPI_STAT_RXRDY))
+ 4e0:	2201      	movs	r2, #1
+    }
+    return ERR_ADC121S0_BUSY;
+}
+
+ADC121S0_Error_t ADC121S0_GetRequestResult(LPC_SPI_T* pSPI, uint16_t* sample)
+{
+ 4e2:	1c03      	adds	r3, r0, #0
+	// wait for the receive to be ready
+	if(!(Chip_SPI_GetStatus(pSPI) & SPI_STAT_RXRDY))
+		return ERR_ADC121S0_BUSY;
+ 4e4:	2000      	movs	r0, #0
+}
+
+ADC121S0_Error_t ADC121S0_GetRequestResult(LPC_SPI_T* pSPI, uint16_t* sample)
+{
+	// wait for the receive to be ready
+	if(!(Chip_SPI_GetStatus(pSPI) & SPI_STAT_RXRDY))
+ 4e6:	4214      	tst	r4, r2
+ 4e8:	d002      	beq.n	4f0 <ADC121S0_GetRequestResult+0x14>
+ * has data in it. This function is useful for systems that don't need SPI
+ * select (SSEL) monitoring.
+ */
+STATIC INLINE uint32_t Chip_SPI_ReadRXData(LPC_SPI_T *pSPI)
+{
+	return pSPI->RXDAT & 0xFFFF;
+ 4ea:	695b      	ldr	r3, [r3, #20]
+		return ERR_ADC121S0_BUSY;
+
+	// place the sample in its rightful place
+	*sample = (uint16_t) Chip_SPI_ReadRXData(pSPI);
+	return ADC121S0_OK;
+ 4ec:	1c10      	adds	r0, r2, #0
+	// wait for the receive to be ready
+	if(!(Chip_SPI_GetStatus(pSPI) & SPI_STAT_RXRDY))
+		return ERR_ADC121S0_BUSY;
+
+	// place the sample in its rightful place
+	*sample = (uint16_t) Chip_SPI_ReadRXData(pSPI);
+ 4ee:	800b      	strh	r3, [r1, #0]
+	return ADC121S0_OK;
+}
+ 4f0:	bd10      	pop	{r4, pc}
+	...
+
+000004f4 <CoreClockInit_30Hz>:
+
+#include "BAP_Clk.h"
+
+#define PLL_60MHZ (0x24)
+
+void CoreClockInit_30Hz() {
+ 4f4:	b508      	push	{r3, lr}
+
+	 /* Enable the PLL Clock for a maximum 30MHZ SystemCoreClock */
+	LPC_SYSCTL->SYSPLLCTRL = PLL_60MHZ; /* 60 MHZ pll output clock*/
+ 4f6:	4b0d      	ldr	r3, [pc, #52]	; (52c <CoreClockInit_30Hz+0x38>)
+ 4f8:	2224      	movs	r2, #36	; 0x24
+ 4fa:	609a      	str	r2, [r3, #8]
+	LPC_SYSCTL->PDRUNCFG &= ~(0x1 << 7); /* Power-up SYSPLL          */
+ 4fc:	228e      	movs	r2, #142	; 0x8e
+ 4fe:	0092      	lsls	r2, r2, #2
+ 500:	5899      	ldr	r1, [r3, r2]
+ 502:	2080      	movs	r0, #128	; 0x80
+ 504:	4381      	bics	r1, r0
+ 506:	5099      	str	r1, [r3, r2]
+
+	while (!(LPC_SYSCTL->SYSPLLSTAT & 0x01)){/* Wait Until PLL Locked*/}
+ 508:	68d8      	ldr	r0, [r3, #12]
+ 50a:	2101      	movs	r1, #1
+ 50c:	4a07      	ldr	r2, [pc, #28]	; (52c <CoreClockInit_30Hz+0x38>)
+ 50e:	4208      	tst	r0, r1
+ 510:	d0fa      	beq.n	508 <CoreClockInit_30Hz+0x14>
+
+	LPC_SYSCTL->MAINCLKSEL = 3; /* Select PLL Clock Output  */
+ 512:	2003      	movs	r0, #3
+ 514:	6710      	str	r0, [r2, #112]	; 0x70
+	LPC_SYSCTL->MAINCLKUEN = 0x01; /* Update MCLK Clock Source */
+ 516:	6751      	str	r1, [r2, #116]	; 0x74
+
+	while (!(LPC_SYSCTL->MAINCLKUEN & 0x01)){/* Wait Until Updated*/}
+ 518:	6f5a      	ldr	r2, [r3, #116]	; 0x74
+ 51a:	07d1      	lsls	r1, r2, #31
+ 51c:	d5fc      	bpl.n	518 <CoreClockInit_30Hz+0x24>
+
+	LPC_SYSCTL->SYSAHBCLKDIV  =  2; /* Divide by 2 to get the maximum 30MHZ SystemCoreClock */
+ 51e:	4b03      	ldr	r3, [pc, #12]	; (52c <CoreClockInit_30Hz+0x38>)
+ 520:	2202      	movs	r2, #2
+ 522:	679a      	str	r2, [r3, #120]	; 0x78
+	SystemCoreClockUpdate();
+ 524:	f000 f86c 	bl	600 <SystemCoreClockUpdate>
+}
+ 528:	bd08      	pop	{r3, pc}
+ 52a:	46c0      	nop			; (mov r8, r8)
+ 52c:	40048000 	.word	0x40048000
+
+00000530 <TLV_SetupFrame>:
+static uint16_t TLV_SetupFrame(TLV_DACNumber DAC, TLV_Speed speed, uint16_t value)
+{
+	uint16_t frame = 0;
+
+	// Code the frame with the right dac and speed
+	switch(DAC)
+ 530:	2800      	cmp	r0, #0
+ 532:	d006      	beq.n	542 <TLV_SetupFrame+0x12>
+ 534:	2801      	cmp	r0, #1
+ 536:	d10c      	bne.n	552 <TLV_SetupFrame+0x22>
+	{
+	case(TLV_DAC_1):
+			frame = TLV_R1(1) | TLV_SPD(speed) | TLV_R2(0) | TLV_Datamask(value);
+			break;
+	case(TLV_DAC_2):
+			frame = TLV_R1(0) | TLV_SPD(speed) | TLV_R2(0) | TLV_Datamask(value);
+ 538:	0512      	lsls	r2, r2, #20
+ 53a:	0388      	lsls	r0, r1, #14
+ 53c:	0d12      	lsrs	r2, r2, #20
+ 53e:	4310      	orrs	r0, r2
+ 540:	e005      	b.n	54e <TLV_SetupFrame+0x1e>
+
+	// Code the frame with the right dac and speed
+	switch(DAC)
+	{
+	case(TLV_DAC_1):
+			frame = TLV_R1(1) | TLV_SPD(speed) | TLV_R2(0) | TLV_Datamask(value);
+ 542:	0512      	lsls	r2, r2, #20
+ 544:	4804      	ldr	r0, [pc, #16]	; (558 <TLV_SetupFrame+0x28>)
+ 546:	0d12      	lsrs	r2, r2, #20
+ 548:	4310      	orrs	r0, r2
+ 54a:	0389      	lsls	r1, r1, #14
+ 54c:	4308      	orrs	r0, r1
+			break;
+	case(TLV_DAC_2):
+			frame = TLV_R1(0) | TLV_SPD(speed) | TLV_R2(0) | TLV_Datamask(value);
+ 54e:	b280      	uxth	r0, r0
+			break;
+ 550:	e000      	b.n	554 <TLV_SetupFrame+0x24>
+			                   SPI_CFG_SPI_EN); // Enable the spi
+}
+
+static uint16_t TLV_SetupFrame(TLV_DACNumber DAC, TLV_Speed speed, uint16_t value)
+{
+	uint16_t frame = 0;
+ 552:	2000      	movs	r0, #0
+			break;
+	default:
+		break;
+	}
+	return frame;
+}
+ 554:	4770      	bx	lr
+ 556:	46c0      	nop			; (mov r8, r8)
+ 558:	ffff8000 	.word	0xffff8000
+
+0000055c <TLV_AttatchToSPI>:
+ * It can be used to disable multiple bits at once.
+ */
+STATIC INLINE void Chip_SPI_ClearCFGRegBits(LPC_SPI_T *pSPI, uint32_t bits)
+{
+	/* Update CFG register with only selected bits disabled */
+	pSPI->CFG = ~bits & (pSPI->CFG & SPI_CFG_BITMASK);
+ 55c:	6802      	ldr	r2, [r0, #0]
+ 55e:	2382      	movs	r3, #130	; 0x82
+ 560:	33ff      	adds	r3, #255	; 0xff
+ 562:	4013      	ands	r3, r2
+ 564:	6003      	str	r3, [r0, #0]
+ * It can be used to enable multiple bits at once.
+ */
+STATIC INLINE void Chip_SPI_SetCFGRegBits(LPC_SPI_T *pSPI, uint32_t bits)
+{
+	/* Update CFG register with only selected bits disabled */
+	pSPI->CFG = bits | (pSPI->CFG & SPI_CFG_BITMASK);
+ 566:	6802      	ldr	r2, [r0, #0]
+ 568:	23be      	movs	r3, #190	; 0xbe
+ 56a:	33ff      	adds	r3, #255	; 0xff
+ 56c:	4013      	ands	r3, r2
+ 56e:	2225      	movs	r2, #37	; 0x25
+ 570:	4313      	orrs	r3, r2
+ 572:	6003      	str	r3, [r0, #0]
+	Chip_SPI_ClearCFGRegBits(pSPI, SPI_CFG_MASTER_EN | SPI_CFG_LSB_FIRST_EN |
+			SPI_CFG_CPHA_SECOND | SPI_CFG_CPOL_HI);
+	Chip_SPI_SetCFGRegBits(pSPI, config);
+
+	/* Deassert all chip selects, only in master mode */
+	pSPI->TXCTRL = SPI_TXDATCTL_DEASSERT_ALL;
+ 574:	23f0      	movs	r3, #240	; 0xf0
+ 576:	031b      	lsls	r3, r3, #12
+ 578:	6203      	str	r3, [r0, #32]
+	Chip_SPI_ConfigureSPI(pSPI, SPI_CFG_CPOL_HI | // Resting state is high
+			                   SPI_CFG_CPHA_FIRST | // Data is clocked in when SCL returns to a resting state
+			                   SPI_CFG_MSB_FIRST_EN | // Data is transferred Most-significant-bit first
+			                   SPI_CFG_MASTER_EN | // Enabled as a master
+			                   SPI_CFG_SPI_EN); // Enable the spi
+}
+ 57a:	4770      	bx	lr
+
+0000057c <TLV_SetDACValue_noread>:
+	}
+	return ERR_TLV_BUSY;
+}
+
+TLV_Error_t TLV_SetDACValue_noread(LPC_SPI_T* pSPI, TLV_DACNumber DAC, TLV_Speed speed, uint16_t value)
+{
+ 57c:	b570      	push	{r4, r5, r6, lr}
+ * @note	Mask the return value with a value of type SPI_STAT_* to determine
+ * if that status is active.
+ */
+STATIC INLINE uint32_t Chip_SPI_GetStatus(LPC_SPI_T *pSPI)
+{
+	return pSPI->STAT & ~SPI_STAT_RESERVED;
+ 57e:	6885      	ldr	r5, [r0, #8]
+ 580:	1c04      	adds	r4, r0, #0
+	{
+		uint16_t frame = TLV_SetupFrame(DAC, speed, value);
+		Chip_SPI_SendLastFrame_RxIgnore(pSPI, frame, 16);
+		return TLV_OK;
+	}
+	return ERR_TLV_BUSY;
+ 582:	2000      	movs	r0, #0
+	return ERR_TLV_BUSY;
+}
+
+TLV_Error_t TLV_SetDACValue_noread(LPC_SPI_T* pSPI, TLV_DACNumber DAC, TLV_Speed speed, uint16_t value)
+{
+	if ((Chip_SPI_GetStatus(pSPI) & SPI_STAT_TXRDY))
+ 584:	07ae      	lsls	r6, r5, #30
+ 586:	d509      	bpl.n	59c <TLV_SetDACValue_noread+0x20>
+	{
+		uint16_t frame = TLV_SetupFrame(DAC, speed, value);
+ 588:	1c08      	adds	r0, r1, #0
+ 58a:	1c11      	adds	r1, r2, #0
+ 58c:	1c1a      	adds	r2, r3, #0
+ 58e:	f7ff ffcf 	bl	530 <TLV_SetupFrame>
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SPI_SendLastFrame_RxIgnore(LPC_SPI_T *pSPI, uint16_t Data, uint8_t DataSize)
+{
+	pSPI->TXDATCTL = SPI_TXDATCTL_ASSERT_SSEL | SPI_TXDATCTL_EOF | SPI_TXDATCTL_EOT | SPI_TXDATCTL_RXIGNORE |
+					 SPI_TXDATCTL_FLEN(DataSize - 1) | SPI_TXDATCTL_DATA(Data);
+ 592:	23f7      	movs	r3, #247	; 0xf7
+ 594:	051b      	lsls	r3, r3, #20
+ 596:	4318      	orrs	r0, r3
+ * @param	DataSize	:  Data Size (1-16)
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SPI_SendLastFrame_RxIgnore(LPC_SPI_T *pSPI, uint16_t Data, uint8_t DataSize)
+{
+	pSPI->TXDATCTL = SPI_TXDATCTL_ASSERT_SSEL | SPI_TXDATCTL_EOF | SPI_TXDATCTL_EOT | SPI_TXDATCTL_RXIGNORE |
+ 598:	61a0      	str	r0, [r4, #24]
+		Chip_SPI_SendLastFrame_RxIgnore(pSPI, frame, 16);
+		return TLV_OK;
+ 59a:	2001      	movs	r0, #1
+	}
+	return ERR_TLV_BUSY;
+}
+ 59c:	bd70      	pop	{r4, r5, r6, pc}
+	...
+
+000005a0 <SPI0_IRQHandler>:
+    return TLV_OK;
+}
+
+
+void SPI0_IRQHandler(void)
+{
+ 5a0:	b537      	push	{r0, r1, r2, r4, r5, lr}
+	// Disable all interrupts
+	Chip_SPI_Int_Cmd(LPC_SPI0, SPI_INTENCLR_TXDYEN, DISABLE);
+ 5a2:	4c0e      	ldr	r4, [pc, #56]	; (5dc <SPI0_IRQHandler+0x3c>)
+ 5a4:	2200      	movs	r2, #0
+ 5a6:	1c20      	adds	r0, r4, #0
+ 5a8:	2102      	movs	r1, #2
+ 5aa:	f000 f8db 	bl	764 <Chip_SPI_Int_Cmd>
+ * @param	RingBuff	: Pointer to ring buffer
+ * @return	1 if the ring buffer is empty, otherwise 0
+ */
+STATIC INLINE int RingBuffer_IsEmpty(RINGBUFF_T *RingBuff)
+{
+	return RB_VHEAD(RingBuff) == RB_VTAIL(RingBuff);
+ 5ae:	480c      	ldr	r0, [pc, #48]	; (5e0 <SPI0_IRQHandler+0x40>)
+ 5b0:	68c2      	ldr	r2, [r0, #12]
+ 5b2:	6903      	ldr	r3, [r0, #16]
+
+	// If the buffer isn't empty, load up the next frame
+	if (!RingBuffer_IsEmpty(&TLV_TxBuffer))
+ 5b4:	429a      	cmp	r2, r3
+ 5b6:	d010      	beq.n	5da <SPI0_IRQHandler+0x3a>
+	{
+		// Get the next value
+		uint16_t frame = 0;
+ 5b8:	466d      	mov	r5, sp
+ 5ba:	2300      	movs	r3, #0
+ 5bc:	80eb      	strh	r3, [r5, #6]
+ 5be:	3506      	adds	r5, #6
+		RingBuffer_Pop(&TLV_TxBuffer, &frame);
+ 5c0:	1c29      	adds	r1, r5, #0
+ 5c2:	f000 f8af 	bl	724 <RingBuffer_Pop>
+					 SPI_TXDATCTL_FLEN(DataSize - 1) | SPI_TXDATCTL_DATA(Data);
+ 5c6:	882a      	ldrh	r2, [r5, #0]
+ 5c8:	23f7      	movs	r3, #247	; 0xf7
+ 5ca:	051b      	lsls	r3, r3, #20
+ 5cc:	4313      	orrs	r3, r2
+ * @param	DataSize	:  Data Size (1-16)
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SPI_SendLastFrame_RxIgnore(LPC_SPI_T *pSPI, uint16_t Data, uint8_t DataSize)
+{
+	pSPI->TXDATCTL = SPI_TXDATCTL_ASSERT_SSEL | SPI_TXDATCTL_EOF | SPI_TXDATCTL_EOT | SPI_TXDATCTL_RXIGNORE |
+ 5ce:	61a3      	str	r3, [r4, #24]
+    	// and the full message fits with a frame,
+    	// we assume this will be the final frame.
+    	Chip_SPI_SendLastFrame_RxIgnore(LPC_SPI0, frame, 16);
+
+    	// Enable the interrupt
+		Chip_SPI_Int_Cmd(LPC_SPI0, SPI_INTENSET_TXDYEN , ENABLE);
+ 5d0:	1c20      	adds	r0, r4, #0
+ 5d2:	2102      	movs	r1, #2
+ 5d4:	2201      	movs	r2, #1
+ 5d6:	f000 f8c5 	bl	764 <Chip_SPI_Int_Cmd>
+	}
+}
+ 5da:	bd37      	pop	{r0, r1, r2, r4, r5, pc}
+ 5dc:	40058000 	.word	0x40058000
+ 5e0:	10000000 	.word	0x10000000
+
+000005e4 <Chip_ACMP_SetupAMCPRefs>:
+
+/* Helper function for setting up ACMP control */
+void Chip_ACMP_SetupAMCPRefs(LPC_CMP_T *pACMP, ACMP_EDGESEL_T edgeSel,
+							 ACMP_POS_INPUT_T Posinput, ACMP_NEG_INPUT_T Neginput,
+							 ACMP_HYS_T hys)
+{
+ 5e4:	b530      	push	{r4, r5, lr}
+	uint32_t reg = pACMP->CTRL & ~(ACMP_HYSTERESIS_MASK | ACMP_CTRL_RESERVED |
+ 5e6:	6805      	ldr	r5, [r0, #0]
+ 5e8:	4c04      	ldr	r4, [pc, #16]	; (5fc <Chip_ACMP_SetupAMCPRefs+0x18>)
+ 5ea:	402c      	ands	r4, r5
+								   ACMP_COMPVMSEL_MASK | ACMP_COMPVPSEL_MASK | ACMP_EDGESEL_MASK);
+
+	/* Select negative input */
+	pACMP->CTRL = reg | (uint32_t) edgeSel | (uint32_t) Posinput |
+ 5ec:	4321      	orrs	r1, r4
+ 5ee:	430a      	orrs	r2, r1
+ 5f0:	431a      	orrs	r2, r3
+				  (uint32_t) Neginput | (uint32_t) hys;
+ 5f2:	9b03      	ldr	r3, [sp, #12]
+ 5f4:	431a      	orrs	r2, r3
+{
+	uint32_t reg = pACMP->CTRL & ~(ACMP_HYSTERESIS_MASK | ACMP_CTRL_RESERVED |
+								   ACMP_COMPVMSEL_MASK | ACMP_COMPVPSEL_MASK | ACMP_EDGESEL_MASK);
+
+	/* Select negative input */
+	pACMP->CTRL = reg | (uint32_t) edgeSel | (uint32_t) Posinput |
+ 5f6:	6002      	str	r2, [r0, #0]
+				  (uint32_t) Neginput | (uint32_t) hys;
+}
+ 5f8:	bd30      	pop	{r4, r5, pc}
+ 5fa:	46c0      	nop			; (mov r8, r8)
+ 5fc:	00b00040 	.word	0x00b00040
+
+00000600 <SystemCoreClockUpdate>:
+ ****************************************************************************/
+
+/* Update system core clock rate, should be called if the system has
+   a clock rate change */
+void SystemCoreClockUpdate(void)
+{
+ 600:	b508      	push	{r3, lr}
+	/* CPU core speed */
+	SystemCoreClock = Chip_Clock_GetSystemClockRate();
+ 602:	f000 f883 	bl	70c <Chip_Clock_GetSystemClockRate>
+ 606:	4b01      	ldr	r3, [pc, #4]	; (60c <SystemCoreClockUpdate+0xc>)
+ 608:	6018      	str	r0, [r3, #0]
+}
+ 60a:	bd08      	pop	{r3, pc}
+ 60c:	10000028 	.word	0x10000028
+
+00000610 <Chip_Clock_GetWDTLFORate>:
+ * Private functions
+ ****************************************************************************/
+
+/* Compute a WDT or LFO rate */
+static uint32_t Chip_Clock_GetWDTLFORate(uint32_t reg)
+{
+ 610:	b508      	push	{r3, lr}
+	uint32_t div;
+	CHIP_WDTLFO_OSC_T clk;
+
+	/* Get WDT oscillator settings */
+	clk = (CHIP_WDTLFO_OSC_T) ((reg >> 5) & 0xF);
+ 612:	05c2      	lsls	r2, r0, #23
+ 614:	0f12      	lsrs	r2, r2, #28
+	div = reg & 0x1F;
+ 616:	211f      	movs	r1, #31
+ 618:	4001      	ands	r1, r0
+
+	/* Compute clock rate and divided by divde value */
+	return wdtOSCRate[clk] / ((div + 1) << 1);
+ 61a:	0092      	lsls	r2, r2, #2
+ 61c:	4b03      	ldr	r3, [pc, #12]	; (62c <Chip_Clock_GetWDTLFORate+0x1c>)
+ 61e:	58d0      	ldr	r0, [r2, r3]
+ 620:	3101      	adds	r1, #1
+ 622:	0049      	lsls	r1, r1, #1
+ 624:	f000 f8fd 	bl	822 <__aeabi_uidiv>
+}
+ 628:	bd08      	pop	{r3, pc}
+ 62a:	46c0      	nop			; (mov r8, r8)
+ 62c:	000008cc 	.word	0x000008cc
+
+00000630 <Chip_Clock_GetPLLFreq>:
+
+/* Compute PLL frequency */
+static uint32_t Chip_Clock_GetPLLFreq(uint32_t PLLReg, uint32_t inputRate)
+{
+	uint32_t m_val = ((PLLReg & 0x1F) + 1);
+ 630:	231f      	movs	r3, #31
+ 632:	4018      	ands	r0, r3
+ 634:	3001      	adds	r0, #1
+
+	return (inputRate * m_val);
+ 636:	4348      	muls	r0, r1
+}
+ 638:	4770      	bx	lr
+ 63a:	46c0      	nop			; (mov r8, r8)
+
+0000063c <Chip_Clock_SetSystemPLLSource>:
+ ****************************************************************************/
+
+/* Set System PLL clock source */
+void Chip_Clock_SetSystemPLLSource(CHIP_SYSCTL_PLLCLKSRC_T src)
+{
+	LPC_SYSCTL->SYSPLLCLKSEL  = (uint32_t) src;
+ 63c:	4b03      	ldr	r3, [pc, #12]	; (64c <Chip_Clock_SetSystemPLLSource+0x10>)
+ 63e:	6418      	str	r0, [r3, #64]	; 0x40
+    
+    /* sequnce a 0 followed by 1 to update PLL source selection */
+	LPC_SYSCTL->SYSPLLCLKUEN  = 0;  
+ 640:	2200      	movs	r2, #0
+ 642:	645a      	str	r2, [r3, #68]	; 0x44
+	LPC_SYSCTL->SYSPLLCLKUEN  = 1;  
+ 644:	2201      	movs	r2, #1
+ 646:	645a      	str	r2, [r3, #68]	; 0x44
+}
+ 648:	4770      	bx	lr
+ 64a:	46c0      	nop			; (mov r8, r8)
+ 64c:	40048000 	.word	0x40048000
+
+00000650 <Chip_Clock_SetMainClockSource>:
+}
+
+/* Set main system clock source */
+void Chip_Clock_SetMainClockSource(CHIP_SYSCTL_MAINCLKSRC_T src)
+{
+	LPC_SYSCTL->MAINCLKSEL  = (uint32_t) src;
+ 650:	4b03      	ldr	r3, [pc, #12]	; (660 <Chip_Clock_SetMainClockSource+0x10>)
+ 652:	6718      	str	r0, [r3, #112]	; 0x70
+    
+    /* sequnce a 0 followed by 1 to update MAINCLK source selection */
+	LPC_SYSCTL->MAINCLKUEN  = 0;
+ 654:	2200      	movs	r2, #0
+ 656:	675a      	str	r2, [r3, #116]	; 0x74
+	LPC_SYSCTL->MAINCLKUEN  = 1;
+ 658:	2201      	movs	r2, #1
+ 65a:	675a      	str	r2, [r3, #116]	; 0x74
+}
+ 65c:	4770      	bx	lr
+ 65e:	46c0      	nop			; (mov r8, r8)
+ 660:	40048000 	.word	0x40048000
+
+00000664 <Chip_Clock_GetWDTOSCRate>:
+	LPC_SYSCTL->CLKOUTDIV = div;
+}
+
+/* Return estimated watchdog oscillator rate */
+uint32_t Chip_Clock_GetWDTOSCRate(void)
+{
+ 664:	b508      	push	{r3, lr}
+	return Chip_Clock_GetWDTLFORate(LPC_SYSCTL->WDTOSCCTRL & ~SYSCTL_WDTOSCCTRL_RESERVED);
+ 666:	4b03      	ldr	r3, [pc, #12]	; (674 <Chip_Clock_GetWDTOSCRate+0x10>)
+ 668:	6a58      	ldr	r0, [r3, #36]	; 0x24
+ 66a:	05c0      	lsls	r0, r0, #23
+ 66c:	0dc0      	lsrs	r0, r0, #23
+ 66e:	f7ff ffcf 	bl	610 <Chip_Clock_GetWDTLFORate>
+}
+ 672:	bd08      	pop	{r3, pc}
+ 674:	40048000 	.word	0x40048000
+
+00000678 <Chip_Clock_GetSystemPLLInClockRate>:
+/* Return System PLL input clock rate */
+uint32_t Chip_Clock_GetSystemPLLInClockRate(void)
+{
+	uint32_t clkRate;
+
+	switch ((CHIP_SYSCTL_PLLCLKSRC_T) (LPC_SYSCTL->SYSPLLCLKSEL & 0x3)) {
+ 678:	4b09      	ldr	r3, [pc, #36]	; (6a0 <Chip_Clock_GetSystemPLLInClockRate+0x28>)
+ 67a:	6c1a      	ldr	r2, [r3, #64]	; 0x40
+ 67c:	2303      	movs	r3, #3
+ 67e:	4013      	ands	r3, r2
+ 680:	2b01      	cmp	r3, #1
+ 682:	d005      	beq.n	690 <Chip_Clock_GetSystemPLLInClockRate+0x18>
+ 684:	2b03      	cmp	r3, #3
+ 686:	d006      	beq.n	696 <Chip_Clock_GetSystemPLLInClockRate+0x1e>
+ 688:	2b00      	cmp	r3, #0
+ 68a:	d107      	bne.n	69c <Chip_Clock_GetSystemPLLInClockRate+0x24>
+	case SYSCTL_PLLCLKSRC_IRC:
+		clkRate = Chip_Clock_GetIntOscRate();
+ 68c:	4805      	ldr	r0, [pc, #20]	; (6a4 <Chip_Clock_GetSystemPLLInClockRate+0x2c>)
+ 68e:	e006      	b.n	69e <Chip_Clock_GetSystemPLLInClockRate+0x26>
+ * @brief	Returns the main oscillator clock rate
+ * @return	main oscillator clock rate
+ */
+STATIC INLINE uint32_t Chip_Clock_GetMainOscRate(void)
+{
+	return OscRateIn;
+ 690:	4b05      	ldr	r3, [pc, #20]	; (6a8 <Chip_Clock_GetSystemPLLInClockRate+0x30>)
+ 692:	6818      	ldr	r0, [r3, #0]
+		break;
+
+	case SYSCTL_PLLCLKSRC_SYSOSC:
+		clkRate = Chip_Clock_GetMainOscRate();
+		break;
+ 694:	e003      	b.n	69e <Chip_Clock_GetSystemPLLInClockRate+0x26>
+ * @brief	Returns the external clock input rate
+ * @return	External clock input rate
+ */
+STATIC INLINE uint32_t Chip_Clock_GetExtClockInRate(void)
+{
+	return ExtRateIn;
+ 696:	4b05      	ldr	r3, [pc, #20]	; (6ac <Chip_Clock_GetSystemPLLInClockRate+0x34>)
+ 698:	6818      	ldr	r0, [r3, #0]
+
+	case SYSCTL_PLLCLKSRC_EXT_CLKIN:
+		clkRate = Chip_Clock_GetExtClockInRate();
+		break;
+ 69a:	e000      	b.n	69e <Chip_Clock_GetSystemPLLInClockRate+0x26>
+
+	default:
+		clkRate = 0;
+ 69c:	2000      	movs	r0, #0
+	}
+
+	return clkRate;
+}
+ 69e:	4770      	bx	lr
+ 6a0:	40048000 	.word	0x40048000
+ 6a4:	00b71b00 	.word	0x00b71b00
+ 6a8:	000008c4 	.word	0x000008c4
+ 6ac:	000008c8 	.word	0x000008c8
+
+000006b0 <Chip_Clock_GetSystemPLLOutClockRate>:
+
+/* Return System PLL output clock rate */
+uint32_t Chip_Clock_GetSystemPLLOutClockRate(void)
+{
+ 6b0:	b510      	push	{r4, lr}
+	return Chip_Clock_GetPLLFreq((LPC_SYSCTL->SYSPLLCTRL & ~SYSCTL_SYSPLLCTRL_RESERVED),
+ 6b2:	4b05      	ldr	r3, [pc, #20]	; (6c8 <Chip_Clock_GetSystemPLLOutClockRate+0x18>)
+ 6b4:	689b      	ldr	r3, [r3, #8]
+ 6b6:	247f      	movs	r4, #127	; 0x7f
+ 6b8:	401c      	ands	r4, r3
+ 6ba:	f7ff ffdd 	bl	678 <Chip_Clock_GetSystemPLLInClockRate>
+ 6be:	1c01      	adds	r1, r0, #0
+ 6c0:	1c20      	adds	r0, r4, #0
+ 6c2:	f7ff ffb5 	bl	630 <Chip_Clock_GetPLLFreq>
+								 Chip_Clock_GetSystemPLLInClockRate());
+}
+ 6c6:	bd10      	pop	{r4, pc}
+ 6c8:	40048000 	.word	0x40048000
+
+000006cc <Chip_Clock_GetMainClockRate>:
+
+/* Return main clock rate */
+uint32_t Chip_Clock_GetMainClockRate(void)
+{
+ 6cc:	b508      	push	{r3, lr}
+	uint32_t clkRate = 0;
+
+	switch ((CHIP_SYSCTL_MAINCLKSRC_T) (LPC_SYSCTL->MAINCLKSEL & 0x3)) {
+ 6ce:	4b0d      	ldr	r3, [pc, #52]	; (704 <Chip_Clock_GetMainClockRate+0x38>)
+ 6d0:	6f1a      	ldr	r2, [r3, #112]	; 0x70
+ 6d2:	2303      	movs	r3, #3
+ 6d4:	4013      	ands	r3, r2
+ 6d6:	2b01      	cmp	r3, #1
+ 6d8:	d009      	beq.n	6ee <Chip_Clock_GetMainClockRate+0x22>
+ 6da:	dc02      	bgt.n	6e2 <Chip_Clock_GetMainClockRate+0x16>
+ 6dc:	2b00      	cmp	r3, #0
+ 6de:	d00f      	beq.n	700 <Chip_Clock_GetMainClockRate+0x34>
+ 6e0:	e003      	b.n	6ea <Chip_Clock_GetMainClockRate+0x1e>
+ 6e2:	2b02      	cmp	r3, #2
+ 6e4:	d006      	beq.n	6f4 <Chip_Clock_GetMainClockRate+0x28>
+ 6e6:	2b03      	cmp	r3, #3
+ 6e8:	d007      	beq.n	6fa <Chip_Clock_GetMainClockRate+0x2e>
+}
+
+/* Return main clock rate */
+uint32_t Chip_Clock_GetMainClockRate(void)
+{
+	uint32_t clkRate = 0;
+ 6ea:	2000      	movs	r0, #0
+ 6ec:	e009      	b.n	702 <Chip_Clock_GetMainClockRate+0x36>
+	case SYSCTL_MAINCLKSRC_IRC:
+		clkRate = Chip_Clock_GetIntOscRate();
+		break;
+
+	case SYSCTL_MAINCLKSRC_PLLIN:
+		clkRate = Chip_Clock_GetSystemPLLInClockRate();
+ 6ee:	f7ff ffc3 	bl	678 <Chip_Clock_GetSystemPLLInClockRate>
+		break;
+ 6f2:	e006      	b.n	702 <Chip_Clock_GetMainClockRate+0x36>
+
+	case SYSCTL_MAINCLKSRC_WDTOSC:
+		clkRate = Chip_Clock_GetWDTOSCRate();
+ 6f4:	f7ff ffb6 	bl	664 <Chip_Clock_GetWDTOSCRate>
+		break;
+ 6f8:	e003      	b.n	702 <Chip_Clock_GetMainClockRate+0x36>
+
+	case SYSCTL_MAINCLKSRC_PLLOUT:
+		clkRate = Chip_Clock_GetSystemPLLOutClockRate();
+ 6fa:	f7ff ffd9 	bl	6b0 <Chip_Clock_GetSystemPLLOutClockRate>
+		break;
+ 6fe:	e000      	b.n	702 <Chip_Clock_GetMainClockRate+0x36>
+{
+	uint32_t clkRate = 0;
+
+	switch ((CHIP_SYSCTL_MAINCLKSRC_T) (LPC_SYSCTL->MAINCLKSEL & 0x3)) {
+	case SYSCTL_MAINCLKSRC_IRC:
+		clkRate = Chip_Clock_GetIntOscRate();
+ 700:	4801      	ldr	r0, [pc, #4]	; (708 <Chip_Clock_GetMainClockRate+0x3c>)
+		clkRate = Chip_Clock_GetSystemPLLOutClockRate();
+		break;
+	}
+
+	return clkRate;
+}
+ 702:	bd08      	pop	{r3, pc}
+ 704:	40048000 	.word	0x40048000
+ 708:	00b71b00 	.word	0x00b71b00
+
+0000070c <Chip_Clock_GetSystemClockRate>:
+
+/* Return system clock rate */
+uint32_t Chip_Clock_GetSystemClockRate(void)
+{
+ 70c:	b508      	push	{r3, lr}
+	/* No point in checking for divide by 0 */
+	return Chip_Clock_GetMainClockRate() / (LPC_SYSCTL->SYSAHBCLKDIV & ~SYSCTL_SYSAHBCLKDIV_RESERVED);
+ 70e:	f7ff ffdd 	bl	6cc <Chip_Clock_GetMainClockRate>
+ 712:	4b03      	ldr	r3, [pc, #12]	; (720 <Chip_Clock_GetSystemClockRate+0x14>)
+ 714:	6f9b      	ldr	r3, [r3, #120]	; 0x78
+ 716:	21ff      	movs	r1, #255	; 0xff
+ 718:	4019      	ands	r1, r3
+ 71a:	f000 f882 	bl	822 <__aeabi_uidiv>
+}
+ 71e:	bd08      	pop	{r3, pc}
+ 720:	40048000 	.word	0x40048000
+
+00000724 <RingBuffer_Pop>:
+	return cnt1 + cnt2;
+}
+
+/* Pop single item from Ring Buffer */
+int RingBuffer_Pop(RINGBUFF_T *RingBuff, void *data)
+{
+ 724:	b510      	push	{r4, lr}
+ 726:	1c04      	adds	r4, r0, #0
+ 728:	1c08      	adds	r0, r1, #0
+	uint8_t *ptr = RingBuff->data;
+ 72a:	6821      	ldr	r1, [r4, #0]
+ 72c:	68e2      	ldr	r2, [r4, #12]
+ 72e:	6923      	ldr	r3, [r4, #16]
+
+	/* We cannot pop when queue is empty */
+	if (RingBuffer_IsEmpty(RingBuff))
+ 730:	429a      	cmp	r2, r3
+ 732:	d00d      	beq.n	750 <RingBuffer_Pop+0x2c>
+		return 0;
+
+	ptr += RB_INDT(RingBuff) * RingBuff->itemSz;
+ 734:	6863      	ldr	r3, [r4, #4]
+ 736:	3b01      	subs	r3, #1
+ 738:	6922      	ldr	r2, [r4, #16]
+ 73a:	4013      	ands	r3, r2
+ 73c:	68a2      	ldr	r2, [r4, #8]
+ 73e:	4353      	muls	r3, r2
+ 740:	18c9      	adds	r1, r1, r3
+	memcpy(data, ptr, RingBuff->itemSz);
+ 742:	f000 f863 	bl	80c <memcpy>
+	RingBuff->tail++;
+ 746:	6923      	ldr	r3, [r4, #16]
+ 748:	3301      	adds	r3, #1
+ 74a:	6123      	str	r3, [r4, #16]
+
+	return 1;
+ 74c:	2001      	movs	r0, #1
+ 74e:	e000      	b.n	752 <RingBuffer_Pop+0x2e>
+{
+	uint8_t *ptr = RingBuff->data;
+
+	/* We cannot pop when queue is empty */
+	if (RingBuffer_IsEmpty(RingBuff))
+		return 0;
+ 750:	2000      	movs	r0, #0
+	ptr += RB_INDT(RingBuff) * RingBuff->itemSz;
+	memcpy(data, ptr, RingBuff->itemSz);
+	RingBuff->tail++;
+
+	return 1;
+}
+ 752:	bd10      	pop	{r4, pc}
+
+00000754 <Chip_SPI_CalClkRateDivider>:
+ * Public functions
+ ****************************************************************************/
+
+/* Calculate the Clock Rate Divider for SPI Peripheral */
+uint32_t Chip_SPI_CalClkRateDivider(LPC_SPI_T *pSPI, uint32_t bitRate)
+{
+ 754:	b510      	push	{r4, lr}
+ 756:	1c0c      	adds	r4, r1, #0
+	uint32_t SPIClk;
+	uint32_t DivVal = 1;
+
+	/* Get SPI clock rate */
+	SPIClk = Chip_Clock_GetSystemClockRate();	/*The peripheral clock for both SPIs is the system clock*/
+ 758:	f7ff ffd8 	bl	70c <Chip_Clock_GetSystemClockRate>
+
+	DivVal = SPIClk / bitRate;
+ 75c:	1c21      	adds	r1, r4, #0
+ 75e:	f000 f860 	bl	822 <__aeabi_uidiv>
+
+	return DivVal;
+}
+ 762:	bd10      	pop	{r4, pc}
+
+00000764 <Chip_SPI_Int_Cmd>:
+}
+
+/* Disable/Enable Interrupt */
+void Chip_SPI_Int_Cmd(LPC_SPI_T *pSPI, uint32_t IntMask, FunctionalState NewState)
+{
+	if (NewState ==  ENABLE) {
+ 764:	2a01      	cmp	r2, #1
+ 766:	d101      	bne.n	76c <Chip_SPI_Int_Cmd+0x8>
+		pSPI->INTENSET = IntMask;
+ 768:	60c1      	str	r1, [r0, #12]
+ 76a:	e000      	b.n	76e <Chip_SPI_Int_Cmd+0xa>
+	}
+	else {
+		pSPI->INTENCLR = IntMask;
+ 76c:	6101      	str	r1, [r0, #16]
+	}
+}
+ 76e:	4770      	bx	lr
+
+00000770 <Chip_SYSCTL_PowerDown>:
+void Chip_SYSCTL_PowerDown(uint32_t powerdownmask)
+{
+	uint32_t pdrun;
+
+	/* Get current power states */
+	pdrun = LPC_SYSCTL->PDRUNCFG & PDWAKEUPDATMASK;
+ 770:	4a05      	ldr	r2, [pc, #20]	; (788 <Chip_SYSCTL_PowerDown+0x18>)
+ 772:	238e      	movs	r3, #142	; 0x8e
+ 774:	009b      	lsls	r3, r3, #2
+ 776:	58d1      	ldr	r1, [r2, r3]
+
+	/* Disable peripheral states by setting high */
+	pdrun |= (powerdownmask & PDWAKEUPDATMASK);
+ 778:	4308      	orrs	r0, r1
+ 77a:	4904      	ldr	r1, [pc, #16]	; (78c <Chip_SYSCTL_PowerDown+0x1c>)
+ 77c:	4008      	ands	r0, r1
+
+	/* Update power states with required register bits */
+	LPC_SYSCTL->PDRUNCFG = (PDWAKEUPWRMASK | pdrun);
+ 77e:	4904      	ldr	r1, [pc, #16]	; (790 <Chip_SYSCTL_PowerDown+0x20>)
+ 780:	4308      	orrs	r0, r1
+ 782:	50d0      	str	r0, [r2, r3]
+}
+ 784:	4770      	bx	lr
+ 786:	46c0      	nop			; (mov r8, r8)
+ 788:	40048000 	.word	0x40048000
+ 78c:	000080ef 	.word	0x000080ef
+ 790:	00006d10 	.word	0x00006d10
+
+00000794 <Chip_SYSCTL_PowerUp>:
+
+/* Power up one or more blocks or peripherals */
+void Chip_SYSCTL_PowerUp(uint32_t powerupmask)
+{
+ 794:	b510      	push	{r4, lr}
+	uint32_t pdrun;
+
+	/* Get current power states */
+	pdrun = LPC_SYSCTL->PDRUNCFG & PDWAKEUPDATMASK;
+ 796:	4a06      	ldr	r2, [pc, #24]	; (7b0 <Chip_SYSCTL_PowerUp+0x1c>)
+ 798:	238e      	movs	r3, #142	; 0x8e
+ 79a:	009b      	lsls	r3, r3, #2
+ 79c:	58d4      	ldr	r4, [r2, r3]
+ 79e:	4905      	ldr	r1, [pc, #20]	; (7b4 <Chip_SYSCTL_PowerUp+0x20>)
+ 7a0:	400c      	ands	r4, r1
+
+	/* Enable peripheral states by setting low */
+	pdrun &= ~(powerupmask & PDWAKEUPDATMASK);
+ 7a2:	4001      	ands	r1, r0
+ 7a4:	438c      	bics	r4, r1
+ 7a6:	1c21      	adds	r1, r4, #0
+
+	/* Update power states with required register bits */
+	LPC_SYSCTL->PDRUNCFG = (PDWAKEUPWRMASK | pdrun);
+ 7a8:	4803      	ldr	r0, [pc, #12]	; (7b8 <Chip_SYSCTL_PowerUp+0x24>)
+ 7aa:	4301      	orrs	r1, r0
+ 7ac:	50d1      	str	r1, [r2, r3]
+}
+ 7ae:	bd10      	pop	{r4, pc}
+ 7b0:	40048000 	.word	0x40048000
+ 7b4:	000080ef 	.word	0x000080ef
+ 7b8:	00006d10 	.word	0x00006d10
+
+000007bc <Chip_SetupIrcClocking>:
+#endif
+}
+
+/* Set up and initialize hardware prior to call to main */
+void Chip_SetupIrcClocking(void)
+{
+ 7bc:	b508      	push	{r3, lr}
+#if defined(USE_ROM_API)
+	uint32_t cmd[4], resp[2];
+#endif
+
+	/* Turn on the IRC by clearing the power down bit */
+	Chip_SYSCTL_PowerUp(SYSCTL_SLPWAKE_IRC_PD);
+ 7be:	2002      	movs	r0, #2
+ 7c0:	f7ff ffe8 	bl	794 <Chip_SYSCTL_PowerUp>
+
+	/* Select the PLL input in the IRC */
+	Chip_Clock_SetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);
+ 7c4:	2000      	movs	r0, #0
+ 7c6:	f7ff ff39 	bl	63c <Chip_Clock_SetSystemPLLSource>
+ * @note	For CPU speed up to 20MHz, use a value of 0. For up to 30MHz, use
+ *			a value of 1
+ */
+STATIC INLINE void Chip_FMC_SetFLASHAccess(FMC_FLASHTIM_T clks)
+{
+	uint32_t tmp = LPC_FMC->FLASHCFG & (~((0x3)|FMC_FLASHCFG_RESERVED));
+ 7ca:	4b0c      	ldr	r3, [pc, #48]	; (7fc <Chip_SetupIrcClocking+0x40>)
+ 7cc:	691a      	ldr	r2, [r3, #16]
+
+	/* Don't alter upper bits */
+	LPC_FMC->FLASHCFG = tmp | clks;
+ 7ce:	2201      	movs	r2, #1
+ 7d0:	611a      	str	r2, [r3, #16]
+	/* Dead loop on fail */
+	while (resp[0] != PLL_CMD_SUCCESS) {}
+
+#else
+	/* Power down PLL to change the PLL divider ratio */
+	Chip_SYSCTL_PowerDown(SYSCTL_SLPWAKE_SYSPLL_PD);
+ 7d2:	2080      	movs	r0, #128	; 0x80
+ 7d4:	f7ff ffcc 	bl	770 <Chip_SYSCTL_PowerDown>
+ * @return	Nothing
+ * @note	See the user manual for how to setup the PLL
+ */
+STATIC INLINE void Chip_Clock_SetupSystemPLL(uint8_t msel, uint8_t psel)
+{
+	LPC_SYSCTL->SYSPLLCTRL = (msel & 0x1F) | ((psel & 0x3) << 5);
+ 7d8:	2241      	movs	r2, #65	; 0x41
+ 7da:	4b09      	ldr	r3, [pc, #36]	; (800 <Chip_SetupIrcClocking+0x44>)
+ 7dc:	609a      	str	r2, [r3, #8]
+	   FCLKOUT = FCLKIN * (MSEL + 1) = 12MHz * 2 = 24MHz
+	   FCCO = FCLKOUT * 2 * P = 24MHz * 2 * 4 = 192MHz (within FCCO range) */
+	Chip_Clock_SetupSystemPLL(1, 2);
+
+	/* Turn on the PLL by clearing the power down bit */
+	Chip_SYSCTL_PowerUp(SYSCTL_SLPWAKE_SYSPLL_PD);
+ 7de:	2080      	movs	r0, #128	; 0x80
+ 7e0:	f7ff ffd8 	bl	794 <Chip_SYSCTL_PowerUp>
+ * @brief	Read System PLL status
+ * @return	true if the PLL is locked, false if not locked
+ */
+STATIC INLINE bool Chip_Clock_IsSystemPLLLocked(void)
+{
+	return (bool) ((LPC_SYSCTL->SYSPLLSTAT & 1) != 0);
+ 7e4:	4906      	ldr	r1, [pc, #24]	; (800 <Chip_SetupIrcClocking+0x44>)
+ 7e6:	2201      	movs	r2, #1
+ 7e8:	68cb      	ldr	r3, [r1, #12]
+
+	/* Wait for PLL to lock */
+	while (!Chip_Clock_IsSystemPLLLocked()) {}
+ 7ea:	421a      	tst	r2, r3
+ 7ec:	d0fc      	beq.n	7e8 <Chip_SetupIrcClocking+0x2c>
+ * @note	Use 0 to disable, or a divider value of 1 to 255. The system clock
+ * rate is the main system clock divided by this value.
+ */
+STATIC INLINE void Chip_Clock_SetSysClockDiv(uint32_t div)
+{
+	LPC_SYSCTL->SYSAHBCLKDIV  = div;
+ 7ee:	2201      	movs	r2, #1
+ 7f0:	4b03      	ldr	r3, [pc, #12]	; (800 <Chip_SetupIrcClocking+0x44>)
+ 7f2:	679a      	str	r2, [r3, #120]	; 0x78
+	/* Set system clock divider to 1 */
+	Chip_Clock_SetSysClockDiv(1);
+
+	/* Set main clock source to the system PLL. This will drive 24MHz
+	   for the main clock and 24MHz for the system clock */
+	Chip_Clock_SetMainClockSource(SYSCTL_MAINCLKSRC_PLLOUT);
+ 7f4:	2003      	movs	r0, #3
+ 7f6:	f7ff ff2b 	bl	650 <Chip_Clock_SetMainClockSource>
+#endif
+}
+ 7fa:	bd08      	pop	{r3, pc}
+ 7fc:	40040000 	.word	0x40040000
+ 800:	40048000 	.word	0x40048000
+
+00000804 <Chip_SystemInit>:
+
+/* Set up and initialize hardware prior to call to main */
+void Chip_SystemInit(void)
+{
+ 804:	b508      	push	{r3, lr}
+	/* Initial internal clocking */
+	Chip_SetupIrcClocking();
+ 806:	f7ff ffd9 	bl	7bc <Chip_SetupIrcClocking>
+}
+ 80a:	bd08      	pop	{r3, pc}
+
+0000080c <memcpy>:
+ 80c:	b508      	push	{r3, lr}
+ 80e:	f000 f842 	bl	896 <__aeabi_memcpy>
+ 812:	bd08      	pop	{r3, pc}
+
+00000814 <__weak_main>:
+ 814:	b508      	push	{r3, lr}
+ 816:	f7ff fd73 	bl	300 <main>
+ 81a:	bd08      	pop	{r3, pc}
+
+0000081c <__aeabi_idiv>:
+ 81c:	0003      	movs	r3, r0
+ 81e:	430b      	orrs	r3, r1
+ 820:	d421      	bmi.n	866 <idiv_negative>
+
+00000822 <__aeabi_uidiv>:
+ 822:	2900      	cmp	r1, #0
+ 824:	d031      	beq.n	88a <idiv_divzero>
+ 826:	2201      	movs	r2, #1
+ 828:	07d2      	lsls	r2, r2, #31
+ 82a:	0903      	lsrs	r3, r0, #4
+ 82c:	e001      	b.n	832 <div_search4a>
+
+0000082e <div_search4>:
+ 82e:	0109      	lsls	r1, r1, #4
+ 830:	0912      	lsrs	r2, r2, #4
+
+00000832 <div_search4a>:
+ 832:	4299      	cmp	r1, r3
+ 834:	d9fb      	bls.n	82e <div_search4>
+ 836:	0843      	lsrs	r3, r0, #1
+ 838:	e001      	b.n	83e <div_search1a>
+
+0000083a <div_search1>:
+ 83a:	0049      	lsls	r1, r1, #1
+ 83c:	0852      	lsrs	r2, r2, #1
+
+0000083e <div_search1a>:
+ 83e:	4299      	cmp	r1, r3
+ 840:	d9fb      	bls.n	83a <div_search1>
+ 842:	e000      	b.n	846 <div_loop1a>
+
+00000844 <div_loop1>:
+ 844:	0849      	lsrs	r1, r1, #1
+
+00000846 <div_loop1a>:
+ 846:	1a40      	subs	r0, r0, r1
+ 848:	d307      	bcc.n	85a <div1>
+
+0000084a <div2>:
+ 84a:	4152      	adcs	r2, r2
+ 84c:	d3fa      	bcc.n	844 <div_loop1>
+ 84e:	4601      	mov	r1, r0
+ 850:	4610      	mov	r0, r2
+ 852:	4770      	bx	lr
+
+00000854 <div_loop2>:
+ 854:	0849      	lsrs	r1, r1, #1
+ 856:	1840      	adds	r0, r0, r1
+ 858:	d2f7      	bcs.n	84a <div2>
+
+0000085a <div1>:
+ 85a:	1892      	adds	r2, r2, r2
+ 85c:	d3fa      	bcc.n	854 <div_loop2>
+ 85e:	1840      	adds	r0, r0, r1
+ 860:	4601      	mov	r1, r0
+ 862:	4610      	mov	r0, r2
+ 864:	4770      	bx	lr
+
+00000866 <idiv_negative>:
+ 866:	0fcb      	lsrs	r3, r1, #31
+ 868:	d000      	beq.n	86c <idiv_neg1>
+ 86a:	4249      	negs	r1, r1
+
+0000086c <idiv_neg1>:
+ 86c:	1002      	asrs	r2, r0, #32
+ 86e:	d500      	bpl.n	872 <idiv_neg2>
+ 870:	4240      	negs	r0, r0
+
+00000872 <idiv_neg2>:
+ 872:	4053      	eors	r3, r2
+ 874:	b508      	push	{r3, lr}
+ 876:	f7ff ffd4 	bl	822 <__aeabi_uidiv>
+ 87a:	bc0c      	pop	{r2, r3}
+
+0000087c <idiv_sign>:
+ 87c:	1052      	asrs	r2, r2, #1
+ 87e:	d300      	bcc.n	882 <idiv_sign1>
+ 880:	4240      	negs	r0, r0
+
+00000882 <idiv_sign1>:
+ 882:	2a00      	cmp	r2, #0
+ 884:	d500      	bpl.n	888 <idiv_ret>
+ 886:	4249      	negs	r1, r1
+
+00000888 <idiv_ret>:
+ 888:	4718      	bx	r3
+
+0000088a <idiv_divzero>:
+ 88a:	46f4      	mov	ip, lr
+ 88c:	2000      	movs	r0, #0
+ 88e:	f000 f801 	bl	894 <__aeabi_idiv0>
+ 892:	4760      	bx	ip
+
+00000894 <__aeabi_idiv0>:
+ 894:	4770      	bx	lr
+
+00000896 <__aeabi_memcpy>:
+ 896:	4684      	mov	ip, r0
+ 898:	0783      	lsls	r3, r0, #30
+ 89a:	d108      	bne.n	8ae <copy1_start>
+ 89c:	078b      	lsls	r3, r1, #30
+ 89e:	d106      	bne.n	8ae <copy1_start>
+ 8a0:	1f13      	subs	r3, r2, #4
+ 8a2:	d304      	bcc.n	8ae <copy1_start>
+
+000008a4 <copy4>:
+ 8a4:	c904      	ldmia	r1!, {r2}
+ 8a6:	c004      	stmia	r0!, {r2}
+ 8a8:	3b04      	subs	r3, #4
+ 8aa:	d2fb      	bcs.n	8a4 <copy4>
+ 8ac:	1d1a      	adds	r2, r3, #4
+
+000008ae <copy1_start>:
+ 8ae:	4252      	negs	r2, r2
+ 8b0:	d005      	beq.n	8be <copy1_ret>
+ 8b2:	1a89      	subs	r1, r1, r2
+ 8b4:	1a80      	subs	r0, r0, r2
+
+000008b6 <copy1>:
+ 8b6:	5c8b      	ldrb	r3, [r1, r2]
+ 8b8:	5483      	strb	r3, [r0, r2]
+ 8ba:	3201      	adds	r2, #1
+ 8bc:	d1fb      	bne.n	8b6 <copy1>
+
+000008be <copy1_ret>:
+ 8be:	4660      	mov	r0, ip
+ 8c0:	4770      	bx	lr
+	...
+
+000008c4 <OscRateIn>:
+ 8c4:	1b00 00b7                                   ....
+
+000008c8 <ExtRateIn>:
+ 8c8:	0000 0000                                   ....
+
+000008cc <wdtOSCRate>:
+ 8cc:	0000 0000 27c0 0009 0590 0010 5cc0 0015     .....'.......\..
+ 8dc:	b3f0 001a 0b20 0020 9f00 0024 32e0 0029     .... . ...$..2).
+ 8ec:	c6c0 002d 9750 0031 67e0 0035 3870 0039     ..-.P.1..g5.p89.
+ 8fc:	0900 003d 1640 0040 2380 0043 30c0 0046     ..=.@.@..#C..0F.

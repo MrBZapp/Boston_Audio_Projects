@@ -33,7 +33,7 @@ WaveGen Generator2 = {
 /********************************************************************************************************
  * 											FUNCTIONS													*
  *******************************************************************************************************/
-void WaveGenInit(WaveGen* Generator, float freq)
+void WaveGen_Init(WaveGen* Generator, float freq)
 {
 	//TODO: Get the hard-coded crap out of here.
 
@@ -72,7 +72,7 @@ void WaveGenInit(WaveGen* Generator, float freq)
 	//LPC_SCT->EVENT[1].STATE = 1;
 	LPC_SCT->OUT[0].SET = (1 << 1);
 
-	setWidth(Generator, 50);
+	WaveGen_SetWidth(Generator, 50);
 
 	/* Don't use states */
 	// Do we need this?  resets to 0.
@@ -80,7 +80,7 @@ void WaveGenInit(WaveGen* Generator, float freq)
 }
 
 
-void WaveGenStart(WaveGen* Generator)
+void WaveGen_Start(WaveGen* Generator)
 {
 	switch(Generator->ID)
 	{
@@ -93,7 +93,7 @@ void WaveGenStart(WaveGen* Generator)
 }
 
 
-void setWidth(WaveGen* Generator, uint8_t percentage)
+void WaveGen_SetWidth(WaveGen* Generator, uint8_t percentage)
 {
 	uint32_t value;
 	uint32_t reload = Chip_Clock_GetSystemClockRate() / Generator->frequency;
@@ -125,8 +125,39 @@ void setWidth(WaveGen* Generator, uint8_t percentage)
 	Generator->width = percentage;
 }
 
+void WaveGen_SetWidthf(WaveGen* Generator, float percentage)
+{
+	uint32_t value;
+	uint32_t reload = Chip_Clock_GetSystemClockRate() / Generator->frequency;
+	int genID = Generator->ID;
 
-void setFreq(WaveGen* Generator, float frequency)
+	// TODO: actually write some good code here instead of dumb code.
+	if ((genID < 0) || (genID > 3)) {
+		return;
+	}
+
+	// If highest, set match as close to beginning as possible
+	if (percentage >= 100) {
+		value = 1;
+	}
+	// If Lowest, set as close to frequency as possible
+	else if (percentage == 0) {
+		value = reload + 1;
+	}
+	else {
+		uint32_t newTicks;
+
+		newTicks = (reload * percentage)/100;
+
+		/* Approximate duty cycle rate */
+		value = reload - newTicks;
+	}
+
+	LPC_SCT->MATCHREL[genID + 1].U = value;
+	Generator->width = percentage;
+}
+
+void WaveGen_SetFreqf(WaveGen* Generator, float frequency)
 {
 	// block Div0!
 	if (frequency <=0 )
@@ -137,7 +168,7 @@ void setFreq(WaveGen* Generator, float frequency)
 	Generator->frequency = frequency;
 
 	// update the width to match the frequency
-	setWidth(Generator, Generator->width);
+	WaveGen_SetWidth(Generator, Generator->width);
 
 	// Update the associated Match Reload register
 	int reload =(int)(Chip_Clock_GetSystemClockRate() / frequency);
@@ -145,19 +176,14 @@ void setFreq(WaveGen* Generator, float frequency)
 }
 
 
-int calcReload(float freq)
-{
-	return 0;
-}
-
-
-void setReload(WaveGen* Generator, int reload)
+void WaveGen_SetReload(WaveGen* Generator, int reload)
 {
 	LPC_SCT->MATCHREL[Generator->ID].U = reload;
 }
 
-void updateFreq(WaveGen* Generator)
+
+void WaveGen_UpdateFreq(WaveGen* Generator)
 {
 	Generator->frequency = Chip_Clock_GetSystemClockRate() / LPC_SCT->MATCHREL[Generator->ID].U;
-	setWidth(Generator, Generator->width);
+	WaveGen_SetWidth(Generator, Generator->width);
 }

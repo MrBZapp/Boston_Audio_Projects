@@ -43,6 +43,12 @@ MidiFuncPtr MIDI_NoteOffFunc = 0;
 MidiFuncPtr MIDI_PCChFunc = 0;
 MidiFuncPtr MIDI_PitchFunc = 0;
 
+// Midi Sync function pointers
+VoidFuncPointer MIDI_Sync_StartFunc = 0;
+VoidFuncPointer MIDI_Sync_StopFunc = 0;
+VoidFuncPointer MIDI_Sync_ClkFunc = 0;
+VoidFuncPointer MIDI_Sync_ContFunc = 0;
+
 static void MIDI_ClearStatus0()
 {
 	// Doing it this way, we'll get a build warning if we ever need to expand MIDI_Status_t
@@ -110,19 +116,47 @@ void inline MIDI_Enable(LPC_USART_T* USARTNumber)
 	USARTNumber->CFG |= UART_CFG_ENABLE;
 }
 
+
 /***
- * Sets a selected function to the user-defined function
+ * counts sync messages handled, fires appropriate high-priority functions
  */
-void MIDI_SetFunction(uint8_t funcName, MidiFuncPtr func)
+int MIDI_SyncHandler(uint8_t msg)
 {
-	switch(funcName)
-	{
-	case MIDI_NOTEON:
-		MIDI_NoteOnFunc = func;
-		break;
-	default:
-		break;
+	int handled = 0;
+	if (msg == MIDI_SYNC_CLK) {
+		if (MIDI_Sync_ClkFunc != 0)
+		{
+			MIDI_Sync_ClkFunc();
+		}
+		handled = 1;
 	}
+
+	else if (msg == MIDI_SYNC_START) {
+		if (MIDI_Sync_StartFunc != 0)
+		{
+			MIDI_Sync_StartFunc();
+		}
+
+		handled = 1;
+	}
+
+	else if (msg == MIDI_SYNC_STOP) {
+		if (MIDI_Sync_StopFunc != 0)
+		{
+			MIDI_Sync_StopFunc();
+		}
+
+		handled = 1;
+	}
+
+	else if (msg == MIDI_SYNC_CONT) {
+		if (MIDI_Sync_ContFunc != 0)
+		{
+			MIDI_Sync_ContFunc();
+		}
+		handled = 1;
+	}
+	return handled;
 }
 
 
@@ -170,7 +204,7 @@ void MIDI_ProcessRXBuffer()
 			MIDI_Status0.Status = (uint8_t) byte;
 
 			// Are we being addressed?
-			if(((byte & MIDI_CHMSK) == MIDI_Address))
+			if(((byte & MIDI_CHMSK) == MIDI_Address) || MIDI_Address == 0x00)
 			{
 				MIDI_Status0.Addressed = 1;
 			}
@@ -189,8 +223,15 @@ void MIDI_ProcessRXBuffer()
 
 void UART0_IRQHandler(void)
 {
+
 	// Insert value into RB
-	Chip_UART_RXIntHandlerRB(LPC_USART0, &MIDI_RxBuffer);
+	while ((Chip_UART_GetStatus(LPC_USART0) & UART_STAT_RXRDY) != 0) {
+		uint8_t ch = Chip_UART_ReadByte(LPC_USART0);
+		// Filter Sync messages, these are high-priority
+		if (!MIDI_SyncHandler(ch)) {
+			RingBuffer_Insert(&MIDI_RxBuffer, &ch);
+		}
+	}
 }
 
 

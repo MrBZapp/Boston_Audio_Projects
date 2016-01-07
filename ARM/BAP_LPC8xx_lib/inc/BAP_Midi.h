@@ -9,13 +9,17 @@
 #define BAP_MIDI_H_
 
 #include "chip.h"
+#include "BAP_Type.h"
 
 typedef void(*MidiFuncPtr)(uint8_t D1, uint8_t D2);
-
 
 // Midi Command Function Pointers
 MidiFuncPtr MIDI_NoteOnFunc;
 MidiFuncPtr MIDI_NoteOffFunc;
+VoidFuncPointer MIDI_Sync_StartFunc;
+VoidFuncPointer MIDI_Sync_StopFunc;
+VoidFuncPointer MIDI_Sync_ClkFunc;
+VoidFuncPointer MIDI_Sync_ContFunc;
 MidiFuncPtr MIDI_PCChFunc;
 MidiFuncPtr MIDI_PitchFunc;
 
@@ -31,8 +35,12 @@ MidiFuncPtr MIDI_PitchFunc;
 
 // Statuses
 #define MIDI_IDLE 0x00
-#define MIDI_NOTEON 0x90
+#define MIDI_SYNC_CLK 0xF8
+#define MIDI_SYNC_START 0xFA
+#define MIDI_SYNC_CONT 0xFB
+#define MIDI_SYNC_STOP 0xFC
 #define MIDI_NOTEOFF 0x80
+#define MIDI_NOTEON 0x90
 
 /***
  * Midi initialize for USART (1 or 2) either receiving, transmitting, or both
@@ -50,14 +58,15 @@ void MIDI_Enable(LPC_USART_T* USARTNumber);
 void MIDI_SetAddress(uint8_t addr);
 
 /***
- * Sets a selected function to the user-defined function
- */
-void MIDI_SetFunction(uint8_t funcName, MidiFuncPtr func);
-
-/***
  * Processes all received information.  Does nothing if no information was received.
  */
 void MIDI_ProcessRXBuffer();
+
+/***
+ * counts sync messages handled, fires appropriate high-priority functions.
+ * Returns 1 if the message was handled, 0 otherwise.
+ */
+int MIDI_SyncHandler(uint8_t msg);
 
 
 /***

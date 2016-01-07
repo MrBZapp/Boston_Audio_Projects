@@ -1,0 +1,2440 @@
+
+SimpleMidiModule.axf:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <g_pfnVectors>:
+   0:	00 04 00 10 03 01 00 00 d5 00 00 00 d7 00 00 00     ................
+	...
+  2c:	d9 00 00 00 00 00 00 00 00 00 00 00 db 00 00 00     ................
+  3c:	85 03 00 00 df 00 00 00 df 00 00 00 00 00 00 00     ................
+  4c:	c1 06 00 00 df 00 00 00 df 00 00 00 00 00 00 00     ................
+  5c:	00 00 00 00 df 00 00 00 df 00 00 00 df 00 00 00     ................
+  6c:	df 00 00 00 df 00 00 00 df 00 00 00 00 00 00 00     ................
+  7c:	df 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00     ................
+	...
+  a0:	df 00 00 00 df 00 00 00 df 00 00 00 df 00 00 00     ................
+  b0:	df 00 00 00 df 00 00 00 df 00 00 00 df 00 00 00     ................
+
+000000c0 <__data_section_table>:
+  c0:	00000bb8 	.word	0x00000bb8
+  c4:	10000000 	.word	0x10000000
+  c8:	00000004 	.word	0x00000004
+
+000000cc <__bss_section_table>:
+  cc:	10000004 	.word	0x10000004
+  d0:	00000044 	.word	0x00000044
+
+000000d4 <NMI_Handler>:
+// Default exception handlers. Override the ones here by defining your own
+// handler routines in your application code.
+//*****************************************************************************
+__attribute__ ((section(".after_vectors")))
+void NMI_Handler(void)
+{
+  d4:	e7fe      	b.n	d4 <NMI_Handler>
+
+000000d6 <HardFault_Handler>:
+    {
+    }
+}
+__attribute__ ((section(".after_vectors")))
+void HardFault_Handler(void)
+{
+  d6:	e7fe      	b.n	d6 <HardFault_Handler>
+
+000000d8 <SVC_Handler>:
+    {
+    }
+}
+__attribute__ ((section(".after_vectors")))
+void SVC_Handler(void)
+{
+  d8:	e7fe      	b.n	d8 <SVC_Handler>
+
+000000da <PendSV_Handler>:
+    {
+    }
+}
+__attribute__ ((section(".after_vectors")))
+void PendSV_Handler(void)
+{
+  da:	e7fe      	b.n	da <PendSV_Handler>
+    {
+    }
+}
+__attribute__ ((section(".after_vectors")))
+void SysTick_Handler(void)
+{
+  dc:	e7fe      	b.n	dc <PendSV_Handler+0x2>
+
+000000de <BOD_IRQHandler>:
+// handler is not present in the application code.
+//
+//*****************************************************************************
+__attribute__ ((section(".after_vectors")))
+void IntDefaultHandler(void)
+{
+  de:	e7fe      	b.n	de <BOD_IRQHandler>
+
+000000e0 <data_init>:
+// are written as separate functions rather than being inlined within the
+// ResetISR() function in order to cope with MCUs with multiple banks of
+// memory.
+//*****************************************************************************
+__attribute__ ((section(".after_vectors")))
+void data_init(unsigned int romstart, unsigned int start, unsigned int len) {
+  e0:	b510      	push	{r4, lr}
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int *pulSrc = (unsigned int*) romstart;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+  e2:	2300      	movs	r3, #0
+  e4:	4293      	cmp	r3, r2
+  e6:	d203      	bcs.n	f0 <data_init+0x10>
+        *pulDest++ = *pulSrc++;
+  e8:	581c      	ldr	r4, [r3, r0]
+  ea:	505c      	str	r4, [r3, r1]
+__attribute__ ((section(".after_vectors")))
+void data_init(unsigned int romstart, unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int *pulSrc = (unsigned int*) romstart;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+  ec:	3304      	adds	r3, #4
+  ee:	e7f9      	b.n	e4 <data_init+0x4>
+        *pulDest++ = *pulSrc++;
+}
+  f0:	bd10      	pop	{r4, pc}
+
+000000f2 <bss_init>:
+
+__attribute__ ((section(".after_vectors")))
+void bss_init(unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+  f2:	2300      	movs	r3, #0
+  f4:	428b      	cmp	r3, r1
+  f6:	d203      	bcs.n	100 <bss_init+0xe>
+        *pulDest++ = 0;
+  f8:	2200      	movs	r2, #0
+  fa:	501a      	str	r2, [r3, r0]
+
+__attribute__ ((section(".after_vectors")))
+void bss_init(unsigned int start, unsigned int len) {
+    unsigned int *pulDest = (unsigned int*) start;
+    unsigned int loop;
+    for (loop = 0; loop < len; loop = loop + 4)
+  fc:	3304      	adds	r3, #4
+  fe:	e7f9      	b.n	f4 <bss_init+0x2>
+        *pulDest++ = 0;
+}
+ 100:	4770      	bx	lr
+
+00000102 <ResetISR>:
+// Sets up a simple runtime environment and initializes the C/C++
+// library.
+//*****************************************************************************
+__attribute__ ((section(".after_vectors")))
+void
+ResetISR(void) {
+ 102:	b510      	push	{r4, lr}
+    //
+    unsigned int LoadAddr, ExeAddr, SectionLen;
+    unsigned int *SectionTableAddr;
+
+    // Load base address of Global Section Table
+    SectionTableAddr = &__data_section_table;
+ 104:	4c0c      	ldr	r4, [pc, #48]	; (138 <ResetISR+0x36>)
+
+    // Copy the data sections from flash to SRAM.
+    while (SectionTableAddr < &__data_section_table_end) {
+ 106:	4b0d      	ldr	r3, [pc, #52]	; (13c <ResetISR+0x3a>)
+ 108:	429c      	cmp	r4, r3
+ 10a:	d207      	bcs.n	11c <ResetISR+0x1a>
+        LoadAddr = *SectionTableAddr++;
+ 10c:	6820      	ldr	r0, [r4, #0]
+        ExeAddr = *SectionTableAddr++;
+ 10e:	6861      	ldr	r1, [r4, #4]
+ 110:	340c      	adds	r4, #12
+ 112:	1f23      	subs	r3, r4, #4
+        SectionLen = *SectionTableAddr++;
+        data_init(LoadAddr, ExeAddr, SectionLen);
+ 114:	681a      	ldr	r2, [r3, #0]
+ 116:	f7ff ffe3 	bl	e0 <data_init>
+ 11a:	e7f4      	b.n	106 <ResetISR+0x4>
+    }
+    // At this point, SectionTableAddr = &__bss_section_table;
+    // Zero fill the bss segment
+    while (SectionTableAddr < &__bss_section_table_end) {
+ 11c:	4b08      	ldr	r3, [pc, #32]	; (140 <ResetISR+0x3e>)
+ 11e:	429c      	cmp	r4, r3
+ 120:	d205      	bcs.n	12e <ResetISR+0x2c>
+        ExeAddr = *SectionTableAddr++;
+        SectionLen = *SectionTableAddr++;
+        bss_init(ExeAddr, SectionLen);
+ 122:	6820      	ldr	r0, [r4, #0]
+ 124:	6861      	ldr	r1, [r4, #4]
+ 126:	f7ff ffe4 	bl	f2 <bss_init>
+ 12a:	3408      	adds	r4, #8
+ 12c:	e7f6      	b.n	11c <ResetISR+0x1a>
+    }
+#if defined (__USE_CMSIS) || defined (__USE_LPCOPEN)
+    SystemInit();
+ 12e:	f000 fa03 	bl	538 <SystemInit>
+    __libc_init_array();
+#endif
+
+#if defined (__REDLIB__)
+    // Call the Redlib library, which in turn calls main()
+    __main() ;
+ 132:	f000 fc99 	bl	a68 <__weak_main>
+ 136:	e7fe      	b.n	136 <ResetISR+0x34>
+ 138:	000000c0 	.word	0x000000c0
+ 13c:	000000cc 	.word	0x000000cc
+ 140:	000000d4 	.word	0x000000d4
+ 144:	ffffffff 	.word	0xffffffff
+ 148:	ffffffff 	.word	0xffffffff
+ 14c:	ffffffff 	.word	0xffffffff
+ 150:	ffffffff 	.word	0xffffffff
+ 154:	ffffffff 	.word	0xffffffff
+ 158:	ffffffff 	.word	0xffffffff
+ 15c:	ffffffff 	.word	0xffffffff
+ 160:	ffffffff 	.word	0xffffffff
+ 164:	ffffffff 	.word	0xffffffff
+ 168:	ffffffff 	.word	0xffffffff
+ 16c:	ffffffff 	.word	0xffffffff
+ 170:	ffffffff 	.word	0xffffffff
+ 174:	ffffffff 	.word	0xffffffff
+ 178:	ffffffff 	.word	0xffffffff
+ 17c:	ffffffff 	.word	0xffffffff
+ 180:	ffffffff 	.word	0xffffffff
+ 184:	ffffffff 	.word	0xffffffff
+ 188:	ffffffff 	.word	0xffffffff
+ 18c:	ffffffff 	.word	0xffffffff
+ 190:	ffffffff 	.word	0xffffffff
+ 194:	ffffffff 	.word	0xffffffff
+ 198:	ffffffff 	.word	0xffffffff
+ 19c:	ffffffff 	.word	0xffffffff
+ 1a0:	ffffffff 	.word	0xffffffff
+ 1a4:	ffffffff 	.word	0xffffffff
+ 1a8:	ffffffff 	.word	0xffffffff
+ 1ac:	ffffffff 	.word	0xffffffff
+ 1b0:	ffffffff 	.word	0xffffffff
+ 1b4:	ffffffff 	.word	0xffffffff
+ 1b8:	ffffffff 	.word	0xffffffff
+ 1bc:	ffffffff 	.word	0xffffffff
+ 1c0:	ffffffff 	.word	0xffffffff
+ 1c4:	ffffffff 	.word	0xffffffff
+ 1c8:	ffffffff 	.word	0xffffffff
+ 1cc:	ffffffff 	.word	0xffffffff
+ 1d0:	ffffffff 	.word	0xffffffff
+ 1d4:	ffffffff 	.word	0xffffffff
+ 1d8:	ffffffff 	.word	0xffffffff
+ 1dc:	ffffffff 	.word	0xffffffff
+ 1e0:	ffffffff 	.word	0xffffffff
+ 1e4:	ffffffff 	.word	0xffffffff
+ 1e8:	ffffffff 	.word	0xffffffff
+ 1ec:	ffffffff 	.word	0xffffffff
+ 1f0:	ffffffff 	.word	0xffffffff
+ 1f4:	ffffffff 	.word	0xffffffff
+ 1f8:	ffffffff 	.word	0xffffffff
+ 1fc:	ffffffff 	.word	0xffffffff
+ 200:	ffffffff 	.word	0xffffffff
+ 204:	ffffffff 	.word	0xffffffff
+ 208:	ffffffff 	.word	0xffffffff
+ 20c:	ffffffff 	.word	0xffffffff
+ 210:	ffffffff 	.word	0xffffffff
+ 214:	ffffffff 	.word	0xffffffff
+ 218:	ffffffff 	.word	0xffffffff
+ 21c:	ffffffff 	.word	0xffffffff
+ 220:	ffffffff 	.word	0xffffffff
+ 224:	ffffffff 	.word	0xffffffff
+ 228:	ffffffff 	.word	0xffffffff
+ 22c:	ffffffff 	.word	0xffffffff
+ 230:	ffffffff 	.word	0xffffffff
+ 234:	ffffffff 	.word	0xffffffff
+ 238:	ffffffff 	.word	0xffffffff
+ 23c:	ffffffff 	.word	0xffffffff
+ 240:	ffffffff 	.word	0xffffffff
+ 244:	ffffffff 	.word	0xffffffff
+ 248:	ffffffff 	.word	0xffffffff
+ 24c:	ffffffff 	.word	0xffffffff
+ 250:	ffffffff 	.word	0xffffffff
+ 254:	ffffffff 	.word	0xffffffff
+ 258:	ffffffff 	.word	0xffffffff
+ 25c:	ffffffff 	.word	0xffffffff
+ 260:	ffffffff 	.word	0xffffffff
+ 264:	ffffffff 	.word	0xffffffff
+ 268:	ffffffff 	.word	0xffffffff
+ 26c:	ffffffff 	.word	0xffffffff
+ 270:	ffffffff 	.word	0xffffffff
+ 274:	ffffffff 	.word	0xffffffff
+ 278:	ffffffff 	.word	0xffffffff
+ 27c:	ffffffff 	.word	0xffffffff
+ 280:	ffffffff 	.word	0xffffffff
+ 284:	ffffffff 	.word	0xffffffff
+ 288:	ffffffff 	.word	0xffffffff
+ 28c:	ffffffff 	.word	0xffffffff
+ 290:	ffffffff 	.word	0xffffffff
+ 294:	ffffffff 	.word	0xffffffff
+ 298:	ffffffff 	.word	0xffffffff
+ 29c:	ffffffff 	.word	0xffffffff
+ 2a0:	ffffffff 	.word	0xffffffff
+ 2a4:	ffffffff 	.word	0xffffffff
+ 2a8:	ffffffff 	.word	0xffffffff
+ 2ac:	ffffffff 	.word	0xffffffff
+ 2b0:	ffffffff 	.word	0xffffffff
+ 2b4:	ffffffff 	.word	0xffffffff
+ 2b8:	ffffffff 	.word	0xffffffff
+ 2bc:	ffffffff 	.word	0xffffffff
+ 2c0:	ffffffff 	.word	0xffffffff
+ 2c4:	ffffffff 	.word	0xffffffff
+ 2c8:	ffffffff 	.word	0xffffffff
+ 2cc:	ffffffff 	.word	0xffffffff
+ 2d0:	ffffffff 	.word	0xffffffff
+ 2d4:	ffffffff 	.word	0xffffffff
+ 2d8:	ffffffff 	.word	0xffffffff
+ 2dc:	ffffffff 	.word	0xffffffff
+ 2e0:	ffffffff 	.word	0xffffffff
+ 2e4:	ffffffff 	.word	0xffffffff
+ 2e8:	ffffffff 	.word	0xffffffff
+ 2ec:	ffffffff 	.word	0xffffffff
+ 2f0:	ffffffff 	.word	0xffffffff
+ 2f4:	ffffffff 	.word	0xffffffff
+ 2f8:	ffffffff 	.word	0xffffffff
+
+000002fc <CRP_WORD>:
+ 2fc:	ffffffff                                ....
+
+00000300 <MIDI_SyncCounter>:
+	if (gatems != 0)
+		gatems--;
+}
+
+void MIDI_SyncCounter()
+{
+ 300:	b530      	push	{r4, r5, lr}
+	static uint8_t ticks = 0;
+	static uint8_t value = 127;
+	if (ticks == 0)
+ 302:	4a09      	ldr	r2, [pc, #36]	; (328 <MIDI_SyncCounter+0x28>)
+ 304:	7813      	ldrb	r3, [r2, #0]
+ 306:	1c10      	adds	r0, r2, #0
+ 308:	2b00      	cmp	r3, #0
+ 30a:	d108      	bne.n	31e <MIDI_SyncCounter+0x1e>
+	{
+		Chip_SCTPWM_SetDutyCycle(SCT_PWM, SYNC , value);
+ 30c:	4a07      	ldr	r2, [pc, #28]	; (32c <MIDI_SyncCounter+0x2c>)
+ * @param	value	: The 32-bit match count reload value
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SCT_SetMatchReload(LPC_SCT_T *pSCT, CHIP_SCT_MATCH_REG_T n, uint32_t value)
+{
+	pSCT->MATCHREL[n].U = value;
+ 30e:	2484      	movs	r4, #132	; 0x84
+ 310:	7811      	ldrb	r1, [r2, #0]
+ 312:	4d07      	ldr	r5, [pc, #28]	; (330 <MIDI_SyncCounter+0x30>)
+ 314:	00a4      	lsls	r4, r4, #2
+ 316:	5129      	str	r1, [r5, r4]
+		value = value ^ 127;
+ 318:	247f      	movs	r4, #127	; 0x7f
+ 31a:	4061      	eors	r1, r4
+ 31c:	7011      	strb	r1, [r2, #0]
+	}
+
+	ticks++;
+	ticks %= SYNC_TICKS;
+ 31e:	2201      	movs	r2, #1
+	{
+		Chip_SCTPWM_SetDutyCycle(SCT_PWM, SYNC , value);
+		value = value ^ 127;
+	}
+
+	ticks++;
+ 320:	3301      	adds	r3, #1
+	ticks %= SYNC_TICKS;
+ 322:	4013      	ands	r3, r2
+ 324:	7003      	strb	r3, [r0, #0]
+
+
+}
+ 326:	bd30      	pop	{r4, r5, pc}
+ 328:	10000005 	.word	0x10000005
+ 32c:	10000000 	.word	0x10000000
+ 330:	50004000 	.word	0x50004000
+
+00000334 <MIDI_NoteOff>:
+
+void MIDI_NoteOff(uint8_t num, uint8_t vel)
+{
+	voicenum--;
+	voicenum %= 2;
+ 334:	4b03      	ldr	r3, [pc, #12]	; (344 <MIDI_NoteOff+0x10>)
+ 336:	2101      	movs	r1, #1
+
+}
+
+void MIDI_NoteOff(uint8_t num, uint8_t vel)
+{
+	voicenum--;
+ 338:	781a      	ldrb	r2, [r3, #0]
+ 33a:	3a01      	subs	r2, #1
+	voicenum %= 2;
+ 33c:	400a      	ands	r2, r1
+ 33e:	701a      	strb	r2, [r3, #0]
+}
+ 340:	4770      	bx	lr
+ 342:	46c0      	nop			; (mov r8, r8)
+ 344:	10000004 	.word	0x10000004
+
+00000348 <MIDI_NoteOn>:
+
+void MIDI_NoteOn(uint8_t num, uint8_t vel)
+{
+ 348:	b510      	push	{r4, lr}
+	// Block Note Offs disguised as note-ons.
+	if (vel == 0)
+ 34a:	2900      	cmp	r1, #0
+ 34c:	d012      	beq.n	374 <MIDI_NoteOn+0x2c>
+	{
+		return;
+	}
+
+	// Assign note to a voice
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, (voicenum + 1) , num);
+ 34e:	4a0a      	ldr	r2, [pc, #40]	; (378 <MIDI_NoteOn+0x30>)
+ 350:	4b0a      	ldr	r3, [pc, #40]	; (37c <MIDI_NoteOn+0x34>)
+ 352:	7811      	ldrb	r1, [r2, #0]
+ 354:	3101      	adds	r1, #1
+ 356:	b2c9      	uxtb	r1, r1
+ 358:	1c0c      	adds	r4, r1, #0
+ 35a:	3480      	adds	r4, #128	; 0x80
+ 35c:	00a4      	lsls	r4, r4, #2
+ 35e:	50e0      	str	r0, [r4, r3]
+
+	// Advance voice
+	voicenum++;
+	voicenum %= 2;
+ 360:	2001      	movs	r0, #1
+ 362:	4001      	ands	r1, r0
+ 364:	7011      	strb	r1, [r2, #0]
+ 366:	2283      	movs	r2, #131	; 0x83
+ 368:	0092      	lsls	r2, r2, #2
+ 36a:	217f      	movs	r1, #127	; 0x7f
+ 36c:	5099      	str	r1, [r3, r2]
+
+	// Gate on
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, TRIG,  127);
+	gatems = GATE_LENGTH;
+ 36e:	4b04      	ldr	r3, [pc, #16]	; (380 <MIDI_NoteOn+0x38>)
+ 370:	2205      	movs	r2, #5
+ 372:	701a      	strb	r2, [r3, #0]
+}
+ 374:	bd10      	pop	{r4, pc}
+ 376:	46c0      	nop			; (mov r8, r8)
+ 378:	10000004 	.word	0x10000004
+ 37c:	50004000 	.word	0x50004000
+ 380:	10000006 	.word	0x10000006
+
+00000384 <SysTick_Handler>:
+
+uint8_t gatems = 0;
+
+void SysTick_Handler(void)
+{
+	if (gatems != 0)
+ 384:	4b03      	ldr	r3, [pc, #12]	; (394 <SysTick_Handler+0x10>)
+ 386:	781a      	ldrb	r2, [r3, #0]
+ 388:	2a00      	cmp	r2, #0
+ 38a:	d001      	beq.n	390 <SysTick_Handler+0xc>
+		gatems--;
+ 38c:	3a01      	subs	r2, #1
+ 38e:	701a      	strb	r2, [r3, #0]
+}
+ 390:	4770      	bx	lr
+ 392:	46c0      	nop			; (mov r8, r8)
+ 394:	10000006 	.word	0x10000006
+
+00000398 <main>:
+#include "SMM.h"
+#include "BAP_Clk.h"
+#include "BAP_Midi.h"
+#include "BAP_WaveGen.h"
+
+int main(void) {
+ 398:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+	// Standard boot procedure
+	CoreClockInit_30Hz();
+ 39a:	f000 f8d1 	bl	540 <CoreClockInit_30Hz>
+ * @param	clk	: Clock to enable
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_Clock_EnablePeriphClock(CHIP_SYSCTL_CLOCK_T clk)
+{
+	LPC_SYSCTL->SYSAHBCLKCTRL = (1 << clk) | (LPC_SYSCTL->SYSAHBCLKCTRL & ~SYSCTL_SYSAHBCLKCTRL_RESERVED);
+ 39e:	4b51      	ldr	r3, [pc, #324]	; (4e4 <main+0x14c>)
+ 3a0:	2180      	movs	r1, #128	; 0x80
+ 3a2:	6fda      	ldr	r2, [r3, #124]	; 0x7c
+	// Global Peripheral Enables:
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
+
+    /* Pin Assign 8 bit Configuration */
+    /* U0_RXD */
+    LPC_SWM->PINASSIGN[0] = 0xffff01ffUL;
+ 3a4:	4e50      	ldr	r6, [pc, #320]	; (4e8 <main+0x150>)
+ 3a6:	0312      	lsls	r2, r2, #12
+ 3a8:	0b12      	lsrs	r2, r2, #12
+ 3aa:	430a      	orrs	r2, r1
+ 3ac:	67da      	str	r2, [r3, #124]	; 0x7c
+    /* CTOUT_0 */
+    LPC_SWM->PINASSIGN[6] = 0x02ffffffUL;
+ 3ae:	494f      	ldr	r1, [pc, #316]	; (4ec <main+0x154>)
+	// Global Peripheral Enables:
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SWM);
+
+    /* Pin Assign 8 bit Configuration */
+    /* U0_RXD */
+    LPC_SWM->PINASSIGN[0] = 0xffff01ffUL;
+ 3b0:	4a4f      	ldr	r2, [pc, #316]	; (4f0 <main+0x158>)
+ 3b2:	2040      	movs	r0, #64	; 0x40
+ 3b4:	6032      	str	r2, [r6, #0]
+    /* CTOUT_0 */
+    LPC_SWM->PINASSIGN[6] = 0x02ffffffUL;
+ 3b6:	61b1      	str	r1, [r6, #24]
+    /* CTOUT_1 */
+    /* CTOUT_2 */
+    /* CTOUT_3 */
+    LPC_SWM->PINASSIGN[7] = 0xff050403UL;
+ 3b8:	494e      	ldr	r1, [pc, #312]	; (4f4 <main+0x15c>)
+ * @param	pSCT	: The base of SCT peripheral on the chip
+ * @return	None
+ */
+STATIC INLINE void Chip_SCTPWM_Init(LPC_SCT_T *pSCT)
+{
+	Chip_SCT_Init(pSCT);
+ 3ba:	4c4f      	ldr	r4, [pc, #316]	; (4f8 <main+0x160>)
+ 3bc:	61f1      	str	r1, [r6, #28]
+ 3be:	6fd9      	ldr	r1, [r3, #124]	; 0x7c
+    LPC_SWM->PINENABLE0 = 0xffffffffUL;
+
+	/* Initialize the SCT as PWM and set frequency */
+	Chip_SCTPWM_Init(SCT_PWM);
+	/* Set MATCH0 for max limit */
+	LPC_SCT->REGMODE_U = 0;
+ 3c0:	2500      	movs	r5, #0
+ 3c2:	0309      	lsls	r1, r1, #12
+ 3c4:	0b09      	lsrs	r1, r1, #12
+ 3c6:	4301      	orrs	r1, r0
+ 3c8:	67d9      	str	r1, [r3, #124]	; 0x7c
+ 3ca:	6fd8      	ldr	r0, [r3, #124]	; 0x7c
+ 3cc:	2180      	movs	r1, #128	; 0x80
+ 3ce:	0300      	lsls	r0, r0, #12
+ 3d0:	0b00      	lsrs	r0, r0, #12
+ 3d2:	01c9      	lsls	r1, r1, #7
+ 3d4:	4301      	orrs	r1, r0
+ 3d6:	67d9      	str	r1, [r3, #124]	; 0x7c
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_GPIO); // TODO: we don't need this for anything but debugging.
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_UART0);
+
+	/* Pin Assign 8 bit Configuration */
+    /* U0_RXD */
+    LPC_SWM->PINASSIGN[0] = 0xffff01ffUL;
+ 3d8:	6032      	str	r2, [r6, #0]
+
+    /* Pin Assign 1 bit Configuration */
+    LPC_SWM->PINENABLE0 = 0xffffffffUL;
+ 3da:	2301      	movs	r3, #1
+ 3dc:	22e0      	movs	r2, #224	; 0xe0
+ 3de:	425b      	negs	r3, r3
+ 3e0:	0052      	lsls	r2, r2, #1
+ 3e2:	50b3      	str	r3, [r6, r2]
+ 3e4:	1c20      	adds	r0, r4, #0
+ 3e6:	f000 fa9b 	bl	920 <Chip_SCT_Init>
+ * @param	value	: The 32-bit match count value
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SCT_SetMatchCount(LPC_SCT_T *pSCT, CHIP_SCT_MATCH_REG_T n, uint32_t value)
+{
+	pSCT->MATCH[n].U = value;
+ 3ea:	4b44      	ldr	r3, [pc, #272]	; (4fc <main+0x164>)
+
+	/* Initialize the SCT as PWM and set frequency */
+	Chip_SCTPWM_Init(SCT_PWM);
+	/* Set MATCH0 for max limit */
+	LPC_SCT->REGMODE_U = 0;
+ 3ec:	64e5      	str	r5, [r4, #76]	; 0x4c
+ 3ee:	605d      	str	r5, [r3, #4]
+ * @param	value	: The 32-bit match count reload value
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SCT_SetMatchReload(LPC_SCT_T *pSCT, CHIP_SCT_MATCH_REG_T n, uint32_t value)
+{
+	pSCT->MATCHREL[n].U = value;
+ 3f0:	2380      	movs	r3, #128	; 0x80
+ 3f2:	227f      	movs	r2, #127	; 0x7f
+ 3f4:	009b      	lsls	r3, r3, #2
+ 3f6:	50e2      	str	r2, [r4, r3]
+	Chip_SCT_SetMatchCount(LPC_SCT, SCT_MATCH_0, 0);
+	Chip_SCT_SetMatchReload(LPC_SCT, SCT_MATCH_0, 127);
+	LPC_SCT->EV[0].CTRL = 1 << 12;
+ 3f8:	2280      	movs	r2, #128	; 0x80
+ 3fa:	23c1      	movs	r3, #193	; 0xc1
+ 3fc:	0152      	lsls	r2, r2, #5
+ 3fe:	009b      	lsls	r3, r3, #2
+ 400:	50e2      	str	r2, [r4, r3]
+	LPC_SCT->EV[0].STATE = 1;
+ 402:	23c0      	movs	r3, #192	; 0xc0
+ 404:	2701      	movs	r7, #1
+ 406:	009b      	lsls	r3, r3, #2
+ 408:	50e7      	str	r7, [r4, r3]
+ * @param	value	: The 32-bit CONFIG register value
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SCT_Config(LPC_SCT_T *pSCT, uint32_t value)
+{
+	pSCT->CONFIG = value;
+ 40a:	4b3d      	ldr	r3, [pc, #244]	; (500 <main+0x168>)
+
+	/* Set SCT Counter to count 32-bits and reset to 0 after reaching MATCH0 */
+	Chip_SCT_Config(LPC_SCT, SCT_CONFIG_32BIT_COUNTER | SCT_CONFIG_AUTOLIMIT_L);
+
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_1, SCT_PWM_PIN_1);
+ 40c:	1c20      	adds	r0, r4, #0
+ 40e:	6023      	str	r3, [r4, #0]
+ 410:	1c39      	adds	r1, r7, #0
+ 412:	1c2a      	adds	r2, r5, #0
+ 414:	f000 fa9c 	bl	950 <Chip_SCTPWM_SetOutPin>
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_2, SCT_PWM_PIN_2);
+ 418:	1c20      	adds	r0, r4, #0
+ 41a:	2102      	movs	r1, #2
+ 41c:	1c3a      	adds	r2, r7, #0
+ 41e:	f000 fa97 	bl	950 <Chip_SCTPWM_SetOutPin>
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_3, SCT_PWM_PIN_3);
+ 422:	1c20      	adds	r0, r4, #0
+ 424:	2103      	movs	r1, #3
+ 426:	2202      	movs	r2, #2
+ 428:	f000 fa92 	bl	950 <Chip_SCTPWM_SetOutPin>
+	Chip_SCTPWM_SetOutPin(SCT_PWM, SCT_PWM_4, SCT_PWM_PIN_4);
+ 42c:	1c20      	adds	r0, r4, #0
+ 42e:	2104      	movs	r1, #4
+ 430:	2203      	movs	r2, #3
+ 432:	f000 fa8d 	bl	950 <Chip_SCTPWM_SetOutPin>
+ * @param	value	: The 32-bit match count reload value
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SCT_SetMatchReload(LPC_SCT_T *pSCT, CHIP_SCT_MATCH_REG_T n, uint32_t value)
+{
+	pSCT->MATCHREL[n].U = value;
+ 436:	2381      	movs	r3, #129	; 0x81
+ 438:	009b      	lsls	r3, r3, #2
+ 43a:	50e5      	str	r5, [r4, r3]
+ 43c:	2382      	movs	r3, #130	; 0x82
+ 43e:	009b      	lsls	r3, r3, #2
+ 440:	50e5      	str	r5, [r4, r3]
+ 442:	2383      	movs	r3, #131	; 0x83
+ 444:	009b      	lsls	r3, r3, #2
+ 446:	50e5      	str	r5, [r4, r3]
+ 448:	2384      	movs	r3, #132	; 0x84
+ 44a:	009b      	lsls	r3, r3, #2
+ 44c:	50e5      	str	r5, [r4, r3]
+ * @param	value	: Value (ORed value of SCT_CTRL_* bits)
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SCT_ClearControl(LPC_SCT_T *pSCT, uint32_t value)
+{
+	pSCT->CTRL_U &= ~(value | SCT_CTRL_RESERVED);
+ 44e:	6862      	ldr	r2, [r4, #4]
+ 450:	4b2c      	ldr	r3, [pc, #176]	; (504 <main+0x16c>)
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_3,  0);
+	Chip_SCTPWM_SetDutyCycle(SCT_PWM, SCT_PWM_4,  0);
+
+	Chip_SCTPWM_Start(SCT_PWM);
+
+	LPC_GPIO_PORT->DIR[0] |= (1 << LED_LOCATION);
+ 452:	2180      	movs	r1, #128	; 0x80
+ 454:	4013      	ands	r3, r2
+ 456:	6063      	str	r3, [r4, #4]
+ 458:	23a0      	movs	r3, #160	; 0xa0
+ 45a:	061b      	lsls	r3, r3, #24
+ 45c:	0189      	lsls	r1, r1, #6
+ 45e:	5858      	ldr	r0, [r3, r1]
+ 460:	2210      	movs	r2, #16
+ 462:	4310      	orrs	r0, r2
+ 464:	5058      	str	r0, [r3, r1]
+	LPC_GPIO_PORT->SET[0] = 1 << LED_LOCATION;
+ 466:	2188      	movs	r1, #136	; 0x88
+ 468:	0189      	lsls	r1, r1, #6
+ 46a:	505a      	str	r2, [r3, r1]
+
+    /* Pin Assign 8 bit Configuration */
+    /* CTOUT_0 */
+    LPC_SWM->PINASSIGN[6] = 0x02ffffffUL;
+ 46c:	491f      	ldr	r1, [pc, #124]	; (4ec <main+0x154>)
+
+    /* Pin Assign 1 bit Configuration */
+    LPC_SWM->PINENABLE0 = 0xffffffffUL;
+ 46e:	2301      	movs	r3, #1
+ 470:	22e0      	movs	r2, #224	; 0xe0
+ 472:	425b      	negs	r3, r3
+ 474:	0052      	lsls	r2, r2, #1
+	LPC_GPIO_PORT->DIR[0] |= (1 << LED_LOCATION);
+	LPC_GPIO_PORT->SET[0] = 1 << LED_LOCATION;
+
+    /* Pin Assign 8 bit Configuration */
+    /* CTOUT_0 */
+    LPC_SWM->PINASSIGN[6] = 0x02ffffffUL;
+ 476:	61b1      	str	r1, [r6, #24]
+
+    /* Pin Assign 1 bit Configuration */
+    LPC_SWM->PINENABLE0 = 0xffffffffUL;
+ 478:	50b3      	str	r3, [r6, r2]
+
+	SysTick_Config(SystemCoreClock / TICKRATE_HZ);
+ 47a:	4b23      	ldr	r3, [pc, #140]	; (508 <main+0x170>)
+ 47c:	21fa      	movs	r1, #250	; 0xfa
+ 47e:	6818      	ldr	r0, [r3, #0]
+ 480:	0089      	lsls	r1, r1, #2
+ 482:	f000 faf8 	bl	a76 <__aeabi_uidiv>
+    must contain a vendor-specific implementation of this function.
+
+ */
+__STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
+{
+  if ((ticks - 1) > SysTick_LOAD_RELOAD_Msk)  return (1);      /* Reload value impossible */
+ 486:	4b21      	ldr	r3, [pc, #132]	; (50c <main+0x174>)
+ 488:	3801      	subs	r0, #1
+ 48a:	4298      	cmp	r0, r3
+ 48c:	d80c      	bhi.n	4a8 <main+0x110>
+
+  SysTick->LOAD  = ticks - 1;                                  /* set reload register */
+ 48e:	4b20      	ldr	r3, [pc, #128]	; (510 <main+0x178>)
+    \param [in]  priority  Priority to set.
+ */
+__STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+{
+  if(IRQn < 0) {
+    SCB->SHP[_SHP_IDX(IRQn)] = (SCB->SHP[_SHP_IDX(IRQn)] & ~(0xFF << _BIT_SHIFT(IRQn))) |
+ 490:	4a20      	ldr	r2, [pc, #128]	; (514 <main+0x17c>)
+ */
+__STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
+{
+  if ((ticks - 1) > SysTick_LOAD_RELOAD_Msk)  return (1);      /* Reload value impossible */
+
+  SysTick->LOAD  = ticks - 1;                                  /* set reload register */
+ 492:	6058      	str	r0, [r3, #4]
+    \param [in]  priority  Priority to set.
+ */
+__STATIC_INLINE void NVIC_SetPriority(IRQn_Type IRQn, uint32_t priority)
+{
+  if(IRQn < 0) {
+    SCB->SHP[_SHP_IDX(IRQn)] = (SCB->SHP[_SHP_IDX(IRQn)] & ~(0xFF << _BIT_SHIFT(IRQn))) |
+ 494:	6a10      	ldr	r0, [r2, #32]
+ 496:	21c0      	movs	r1, #192	; 0xc0
+ 498:	0200      	lsls	r0, r0, #8
+ 49a:	0a00      	lsrs	r0, r0, #8
+ 49c:	0609      	lsls	r1, r1, #24
+ 49e:	4301      	orrs	r1, r0
+ 4a0:	6211      	str	r1, [r2, #32]
+  if ((ticks - 1) > SysTick_LOAD_RELOAD_Msk)  return (1);      /* Reload value impossible */
+
+  SysTick->LOAD  = ticks - 1;                                  /* set reload register */
+  NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);  /* set Priority for Systick Interrupt */
+  SysTick->VAL   = 0;                                          /* Load the SysTick Counter Value */
+  SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
+ 4a2:	2207      	movs	r2, #7
+{
+  if ((ticks - 1) > SysTick_LOAD_RELOAD_Msk)  return (1);      /* Reload value impossible */
+
+  SysTick->LOAD  = ticks - 1;                                  /* set reload register */
+  NVIC_SetPriority (SysTick_IRQn, (1<<__NVIC_PRIO_BITS) - 1);  /* set Priority for Systick Interrupt */
+  SysTick->VAL   = 0;                                          /* Load the SysTick Counter Value */
+ 4a4:	609d      	str	r5, [r3, #8]
+  SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
+ 4a6:	601a      	str	r2, [r3, #0]
+
+    // Configure the USART to Use MIDI protocol
+	MIDI_USARTInit(LPC_USART0, MIDI_ENABLERX);
+ 4a8:	481b      	ldr	r0, [pc, #108]	; (518 <main+0x180>)
+ 4aa:	2102      	movs	r1, #2
+ 4ac:	f000 f866 	bl	57c <MIDI_USARTInit>
+	MIDI_SetAddress(LOCAL_ADDRESS);
+ 4b0:	2000      	movs	r0, #0
+ 4b2:	f000 f891 	bl	5d8 <MIDI_SetAddress>
+
+	// Assign note on and off functions
+	MIDI_NoteOnFunc = &MIDI_NoteOn;
+ 4b6:	4a19      	ldr	r2, [pc, #100]	; (51c <main+0x184>)
+ 4b8:	4b19      	ldr	r3, [pc, #100]	; (520 <main+0x188>)
+	MIDI_NoteOffFunc = &MIDI_NoteOff;
+	MIDI_Sync_ClkFunc = &MIDI_SyncCounter;
+
+	MIDI_Enable(LPC_USART0);
+ 4ba:	4817      	ldr	r0, [pc, #92]	; (518 <main+0x180>)
+    // Configure the USART to Use MIDI protocol
+	MIDI_USARTInit(LPC_USART0, MIDI_ENABLERX);
+	MIDI_SetAddress(LOCAL_ADDRESS);
+
+	// Assign note on and off functions
+	MIDI_NoteOnFunc = &MIDI_NoteOn;
+ 4bc:	601a      	str	r2, [r3, #0]
+	MIDI_NoteOffFunc = &MIDI_NoteOff;
+ 4be:	4a19      	ldr	r2, [pc, #100]	; (524 <main+0x18c>)
+ 4c0:	4b19      	ldr	r3, [pc, #100]	; (528 <main+0x190>)
+ 4c2:	601a      	str	r2, [r3, #0]
+	MIDI_Sync_ClkFunc = &MIDI_SyncCounter;
+ 4c4:	4a19      	ldr	r2, [pc, #100]	; (52c <main+0x194>)
+ 4c6:	4b1a      	ldr	r3, [pc, #104]	; (530 <main+0x198>)
+ 4c8:	601a      	str	r2, [r3, #0]
+
+	MIDI_Enable(LPC_USART0);
+ 4ca:	f000 f88b 	bl	5e4 <MIDI_Enable>
+
+	while(1)
+	{
+		// Check if we've received any data
+		MIDI_ProcessRXBuffer();
+ 4ce:	f000 f8af 	bl	630 <MIDI_ProcessRXBuffer>
+		if (gatems == 0)
+ 4d2:	4b18      	ldr	r3, [pc, #96]	; (534 <main+0x19c>)
+ 4d4:	781b      	ldrb	r3, [r3, #0]
+ 4d6:	2b00      	cmp	r3, #0
+ 4d8:	d1f9      	bne.n	4ce <main+0x136>
+ * @param	value	: The 32-bit match count reload value
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SCT_SetMatchReload(LPC_SCT_T *pSCT, CHIP_SCT_MATCH_REG_T n, uint32_t value)
+{
+	pSCT->MATCHREL[n].U = value;
+ 4da:	2283      	movs	r2, #131	; 0x83
+ 4dc:	0092      	lsls	r2, r2, #2
+ 4de:	50a3      	str	r3, [r4, r2]
+ 4e0:	e7f5      	b.n	4ce <main+0x136>
+ 4e2:	46c0      	nop			; (mov r8, r8)
+ 4e4:	40048004 	.word	0x40048004
+ 4e8:	4000c000 	.word	0x4000c000
+ 4ec:	02ffffff 	.word	0x02ffffff
+ 4f0:	ffff01ff 	.word	0xffff01ff
+ 4f4:	ff050403 	.word	0xff050403
+ 4f8:	50004000 	.word	0x50004000
+ 4fc:	500040fc 	.word	0x500040fc
+ 500:	00020001 	.word	0x00020001
+ 504:	1ffb1ffb 	.word	0x1ffb1ffb
+ 508:	10000044 	.word	0x10000044
+ 50c:	00ffffff 	.word	0x00ffffff
+ 510:	e000e010 	.word	0xe000e010
+ 514:	e000ed00 	.word	0xe000ed00
+ 518:	40064000 	.word	0x40064000
+ 51c:	00000349 	.word	0x00000349
+ 520:	10000020 	.word	0x10000020
+ 524:	00000335 	.word	0x00000335
+ 528:	10000010 	.word	0x10000010
+ 52c:	00000301 	.word	0x00000301
+ 530:	10000014 	.word	0x10000014
+ 534:	10000006 	.word	0x10000006
+
+00000538 <SystemInit>:
+ * Public functions
+ ****************************************************************************/
+
+/* Set up and initialize hardware prior to call to main */
+void SystemInit(void)
+{
+ 538:	b508      	push	{r3, lr}
+#if defined(NO_BOARD_LIB)
+	/* Chip specific SystemInit */
+	Chip_SystemInit();
+ 53a:	f000 fa53 	bl	9e4 <Chip_SystemInit>
+#else
+	/* Board specific SystemInit */
+	Board_SystemInit();
+#endif
+}
+ 53e:	bd08      	pop	{r3, pc}
+
+00000540 <CoreClockInit_30Hz>:
+
+#include "BAP_Clk.h"
+
+#define PLL_60MHZ (0x24)
+
+void CoreClockInit_30Hz() {
+ 540:	b508      	push	{r3, lr}
+
+	 /* Enable the PLL Clock for a maximum 30MHZ SystemCoreClock */
+	LPC_SYSCTL->SYSPLLCTRL = PLL_60MHZ; /* 60 MHZ pll output clock*/
+ 542:	4b0d      	ldr	r3, [pc, #52]	; (578 <CoreClockInit_30Hz+0x38>)
+ 544:	2224      	movs	r2, #36	; 0x24
+ 546:	609a      	str	r2, [r3, #8]
+	LPC_SYSCTL->PDRUNCFG &= ~(0x1 << 7); /* Power-up SYSPLL          */
+ 548:	228e      	movs	r2, #142	; 0x8e
+ 54a:	0092      	lsls	r2, r2, #2
+ 54c:	5899      	ldr	r1, [r3, r2]
+ 54e:	2080      	movs	r0, #128	; 0x80
+ 550:	4381      	bics	r1, r0
+ 552:	5099      	str	r1, [r3, r2]
+
+	while (!(LPC_SYSCTL->SYSPLLSTAT & 0x01)){/* Wait Until PLL Locked*/}
+ 554:	68d8      	ldr	r0, [r3, #12]
+ 556:	2101      	movs	r1, #1
+ 558:	4a07      	ldr	r2, [pc, #28]	; (578 <CoreClockInit_30Hz+0x38>)
+ 55a:	4208      	tst	r0, r1
+ 55c:	d0fa      	beq.n	554 <CoreClockInit_30Hz+0x14>
+
+	LPC_SYSCTL->MAINCLKSEL = 3; /* Select PLL Clock Output  */
+ 55e:	2003      	movs	r0, #3
+ 560:	6710      	str	r0, [r2, #112]	; 0x70
+	LPC_SYSCTL->MAINCLKUEN = 0x01; /* Update MCLK Clock Source */
+ 562:	6751      	str	r1, [r2, #116]	; 0x74
+
+	while (!(LPC_SYSCTL->MAINCLKUEN & 0x01)){/* Wait Until Updated*/}
+ 564:	6f5a      	ldr	r2, [r3, #116]	; 0x74
+ 566:	07d1      	lsls	r1, r2, #31
+ 568:	d5fc      	bpl.n	564 <CoreClockInit_30Hz+0x24>
+
+	LPC_SYSCTL->SYSAHBCLKDIV  =  2; /* Divide by 2 to get the maximum 30MHZ SystemCoreClock */
+ 56a:	4b03      	ldr	r3, [pc, #12]	; (578 <CoreClockInit_30Hz+0x38>)
+ 56c:	2202      	movs	r2, #2
+ 56e:	679a      	str	r2, [r3, #120]	; 0x78
+	SystemCoreClockUpdate();
+ 570:	f000 f8be 	bl	6f0 <SystemCoreClockUpdate>
+}
+ 574:	bd08      	pop	{r3, pc}
+ 576:	46c0      	nop			; (mov r8, r8)
+ 578:	40048000 	.word	0x40048000
+
+0000057c <MIDI_USARTInit>:
+
+/***
+ * Midi initialize for USART (1 or 2)
+ */
+void MIDI_USARTInit(LPC_USART_T* USARTNumber, int RXTX_Enable)
+{
+ 57c:	b538      	push	{r3, r4, r5, lr}
+ * @note	Use 0 to disable, or a divider value of 1 to 255. The UART clock
+ * rate is the main system clock divided by this value.
+ */
+STATIC INLINE void Chip_Clock_SetUARTClockDiv(uint32_t div)
+{
+	LPC_SYSCTL->UARTCLKDIV = div;
+ 57e:	4b0f      	ldr	r3, [pc, #60]	; (5bc <MIDI_USARTInit+0x40>)
+ 580:	2501      	movs	r5, #1
+ 582:	601d      	str	r5, [r3, #0]
+ */
+STATIC INLINE void Chip_UART_ConfigData(LPC_USART_T *pUART, uint32_t config)
+{
+	uint32_t reg;
+
+	reg = pUART->CFG & ~((0x3 << 2) | (0x3 << 4) | (0x1 << 6) | UART_CFG_RESERVED);
+ 584:	6802      	ldr	r2, [r0, #0]
+ 586:	4b0e      	ldr	r3, [pc, #56]	; (5c0 <MIDI_USARTInit+0x44>)
+
+	// configure the frame format
+	Chip_UART_ConfigData(USARTNumber, UART_CFG_DATALEN_8 | UART_CFG_PARITY_NONE | UART_CFG_STOPLEN_1);
+
+	// Set the baud rate to 31250
+	Chip_UART_SetBaud(USARTNumber, 31250);
+ 588:	490e      	ldr	r1, [pc, #56]	; (5c4 <MIDI_USARTInit+0x48>)
+ 58a:	4013      	ands	r3, r2
+	pUART->CFG = reg | config;
+ 58c:	2204      	movs	r2, #4
+ 58e:	4313      	orrs	r3, r2
+ 590:	6003      	str	r3, [r0, #0]
+
+/***
+ * Midi initialize for USART (1 or 2)
+ */
+void MIDI_USARTInit(LPC_USART_T* USARTNumber, int RXTX_Enable)
+{
+ 592:	1c04      	adds	r4, r0, #0
+
+	// configure the frame format
+	Chip_UART_ConfigData(USARTNumber, UART_CFG_DATALEN_8 | UART_CFG_PARITY_NONE | UART_CFG_STOPLEN_1);
+
+	// Set the baud rate to 31250
+	Chip_UART_SetBaud(USARTNumber, 31250);
+ 594:	f000 fa2a 	bl	9ec <Chip_UART_SetBaud>
+	/***
+	 *  Initialize the RX and TX specific functions
+	 **/
+#ifdef MIDI_RX_ENABLE
+		// Initialize the Receive buffer
+		RingBuffer_Init(&MIDI_RxBuffer, &MIDI_RxData, sizeof(uint8_t), MIDI_RXBUFFERSIZE);
+ 598:	1c2a      	adds	r2, r5, #0
+ 59a:	490b      	ldr	r1, [pc, #44]	; (5c8 <MIDI_USARTInit+0x4c>)
+ 59c:	230a      	movs	r3, #10
+ 59e:	480b      	ldr	r0, [pc, #44]	; (5cc <MIDI_USARTInit+0x50>)
+ 5a0:	f000 f95e 	bl	860 <RingBuffer_Init>
+
+static void MIDI_ClearStatus0()
+{
+	// Doing it this way, we'll get a build warning if we ever need to expand MIDI_Status_t
+	MIDI_Status_t temp = {MIDI_IDLE, 0, 0, 0};
+	MIDI_Status0 = temp;
+ 5a4:	4b0a      	ldr	r3, [pc, #40]	; (5d0 <MIDI_USARTInit+0x54>)
+ 5a6:	2200      	movs	r2, #0
+ 5a8:	701a      	strb	r2, [r3, #0]
+ 5aa:	705a      	strb	r2, [r3, #1]
+ 5ac:	709a      	strb	r2, [r3, #2]
+ 5ae:	70da      	strb	r2, [r3, #3]
+
+    \param [in]      IRQn  External interrupt number. Value cannot be negative.
+ */
+__STATIC_INLINE void NVIC_EnableIRQ(IRQn_Type IRQn)
+{
+  NVIC->ISER[0] = (1 << ((uint32_t)(IRQn) & 0x1F));
+ 5b0:	4b08      	ldr	r3, [pc, #32]	; (5d4 <MIDI_USARTInit+0x58>)
+ 5b2:	2208      	movs	r2, #8
+ * @note	Use an OR'ed value of UART_INTEN_* definitions with this function
+ *			to enable specific UART interrupts.
+ */
+STATIC INLINE void Chip_UART_IntEnable(LPC_USART_T *pUART, uint32_t intMask)
+{
+	pUART->INTENSET = intMask;
+ 5b4:	60e5      	str	r5, [r4, #12]
+ 5b6:	601a      	str	r2, [r3, #0]
+		Chip_UART_IntEnable(USARTNumber, UART_INTEN_TXRDY);
+#endif
+
+	MIDI_ClearStatus0();
+	NVIC_EnableIRQ(UART0_IRQn);
+}
+ 5b8:	bd38      	pop	{r3, r4, r5, pc}
+ 5ba:	46c0      	nop			; (mov r8, r8)
+ 5bc:	40048094 	.word	0x40048094
+ 5c0:	0000da01 	.word	0x0000da01
+ 5c4:	00007a12 	.word	0x00007a12
+ 5c8:	10000024 	.word	0x10000024
+ 5cc:	10000030 	.word	0x10000030
+ 5d0:	1000000c 	.word	0x1000000c
+ 5d4:	e000e100 	.word	0xe000e100
+
+000005d8 <MIDI_SetAddress>:
+/***
+ * Sets the address of the current receiver
+ **/
+void inline MIDI_SetAddress(uint8_t addr)
+{
+	MIDI_Address = addr;
+ 5d8:	4b01      	ldr	r3, [pc, #4]	; (5e0 <MIDI_SetAddress+0x8>)
+ 5da:	7018      	strb	r0, [r3, #0]
+}
+ 5dc:	4770      	bx	lr
+ 5de:	46c0      	nop			; (mov r8, r8)
+ 5e0:	10000007 	.word	0x10000007
+
+000005e4 <MIDI_Enable>:
+ */
+
+void inline MIDI_Enable(LPC_USART_T* USARTNumber)
+{
+	// Enable the UART to start receiving messages
+	USARTNumber->CFG |= UART_CFG_ENABLE;
+ 5e4:	6803      	ldr	r3, [r0, #0]
+ 5e6:	2201      	movs	r2, #1
+ 5e8:	4313      	orrs	r3, r2
+ 5ea:	6003      	str	r3, [r0, #0]
+}
+ 5ec:	4770      	bx	lr
+	...
+
+000005f0 <MIDI_SyncHandler>:
+
+/***
+ * counts sync messages handled, fires appropriate high-priority functions
+ */
+int MIDI_SyncHandler(uint8_t msg)
+{
+ 5f0:	b508      	push	{r3, lr}
+	int handled = 0;
+	if (msg == MIDI_SYNC_CLK) {
+ 5f2:	28f8      	cmp	r0, #248	; 0xf8
+ 5f4:	d101      	bne.n	5fa <MIDI_SyncHandler+0xa>
+		if (MIDI_Sync_ClkFunc != 0)
+ 5f6:	4b0a      	ldr	r3, [pc, #40]	; (620 <MIDI_SyncHandler+0x30>)
+ 5f8:	e00b      	b.n	612 <MIDI_SyncHandler+0x22>
+			MIDI_Sync_ClkFunc();
+		}
+		handled = 1;
+	}
+
+	else if (msg == MIDI_SYNC_START) {
+ 5fa:	28fa      	cmp	r0, #250	; 0xfa
+ 5fc:	d101      	bne.n	602 <MIDI_SyncHandler+0x12>
+		if (MIDI_Sync_StartFunc != 0)
+ 5fe:	4b09      	ldr	r3, [pc, #36]	; (624 <MIDI_SyncHandler+0x34>)
+ 600:	e007      	b.n	612 <MIDI_SyncHandler+0x22>
+		}
+
+		handled = 1;
+	}
+
+	else if (msg == MIDI_SYNC_STOP) {
+ 602:	28fc      	cmp	r0, #252	; 0xfc
+ 604:	d101      	bne.n	60a <MIDI_SyncHandler+0x1a>
+		if (MIDI_Sync_StopFunc != 0)
+ 606:	4b08      	ldr	r3, [pc, #32]	; (628 <MIDI_SyncHandler+0x38>)
+ 608:	e003      	b.n	612 <MIDI_SyncHandler+0x22>
+/***
+ * counts sync messages handled, fires appropriate high-priority functions
+ */
+int MIDI_SyncHandler(uint8_t msg)
+{
+	int handled = 0;
+ 60a:	2300      	movs	r3, #0
+		}
+
+		handled = 1;
+	}
+
+	else if (msg == MIDI_SYNC_CONT) {
+ 60c:	28fb      	cmp	r0, #251	; 0xfb
+ 60e:	d105      	bne.n	61c <MIDI_SyncHandler+0x2c>
+		if (MIDI_Sync_ContFunc != 0)
+ 610:	4b06      	ldr	r3, [pc, #24]	; (62c <MIDI_SyncHandler+0x3c>)
+ 612:	681b      	ldr	r3, [r3, #0]
+ 614:	2b00      	cmp	r3, #0
+ 616:	d000      	beq.n	61a <MIDI_SyncHandler+0x2a>
+		{
+			MIDI_Sync_ContFunc();
+ 618:	4798      	blx	r3
+	if (msg == MIDI_SYNC_CLK) {
+		if (MIDI_Sync_ClkFunc != 0)
+		{
+			MIDI_Sync_ClkFunc();
+		}
+		handled = 1;
+ 61a:	2301      	movs	r3, #1
+			MIDI_Sync_ContFunc();
+		}
+		handled = 1;
+	}
+	return handled;
+}
+ 61c:	1c18      	adds	r0, r3, #0
+ 61e:	bd08      	pop	{r3, pc}
+ 620:	10000014 	.word	0x10000014
+ 624:	10000018 	.word	0x10000018
+ 628:	1000001c 	.word	0x1000001c
+ 62c:	10000008 	.word	0x10000008
+
+00000630 <MIDI_ProcessRXBuffer>:
+	}
+}
+
+
+void MIDI_ProcessRXBuffer()
+{
+ 630:	b537      	push	{r0, r1, r2, r4, r5, lr}
+	uint8_t byte = 0;
+ 632:	2400      	movs	r4, #0
+ 634:	466d      	mov	r5, sp
+ 636:	71ec      	strb	r4, [r5, #7]
+ 638:	3507      	adds	r5, #7
+	// Pop a value off the buffer
+
+	if(Chip_UART_ReadRB(LPC_USART0, &MIDI_RxBuffer, &byte, 1) != 0)
+ 63a:	481b      	ldr	r0, [pc, #108]	; (6a8 <MIDI_ProcessRXBuffer+0x78>)
+ 63c:	491b      	ldr	r1, [pc, #108]	; (6ac <MIDI_ProcessRXBuffer+0x7c>)
+ 63e:	1c2a      	adds	r2, r5, #0
+ 640:	2301      	movs	r3, #1
+ 642:	f000 f9df 	bl	a04 <Chip_UART_ReadRB>
+ 646:	42a0      	cmp	r0, r4
+ 648:	d02d      	beq.n	6a6 <MIDI_ProcessRXBuffer+0x76>
+	{
+		// Is it a status bit
+		if((byte & MIDI_STATBIT))
+ 64a:	7829      	ldrb	r1, [r5, #0]
+ 64c:	4b18      	ldr	r3, [pc, #96]	; (6b0 <MIDI_ProcessRXBuffer+0x80>)
+ 64e:	b24a      	sxtb	r2, r1
+ 650:	42a2      	cmp	r2, r4
+ 652:	da0e      	bge.n	672 <MIDI_ProcessRXBuffer+0x42>
+			// Start of new message, clear the status
+			MIDI_ClearStatus0();
+			MIDI_Status0.Status = (uint8_t) byte;
+
+			// Are we being addressed?
+			if(((byte & MIDI_CHMSK) == MIDI_Address) || MIDI_Address == 0x00)
+ 654:	4a17      	ldr	r2, [pc, #92]	; (6b4 <MIDI_ProcessRXBuffer+0x84>)
+ 656:	200f      	movs	r0, #15
+ 658:	7812      	ldrb	r2, [r2, #0]
+		// Is it a status bit
+		if((byte & MIDI_STATBIT))
+		{
+			// Start of new message, clear the status
+			MIDI_ClearStatus0();
+			MIDI_Status0.Status = (uint8_t) byte;
+ 65a:	7019      	strb	r1, [r3, #0]
+
+static void MIDI_ClearStatus0()
+{
+	// Doing it this way, we'll get a build warning if we ever need to expand MIDI_Status_t
+	MIDI_Status_t temp = {MIDI_IDLE, 0, 0, 0};
+	MIDI_Status0 = temp;
+ 65c:	705c      	strb	r4, [r3, #1]
+ 65e:	709c      	strb	r4, [r3, #2]
+ 660:	70dc      	strb	r4, [r3, #3]
+			// Start of new message, clear the status
+			MIDI_ClearStatus0();
+			MIDI_Status0.Status = (uint8_t) byte;
+
+			// Are we being addressed?
+			if(((byte & MIDI_CHMSK) == MIDI_Address) || MIDI_Address == 0x00)
+ 662:	4001      	ands	r1, r0
+ 664:	4291      	cmp	r1, r2
+ 666:	d001      	beq.n	66c <MIDI_ProcessRXBuffer+0x3c>
+ 668:	42a2      	cmp	r2, r4
+ 66a:	d11a      	bne.n	6a2 <MIDI_ProcessRXBuffer+0x72>
+			{
+				MIDI_Status0.Addressed = 1;
+ 66c:	2201      	movs	r2, #1
+ 66e:	705a      	strb	r2, [r3, #1]
+ 670:	e017      	b.n	6a2 <MIDI_ProcessRXBuffer+0x72>
+			}
+		}
+		else if (MIDI_Status0.Addressed)
+ 672:	785a      	ldrb	r2, [r3, #1]
+ 674:	2a00      	cmp	r2, #0
+ 676:	d014      	beq.n	6a2 <MIDI_ProcessRXBuffer+0x72>
+		{
+			MIDI_Status0.DataCount++;
+ 678:	789a      	ldrb	r2, [r3, #2]
+ 67a:	3201      	adds	r2, #1
+ 67c:	b2d2      	uxtb	r2, r2
+ 67e:	709a      	strb	r2, [r3, #2]
+
+
+static void MIDI_ByteProcessor(uint8_t byte)
+{
+	// If it's the first byte, store it.
+	if ((MIDI_Status0.DataCount % 2))
+ 680:	07d0      	lsls	r0, r2, #31
+ 682:	d501      	bpl.n	688 <MIDI_ProcessRXBuffer+0x58>
+		MIDI_Status0.DB1 = byte;
+ 684:	70d9      	strb	r1, [r3, #3]
+ 686:	e00c      	b.n	6a2 <MIDI_ProcessRXBuffer+0x72>
+	// else, send it to a function
+	else
+	{
+		switch(MIDI_Status0.Status)
+ 688:	781a      	ldrb	r2, [r3, #0]
+ 68a:	2a80      	cmp	r2, #128	; 0x80
+ 68c:	d003      	beq.n	696 <MIDI_ProcessRXBuffer+0x66>
+ 68e:	2a90      	cmp	r2, #144	; 0x90
+ 690:	d107      	bne.n	6a2 <MIDI_ProcessRXBuffer+0x72>
+		{
+		case MIDI_NOTEON:
+			if ( MIDI_NoteOnFunc != 0)
+ 692:	4a09      	ldr	r2, [pc, #36]	; (6b8 <MIDI_ProcessRXBuffer+0x88>)
+ 694:	e000      	b.n	698 <MIDI_ProcessRXBuffer+0x68>
+			{
+				MIDI_NoteOnFunc(MIDI_Status0.DB1, byte);
+			}
+			break;
+		case MIDI_NOTEOFF:
+			if ( MIDI_NoteOffFunc != 0)
+ 696:	4a09      	ldr	r2, [pc, #36]	; (6bc <MIDI_ProcessRXBuffer+0x8c>)
+ 698:	6812      	ldr	r2, [r2, #0]
+ 69a:	2a00      	cmp	r2, #0
+ 69c:	d001      	beq.n	6a2 <MIDI_ProcessRXBuffer+0x72>
+			{
+				MIDI_NoteOffFunc(MIDI_Status0.DB1, byte);
+ 69e:	78d8      	ldrb	r0, [r3, #3]
+ 6a0:	4790      	blx	r2
+			MIDI_Status0.DataCount++;
+			MIDI_ByteProcessor(byte);
+		}
+
+		// Process the next byte
+		MIDI_ProcessRXBuffer();
+ 6a2:	f7ff ffc5 	bl	630 <MIDI_ProcessRXBuffer>
+	}
+}
+ 6a6:	bd37      	pop	{r0, r1, r2, r4, r5, pc}
+ 6a8:	40064000 	.word	0x40064000
+ 6ac:	10000030 	.word	0x10000030
+ 6b0:	1000000c 	.word	0x1000000c
+ 6b4:	10000007 	.word	0x10000007
+ 6b8:	10000020 	.word	0x10000020
+ 6bc:	10000010 	.word	0x10000010
+
+000006c0 <UART0_IRQHandler>:
+
+
+void UART0_IRQHandler(void)
+{
+ 6c0:	b513      	push	{r0, r1, r4, lr}
+ *			with one or more UART_STAT_* definitions to determine
+ *			statuses.
+ */
+STATIC INLINE uint32_t Chip_UART_GetStatus(LPC_USART_T *pUART)
+{
+	return (pUART->STAT & ~UART_STAT_RESERVED);
+ 6c2:	4b09      	ldr	r3, [pc, #36]	; (6e8 <UART0_IRQHandler+0x28>)
+ 6c4:	689a      	ldr	r2, [r3, #8]
+
+	// Insert value into RB
+	while ((Chip_UART_GetStatus(LPC_USART0) & UART_STAT_RXRDY) != 0) {
+ 6c6:	07d1      	lsls	r1, r2, #31
+ 6c8:	d50d      	bpl.n	6e6 <UART0_IRQHandler+0x26>
+ *			FIFO status should be read first prior to using this function
+ */
+STATIC INLINE uint32_t Chip_UART_ReadByte(LPC_USART_T *pUART)
+{
+	/* Strip off undefined reserved bits, keep 9 lower bits */
+	return (uint32_t) (pUART->RXDATA & 0x000001FF);
+ 6ca:	6958      	ldr	r0, [r3, #20]
+		uint8_t ch = Chip_UART_ReadByte(LPC_USART0);
+ 6cc:	466c      	mov	r4, sp
+ 6ce:	b2c0      	uxtb	r0, r0
+ 6d0:	71e0      	strb	r0, [r4, #7]
+ 6d2:	3407      	adds	r4, #7
+		// Filter Sync messages, these are high-priority
+		if (!MIDI_SyncHandler(ch)) {
+ 6d4:	f7ff ff8c 	bl	5f0 <MIDI_SyncHandler>
+ 6d8:	2800      	cmp	r0, #0
+ 6da:	d1f2      	bne.n	6c2 <UART0_IRQHandler+0x2>
+			RingBuffer_Insert(&MIDI_RxBuffer, &ch);
+ 6dc:	1c21      	adds	r1, r4, #0
+ 6de:	4803      	ldr	r0, [pc, #12]	; (6ec <UART0_IRQHandler+0x2c>)
+ 6e0:	f000 f8c6 	bl	870 <RingBuffer_Insert>
+ 6e4:	e7ed      	b.n	6c2 <UART0_IRQHandler+0x2>
+		}
+	}
+}
+ 6e6:	bd13      	pop	{r0, r1, r4, pc}
+ 6e8:	40064000 	.word	0x40064000
+ 6ec:	10000030 	.word	0x10000030
+
+000006f0 <SystemCoreClockUpdate>:
+ ****************************************************************************/
+
+/* Update system core clock rate, should be called if the system has
+   a clock rate change */
+void SystemCoreClockUpdate(void)
+{
+ 6f0:	b508      	push	{r3, lr}
+	/* CPU core speed */
+	SystemCoreClock = Chip_Clock_GetSystemClockRate();
+ 6f2:	f000 f883 	bl	7fc <Chip_Clock_GetSystemClockRate>
+ 6f6:	4b01      	ldr	r3, [pc, #4]	; (6fc <SystemCoreClockUpdate+0xc>)
+ 6f8:	6018      	str	r0, [r3, #0]
+}
+ 6fa:	bd08      	pop	{r3, pc}
+ 6fc:	10000044 	.word	0x10000044
+
+00000700 <Chip_Clock_GetWDTLFORate>:
+ * Private functions
+ ****************************************************************************/
+
+/* Compute a WDT or LFO rate */
+static uint32_t Chip_Clock_GetWDTLFORate(uint32_t reg)
+{
+ 700:	b508      	push	{r3, lr}
+	uint32_t div;
+	CHIP_WDTLFO_OSC_T clk;
+
+	/* Get WDT oscillator settings */
+	clk = (CHIP_WDTLFO_OSC_T) ((reg >> 5) & 0xF);
+ 702:	05c2      	lsls	r2, r0, #23
+ 704:	0f12      	lsrs	r2, r2, #28
+	div = reg & 0x1F;
+ 706:	211f      	movs	r1, #31
+ 708:	4001      	ands	r1, r0
+
+	/* Compute clock rate and divided by divde value */
+	return wdtOSCRate[clk] / ((div + 1) << 1);
+ 70a:	0092      	lsls	r2, r2, #2
+ 70c:	4b03      	ldr	r3, [pc, #12]	; (71c <Chip_Clock_GetWDTLFORate+0x1c>)
+ 70e:	58d0      	ldr	r0, [r2, r3]
+ 710:	3101      	adds	r1, #1
+ 712:	0049      	lsls	r1, r1, #1
+ 714:	f000 f9af 	bl	a76 <__aeabi_uidiv>
+}
+ 718:	bd08      	pop	{r3, pc}
+ 71a:	46c0      	nop			; (mov r8, r8)
+ 71c:	00000b78 	.word	0x00000b78
+
+00000720 <Chip_Clock_GetPLLFreq>:
+
+/* Compute PLL frequency */
+static uint32_t Chip_Clock_GetPLLFreq(uint32_t PLLReg, uint32_t inputRate)
+{
+	uint32_t m_val = ((PLLReg & 0x1F) + 1);
+ 720:	231f      	movs	r3, #31
+ 722:	4018      	ands	r0, r3
+ 724:	3001      	adds	r0, #1
+
+	return (inputRate * m_val);
+ 726:	4348      	muls	r0, r1
+}
+ 728:	4770      	bx	lr
+ 72a:	46c0      	nop			; (mov r8, r8)
+
+0000072c <Chip_Clock_SetSystemPLLSource>:
+ ****************************************************************************/
+
+/* Set System PLL clock source */
+void Chip_Clock_SetSystemPLLSource(CHIP_SYSCTL_PLLCLKSRC_T src)
+{
+	LPC_SYSCTL->SYSPLLCLKSEL  = (uint32_t) src;
+ 72c:	4b03      	ldr	r3, [pc, #12]	; (73c <Chip_Clock_SetSystemPLLSource+0x10>)
+ 72e:	6418      	str	r0, [r3, #64]	; 0x40
+    
+    /* sequnce a 0 followed by 1 to update PLL source selection */
+	LPC_SYSCTL->SYSPLLCLKUEN  = 0;  
+ 730:	2200      	movs	r2, #0
+ 732:	645a      	str	r2, [r3, #68]	; 0x44
+	LPC_SYSCTL->SYSPLLCLKUEN  = 1;  
+ 734:	2201      	movs	r2, #1
+ 736:	645a      	str	r2, [r3, #68]	; 0x44
+}
+ 738:	4770      	bx	lr
+ 73a:	46c0      	nop			; (mov r8, r8)
+ 73c:	40048000 	.word	0x40048000
+
+00000740 <Chip_Clock_SetMainClockSource>:
+}
+
+/* Set main system clock source */
+void Chip_Clock_SetMainClockSource(CHIP_SYSCTL_MAINCLKSRC_T src)
+{
+	LPC_SYSCTL->MAINCLKSEL  = (uint32_t) src;
+ 740:	4b03      	ldr	r3, [pc, #12]	; (750 <Chip_Clock_SetMainClockSource+0x10>)
+ 742:	6718      	str	r0, [r3, #112]	; 0x70
+    
+    /* sequnce a 0 followed by 1 to update MAINCLK source selection */
+	LPC_SYSCTL->MAINCLKUEN  = 0;
+ 744:	2200      	movs	r2, #0
+ 746:	675a      	str	r2, [r3, #116]	; 0x74
+	LPC_SYSCTL->MAINCLKUEN  = 1;
+ 748:	2201      	movs	r2, #1
+ 74a:	675a      	str	r2, [r3, #116]	; 0x74
+}
+ 74c:	4770      	bx	lr
+ 74e:	46c0      	nop			; (mov r8, r8)
+ 750:	40048000 	.word	0x40048000
+
+00000754 <Chip_Clock_GetWDTOSCRate>:
+	LPC_SYSCTL->CLKOUTDIV = div;
+}
+
+/* Return estimated watchdog oscillator rate */
+uint32_t Chip_Clock_GetWDTOSCRate(void)
+{
+ 754:	b508      	push	{r3, lr}
+	return Chip_Clock_GetWDTLFORate(LPC_SYSCTL->WDTOSCCTRL & ~SYSCTL_WDTOSCCTRL_RESERVED);
+ 756:	4b03      	ldr	r3, [pc, #12]	; (764 <Chip_Clock_GetWDTOSCRate+0x10>)
+ 758:	6a58      	ldr	r0, [r3, #36]	; 0x24
+ 75a:	05c0      	lsls	r0, r0, #23
+ 75c:	0dc0      	lsrs	r0, r0, #23
+ 75e:	f7ff ffcf 	bl	700 <Chip_Clock_GetWDTLFORate>
+}
+ 762:	bd08      	pop	{r3, pc}
+ 764:	40048000 	.word	0x40048000
+
+00000768 <Chip_Clock_GetSystemPLLInClockRate>:
+/* Return System PLL input clock rate */
+uint32_t Chip_Clock_GetSystemPLLInClockRate(void)
+{
+	uint32_t clkRate;
+
+	switch ((CHIP_SYSCTL_PLLCLKSRC_T) (LPC_SYSCTL->SYSPLLCLKSEL & 0x3)) {
+ 768:	4b09      	ldr	r3, [pc, #36]	; (790 <Chip_Clock_GetSystemPLLInClockRate+0x28>)
+ 76a:	6c1a      	ldr	r2, [r3, #64]	; 0x40
+ 76c:	2303      	movs	r3, #3
+ 76e:	4013      	ands	r3, r2
+ 770:	2b01      	cmp	r3, #1
+ 772:	d005      	beq.n	780 <Chip_Clock_GetSystemPLLInClockRate+0x18>
+ 774:	2b03      	cmp	r3, #3
+ 776:	d006      	beq.n	786 <Chip_Clock_GetSystemPLLInClockRate+0x1e>
+ 778:	2b00      	cmp	r3, #0
+ 77a:	d107      	bne.n	78c <Chip_Clock_GetSystemPLLInClockRate+0x24>
+	case SYSCTL_PLLCLKSRC_IRC:
+		clkRate = Chip_Clock_GetIntOscRate();
+ 77c:	4805      	ldr	r0, [pc, #20]	; (794 <Chip_Clock_GetSystemPLLInClockRate+0x2c>)
+ 77e:	e006      	b.n	78e <Chip_Clock_GetSystemPLLInClockRate+0x26>
+ * @brief	Returns the main oscillator clock rate
+ * @return	main oscillator clock rate
+ */
+STATIC INLINE uint32_t Chip_Clock_GetMainOscRate(void)
+{
+	return OscRateIn;
+ 780:	4b05      	ldr	r3, [pc, #20]	; (798 <Chip_Clock_GetSystemPLLInClockRate+0x30>)
+ 782:	6818      	ldr	r0, [r3, #0]
+		break;
+
+	case SYSCTL_PLLCLKSRC_SYSOSC:
+		clkRate = Chip_Clock_GetMainOscRate();
+		break;
+ 784:	e003      	b.n	78e <Chip_Clock_GetSystemPLLInClockRate+0x26>
+ * @brief	Returns the external clock input rate
+ * @return	External clock input rate
+ */
+STATIC INLINE uint32_t Chip_Clock_GetExtClockInRate(void)
+{
+	return ExtRateIn;
+ 786:	4b05      	ldr	r3, [pc, #20]	; (79c <Chip_Clock_GetSystemPLLInClockRate+0x34>)
+ 788:	6818      	ldr	r0, [r3, #0]
+
+	case SYSCTL_PLLCLKSRC_EXT_CLKIN:
+		clkRate = Chip_Clock_GetExtClockInRate();
+		break;
+ 78a:	e000      	b.n	78e <Chip_Clock_GetSystemPLLInClockRate+0x26>
+
+	default:
+		clkRate = 0;
+ 78c:	2000      	movs	r0, #0
+	}
+
+	return clkRate;
+}
+ 78e:	4770      	bx	lr
+ 790:	40048000 	.word	0x40048000
+ 794:	00b71b00 	.word	0x00b71b00
+ 798:	00000b70 	.word	0x00000b70
+ 79c:	00000b74 	.word	0x00000b74
+
+000007a0 <Chip_Clock_GetSystemPLLOutClockRate>:
+
+/* Return System PLL output clock rate */
+uint32_t Chip_Clock_GetSystemPLLOutClockRate(void)
+{
+ 7a0:	b510      	push	{r4, lr}
+	return Chip_Clock_GetPLLFreq((LPC_SYSCTL->SYSPLLCTRL & ~SYSCTL_SYSPLLCTRL_RESERVED),
+ 7a2:	4b05      	ldr	r3, [pc, #20]	; (7b8 <Chip_Clock_GetSystemPLLOutClockRate+0x18>)
+ 7a4:	689b      	ldr	r3, [r3, #8]
+ 7a6:	247f      	movs	r4, #127	; 0x7f
+ 7a8:	401c      	ands	r4, r3
+ 7aa:	f7ff ffdd 	bl	768 <Chip_Clock_GetSystemPLLInClockRate>
+ 7ae:	1c01      	adds	r1, r0, #0
+ 7b0:	1c20      	adds	r0, r4, #0
+ 7b2:	f7ff ffb5 	bl	720 <Chip_Clock_GetPLLFreq>
+								 Chip_Clock_GetSystemPLLInClockRate());
+}
+ 7b6:	bd10      	pop	{r4, pc}
+ 7b8:	40048000 	.word	0x40048000
+
+000007bc <Chip_Clock_GetMainClockRate>:
+
+/* Return main clock rate */
+uint32_t Chip_Clock_GetMainClockRate(void)
+{
+ 7bc:	b508      	push	{r3, lr}
+	uint32_t clkRate = 0;
+
+	switch ((CHIP_SYSCTL_MAINCLKSRC_T) (LPC_SYSCTL->MAINCLKSEL & 0x3)) {
+ 7be:	4b0d      	ldr	r3, [pc, #52]	; (7f4 <Chip_Clock_GetMainClockRate+0x38>)
+ 7c0:	6f1a      	ldr	r2, [r3, #112]	; 0x70
+ 7c2:	2303      	movs	r3, #3
+ 7c4:	4013      	ands	r3, r2
+ 7c6:	2b01      	cmp	r3, #1
+ 7c8:	d009      	beq.n	7de <Chip_Clock_GetMainClockRate+0x22>
+ 7ca:	dc02      	bgt.n	7d2 <Chip_Clock_GetMainClockRate+0x16>
+ 7cc:	2b00      	cmp	r3, #0
+ 7ce:	d00f      	beq.n	7f0 <Chip_Clock_GetMainClockRate+0x34>
+ 7d0:	e003      	b.n	7da <Chip_Clock_GetMainClockRate+0x1e>
+ 7d2:	2b02      	cmp	r3, #2
+ 7d4:	d006      	beq.n	7e4 <Chip_Clock_GetMainClockRate+0x28>
+ 7d6:	2b03      	cmp	r3, #3
+ 7d8:	d007      	beq.n	7ea <Chip_Clock_GetMainClockRate+0x2e>
+}
+
+/* Return main clock rate */
+uint32_t Chip_Clock_GetMainClockRate(void)
+{
+	uint32_t clkRate = 0;
+ 7da:	2000      	movs	r0, #0
+ 7dc:	e009      	b.n	7f2 <Chip_Clock_GetMainClockRate+0x36>
+	case SYSCTL_MAINCLKSRC_IRC:
+		clkRate = Chip_Clock_GetIntOscRate();
+		break;
+
+	case SYSCTL_MAINCLKSRC_PLLIN:
+		clkRate = Chip_Clock_GetSystemPLLInClockRate();
+ 7de:	f7ff ffc3 	bl	768 <Chip_Clock_GetSystemPLLInClockRate>
+		break;
+ 7e2:	e006      	b.n	7f2 <Chip_Clock_GetMainClockRate+0x36>
+
+	case SYSCTL_MAINCLKSRC_WDTOSC:
+		clkRate = Chip_Clock_GetWDTOSCRate();
+ 7e4:	f7ff ffb6 	bl	754 <Chip_Clock_GetWDTOSCRate>
+		break;
+ 7e8:	e003      	b.n	7f2 <Chip_Clock_GetMainClockRate+0x36>
+
+	case SYSCTL_MAINCLKSRC_PLLOUT:
+		clkRate = Chip_Clock_GetSystemPLLOutClockRate();
+ 7ea:	f7ff ffd9 	bl	7a0 <Chip_Clock_GetSystemPLLOutClockRate>
+		break;
+ 7ee:	e000      	b.n	7f2 <Chip_Clock_GetMainClockRate+0x36>
+{
+	uint32_t clkRate = 0;
+
+	switch ((CHIP_SYSCTL_MAINCLKSRC_T) (LPC_SYSCTL->MAINCLKSEL & 0x3)) {
+	case SYSCTL_MAINCLKSRC_IRC:
+		clkRate = Chip_Clock_GetIntOscRate();
+ 7f0:	4801      	ldr	r0, [pc, #4]	; (7f8 <Chip_Clock_GetMainClockRate+0x3c>)
+		clkRate = Chip_Clock_GetSystemPLLOutClockRate();
+		break;
+	}
+
+	return clkRate;
+}
+ 7f2:	bd08      	pop	{r3, pc}
+ 7f4:	40048000 	.word	0x40048000
+ 7f8:	00b71b00 	.word	0x00b71b00
+
+000007fc <Chip_Clock_GetSystemClockRate>:
+
+/* Return system clock rate */
+uint32_t Chip_Clock_GetSystemClockRate(void)
+{
+ 7fc:	b508      	push	{r3, lr}
+	/* No point in checking for divide by 0 */
+	return Chip_Clock_GetMainClockRate() / (LPC_SYSCTL->SYSAHBCLKDIV & ~SYSCTL_SYSAHBCLKDIV_RESERVED);
+ 7fe:	f7ff ffdd 	bl	7bc <Chip_Clock_GetMainClockRate>
+ 802:	4b03      	ldr	r3, [pc, #12]	; (810 <Chip_Clock_GetSystemClockRate+0x14>)
+ 804:	6f9b      	ldr	r3, [r3, #120]	; 0x78
+ 806:	21ff      	movs	r1, #255	; 0xff
+ 808:	4019      	ands	r1, r3
+ 80a:	f000 f934 	bl	a76 <__aeabi_uidiv>
+}
+ 80e:	bd08      	pop	{r3, pc}
+ 810:	40048000 	.word	0x40048000
+
+00000814 <Chip_Clock_GetUSARTNBaseClockRate>:
+
+/* Get USART 0/1/2 UART base rate */
+uint32_t Chip_Clock_GetUSARTNBaseClockRate(void)
+{
+ 814:	b510      	push	{r4, lr}
+ * @return	divider for UART clock
+ * @note	A value of 0 means the clock is disabled.
+ */
+STATIC INLINE uint32_t Chip_Clock_GetUARTClockDiv(void)
+{
+	return LPC_SYSCTL->UARTCLKDIV & ~SYSCTL_UARTCLKDIV_RESERVED;
+ 816:	2394      	movs	r3, #148	; 0x94
+ 818:	4a10      	ldr	r2, [pc, #64]	; (85c <Chip_Clock_GetUSARTNBaseClockRate+0x48>)
+ 81a:	58d3      	ldr	r3, [r2, r3]
+ 81c:	24ff      	movs	r4, #255	; 0xff
+ 81e:	401c      	ands	r4, r3
+	uint64_t inclk;
+	uint32_t div;
+
+	div = (uint32_t) Chip_Clock_GetUARTClockDiv();
+	if (div == 0) {
+ 820:	d019      	beq.n	856 <Chip_Clock_GetUSARTNBaseClockRate+0x42>
+	}
+	else {
+		uint32_t mult, divf;
+
+		/* Input clock into FRG block is the divided main system clock */
+		inclk = (uint64_t) (Chip_Clock_GetMainClockRate() / div);
+ 822:	f7ff ffcb 	bl	7bc <Chip_Clock_GetMainClockRate>
+ 826:	1c21      	adds	r1, r4, #0
+ 828:	f000 f925 	bl	a76 <__aeabi_uidiv>
+ 82c:	1c03      	adds	r3, r0, #0
+ * @brief	Get The USART Fractional Generator Divider
+ * @return	Value of USART Fractional Generator Divider
+ */
+STATIC INLINE uint32_t Chip_SYSCTL_GetUSARTFRGDivider(void)
+{
+	return LPC_SYSCTL->UARTFRGDIV & ~SYSCTL_UARTFRGDIV_RESERVED;
+ 82e:	22f0      	movs	r2, #240	; 0xf0
+ 830:	490a      	ldr	r1, [pc, #40]	; (85c <Chip_Clock_GetUSARTNBaseClockRate+0x48>)
+ 832:	588a      	ldr	r2, [r1, r2]
+ 834:	21ff      	movs	r1, #255	; 0xff
+ 836:	400a      	ands	r2, r1
+
+		divf = Chip_SYSCTL_GetUSARTFRGDivider();
+		if (divf == 0xFF) {
+ 838:	2aff      	cmp	r2, #255	; 0xff
+ 83a:	d10d      	bne.n	858 <Chip_Clock_GetUSARTNBaseClockRate+0x44>
+ * @brief	Get The USART Fractional Generator Multiplier
+ * @return	Value of USART Fractional Generator Multiplier
+ */
+STATIC INLINE uint32_t Chip_SYSCTL_GetUSARTFRGMultiplier(void)
+{
+	return LPC_SYSCTL->UARTFRGMULT & ~SYSCTL_UARTFRGMULT_RESERVED;
+ 83c:	22f4      	movs	r2, #244	; 0xf4
+ 83e:	4907      	ldr	r1, [pc, #28]	; (85c <Chip_Clock_GetUSARTNBaseClockRate+0x48>)
+ 840:	588a      	ldr	r2, [r1, r2]
+ 842:	21ff      	movs	r1, #255	; 0xff
+ 844:	400a      	ands	r2, r1
+			/* Fractional part is enabled, get multiplier */
+			mult = (uint32_t) Chip_SYSCTL_GetUSARTFRGMultiplier();
+
+			/* Get fractional error */
+			inclk = (inclk * 256) / (uint64_t) (256 + mult);
+ 846:	0e19      	lsrs	r1, r3, #24
+ 848:	0218      	lsls	r0, r3, #8
+ 84a:	3201      	adds	r2, #1
+ 84c:	32ff      	adds	r2, #255	; 0xff
+ 84e:	2300      	movs	r3, #0
+ 850:	f000 f94a 	bl	ae8 <__aeabi_uldivmod>
+ 854:	e000      	b.n	858 <Chip_Clock_GetUSARTNBaseClockRate+0x44>
+	uint32_t div;
+
+	div = (uint32_t) Chip_Clock_GetUARTClockDiv();
+	if (div == 0) {
+		/* Divider is 0 so UART clock is disabled */
+		inclk = 0;
+ 856:	2000      	movs	r0, #0
+			inclk = (inclk * 256) / (uint64_t) (256 + mult);
+		}
+	}
+
+	return (uint32_t) inclk;
+}
+ 858:	bd10      	pop	{r4, pc}
+ 85a:	46c0      	nop			; (mov r8, r8)
+ 85c:	40048000 	.word	0x40048000
+
+00000860 <RingBuffer_Init>:
+ ****************************************************************************/
+
+/* Initialize ring buffer */
+int RingBuffer_Init(RINGBUFF_T *RingBuff, void *buffer, int itemSize, int count)
+{
+	RingBuff->data = buffer;
+ 860:	6001      	str	r1, [r0, #0]
+	RingBuff->count = count;
+ 862:	6043      	str	r3, [r0, #4]
+	RingBuff->itemSz = itemSize;
+ 864:	6082      	str	r2, [r0, #8]
+	RingBuff->head = RingBuff->tail = 0;
+ 866:	2300      	movs	r3, #0
+ 868:	6103      	str	r3, [r0, #16]
+ 86a:	60c3      	str	r3, [r0, #12]
+
+	return 1;
+}
+ 86c:	2001      	movs	r0, #1
+ 86e:	4770      	bx	lr
+
+00000870 <RingBuffer_Insert>:
+
+/* Insert a single item into Ring Buffer */
+int RingBuffer_Insert(RINGBUFF_T *RingBuff, const void *data)
+{
+ 870:	b538      	push	{r3, r4, r5, lr}
+ 872:	1c04      	adds	r4, r0, #0
+	uint8_t *ptr = RingBuff->data;
+ 874:	6805      	ldr	r5, [r0, #0]
+ * @param	RingBuff	: Pointer to ring buffer
+ * @return	Number of items in the ring buffer
+ */
+STATIC INLINE int RingBuffer_GetCount(RINGBUFF_T *RingBuff)
+{
+	return RB_VHEAD(RingBuff) - RB_VTAIL(RingBuff);
+ 876:	68c2      	ldr	r2, [r0, #12]
+ 878:	6903      	ldr	r3, [r0, #16]
+ 87a:	1ad2      	subs	r2, r2, r3
+ * @param	RingBuff	: Pointer to ring buffer
+ * @return	1 if the ring buffer is full, otherwise 0
+ */
+STATIC INLINE int RingBuffer_IsFull(RINGBUFF_T *RingBuff)
+{
+	return (RingBuffer_GetCount(RingBuff) >= RingBuff->count);
+ 87c:	6843      	ldr	r3, [r0, #4]
+
+	/* We cannot insert when queue is full */
+	if (RingBuffer_IsFull(RingBuff))
+ 87e:	429a      	cmp	r2, r3
+ 880:	da0d      	bge.n	89e <RingBuffer_Insert+0x2e>
+		return 0;
+
+	ptr += RB_INDH(RingBuff) * RingBuff->itemSz;
+ 882:	3b01      	subs	r3, #1
+ 884:	68c2      	ldr	r2, [r0, #12]
+ 886:	4013      	ands	r3, r2
+ 888:	6882      	ldr	r2, [r0, #8]
+ 88a:	1c10      	adds	r0, r2, #0
+ 88c:	4358      	muls	r0, r3
+ 88e:	1828      	adds	r0, r5, r0
+	memcpy(ptr, data, RingBuff->itemSz);
+ 890:	f000 f8e6 	bl	a60 <memcpy>
+	RingBuff->head++;
+ 894:	68e3      	ldr	r3, [r4, #12]
+ 896:	3301      	adds	r3, #1
+ 898:	60e3      	str	r3, [r4, #12]
+
+	return 1;
+ 89a:	2001      	movs	r0, #1
+ 89c:	e000      	b.n	8a0 <RingBuffer_Insert+0x30>
+{
+	uint8_t *ptr = RingBuff->data;
+
+	/* We cannot insert when queue is full */
+	if (RingBuffer_IsFull(RingBuff))
+		return 0;
+ 89e:	2000      	movs	r0, #0
+	ptr += RB_INDH(RingBuff) * RingBuff->itemSz;
+	memcpy(ptr, data, RingBuff->itemSz);
+	RingBuff->head++;
+
+	return 1;
+}
+ 8a0:	bd38      	pop	{r3, r4, r5, pc}
+ 8a2:	46c0      	nop			; (mov r8, r8)
+
+000008a4 <RingBuffer_PopMult>:
+	return 1;
+}
+
+/* Pop multiple items from Ring buffer */
+int RingBuffer_PopMult(RINGBUFF_T *RingBuff, void *data, int num)
+{
+ 8a4:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+ 8a6:	1c04      	adds	r4, r0, #0
+ 8a8:	1c0f      	adds	r7, r1, #0
+	uint8_t *ptr = RingBuff->data;
+ 8aa:	6801      	ldr	r1, [r0, #0]
+ * @param	RingBuff	: Pointer to ring buffer
+ * @return	1 if the ring buffer is empty, otherwise 0
+ */
+STATIC INLINE int RingBuffer_IsEmpty(RINGBUFF_T *RingBuff)
+{
+	return RB_VHEAD(RingBuff) == RB_VTAIL(RingBuff);
+ 8ac:	68c3      	ldr	r3, [r0, #12]
+ 8ae:	6900      	ldr	r0, [r0, #16]
+	int cnt1, cnt2;
+
+	/* We cannot insert when queue is empty */
+	if (RingBuffer_IsEmpty(RingBuff))
+ 8b0:	4283      	cmp	r3, r0
+ 8b2:	d032      	beq.n	91a <RingBuffer_PopMult+0x76>
+ * @param	RingBuff	: Pointer to ring buffer
+ * @return	Number of items in the ring buffer
+ */
+STATIC INLINE int RingBuffer_GetCount(RINGBUFF_T *RingBuff)
+{
+	return RB_VHEAD(RingBuff) - RB_VTAIL(RingBuff);
+ 8b4:	68e0      	ldr	r0, [r4, #12]
+ 8b6:	6923      	ldr	r3, [r4, #16]
+ 8b8:	1ac0      	subs	r0, r0, r3
+		return 0;
+
+	/* Calculate the segment lengths */
+	cnt1 = cnt2 = RingBuffer_GetCount(RingBuff);
+	if (RB_INDT(RingBuff) + cnt1 >= RingBuff->count)
+ 8ba:	6866      	ldr	r6, [r4, #4]
+ 8bc:	1e73      	subs	r3, r6, #1
+ 8be:	6925      	ldr	r5, [r4, #16]
+ 8c0:	402b      	ands	r3, r5
+ 8c2:	181d      	adds	r5, r3, r0
+ 8c4:	42b5      	cmp	r5, r6
+ 8c6:	d301      	bcc.n	8cc <RingBuffer_PopMult+0x28>
+		cnt1 = RingBuff->count - RB_INDT(RingBuff);
+ 8c8:	1af6      	subs	r6, r6, r3
+ 8ca:	e000      	b.n	8ce <RingBuffer_PopMult+0x2a>
+	/* We cannot insert when queue is empty */
+	if (RingBuffer_IsEmpty(RingBuff))
+		return 0;
+
+	/* Calculate the segment lengths */
+	cnt1 = cnt2 = RingBuffer_GetCount(RingBuff);
+ 8cc:	1c06      	adds	r6, r0, #0
+	if (RB_INDT(RingBuff) + cnt1 >= RingBuff->count)
+		cnt1 = RingBuff->count - RB_INDT(RingBuff);
+	cnt2 -= cnt1;
+ 8ce:	1b80      	subs	r0, r0, r6
+
+	cnt1 = MIN(cnt1, num);
+ 8d0:	1e15      	subs	r5, r2, #0
+ 8d2:	42b5      	cmp	r5, r6
+ 8d4:	dd00      	ble.n	8d8 <RingBuffer_PopMult+0x34>
+ 8d6:	1c35      	adds	r5, r6, #0
+	num -= cnt1;
+ 8d8:	1b56      	subs	r6, r2, r5
+
+	cnt2 = MIN(cnt2, num);
+ 8da:	4286      	cmp	r6, r0
+ 8dc:	dd00      	ble.n	8e0 <RingBuffer_PopMult+0x3c>
+ 8de:	1c06      	adds	r6, r0, #0
+	num -= cnt2;
+
+	/* Write segment 1 */
+	ptr += RB_INDT(RingBuff) * RingBuff->itemSz;
+ 8e0:	68a2      	ldr	r2, [r4, #8]
+ 8e2:	4353      	muls	r3, r2
+ 8e4:	18c9      	adds	r1, r1, r3
+	memcpy(data, ptr, cnt1 * RingBuff->itemSz);
+ 8e6:	436a      	muls	r2, r5
+ 8e8:	1c38      	adds	r0, r7, #0
+ 8ea:	f000 f8b9 	bl	a60 <memcpy>
+	RingBuff->tail += cnt1;
+ 8ee:	6922      	ldr	r2, [r4, #16]
+ 8f0:	18ab      	adds	r3, r5, r2
+ 8f2:	6123      	str	r3, [r4, #16]
+
+	/* Write segment 2 */
+	ptr = (uint8_t *) RingBuff->data + RB_INDT(RingBuff) * RingBuff->itemSz;
+ 8f4:	6861      	ldr	r1, [r4, #4]
+ 8f6:	3901      	subs	r1, #1
+ 8f8:	400b      	ands	r3, r1
+ 8fa:	68a2      	ldr	r2, [r4, #8]
+ 8fc:	1c11      	adds	r1, r2, #0
+ 8fe:	4359      	muls	r1, r3
+ 900:	6823      	ldr	r3, [r4, #0]
+ 902:	1859      	adds	r1, r3, r1
+	data = (uint8_t *) data + cnt1 * RingBuff->itemSz;
+ 904:	1c10      	adds	r0, r2, #0
+ 906:	4368      	muls	r0, r5
+ 908:	1838      	adds	r0, r7, r0
+	memcpy(data, ptr, cnt2 * RingBuff->itemSz);
+ 90a:	4372      	muls	r2, r6
+ 90c:	f000 f8a8 	bl	a60 <memcpy>
+	RingBuff->tail += cnt2;
+ 910:	6922      	ldr	r2, [r4, #16]
+ 912:	1993      	adds	r3, r2, r6
+ 914:	6123      	str	r3, [r4, #16]
+
+	return cnt1 + cnt2;
+ 916:	19a8      	adds	r0, r5, r6
+ 918:	e000      	b.n	91c <RingBuffer_PopMult+0x78>
+	uint8_t *ptr = RingBuff->data;
+	int cnt1, cnt2;
+
+	/* We cannot insert when queue is empty */
+	if (RingBuffer_IsEmpty(RingBuff))
+		return 0;
+ 91a:	2000      	movs	r0, #0
+	data = (uint8_t *) data + cnt1 * RingBuff->itemSz;
+	memcpy(data, ptr, cnt2 * RingBuff->itemSz);
+	RingBuff->tail += cnt2;
+
+	return cnt1 + cnt2;
+}
+ 91c:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+ 91e:	46c0      	nop			; (mov r8, r8)
+
+00000920 <Chip_SCT_Init>:
+ * @param	clk	: Clock to enable
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_Clock_EnablePeriphClock(CHIP_SYSCTL_CLOCK_T clk)
+{
+	LPC_SYSCTL->SYSAHBCLKCTRL = (1 << clk) | (LPC_SYSCTL->SYSAHBCLKCTRL & ~SYSCTL_SYSAHBCLKCTRL_RESERVED);
+ 920:	4b09      	ldr	r3, [pc, #36]	; (948 <Chip_SCT_Init+0x28>)
+ 922:	2180      	movs	r1, #128	; 0x80
+ 924:	5858      	ldr	r0, [r3, r1]
+ 926:	0300      	lsls	r0, r0, #12
+ 928:	0b00      	lsrs	r0, r0, #12
+ 92a:	2280      	movs	r2, #128	; 0x80
+ 92c:	0052      	lsls	r2, r2, #1
+ 92e:	4310      	orrs	r0, r2
+ 930:	5058      	str	r0, [r3, r1]
+ * @note	The peripheral will stay in reset until reset is de-asserted. Call
+ * Chip_SYSCTL_DeassertPeriphReset() to de-assert the reset
+ */
+STATIC INLINE void Chip_SYSCTL_AssertPeriphReset(CHIP_SYSCTL_PERIPH_RESET_T periph)
+{
+	LPC_SYSCTL->PRESETCTRL &= ~((1 << (uint32_t) periph) | SYSCTL_PRESETCTRL_RESERVED);
+ 932:	6858      	ldr	r0, [r3, #4]
+ 934:	4905      	ldr	r1, [pc, #20]	; (94c <Chip_SCT_Init+0x2c>)
+ 936:	4001      	ands	r1, r0
+ 938:	6059      	str	r1, [r3, #4]
+ * @param	periph	: Peripheral to de-assert reset for
+ * @return	Nothing
+ */
+STATIC INLINE void Chip_SYSCTL_DeassertPeriphReset(CHIP_SYSCTL_PERIPH_RESET_T periph)
+{
+	LPC_SYSCTL->PRESETCTRL = (1 << (uint32_t) periph) | (LPC_SYSCTL->PRESETCTRL & ~SYSCTL_PRESETCTRL_RESERVED);
+ 93a:	6859      	ldr	r1, [r3, #4]
+ 93c:	04c9      	lsls	r1, r1, #19
+ 93e:	0cc9      	lsrs	r1, r1, #19
+ 940:	430a      	orrs	r2, r1
+ 942:	605a      	str	r2, [r3, #4]
+/* Initialize SCT */
+void Chip_SCT_Init(LPC_SCT_T *pSCT)
+{
+	Chip_Clock_EnablePeriphClock(SYSCTL_CLOCK_SCT);
+	Chip_SYSCTL_PeriphReset(RESET_SCT);
+}
+ 944:	4770      	bx	lr
+ 946:	46c0      	nop			; (mov r8, r8)
+ 948:	40048000 	.word	0x40048000
+ 94c:	00001eff 	.word	0x00001eff
+
+00000950 <Chip_SCTPWM_SetOutPin>:
+ * Public functions
+ ****************************************************************************/
+
+/* Setup the OUTPUT pin corresponding to the PWM index */
+void Chip_SCTPWM_SetOutPin(LPC_SCT_T *pSCT, uint8_t index, uint8_t pin)
+{
+ 950:	b530      	push	{r4, r5, lr}
+	int ix = (int) index;
+	pSCT->EV[ix].CTRL = index | (1 << 12);
+ 952:	2580      	movs	r5, #128	; 0x80
+ 954:	016d      	lsls	r5, r5, #5
+ 956:	430d      	orrs	r5, r1
+ 958:	1c0c      	adds	r4, r1, #0
+ 95a:	3460      	adds	r4, #96	; 0x60
+ 95c:	00e4      	lsls	r4, r4, #3
+ 95e:	1903      	adds	r3, r0, r4
+ 960:	605d      	str	r5, [r3, #4]
+	pSCT->EV[ix].STATE = 1;
+ 962:	2301      	movs	r3, #1
+ 964:	5023      	str	r3, [r4, r0]
+	pSCT->OUT[pin].SET = 1;
+ 966:	1c14      	adds	r4, r2, #0
+ 968:	34a0      	adds	r4, #160	; 0xa0
+ 96a:	00e4      	lsls	r4, r4, #3
+ 96c:	5023      	str	r3, [r4, r0]
+	pSCT->OUT[pin].CLR = 1 << ix;
+ 96e:	1c1d      	adds	r5, r3, #0
+ 970:	408d      	lsls	r5, r1
+ 972:	1904      	adds	r4, r0, r4
+ 974:	6065      	str	r5, [r4, #4]
+
+	/* Clear the output in-case of conflict */
+	pSCT->RES = (pSCT->RES & ~(3 << (pin << 1))) | (0x01 << (pin << 1));
+ 976:	6d84      	ldr	r4, [r0, #88]	; 0x58
+ 978:	0052      	lsls	r2, r2, #1
+ 97a:	2103      	movs	r1, #3
+ 97c:	4091      	lsls	r1, r2
+ 97e:	438c      	bics	r4, r1
+ 980:	4093      	lsls	r3, r2
+ 982:	1c1a      	adds	r2, r3, #0
+ 984:	1c23      	adds	r3, r4, #0
+ 986:	4313      	orrs	r3, r2
+ 988:	6583      	str	r3, [r0, #88]	; 0x58
+
+	/* Set and Clear do not depend on direction */
+	pSCT->OUTPUTDIRCTRL = (pSCT->OUTPUTDIRCTRL & ~((3 << (pin << 1))|SCT_OUTPUTDIRCTRL_RESERVED));
+ 98a:	6d43      	ldr	r3, [r0, #84]	; 0x54
+ 98c:	4a02      	ldr	r2, [pc, #8]	; (998 <Chip_SCTPWM_SetOutPin+0x48>)
+ 98e:	4311      	orrs	r1, r2
+ 990:	438b      	bics	r3, r1
+ 992:	6543      	str	r3, [r0, #84]	; 0x54
+}
+ 994:	bd30      	pop	{r4, r5, pc}
+ 996:	46c0      	nop			; (mov r8, r8)
+ 998:	ffffff00 	.word	0xffffff00
+
+0000099c <Chip_SetupIrcClocking>:
+#endif
+}
+
+/* Set up and initialize hardware prior to call to main */
+void Chip_SetupIrcClocking(void)
+{
+ 99c:	b508      	push	{r3, lr}
+#if defined(USE_ROM_API)
+	uint32_t cmd[4], resp[2];
+#endif
+
+	/* Turn on the IRC by clearing the power down bit */
+	Chip_SYSCTL_PowerUp(SYSCTL_SLPWAKE_IRC_PD);
+ 99e:	2002      	movs	r0, #2
+ 9a0:	f000 f84a 	bl	a38 <Chip_SYSCTL_PowerUp>
+
+	/* Select the PLL input in the IRC */
+	Chip_Clock_SetSystemPLLSource(SYSCTL_PLLCLKSRC_IRC);
+ 9a4:	2000      	movs	r0, #0
+ 9a6:	f7ff fec1 	bl	72c <Chip_Clock_SetSystemPLLSource>
+ * @note	For CPU speed up to 20MHz, use a value of 0. For up to 30MHz, use
+ *			a value of 1
+ */
+STATIC INLINE void Chip_FMC_SetFLASHAccess(FMC_FLASHTIM_T clks)
+{
+	uint32_t tmp = LPC_FMC->FLASHCFG & (~((0x3)|FMC_FLASHCFG_RESERVED));
+ 9aa:	4b0c      	ldr	r3, [pc, #48]	; (9dc <Chip_SetupIrcClocking+0x40>)
+ 9ac:	691a      	ldr	r2, [r3, #16]
+
+	/* Don't alter upper bits */
+	LPC_FMC->FLASHCFG = tmp | clks;
+ 9ae:	2201      	movs	r2, #1
+ 9b0:	611a      	str	r2, [r3, #16]
+	/* Dead loop on fail */
+	while (resp[0] != PLL_CMD_SUCCESS) {}
+
+#else
+	/* Power down PLL to change the PLL divider ratio */
+	Chip_SYSCTL_PowerDown(SYSCTL_SLPWAKE_SYSPLL_PD);
+ 9b2:	2080      	movs	r0, #128	; 0x80
+ 9b4:	f000 f82e 	bl	a14 <Chip_SYSCTL_PowerDown>
+ * @return	Nothing
+ * @note	See the user manual for how to setup the PLL
+ */
+STATIC INLINE void Chip_Clock_SetupSystemPLL(uint8_t msel, uint8_t psel)
+{
+	LPC_SYSCTL->SYSPLLCTRL = (msel & 0x1F) | ((psel & 0x3) << 5);
+ 9b8:	2241      	movs	r2, #65	; 0x41
+ 9ba:	4b09      	ldr	r3, [pc, #36]	; (9e0 <Chip_SetupIrcClocking+0x44>)
+ 9bc:	609a      	str	r2, [r3, #8]
+	   FCLKOUT = FCLKIN * (MSEL + 1) = 12MHz * 2 = 24MHz
+	   FCCO = FCLKOUT * 2 * P = 24MHz * 2 * 4 = 192MHz (within FCCO range) */
+	Chip_Clock_SetupSystemPLL(1, 2);
+
+	/* Turn on the PLL by clearing the power down bit */
+	Chip_SYSCTL_PowerUp(SYSCTL_SLPWAKE_SYSPLL_PD);
+ 9be:	2080      	movs	r0, #128	; 0x80
+ 9c0:	f000 f83a 	bl	a38 <Chip_SYSCTL_PowerUp>
+ * @brief	Read System PLL status
+ * @return	true if the PLL is locked, false if not locked
+ */
+STATIC INLINE bool Chip_Clock_IsSystemPLLLocked(void)
+{
+	return (bool) ((LPC_SYSCTL->SYSPLLSTAT & 1) != 0);
+ 9c4:	4906      	ldr	r1, [pc, #24]	; (9e0 <Chip_SetupIrcClocking+0x44>)
+ 9c6:	2201      	movs	r2, #1
+ 9c8:	68cb      	ldr	r3, [r1, #12]
+
+	/* Wait for PLL to lock */
+	while (!Chip_Clock_IsSystemPLLLocked()) {}
+ 9ca:	421a      	tst	r2, r3
+ 9cc:	d0fc      	beq.n	9c8 <Chip_SetupIrcClocking+0x2c>
+ * @note	Use 0 to disable, or a divider value of 1 to 255. The system clock
+ * rate is the main system clock divided by this value.
+ */
+STATIC INLINE void Chip_Clock_SetSysClockDiv(uint32_t div)
+{
+	LPC_SYSCTL->SYSAHBCLKDIV  = div;
+ 9ce:	2201      	movs	r2, #1
+ 9d0:	4b03      	ldr	r3, [pc, #12]	; (9e0 <Chip_SetupIrcClocking+0x44>)
+ 9d2:	679a      	str	r2, [r3, #120]	; 0x78
+	/* Set system clock divider to 1 */
+	Chip_Clock_SetSysClockDiv(1);
+
+	/* Set main clock source to the system PLL. This will drive 24MHz
+	   for the main clock and 24MHz for the system clock */
+	Chip_Clock_SetMainClockSource(SYSCTL_MAINCLKSRC_PLLOUT);
+ 9d4:	2003      	movs	r0, #3
+ 9d6:	f7ff feb3 	bl	740 <Chip_Clock_SetMainClockSource>
+#endif
+}
+ 9da:	bd08      	pop	{r3, pc}
+ 9dc:	40040000 	.word	0x40040000
+ 9e0:	40048000 	.word	0x40048000
+
+000009e4 <Chip_SystemInit>:
+
+/* Set up and initialize hardware prior to call to main */
+void Chip_SystemInit(void)
+{
+ 9e4:	b508      	push	{r3, lr}
+	/* Initial internal clocking */
+	Chip_SetupIrcClocking();
+ 9e6:	f7ff ffd9 	bl	99c <Chip_SetupIrcClocking>
+}
+ 9ea:	bd08      	pop	{r3, pc}
+
+000009ec <Chip_UART_SetBaud>:
+	return readBytes;
+}
+
+/* Set baud rate for UART */
+void Chip_UART_SetBaud(LPC_USART_T *pUART, uint32_t baudrate)
+{
+ 9ec:	b538      	push	{r3, r4, r5, lr}
+ 9ee:	1c04      	adds	r4, r0, #0
+ 9f0:	1c0d      	adds	r5, r1, #0
+	uint32_t baudRateGenerator;
+	baudRateGenerator = Chip_Clock_GetUSARTNBaseClockRate() / (16 * baudrate);
+ 9f2:	f7ff ff0f 	bl	814 <Chip_Clock_GetUSARTNBaseClockRate>
+ 9f6:	0129      	lsls	r1, r5, #4
+ 9f8:	f000 f83d 	bl	a76 <__aeabi_uidiv>
+	pUART->BRG = baudRateGenerator - 1;	/* baud rate */
+ 9fc:	3801      	subs	r0, #1
+ 9fe:	6220      	str	r0, [r4, #32]
+}
+ a00:	bd38      	pop	{r3, r4, r5, pc}
+ a02:	46c0      	nop			; (mov r8, r8)
+
+00000a04 <Chip_UART_ReadRB>:
+	return ret;
+}
+
+/* Copy data from a receive ring buffer */
+int Chip_UART_ReadRB(LPC_USART_T *pUART, RINGBUFF_T *pRB, void *data, int bytes)
+{
+ a04:	b508      	push	{r3, lr}
+	(void) pUART;
+
+	return RingBuffer_PopMult(pRB, (uint8_t *) data, bytes);
+ a06:	1c08      	adds	r0, r1, #0
+ a08:	1c11      	adds	r1, r2, #0
+ a0a:	1c1a      	adds	r2, r3, #0
+ a0c:	f7ff ff4a 	bl	8a4 <RingBuffer_PopMult>
+}
+ a10:	bd08      	pop	{r3, pc}
+ a12:	46c0      	nop			; (mov r8, r8)
+
+00000a14 <Chip_SYSCTL_PowerDown>:
+void Chip_SYSCTL_PowerDown(uint32_t powerdownmask)
+{
+	uint32_t pdrun;
+
+	/* Get current power states */
+	pdrun = LPC_SYSCTL->PDRUNCFG & PDWAKEUPDATMASK;
+ a14:	4a05      	ldr	r2, [pc, #20]	; (a2c <Chip_SYSCTL_PowerDown+0x18>)
+ a16:	238e      	movs	r3, #142	; 0x8e
+ a18:	009b      	lsls	r3, r3, #2
+ a1a:	58d1      	ldr	r1, [r2, r3]
+
+	/* Disable peripheral states by setting high */
+	pdrun |= (powerdownmask & PDWAKEUPDATMASK);
+ a1c:	4308      	orrs	r0, r1
+ a1e:	4904      	ldr	r1, [pc, #16]	; (a30 <Chip_SYSCTL_PowerDown+0x1c>)
+ a20:	4008      	ands	r0, r1
+
+	/* Update power states with required register bits */
+	LPC_SYSCTL->PDRUNCFG = (PDWAKEUPWRMASK | pdrun);
+ a22:	4904      	ldr	r1, [pc, #16]	; (a34 <Chip_SYSCTL_PowerDown+0x20>)
+ a24:	4308      	orrs	r0, r1
+ a26:	50d0      	str	r0, [r2, r3]
+}
+ a28:	4770      	bx	lr
+ a2a:	46c0      	nop			; (mov r8, r8)
+ a2c:	40048000 	.word	0x40048000
+ a30:	000080ef 	.word	0x000080ef
+ a34:	00006d10 	.word	0x00006d10
+
+00000a38 <Chip_SYSCTL_PowerUp>:
+
+/* Power up one or more blocks or peripherals */
+void Chip_SYSCTL_PowerUp(uint32_t powerupmask)
+{
+ a38:	b510      	push	{r4, lr}
+	uint32_t pdrun;
+
+	/* Get current power states */
+	pdrun = LPC_SYSCTL->PDRUNCFG & PDWAKEUPDATMASK;
+ a3a:	4a06      	ldr	r2, [pc, #24]	; (a54 <Chip_SYSCTL_PowerUp+0x1c>)
+ a3c:	238e      	movs	r3, #142	; 0x8e
+ a3e:	009b      	lsls	r3, r3, #2
+ a40:	58d4      	ldr	r4, [r2, r3]
+ a42:	4905      	ldr	r1, [pc, #20]	; (a58 <Chip_SYSCTL_PowerUp+0x20>)
+ a44:	400c      	ands	r4, r1
+
+	/* Enable peripheral states by setting low */
+	pdrun &= ~(powerupmask & PDWAKEUPDATMASK);
+ a46:	4001      	ands	r1, r0
+ a48:	438c      	bics	r4, r1
+ a4a:	1c21      	adds	r1, r4, #0
+
+	/* Update power states with required register bits */
+	LPC_SYSCTL->PDRUNCFG = (PDWAKEUPWRMASK | pdrun);
+ a4c:	4803      	ldr	r0, [pc, #12]	; (a5c <Chip_SYSCTL_PowerUp+0x24>)
+ a4e:	4301      	orrs	r1, r0
+ a50:	50d1      	str	r1, [r2, r3]
+}
+ a52:	bd10      	pop	{r4, pc}
+ a54:	40048000 	.word	0x40048000
+ a58:	000080ef 	.word	0x000080ef
+ a5c:	00006d10 	.word	0x00006d10
+
+00000a60 <memcpy>:
+ a60:	b508      	push	{r3, lr}
+ a62:	f000 f86f 	bl	b44 <__aeabi_memcpy>
+ a66:	bd08      	pop	{r3, pc}
+
+00000a68 <__weak_main>:
+ a68:	b508      	push	{r3, lr}
+ a6a:	f7ff fc95 	bl	398 <main>
+ a6e:	bd08      	pop	{r3, pc}
+
+00000a70 <__aeabi_idiv>:
+ a70:	0003      	movs	r3, r0
+ a72:	430b      	orrs	r3, r1
+ a74:	d421      	bmi.n	aba <idiv_negative>
+
+00000a76 <__aeabi_uidiv>:
+ a76:	2900      	cmp	r1, #0
+ a78:	d031      	beq.n	ade <idiv_divzero>
+ a7a:	2201      	movs	r2, #1
+ a7c:	07d2      	lsls	r2, r2, #31
+ a7e:	0903      	lsrs	r3, r0, #4
+ a80:	e001      	b.n	a86 <div_search4a>
+
+00000a82 <div_search4>:
+ a82:	0109      	lsls	r1, r1, #4
+ a84:	0912      	lsrs	r2, r2, #4
+
+00000a86 <div_search4a>:
+ a86:	4299      	cmp	r1, r3
+ a88:	d9fb      	bls.n	a82 <div_search4>
+ a8a:	0843      	lsrs	r3, r0, #1
+ a8c:	e001      	b.n	a92 <div_search1a>
+
+00000a8e <div_search1>:
+ a8e:	0049      	lsls	r1, r1, #1
+ a90:	0852      	lsrs	r2, r2, #1
+
+00000a92 <div_search1a>:
+ a92:	4299      	cmp	r1, r3
+ a94:	d9fb      	bls.n	a8e <div_search1>
+ a96:	e000      	b.n	a9a <div_loop1a>
+
+00000a98 <div_loop1>:
+ a98:	0849      	lsrs	r1, r1, #1
+
+00000a9a <div_loop1a>:
+ a9a:	1a40      	subs	r0, r0, r1
+ a9c:	d307      	bcc.n	aae <div1>
+
+00000a9e <div2>:
+ a9e:	4152      	adcs	r2, r2
+ aa0:	d3fa      	bcc.n	a98 <div_loop1>
+ aa2:	4601      	mov	r1, r0
+ aa4:	4610      	mov	r0, r2
+ aa6:	4770      	bx	lr
+
+00000aa8 <div_loop2>:
+ aa8:	0849      	lsrs	r1, r1, #1
+ aaa:	1840      	adds	r0, r0, r1
+ aac:	d2f7      	bcs.n	a9e <div2>
+
+00000aae <div1>:
+ aae:	1892      	adds	r2, r2, r2
+ ab0:	d3fa      	bcc.n	aa8 <div_loop2>
+ ab2:	1840      	adds	r0, r0, r1
+ ab4:	4601      	mov	r1, r0
+ ab6:	4610      	mov	r0, r2
+ ab8:	4770      	bx	lr
+
+00000aba <idiv_negative>:
+ aba:	0fcb      	lsrs	r3, r1, #31
+ abc:	d000      	beq.n	ac0 <idiv_neg1>
+ abe:	4249      	negs	r1, r1
+
+00000ac0 <idiv_neg1>:
+ ac0:	1002      	asrs	r2, r0, #32
+ ac2:	d500      	bpl.n	ac6 <idiv_neg2>
+ ac4:	4240      	negs	r0, r0
+
+00000ac6 <idiv_neg2>:
+ ac6:	4053      	eors	r3, r2
+ ac8:	b508      	push	{r3, lr}
+ aca:	f7ff ffd4 	bl	a76 <__aeabi_uidiv>
+ ace:	bc0c      	pop	{r2, r3}
+
+00000ad0 <idiv_sign>:
+ ad0:	1052      	asrs	r2, r2, #1
+ ad2:	d300      	bcc.n	ad6 <idiv_sign1>
+ ad4:	4240      	negs	r0, r0
+
+00000ad6 <idiv_sign1>:
+ ad6:	2a00      	cmp	r2, #0
+ ad8:	d500      	bpl.n	adc <idiv_ret>
+ ada:	4249      	negs	r1, r1
+
+00000adc <idiv_ret>:
+ adc:	4718      	bx	r3
+
+00000ade <idiv_divzero>:
+ ade:	46f4      	mov	ip, lr
+ ae0:	2000      	movs	r0, #0
+ ae2:	f000 f82e 	bl	b42 <__aeabi_idiv0>
+ ae6:	4760      	bx	ip
+
+00000ae8 <__aeabi_uldivmod>:
+ ae8:	b5f0      	push	{r4, r5, r6, r7, lr}
+ aea:	0017      	movs	r7, r2
+ aec:	431f      	orrs	r7, r3
+ aee:	d023      	beq.n	b38 <ldiv_divzero>
+ af0:	2601      	movs	r6, #1
+ af2:	0844      	lsrs	r4, r0, #1
+ af4:	07cf      	lsls	r7, r1, #31
+ af6:	433c      	orrs	r4, r7
+ af8:	084d      	lsrs	r5, r1, #1
+
+00000afa <loop1>:
+ afa:	1aa7      	subs	r7, r4, r2
+ afc:	462f      	mov	r7, r5
+ afe:	419f      	sbcs	r7, r3
+ b00:	d303      	bcc.n	b0a <loop1_end>
+ b02:	1892      	adds	r2, r2, r2
+ b04:	415b      	adcs	r3, r3
+ b06:	3601      	adds	r6, #1
+ b08:	e7f7      	b.n	afa <loop1>
+
+00000b0a <loop1_end>:
+ b0a:	2400      	movs	r4, #0
+ b0c:	2500      	movs	r5, #0
+ b0e:	e005      	b.n	b1c <loop_start>
+
+00000b10 <loop>:
+ b10:	0852      	lsrs	r2, r2, #1
+ b12:	07df      	lsls	r7, r3, #31
+ b14:	433a      	orrs	r2, r7
+ b16:	085b      	lsrs	r3, r3, #1
+ b18:	1924      	adds	r4, r4, r4
+ b1a:	416d      	adcs	r5, r5
+
+00000b1c <loop_start>:
+ b1c:	1a87      	subs	r7, r0, r2
+ b1e:	460f      	mov	r7, r1
+ b20:	419f      	sbcs	r7, r3
+ b22:	d302      	bcc.n	b2a <ldiv1>
+ b24:	1a80      	subs	r0, r0, r2
+ b26:	4199      	sbcs	r1, r3
+ b28:	3401      	adds	r4, #1
+
+00000b2a <ldiv1>:
+ b2a:	3e01      	subs	r6, #1
+ b2c:	d1f0      	bne.n	b10 <loop>
+ b2e:	4602      	mov	r2, r0
+ b30:	460b      	mov	r3, r1
+ b32:	4620      	mov	r0, r4
+ b34:	4629      	mov	r1, r5
+ b36:	bdf0      	pop	{r4, r5, r6, r7, pc}
+
+00000b38 <ldiv_divzero>:
+ b38:	2000      	movs	r0, #0
+ b3a:	2100      	movs	r1, #0
+ b3c:	f000 f801 	bl	b42 <__aeabi_idiv0>
+ b40:	bdf0      	pop	{r4, r5, r6, r7, pc}
+
+00000b42 <__aeabi_idiv0>:
+ b42:	4770      	bx	lr
+
+00000b44 <__aeabi_memcpy>:
+ b44:	4684      	mov	ip, r0
+ b46:	0783      	lsls	r3, r0, #30
+ b48:	d108      	bne.n	b5c <copy1_start>
+ b4a:	078b      	lsls	r3, r1, #30
+ b4c:	d106      	bne.n	b5c <copy1_start>
+ b4e:	1f13      	subs	r3, r2, #4
+ b50:	d304      	bcc.n	b5c <copy1_start>
+
+00000b52 <copy4>:
+ b52:	c904      	ldmia	r1!, {r2}
+ b54:	c004      	stmia	r0!, {r2}
+ b56:	3b04      	subs	r3, #4
+ b58:	d2fb      	bcs.n	b52 <copy4>
+ b5a:	1d1a      	adds	r2, r3, #4
+
+00000b5c <copy1_start>:
+ b5c:	4252      	negs	r2, r2
+ b5e:	d005      	beq.n	b6c <copy1_ret>
+ b60:	1a89      	subs	r1, r1, r2
+ b62:	1a80      	subs	r0, r0, r2
+
+00000b64 <copy1>:
+ b64:	5c8b      	ldrb	r3, [r1, r2]
+ b66:	5483      	strb	r3, [r0, r2]
+ b68:	3201      	adds	r2, #1
+ b6a:	d1fb      	bne.n	b64 <copy1>
+
+00000b6c <copy1_ret>:
+ b6c:	4660      	mov	r0, ip
+ b6e:	4770      	bx	lr
+
+00000b70 <OscRateIn>:
+ b70:	1b00 00b7                                   ....
+
+00000b74 <ExtRateIn>:
+ b74:	0000 0000                                   ....
+
+00000b78 <wdtOSCRate>:
+ b78:	0000 0000 27c0 0009 0590 0010 5cc0 0015     .....'.......\..
+ b88:	b3f0 001a 0b20 0020 9f00 0024 32e0 0029     .... . ...$..2).
+ b98:	c6c0 002d 9750 0031 67e0 0035 3870 0039     ..-.P.1..g5.p89.
+ ba8:	0900 003d 1640 0040 2380 0043 30c0 0046     ..=.@.@..#C..0F.

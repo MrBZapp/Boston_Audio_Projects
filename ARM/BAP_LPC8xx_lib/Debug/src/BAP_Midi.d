@@ -36,7 +36,8 @@ src/BAP_Midi.o src/BAP_Midi.d: ../src/BAP_Midi.c \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\inc/i2c_common_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\inc/i2cs_8xx.h \
  C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\inc/spim_8xx.h \
- C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\inc/spis_8xx.h
+ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\inc/spis_8xx.h \
+ C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\inc/BAP_Type.h
 
 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\inc/BAP_Midi.h:
 
@@ -113,3 +114,5 @@ C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\inc/i2cs_8xx
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\inc/spim_8xx.h:
 
 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\inc/spis_8xx.h:
+
+C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\inc/BAP_Type.h:

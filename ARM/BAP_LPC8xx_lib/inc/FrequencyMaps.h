@@ -21,4 +21,6 @@ const uint16_t MIDIto8MhzReload[128];
 
 const float MIDItoFreq[128];
 
+const float MIDItoPercent[128];
+
 #endif /* FREQUENCYMAPS_H_ */

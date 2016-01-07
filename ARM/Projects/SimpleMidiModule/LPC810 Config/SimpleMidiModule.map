@@ -1,0 +1,1634 @@
+Archive member included because of file (symbol)
+
+C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+                              ./src/SimpleMidiModule.o (CoreClockInit_30Hz)
+C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                              ./src/SimpleMidiModule.o (MIDI_USARTInit)
+C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+                              ./src/SimpleMidiModule.o (MIDItoPercent)
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+                              C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o) (SystemCoreClockUpdate)
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                              C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o) (Chip_Clock_GetSystemClockRate)
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+                              C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o) (RingBuffer_Init)
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+                              ./src/SimpleMidiModule.o (Chip_SCT_Init)
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+                              ./src/SimpleMidiModule.o (Chip_SCTPWM_SetOutPin)
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+                              ./src/sysinit.o (Chip_SystemInit)
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+                              C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o) (Chip_UART_SetBaud)
+C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+                              C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o) (Chip_SYSCTL_PowerDown)
+c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(memcpy.o)
+                              C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o) (memcpy)
+c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(__weak__main.o)
+                              ./src/cr_startup_lpc8xx.o (__main)
+c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_32.o)
+                              ./src/SimpleMidiModule.o (__aeabi_uidiv)
+c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_64.o)
+                              C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o) (__aeabi_uldivmod)
+c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_idiv0.o)
+                              c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_32.o) (__aeabi_idiv0)
+c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(memcpy.o)
+                              c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(memcpy.o) (__aeabi_memcpy)
+
+Allocating common symbols
+Common symbol       size              file
+
+SystemCoreClock     0x4               C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+
+Discarded input sections
+
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/SimpleMidiModule.o
+ .text          0x00000000        0x0 ./src/SimpleMidiModule.o
+ .data          0x00000000        0x0 ./src/SimpleMidiModule.o
+ .bss           0x00000000        0x0 ./src/SimpleMidiModule.o
+ COMMON         0x00000000        0x0 ./src/SimpleMidiModule.o
+ .group         0x00000000        0x8 ./src/cr_startup_lpc8xx.o
+ .text          0x00000000        0x0 ./src/cr_startup_lpc8xx.o
+ .data          0x00000000        0x0 ./src/cr_startup_lpc8xx.o
+ .bss           0x00000000        0x0 ./src/cr_startup_lpc8xx.o
+ .debug_macro   0x00000000      0x850 ./src/cr_startup_lpc8xx.o
+ .group         0x00000000        0x8 ./src/crp.o
+ .group         0x00000000        0x8 ./src/crp.o
+ .text          0x00000000        0x0 ./src/crp.o
+ .data          0x00000000        0x0 ./src/crp.o
+ .bss           0x00000000        0x0 ./src/crp.o
+ .debug_macro   0x00000000      0x850 ./src/crp.o
+ .group         0x00000000        0x8 ./src/mtb.o
+ .text          0x00000000        0x0 ./src/mtb.o
+ .data          0x00000000        0x0 ./src/mtb.o
+ .bss           0x00000000        0x0 ./src/mtb.o
+ .debug_info    0x00000000       0x21 ./src/mtb.o
+ .debug_abbrev  0x00000000       0x13 ./src/mtb.o
+ .debug_aranges
+                0x00000000       0x18 ./src/mtb.o
+ .debug_macro   0x00000000       0x11 ./src/mtb.o
+ .debug_macro   0x00000000      0x850 ./src/mtb.o
+ .debug_line    0x00000000       0x2d ./src/mtb.o
+ .debug_str     0x00000000     0x238e ./src/mtb.o
+ .comment       0x00000000       0x71 ./src/mtb.o
+ .ARM.attributes
+                0x00000000       0x31 ./src/mtb.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .group         0x00000000        0x8 ./src/sysinit.o
+ .text          0x00000000        0x0 ./src/sysinit.o
+ .data          0x00000000        0x0 ./src/sysinit.o
+ .bss           0x00000000        0x0 ./src/sysinit.o
+ .debug_macro   0x00000000      0x850 ./src/sysinit.o
+ .debug_macro   0x00000000       0x10 ./src/sysinit.o
+ .debug_macro   0x00000000      0x122 ./src/sysinit.o
+ .debug_macro   0x00000000      0x5b9 ./src/sysinit.o
+ .debug_macro   0x00000000       0x22 ./src/sysinit.o
+ .debug_macro   0x00000000       0x7b ./src/sysinit.o
+ .debug_macro   0x00000000       0x10 ./src/sysinit.o
+ .debug_macro   0x00000000       0x28 ./src/sysinit.o
+ .debug_macro   0x00000000       0x3a ./src/sysinit.o
+ .debug_macro   0x00000000       0x1f ./src/sysinit.o
+ .debug_macro   0x00000000      0x250 ./src/sysinit.o
+ .debug_macro   0x00000000      0x145 ./src/sysinit.o
+ .debug_macro   0x00000000       0xca ./src/sysinit.o
+ .debug_macro   0x00000000       0x6a ./src/sysinit.o
+ .debug_macro   0x00000000       0x70 ./src/sysinit.o
+ .debug_macro   0x00000000       0x28 ./src/sysinit.o
+ .debug_macro   0x00000000      0x190 ./src/sysinit.o
+ .debug_macro   0x00000000       0x1c ./src/sysinit.o
+ .debug_macro   0x00000000       0x64 ./src/sysinit.o
+ .debug_macro   0x00000000       0x10 ./src/sysinit.o
+ .debug_macro   0x00000000       0x22 ./src/sysinit.o
+ .debug_macro   0x00000000       0xb2 ./src/sysinit.o
+ .debug_macro   0x00000000       0x58 ./src/sysinit.o
+ .debug_macro   0x00000000       0x58 ./src/sysinit.o
+ .debug_macro   0x00000000       0x6a ./src/sysinit.o
+ .debug_macro   0x00000000       0x82 ./src/sysinit.o
+ .debug_macro   0x00000000       0x16 ./src/sysinit.o
+ .debug_macro   0x00000000      0x131 ./src/sysinit.o
+ .debug_macro   0x00000000       0x22 ./src/sysinit.o
+ .debug_macro   0x00000000       0x52 ./src/sysinit.o
+ .debug_macro   0x00000000      0x181 ./src/sysinit.o
+ .debug_macro   0x00000000      0x289 ./src/sysinit.o
+ .debug_macro   0x00000000      0x28b ./src/sysinit.o
+ .debug_macro   0x00000000       0x2e ./src/sysinit.o
+ .debug_macro   0x00000000       0x22 ./src/sysinit.o
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x7b C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x3a C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x1f C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000      0x250 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000      0x145 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0xca C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x70 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000      0x190 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x1c C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x64 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0xb2 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x16 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000      0x131 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x52 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000      0x181 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000      0x289 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000      0x28b C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x2e C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .text.MIDI_GetStatus_0
+                0x00000000        0xc C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .bss.MIDI_PitchFunc
+                0x00000000        0x4 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .bss.MIDI_PCChFunc
+                0x00000000        0x4 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000      0x83e C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x7b C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x3a C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x1f C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000      0x250 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000      0x145 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0xca C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x70 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000      0x190 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x1c C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x64 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0xb2 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x16 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000      0x131 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x52 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000      0x181 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000      0x289 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000      0x28b C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x2e C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .rodata.MIDIto12MhzReload
+                0x00000000      0x100 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .rodata.MIDIto30MhzReload
+                0x00000000       0x86 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .rodata.MIDItoBBD
+                0x00000000      0x200 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .rodata.MIDItoPercent
+                0x00000000      0x200 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .rodata.MIDIto8MhzReload
+                0x00000000      0x100 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .rodata.MIDItoFreq
+                0x00000000      0x200 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_info    0x00000000      0x16c C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_abbrev  0x00000000       0x82 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_aranges
+                0x00000000       0x18 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x1e8 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x83e C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x7b C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x3a C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x1f C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x250 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x145 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0xca C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x70 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x190 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x1c C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x64 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0xb2 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x16 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x131 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x52 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x181 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x289 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000      0x28b C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x2e C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_line    0x00000000      0x428 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .debug_str     0x00000000     0x9e70 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .comment       0x00000000       0x71 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .ARM.attributes
+                0x00000000       0x31 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(FrequencyMaps.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x7b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x3a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x1f C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000      0x250 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000      0x145 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0xca C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x70 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000      0x190 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x64 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0xb2 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x16 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000      0x131 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x52 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000      0x181 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000      0x289 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000      0x28b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x2e C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .text.Chip_Clock_SetPLLBypass
+                0x00000000       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .text.Chip_Clock_SetCLKOUTSource
+                0x00000000       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .text.Chip_Clock_SetUSARTNBaseClockRate
+                0x00000000       0x70 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .text.Chip_Clock_GetIOCONCLKDIVClockRate
+                0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .text.Chip_Clock_SetIOCONCLKDIV
+                0x00000000       0x14 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000      0x81a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x7b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x3a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x1f C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000      0x250 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000      0x145 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0xca C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x70 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000      0x190 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x64 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0xb2 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x16 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000      0x131 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x52 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000      0x181 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000      0x289 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000      0x28b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x2e C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .text.RingBuffer_InsertMult
+                0x00000000       0x80 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .text.RingBuffer_Pop
+                0x00000000       0x30 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_macro   0x00000000      0x81a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .text.Chip_SCT_DeInit
+                0x00000000       0x18 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .text.Chip_SCT_SetClrControl
+                0x00000000       0x24 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .text.Chip_SCT_SetConflictResolution
+                0x00000000       0x20 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000      0x81a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x7b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x3a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x1f C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000      0x250 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000      0x145 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0xca C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x70 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000      0x190 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x64 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0xb2 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x16 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000      0x131 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x52 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000      0x181 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000      0x289 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000      0x28b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x2e C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .text.Chip_SCTPWM_SetRate
+                0x00000000       0x60 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000      0x81a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x7b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x3a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x1f C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000      0x250 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000      0x145 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0xca C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x70 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000      0x190 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x64 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0xb2 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x16 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000      0x131 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x52 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000      0x181 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000      0x289 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000      0x28b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x2e C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .text.Chip_SetupXtalClocking
+                0x00000000       0x50 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000      0x81a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x7b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x3a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x1f C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000      0x250 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000      0x145 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0xca C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x70 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000      0x190 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x64 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0xb2 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x16 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000      0x131 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x52 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000      0x181 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000      0x289 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000      0x28b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x2e C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.getUARTClockID
+                0x00000000       0x20 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.Chip_UART_Init
+                0x00000000       0x88 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.Chip_UART_DeInit
+                0x00000000       0x24 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.Chip_UART_Send
+                0x00000000       0x20 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.Chip_UART_SendBlocking
+                0x00000000       0x24 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.Chip_UART_Read
+                0x00000000       0x20 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.Chip_UART_ReadBlocking
+                0x00000000       0x24 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.Chip_UART_RXIntHandlerRB
+                0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.Chip_UART_TXIntHandlerRB
+                0x00000000       0x2c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.Chip_UART_SendRB
+                0x00000000       0x44 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .text.Chip_UART_IRQRBHandler
+                0x00000000       0x2c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000      0x81a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x7b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x3a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x1f C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000      0x250 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000      0x145 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0xca C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x70 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000      0x190 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x64 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0xb2 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x16 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000      0x131 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x52 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000      0x181 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000      0x289 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000      0x28b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x2e C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .group         0x00000000        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .text          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .data          0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .bss           0x00000000        0x0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .text.Chip_SYSCTL_SetDeepSleepPD
+                0x00000000       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .text.Chip_SYSCTL_SetWakeup
+                0x00000000       0x20 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000      0x81a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000      0x122 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000      0x5b9 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x7b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x3a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x1f C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000      0x250 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000      0x145 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0xca C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x70 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000      0x190 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x64 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0xb2 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x6a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x82 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x16 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000      0x131 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x52 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000      0x181 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000      0x289 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000      0x28b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x2e C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .debug_macro   0x00000000       0x22 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .text          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(memcpy.o)
+ .data          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(memcpy.o)
+ .bss           0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(memcpy.o)
+ .text          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(__weak__main.o)
+ .data          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(__weak__main.o)
+ .bss           0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(__weak__main.o)
+ .text          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_32.o)
+ .data          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_32.o)
+ .bss           0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_32.o)
+ .text          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_64.o)
+ .data          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_64.o)
+ .bss           0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_64.o)
+ .text.__aeabi_division_ldivmod
+                0x00000000       0x32 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_64.o)
+ .text          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_idiv0.o)
+ .data          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_idiv0.o)
+ .bss           0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_idiv0.o)
+ .text          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(memcpy.o)
+ .data          0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(memcpy.o)
+ .bss           0x00000000        0x0 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(memcpy.o)
+ .text.__aeabi_memmove
+                0x00000000       0x1c c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(memcpy.o)
+ .text.__aeabi_memset_lowlevel
+                0x00000000       0x2a c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(memcpy.o)
+ .text.__aeabi_memclr
+                0x00000000        0x6 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(memcpy.o)
+ .text.__aeabi_memset
+                0x00000000        0x8 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(memcpy.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+MFlash4          0x00000000         0x00001000         xr
+RamLoc1          0x10000000         0x00000400         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD ./src/SimpleMidiModule.o
+LOAD ./src/cr_startup_lpc8xx.o
+LOAD ./src/crp.o
+LOAD ./src/mtb.o
+LOAD ./src/sysinit.o
+LOAD C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a
+LOAD C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a
+START GROUP
+LOAD c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a
+LOAD c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a
+END GROUP
+                0x00001000                __top_MFlash4 = 0x1000
+                0x10000400                __top_RamLoc1 = 0x10000400
+
+.text           0x00000000      0xbb8
+ FILL mask 0xff
+                0x00000000                __vectors_start__ = ABSOLUTE (.)
+ *(.isr_vector)
+ .isr_vector    0x00000000       0xc0 ./src/cr_startup_lpc8xx.o
+                0x00000000                g_pfnVectors
+                0x000000c0                . = ALIGN (0x4)
+                0x000000c0                __section_table_start = .
+                0x000000c0                __data_section_table = .
+                0x000000c0        0x4 LONG 0xbb8 LOADADDR (.data)
+                0x000000c4        0x4 LONG 0x10000000 ADDR (.data)
+                0x000000c8        0x4 LONG 0x4 SIZEOF (.data)
+                0x000000cc                __data_section_table_end = .
+                0x000000cc                __bss_section_table = .
+                0x000000cc        0x4 LONG 0x10000004 ADDR (.bss)
+                0x000000d0        0x4 LONG 0x44 SIZEOF (.bss)
+                0x000000d4                __bss_section_table_end = .
+                0x000000d4                __section_table_end = .
+ *(.after_vectors*)
+ .after_vectors
+                0x000000d4       0x70 ./src/cr_startup_lpc8xx.o
+                0x000000d4                NMI_Handler
+                0x000000d6                HardFault_Handler
+                0x000000d8                SVC_Handler
+                0x000000da                PendSV_Handler
+                0x000000de                PININT1_IRQHandler
+                0x000000de                PININT2_IRQHandler
+                0x000000de                WKT_IRQHandler
+                0x000000de                PININT7_IRQHandler
+                0x000000de                MRT_IRQHandler
+                0x000000de                UART1_IRQHandler
+                0x000000de                SPI0_IRQHandler
+                0x000000de                SPI1_IRQHandler
+                0x000000de                IntDefaultHandler
+                0x000000de                CMP_IRQHandler
+                0x000000de                PININT3_IRQHandler
+                0x000000de                UART2_IRQHandler
+                0x000000de                PININT5_IRQHandler
+                0x000000de                PININT4_IRQHandler
+                0x000000de                PININT0_IRQHandler
+                0x000000de                BOD_IRQHandler
+                0x000000de                SCT_IRQHandler
+                0x000000de                I2C_IRQHandler
+                0x000000de                WDT_IRQHandler
+                0x000000de                PININT6_IRQHandler
+                0x000000e0                data_init
+                0x000000f2                bss_init
+                0x00000102                ResetISR
+                0x000002fc                . = 0x2fc
+ *fill*         0x00000144      0x1b8 ff
+                0x000002fc                PROVIDE (__CRP_WORD_START__, .)
+ *(.crp)
+ .crp           0x000002fc        0x4 ./src/crp.o
+                0x000002fc                CRP_WORD
+                0x00000300                PROVIDE (__CRP_WORD_END__, .)
+                0x00000001                ASSERT (! ((__CRP_WORD_START__ == __CRP_WORD_END__)), Linker CRP Enabled, but no CRP_WORD provided within application)
+ *(.text*)
+ .text.MIDI_SyncCounter
+                0x00000300       0x34 ./src/SimpleMidiModule.o
+                0x00000300                MIDI_SyncCounter
+ .text.MIDI_NoteOff
+                0x00000334       0x14 ./src/SimpleMidiModule.o
+                0x00000334                MIDI_NoteOff
+ .text.MIDI_NoteOn
+                0x00000348       0x3c ./src/SimpleMidiModule.o
+                0x00000348                MIDI_NoteOn
+ .text.SysTick_Handler
+                0x00000384       0x14 ./src/SimpleMidiModule.o
+                0x00000384                SysTick_Handler
+ .text.startup.main
+                0x00000398      0x1a0 ./src/SimpleMidiModule.o
+                0x00000398                main
+ .text.SystemInit
+                0x00000538        0x8 ./src/sysinit.o
+                0x00000538                SystemInit
+ .text.CoreClockInit_30Hz
+                0x00000540       0x3c C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+                0x00000540                CoreClockInit_30Hz
+ .text.MIDI_USARTInit
+                0x0000057c       0x5c C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x0000057c                MIDI_USARTInit
+ .text.MIDI_SetAddress
+                0x000005d8        0xc C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x000005d8                MIDI_SetAddress
+ .text.MIDI_Enable
+                0x000005e4        0xa C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x000005e4                MIDI_Enable
+ *fill*         0x000005ee        0x2 
+ .text.MIDI_SyncHandler
+                0x000005f0       0x40 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x000005f0                MIDI_SyncHandler
+ .text.MIDI_ProcessRXBuffer
+                0x00000630       0x90 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x00000630                MIDI_ProcessRXBuffer
+ .text.UART0_IRQHandler
+                0x000006c0       0x30 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x000006c0                UART0_IRQHandler
+ .text.SystemCoreClockUpdate
+                0x000006f0       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+                0x000006f0                SystemCoreClockUpdate
+ .text.Chip_Clock_GetWDTLFORate
+                0x00000700       0x20 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .text.Chip_Clock_GetPLLFreq
+                0x00000720        0xc C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .text.Chip_Clock_SetSystemPLLSource
+                0x0000072c       0x14 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                0x0000072c                Chip_Clock_SetSystemPLLSource
+ .text.Chip_Clock_SetMainClockSource
+                0x00000740       0x14 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                0x00000740                Chip_Clock_SetMainClockSource
+ .text.Chip_Clock_GetWDTOSCRate
+                0x00000754       0x14 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                0x00000754                Chip_Clock_GetWDTOSCRate
+ .text.Chip_Clock_GetSystemPLLInClockRate
+                0x00000768       0x38 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                0x00000768                Chip_Clock_GetSystemPLLInClockRate
+ .text.Chip_Clock_GetSystemPLLOutClockRate
+                0x000007a0       0x1c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                0x000007a0                Chip_Clock_GetSystemPLLOutClockRate
+ .text.Chip_Clock_GetMainClockRate
+                0x000007bc       0x40 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                0x000007bc                Chip_Clock_GetMainClockRate
+ .text.Chip_Clock_GetSystemClockRate
+                0x000007fc       0x18 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                0x000007fc                Chip_Clock_GetSystemClockRate
+ .text.Chip_Clock_GetUSARTNBaseClockRate
+                0x00000814       0x4c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                0x00000814                Chip_Clock_GetUSARTNBaseClockRate
+ .text.RingBuffer_Init
+                0x00000860       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+                0x00000860                RingBuffer_Init
+ .text.RingBuffer_Insert
+                0x00000870       0x34 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+                0x00000870                RingBuffer_Insert
+ .text.RingBuffer_PopMult
+                0x000008a4       0x7c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+                0x000008a4                RingBuffer_PopMult
+ .text.Chip_SCT_Init
+                0x00000920       0x30 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+                0x00000920                Chip_SCT_Init
+ .text.Chip_SCTPWM_SetOutPin
+                0x00000950       0x4c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+                0x00000950                Chip_SCTPWM_SetOutPin
+ .text.Chip_SetupIrcClocking
+                0x0000099c       0x48 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+                0x0000099c                Chip_SetupIrcClocking
+ .text.Chip_SystemInit
+                0x000009e4        0x8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+                0x000009e4                Chip_SystemInit
+ .text.Chip_UART_SetBaud
+                0x000009ec       0x18 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+                0x000009ec                Chip_UART_SetBaud
+ .text.Chip_UART_ReadRB
+                0x00000a04       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+                0x00000a04                Chip_UART_ReadRB
+ .text.Chip_SYSCTL_PowerDown
+                0x00000a14       0x24 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+                0x00000a14                Chip_SYSCTL_PowerDown
+ .text.Chip_SYSCTL_PowerUp
+                0x00000a38       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+                0x00000a38                Chip_SYSCTL_PowerUp
+ .text.memcpy   0x00000a60        0x8 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(memcpy.o)
+                0x00000a60                memcpy
+ .text.__weak_main
+                0x00000a68        0x8 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(__weak__main.o)
+                0x00000a68                __weak_main
+                0x00000a68                __main
+ .text.__aeabi_division_idivmod
+                0x00000a70       0x78 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_32.o)
+                0x00000a70                __aeabi_idivmod
+                0x00000a70                __aeabi_idiv
+                0x00000a76                __aeabi_uidivmod
+                0x00000a76                __aeabi_uidiv
+ .text.__aeabi_division_uldivmod
+                0x00000ae8       0x5a c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_64.o)
+                0x00000ae8                __aeabi_uldivmod
+ .text.__aeabi_division_idiv0
+                0x00000b42        0x2 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_idiv0.o)
+                0x00000b42                __aeabi_idiv0
+ .text.__aeabi_memcpy
+                0x00000b44       0x2c c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(memcpy.o)
+                0x00000b44                __aeabi_memcpy4
+                0x00000b44                __aeabi_memcpy8
+                0x00000b44                __aeabi_memcpy
+ *(.rodata .rodata.* .constdata .constdata.*)
+ .rodata.OscRateIn
+                0x00000b70        0x4 ./src/sysinit.o
+                0x00000b70                OscRateIn
+ .rodata.ExtRateIn
+                0x00000b74        0x4 ./src/sysinit.o
+                0x00000b74                ExtRateIn
+ .rodata.wdtOSCRate
+                0x00000b78       0x40 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                0x00000bb8                . = ALIGN (0x4)
+
+.glue_7         0x00000bb8        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x00000bb8        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x00000bb8        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x00000bb8        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x00000bb8        0x0
+ .iplt          0x00000000        0x0 ./src/SimpleMidiModule.o
+
+.rel.dyn        0x00000bb8        0x0
+ .rel.iplt      0x00000000        0x0 ./src/SimpleMidiModule.o
+
+.ARM.extab
+ *(.ARM.extab* .gnu.linkonce.armextab.*)
+                0x00000bb8                __exidx_start = .
+
+.ARM.exidx
+ *(.ARM.exidx* .gnu.linkonce.armexidx.*)
+                0x00000bb8                __exidx_end = .
+                0x00000bb8                _etext = .
+
+.mtb_buffer_default
+ *(.mtb*)
+
+.uninit_RESERVED
+                0x10000000        0x0
+ *(.bss.$RESERVED*)
+                0x10000000                . = ALIGN (0x4)
+                0x10000000                _end_uninit_RESERVED = .
+
+.data           0x10000000        0x4 load address 0x00000bb8
+ FILL mask 0xff
+                0x10000000                _data = .
+ *(vtable)
+ *(.ramfunc*)
+ *(.data*)
+ .data.value.6434
+                0x10000000        0x1 ./src/SimpleMidiModule.o
+                0x10000004                . = ALIGN (0x4)
+ *fill*         0x10000001        0x3 ff
+                0x10000004                _edata = .
+
+.igot.plt       0x10000004        0x0 load address 0x00000bbc
+ .igot.plt      0x00000000        0x0 ./src/SimpleMidiModule.o
+
+.bss            0x10000004       0x44 load address 0x00000bbc
+                0x10000004                _bss = .
+ *(.bss*)
+ .bss.voicenum  0x10000004        0x1 ./src/SimpleMidiModule.o
+ .bss.ticks.6433
+                0x10000005        0x1 ./src/SimpleMidiModule.o
+ .bss.gatems    0x10000006        0x1 ./src/SimpleMidiModule.o
+                0x10000006                gatems
+ .bss.MIDI_Address
+                0x10000007        0x1 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x10000007                MIDI_Address
+ .bss.MIDI_Sync_ContFunc
+                0x10000008        0x4 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x10000008                MIDI_Sync_ContFunc
+ .bss.MIDI_Status0
+                0x1000000c        0x4 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .bss.MIDI_NoteOffFunc
+                0x10000010        0x4 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x10000010                MIDI_NoteOffFunc
+ .bss.MIDI_Sync_ClkFunc
+                0x10000014        0x4 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x10000014                MIDI_Sync_ClkFunc
+ .bss.MIDI_Sync_StartFunc
+                0x10000018        0x4 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x10000018                MIDI_Sync_StartFunc
+ .bss.MIDI_Sync_StopFunc
+                0x1000001c        0x4 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x1000001c                MIDI_Sync_StopFunc
+ .bss.MIDI_NoteOnFunc
+                0x10000020        0x4 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                0x10000020                MIDI_NoteOnFunc
+ .bss.MIDI_RxData
+                0x10000024        0xa C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ *fill*         0x1000002e        0x2 
+ .bss.MIDI_RxBuffer
+                0x10000030       0x14 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ *(COMMON)
+ COMMON         0x10000044        0x4 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+                0x10000044                SystemCoreClock
+                0x10000048                . = ALIGN (0x4)
+                0x10000048                _ebss = .
+                0x10000048                PROVIDE (end, .)
+
+.noinit         0x10000048        0x0 load address 0x00000bbc
+                0x10000048                _noinit = .
+ *(.noinit*)
+                0x10000048                . = ALIGN (0x4)
+                0x10000048                _end_noinit = .
+                0x10000048                PROVIDE (_pvHeapStart, .)
+                0x10000400                PROVIDE (_vStackTop, (__top_RamLoc1 - 0x0))
+OUTPUT(SimpleMidiModule.axf elf32-littlearm)
+
+.debug_info     0x00000000     0x6ea7
+ .debug_info    0x00000000     0x186e ./src/SimpleMidiModule.o
+ .debug_info    0x0000186e      0x234 ./src/cr_startup_lpc8xx.o
+ .debug_info    0x00001aa2       0x3f ./src/crp.o
+ .debug_info    0x00001ae1       0xdd ./src/sysinit.o
+ .debug_info    0x00001bbe      0x409 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_info    0x00001fc7      0xc9a C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_info    0x00002c61       0xe7 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_info    0x00002d48      0xb7a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_info    0x000038c2      0x4a5 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_info    0x00003d67      0xcb1 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_info    0x00004a18      0x867 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_info    0x0000527f      0x7bd C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_info    0x00005a3c      0xfd6 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_info    0x00006a12      0x495 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+
+.debug_abbrev   0x00000000     0x18bf
+ .debug_abbrev  0x00000000      0x3d7 ./src/SimpleMidiModule.o
+ .debug_abbrev  0x000003d7       0xe8 ./src/cr_startup_lpc8xx.o
+ .debug_abbrev  0x000004bf       0x36 ./src/crp.o
+ .debug_abbrev  0x000004f5       0x88 ./src/sysinit.o
+ .debug_abbrev  0x0000057d       0xca C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_abbrev  0x00000647      0x381 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_abbrev  0x000009c8       0x9b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_abbrev  0x00000a63      0x313 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_abbrev  0x00000d76      0x164 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_abbrev  0x00000eda      0x213 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_abbrev  0x000010ed      0x259 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_abbrev  0x00001346      0x1c0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_abbrev  0x00001506      0x2eb C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_abbrev  0x000017f1       0xce C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+
+.debug_loc      0x00000000     0x18be
+ .debug_loc     0x00000000      0x1bd ./src/SimpleMidiModule.o
+ .debug_loc     0x000001bd      0x1bb ./src/cr_startup_lpc8xx.o
+ .debug_loc     0x00000378      0x129 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_loc     0x000004a1      0x322 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_loc     0x000007c3      0x4d0 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_loc     0x00000c93      0x160 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_loc     0x00000df3      0x152 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_loc     0x00000f45      0x8a8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_loc     0x000017ed       0xd1 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+
+.debug_aranges  0x00000000      0x380
+ .debug_aranges
+                0x00000000       0x40 ./src/SimpleMidiModule.o
+ .debug_aranges
+                0x00000040       0x60 ./src/cr_startup_lpc8xx.o
+ .debug_aranges
+                0x000000a0       0x18 ./src/crp.o
+ .debug_aranges
+                0x000000b8       0x20 ./src/sysinit.o
+ .debug_aranges
+                0x000000d8       0x20 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_aranges
+                0x000000f8       0x50 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_aranges
+                0x00000148       0x20 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_aranges
+                0x00000168       0x90 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_aranges
+                0x000001f8       0x40 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_aranges
+                0x00000238       0x38 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_aranges
+                0x00000270       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_aranges
+                0x00000298       0x30 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_aranges
+                0x000002c8       0x80 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_aranges
+                0x00000348       0x38 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+
+.debug_ranges   0x00000000      0x3c0
+ .debug_ranges  0x00000000      0x110 ./src/SimpleMidiModule.o
+ .debug_ranges  0x00000110       0x50 ./src/cr_startup_lpc8xx.o
+ .debug_ranges  0x00000160       0x10 ./src/sysinit.o
+ .debug_ranges  0x00000170       0x10 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_ranges  0x00000180       0x70 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_ranges  0x000001f0       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_ranges  0x00000200       0x80 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_ranges  0x00000280       0x30 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_ranges  0x000002b0       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_ranges  0x000002d8       0x18 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_ranges  0x000002f0       0x20 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_ranges  0x00000310       0x88 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_ranges  0x00000398       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+
+.debug_macro    0x00000000     0x4ae9
+ .debug_macro   0x00000000      0x22d ./src/SimpleMidiModule.o
+ .debug_macro   0x0000022d      0x850 ./src/SimpleMidiModule.o
+ .debug_macro   0x00000a7d       0x82 ./src/SimpleMidiModule.o
+ .debug_macro   0x00000aff       0x10 ./src/SimpleMidiModule.o
+ .debug_macro   0x00000b0f      0x122 ./src/SimpleMidiModule.o
+ .debug_macro   0x00000c31      0x5b9 ./src/SimpleMidiModule.o
+ .debug_macro   0x000011ea       0x22 ./src/SimpleMidiModule.o
+ .debug_macro   0x0000120c       0x7b ./src/SimpleMidiModule.o
+ .debug_macro   0x00001287       0x10 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001297       0x28 ./src/SimpleMidiModule.o
+ .debug_macro   0x000012bf       0x3a ./src/SimpleMidiModule.o
+ .debug_macro   0x000012f9       0x1f ./src/SimpleMidiModule.o
+ .debug_macro   0x00001318      0x250 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001568      0x145 ./src/SimpleMidiModule.o
+ .debug_macro   0x000016ad       0xca ./src/SimpleMidiModule.o
+ .debug_macro   0x00001777       0x6a ./src/SimpleMidiModule.o
+ .debug_macro   0x000017e1       0x70 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001851       0x28 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001879      0x190 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001a09       0x1c ./src/SimpleMidiModule.o
+ .debug_macro   0x00001a25       0x64 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001a89       0x10 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001a99       0x22 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001abb       0xb2 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001b6d       0x58 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001bc5       0x58 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001c1d       0x6a ./src/SimpleMidiModule.o
+ .debug_macro   0x00001c87       0x82 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001d09       0x16 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001d1f      0x131 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001e50       0x22 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001e72       0x52 ./src/SimpleMidiModule.o
+ .debug_macro   0x00001ec4      0x181 ./src/SimpleMidiModule.o
+ .debug_macro   0x00002045      0x289 ./src/SimpleMidiModule.o
+ .debug_macro   0x000022ce      0x28b ./src/SimpleMidiModule.o
+ .debug_macro   0x00002559       0x2e ./src/SimpleMidiModule.o
+ .debug_macro   0x00002587       0x22 ./src/SimpleMidiModule.o
+ .debug_macro   0x000025a9       0x70 ./src/SimpleMidiModule.o
+ .debug_macro   0x00002619       0x10 ./src/SimpleMidiModule.o
+ .debug_macro   0x00002629       0x58 ./src/SimpleMidiModule.o
+ .debug_macro   0x00002681       0x1d ./src/cr_startup_lpc8xx.o
+ .debug_macro   0x0000269e       0x1a ./src/crp.o
+ .debug_macro   0x000026b8       0x34 ./src/crp.o
+ .debug_macro   0x000026ec      0x1d5 ./src/sysinit.o
+ .debug_macro   0x000028c1      0x1e5 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x00002aa6      0x83e C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_macro   0x000032e4      0x1f9 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_macro   0x000034dd      0x1d5 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x000036b2      0x81a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_macro   0x00003ecc      0x1d5 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_macro   0x000040a1       0x83 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_macro   0x00004124       0x74 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_macro   0x00004198       0x10 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_macro   0x000041a8      0x1d5 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_macro   0x0000437d      0x1d5 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_macro   0x00004552      0x1d5 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_macro   0x00004727      0x1d5 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_macro   0x000048fc      0x1ed C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+
+.debug_line     0x00000000     0x3320
+ .debug_line    0x00000000      0x63e ./src/SimpleMidiModule.o
+ .debug_line    0x0000063e       0x96 ./src/cr_startup_lpc8xx.o
+ .debug_line    0x000006d4       0x78 ./src/crp.o
+ .debug_line    0x0000074c      0x37a ./src/sysinit.o
+ .debug_line    0x00000ac6      0x3e7 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_line    0x00000ead      0x4ed C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_line    0x0000139a      0x37b C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_line    0x00001715      0x50d C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_line    0x00001c22      0x245 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_line    0x00001e67      0x3db C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_line    0x00002242      0x3bc C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_line    0x000025fe      0x407 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_line    0x00002a05      0x563 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_line    0x00002f68      0x3b8 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+
+.debug_str      0x00000000     0xbf7d
+ .debug_str     0x00000000     0xabcb ./src/SimpleMidiModule.o
+                               0xaca7 (size before relaxing)
+ .debug_str     0x0000abcb      0x16e ./src/cr_startup_lpc8xx.o
+                               0x2526 (size before relaxing)
+ .debug_str     0x0000ad39       0xe9 ./src/crp.o
+                               0x2477 (size before relaxing)
+ .debug_str     0x0000ae22       0x21 ./src/sysinit.o
+                               0x99fb (size before relaxing)
+ .debug_str     0x0000ae43       0x8b C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+                               0x9c02 (size before relaxing)
+ .debug_str     0x0000aece      0x21b C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+                               0xa2de (size before relaxing)
+ .debug_str     0x0000b0e9      0x13d C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+                               0x997a (size before relaxing)
+ .debug_str     0x0000b226      0x79f C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+                               0xa328 (size before relaxing)
+ .debug_str     0x0000b9c5      0x14a C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+                               0x3e34 (size before relaxing)
+ .debug_str     0x0000bb0f       0xaf C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+                               0xa0a2 (size before relaxing)
+ .debug_str     0x0000bbbe       0x3f C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+                               0x9bdc (size before relaxing)
+ .debug_str     0x0000bbfd      0x142 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+                               0x9e06 (size before relaxing)
+ .debug_str     0x0000bd3f      0x154 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+                               0xa167 (size before relaxing)
+ .debug_str     0x0000be93       0xea C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+                               0x9c4c (size before relaxing)
+
+.comment        0x00000000       0xe0
+ .comment       0x00000000       0x70 ./src/SimpleMidiModule.o
+                                 0x71 (size before relaxing)
+ .comment       0x00000000       0x71 ./src/cr_startup_lpc8xx.o
+ .comment       0x00000000       0x71 ./src/crp.o
+ .comment       0x00000000       0x71 ./src/sysinit.o
+ .comment       0x00000000       0x71 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .comment       0x00000000       0x71 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .comment       0x00000000       0x71 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .comment       0x00000000       0x71 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .comment       0x00000000       0x71 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .comment       0x00000000       0x71 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .comment       0x00000000       0x71 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .comment       0x00000000       0x71 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .comment       0x00000000       0x71 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .comment       0x00000000       0x71 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .comment       0x00000070       0x70 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(memcpy.o)
+                                 0x71 (size before relaxing)
+ .comment       0x00000000       0x71 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(__weak__main.o)
+
+.ARM.attributes
+                0x00000000       0x2f
+ .ARM.attributes
+                0x00000000       0x31 ./src/SimpleMidiModule.o
+ .ARM.attributes
+                0x00000031       0x31 ./src/cr_startup_lpc8xx.o
+ .ARM.attributes
+                0x00000062       0x31 ./src/crp.o
+ .ARM.attributes
+                0x00000093       0x31 ./src/sysinit.o
+ .ARM.attributes
+                0x000000c4       0x31 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .ARM.attributes
+                0x000000f5       0x31 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .ARM.attributes
+                0x00000126       0x31 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .ARM.attributes
+                0x00000157       0x31 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .ARM.attributes
+                0x00000188       0x31 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .ARM.attributes
+                0x000001b9       0x31 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .ARM.attributes
+                0x000001ea       0x31 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .ARM.attributes
+                0x0000021b       0x31 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .ARM.attributes
+                0x0000024c       0x31 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .ARM.attributes
+                0x0000027d       0x31 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)
+ .ARM.attributes
+                0x000002ae       0x31 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(memcpy.o)
+ .ARM.attributes
+                0x000002df       0x31 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libcr_c.a(__weak__main.o)
+ .ARM.attributes
+                0x00000310       0x21 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_32.o)
+ .ARM.attributes
+                0x00000331       0x21 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_64.o)
+ .ARM.attributes
+                0x00000352       0x21 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(division_idiv0.o)
+ .ARM.attributes
+                0x00000373       0x21 c:/nxp/lpcxpresso_7.3.0_186/lpcxpresso/tools/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libcr_eabihelpers.a(memcpy.o)
+
+.debug_frame    0x00000000      0x70c
+ .debug_frame   0x00000000       0x84 ./src/SimpleMidiModule.o
+ .debug_frame   0x00000084       0xb0 ./src/cr_startup_lpc8xx.o
+ .debug_frame   0x00000134       0x28 ./src/sysinit.o
+ .debug_frame   0x0000015c       0x28 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Clk.o)
+ .debug_frame   0x00000184       0xb0 C:\Users\Matt\Boston_Audio_Projects\Boston_Audio_Projects\ARM\BAP_LPC8xx_lib\Debug\libBAP_LPC8xx_lib.a(BAP_Midi.o)
+ .debug_frame   0x00000234       0x28 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(chip_8xx.o)
+ .debug_frame   0x0000025c      0x148 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(clock_8xx.o)
+ .debug_frame   0x000003a4       0x94 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(ring_buffer.o)
+ .debug_frame   0x00000438       0x5c C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_8xx.o)
+ .debug_frame   0x00000494       0x48 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sct_pwm_8xx.o)
+ .debug_frame   0x000004dc       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(sysinit_8xx.o)
+ .debug_frame   0x00000534      0x180 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(uart_8xx.o)
+ .debug_frame   0x000006b4       0x58 C:\Users\Matt\Documents\LPCXpresso_7.3.0_186\workspace\lpc_chip_8xx\Debug\liblpc_chip_8xx.a(syscon_8xx.o)

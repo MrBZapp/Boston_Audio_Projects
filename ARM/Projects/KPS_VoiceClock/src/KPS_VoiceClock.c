@@ -96,8 +96,8 @@ int main(void)
 	Selector_Init(LPC_CMP);
 
 	// Initialize the frequency generation timer
-	WaveGenInit(&Generator1, 200);
-	WaveGenStart(&Generator1);
+	WaveGen_Init(&Generator1, 200);
+	WaveGen_Start(&Generator1);
 
 	// Initialize the exciter envelope
 	envNode_t ADSRarr[3] = {

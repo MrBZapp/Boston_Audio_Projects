@@ -48,8 +48,8 @@ void MIDI_NoteOn(uint8_t num, uint8_t vel)
 	TLC_SetDACValue(AmpDAC, 0, &value);
 
 	// Set frequency generator's frequency.
-	setReload(&Generator1, MIDIto30MhzReload[num % 67]);
-	updateFreq(&Generator1);
+	WaveGen_SetReload(&Generator1, MIDIto30MhzReload[num % 67]);
+	WaveGen_UpdateFreq(&Generator1);
 
 	// start the exciter
 	Chip_SCT_EnableEventInt(LPC_SCT, SCT_EVT_0);

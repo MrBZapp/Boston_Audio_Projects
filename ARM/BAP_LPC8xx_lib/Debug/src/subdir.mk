@@ -11,6 +11,7 @@ C_SRCS += \
 ../src/BAP_I2C.c \
 ../src/BAP_MAX1164x_ADC.c \
 ../src/BAP_Midi.c \
+../src/BAP_Polyphony.c \
 ../src/BAP_SPIMemory.c \
 ../src/BAP_SPI_Schedule.c \
 ../src/BAP_Scheduler.c \
@@ -28,6 +29,7 @@ OBJS += \
 ./src/BAP_I2C.o \
 ./src/BAP_MAX1164x_ADC.o \
 ./src/BAP_Midi.o \
+./src/BAP_Polyphony.o \
 ./src/BAP_SPIMemory.o \
 ./src/BAP_SPI_Schedule.o \
 ./src/BAP_Scheduler.o \
@@ -45,6 +47,7 @@ C_DEPS += \
 ./src/BAP_I2C.d \
 ./src/BAP_MAX1164x_ADC.d \
 ./src/BAP_Midi.d \
+./src/BAP_Polyphony.d \
 ./src/BAP_SPIMemory.d \
 ./src/BAP_SPI_Schedule.d \
 ./src/BAP_Scheduler.d \

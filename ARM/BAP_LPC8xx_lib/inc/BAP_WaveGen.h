@@ -34,14 +34,14 @@ extern WaveGen Generator2;
 /*****************************************************************************
  * Functions
  ****************************************************************************/
-void WaveGenInit(WaveGen* Generator1, float freq);
-void WaveGenStart(WaveGen* Generator);
+void WaveGen_Init(WaveGen* Generator1, float freq);
+void WaveGen_Start(WaveGen* Generator);
 
-void setFreq(WaveGen* Generator, float frequency);
-void setWidth(WaveGen* Generator, uint8_t percentage);
-void setReload(WaveGen* Generator, int reload);
+void WaveGen_SetFreqf(WaveGen* Generator, float frequency);
+void WaveGen_SetWidth(WaveGen* Generator, uint8_t percentage);
+void WaveGen_SetReload(WaveGen* Generator, int reload);
 
-void updateFreq(WaveGen* Generator);
+void WaveGen_UpdateFreq(WaveGen* Generator);
 uint32_t getRealFreq(WaveGen* Generator);
 uint32_t getRealWidth(WaveGen* Generator);
 
