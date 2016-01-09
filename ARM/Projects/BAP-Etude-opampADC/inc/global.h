@@ -14,6 +14,8 @@
 #define LPC810
 #define ADC_OUT (0)
 #define ADC_IN (1)
+#define ADC_CHAN (0)
+#define ADC_SAMPRATE (50000)
 #define INV(x) (x ^ 0xFFFF)
 
 #endif
