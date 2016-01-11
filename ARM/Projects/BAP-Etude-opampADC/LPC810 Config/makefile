@@ -41,7 +41,7 @@ clean:
 
 post-build:
 	-@echo 'Performing post-build steps'
-	-arm-none-eabi-size "Etude-OpAmpADC.axf" ; arm-none-eabi-objdump -S "Etude-OpAmpADC.axf" > "Etude-OpAmpADC.txt" ; arm-none-eabi-objcopy -O binary "Etude-OpAmpADC.axf" "Etude-OpAmpADC.bin" ; arm-none-eabi-objcopy -O ihex "Etude-OpAmpADC.axf" "Etude-OpAmpADC.hex" ; checksum -p LPC812 -d "Etude-OpAmpADC.bin"
+	-arm-none-eabi-size "Etude-OpAmpADC.axf" ; arm-none-eabi-objdump -S "Etude-OpAmpADC.axf" > "Etude-OpAmpADC.txt" ; arm-none-eabi-objcopy -O binary "Etude-OpAmpADC.axf" "Etude-OpAmpADC.bin" ; arm-none-eabi-objcopy -O ihex "Etude-OpAmpADC.axf" "Etude-OpAmpADC.hex" ; checksum -p LPC810 -d "Etude-OpAmpADC.bin"
 	-@echo ' '
 
 .PHONY: all clean dependents

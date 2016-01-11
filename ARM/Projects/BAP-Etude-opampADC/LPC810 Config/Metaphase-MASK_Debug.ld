@@ -2,9 +2,9 @@
  * GENERATED FILE - DO NOT EDIT
  * (c) Code Red Technologies Ltd, 2008-13
  * (c) NXP Semiconductors 2013-2016
- * Generated linker script file for LPC812
+ * Generated linker script file for LPC810
  * Created from generic_c.ld (LPCXpresso v7.3 (0 [Build 186] [2014-07-09] ))
- * By LPCXpresso v7.3.0 [Build 186] [2014-07-09]  on Sat Jan 09 10:42:36 EST 2016
+ * By LPCXpresso v7.3.0 [Build 186] [2014-07-09]  on Mon Jan 11 18:09:49 EST 2016
  */
 
 
@@ -49,7 +49,7 @@ SECTIONS
         ASSERT(!(__CRP_WORD_START__ == __CRP_WORD_END__), "Linker CRP Enabled, but no CRP_WORD provided within application");
         /* End of Code Read Protect */
         
-    } >MFlash16
+    } >MFlash4
     
     .text : ALIGN(4)    
     {
@@ -57,7 +57,7 @@ SECTIONS
         *(.rodata .rodata.* .constdata .constdata.*)
         . = ALIGN(4);
         
-    } > MFlash16
+    } > MFlash4
 
     /*
      * for exception handling/unwind - some Newlib functions (in common
@@ -66,13 +66,13 @@ SECTIONS
     .ARM.extab : ALIGN(4)
     {
     	*(.ARM.extab* .gnu.linkonce.armextab.*)
-    } > MFlash16
+    } > MFlash4
     __exidx_start = .;
     
     .ARM.exidx : ALIGN(4)
     {
     	*(.ARM.exidx* .gnu.linkonce.armexidx.*)
-    } > MFlash16
+    } > MFlash4
     __exidx_end = .;
     
     _etext = .;
@@ -84,17 +84,17 @@ SECTIONS
     .mtb_buffer_default (NOLOAD) :
     {
        KEEP(*(.mtb*))
-    } > RamLoc4 
+    } > RamLoc1 
 
     .uninit_RESERVED : ALIGN(4)
     {
         KEEP(*(.bss.$RESERVED*))
         . = ALIGN(4) ;
         _end_uninit_RESERVED = .;
-    } > RamLoc4
+    } > RamLoc1
 
 	
-	/* Main DATA section (RamLoc4) */
+	/* Main DATA section (RamLoc1) */
 	.data : ALIGN(4)
 	{
 	   FILL(0xff)
@@ -104,7 +104,7 @@ SECTIONS
 	   *(.data*)
 	   . = ALIGN(4) ;
 	   _edata = . ;
-	} > RamLoc4 AT>MFlash16
+	} > RamLoc1 AT>MFlash4
 
 
     /* MAIN BSS SECTION */
@@ -116,7 +116,7 @@ SECTIONS
         . = ALIGN(4) ;
         _ebss = .;
         PROVIDE(end = .);
-    } > RamLoc4
+    } > RamLoc1
         
     
     /* DEFAULT NOINIT SECTION */
@@ -126,8 +126,8 @@ SECTIONS
         *(.noinit*) 
          . = ALIGN(4) ;
         _end_noinit = .;
-    } > RamLoc4
+    } > RamLoc1
     
     PROVIDE(_pvHeapStart = .);
-    PROVIDE(_vStackTop = __top_RamLoc4 - 0);
+    PROVIDE(_vStackTop = __top_RamLoc1 - 0);
 }
